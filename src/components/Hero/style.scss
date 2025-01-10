@@ -1,0 +1,11 @@
+.swiper {
+    @apply mt-[20px];
+  
+    &__item {
+      @apply rounded-lg overflow-hidden w-full h-[100px];
+  
+      img {
+        @apply object-cover w-full h-full;
+      }
+    }
+  }

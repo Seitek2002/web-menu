@@ -1,0 +1,72 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+interface IItem {
+  id: string;
+  name: string;
+  weight: number;
+  price: number;
+  img: string;
+  discount?: number;
+  promotion?: boolean;
+  quantity: number;
+}
+
+interface YourFeatureState {
+  value: number;
+  isShow: boolean;
+  items: IItem[];
+}
+
+const initialState: YourFeatureState = {
+  value: 0,
+  isShow: false,
+  items: [],
+};
+
+const yourFeatureSlice = createSlice({
+  name: 'yourFeature',
+  initialState,
+  reducers: {
+    increment: (state) => {
+      state.value += 1;
+    },
+    decrement: (state) => {
+      state.value -= 1;
+    },
+    setShow: (state) => {
+      state.isShow = !state.isShow;
+    },
+    setItems: (state, action: PayloadAction<IItem[]>) => {
+      state.items = action.payload;
+    },
+    addItem: (state, action: PayloadAction<IItem>) => {
+      const existingItem = state.items.find(
+        (item) => item.id === action.payload.id
+      );
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        state.items.push({ ...action.payload, quantity: 1 });
+      }
+      console.log(state.items);
+    },
+    removeItem: (state, action: PayloadAction<IItem>) => {
+      const existingItem = state.items.find(
+        (item) => item.id === action.payload.id
+      );
+      if (existingItem) {
+        existingItem.quantity -= 1;
+        if (existingItem.quantity === 0) {
+          state.items = state.items.filter(
+            (item) => item.id !== action.payload.id
+          );
+        }
+      }
+      console.log(state.items);
+    },
+  },
+});
+
+export const { increment, decrement, setShow, setItems, addItem, removeItem } =
+  yourFeatureSlice.actions;
+export default yourFeatureSlice.reducer;

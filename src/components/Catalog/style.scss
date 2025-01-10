@@ -1,0 +1,60 @@
+.cart {
+    @apply mt-[20px] pb-[100px];
+
+    &-title {
+        @apply font-[400] text-[20px] font-benzin;
+    }
+
+    &-img {
+        @apply overflow-hidden rounded-[12px] h-[136px] flex items-center justify-center;
+
+        img {
+            @apply object-cover w-full h-full;
+        }
+    }
+
+    &-wrapper {
+        @apply grid grid-cols-2 gap-[8px] mt-[12px];
+    }
+
+    &-block {
+        @apply rounded-[12px] bg-white p-[4px] max-w-[175px] relative;
+    }
+
+    &-discount,
+    &-promotion {
+        @apply absolute top-[15px] right-[6px] py-[6px] px-[12px] rounded-[100px] rotate-[12deg];
+    }
+
+    &-discount {
+        @apply bg-[#F80101] text-[#fff];
+    }
+
+    &-promotion {
+        @apply bg-[#F89001] text-[#fff];
+    }
+
+    &-info {
+        @apply flex items-center gap-[4px] mt-[8px] mb-[4px];
+    }
+
+    &-price {
+        @apply font-[600] text-[16px] text-[#875AFF] block;
+    }
+
+    &-weight {
+        @apply font-[500] text-[14px] text-[#ADADAD] block;
+    }
+
+    &-name {
+        @apply font-[500] text-[16px] leading-[17px] line-clamp-2;
+    }
+
+    &-btn {
+        @apply w-full mt-[10px] rounded-[8px] bg-[#F1F2F3] py-[4px] px-[16px] flex items-center justify-center;
+
+        &.active {
+            @apply bg-[#875AFF] text-[#fff] flex justify-between items-center;
+        }
+    }
+}

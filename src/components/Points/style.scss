@@ -1,0 +1,35 @@
+.point {
+  @apply overflow-auto py-[20px];
+
+  &-perent {
+    @apply flex items-center gap-[15px];
+  }
+
+  &-item {
+    @apply text-center w-[63px] h-[63px] box-border;
+  }
+
+  &-wrapper {
+    @apply h-10 w-10 bg-[url(src/assets/icons/points/bg.svg)] bg-no-repeat flex items-center justify-center mx-auto;
+  }
+
+  p {
+    @apply mt-[8px] font-medium text-[12px] text-center leading-tight;
+  }
+}
+
+.point-item.active {
+  .point-wrapper {
+    @apply bg-no-repeat bg-contain;
+    background-image: url('src/assets/icons/points/bg-blue.svg');
+  }
+}
+
+.point {
+  overflow: auto;
+  scrollbar-width: none; /* Для Firefox */
+}
+
+.point::-webkit-scrollbar {
+  display: none; /* Для Chrome, Safari и других Webkit-браузеров */
+}
