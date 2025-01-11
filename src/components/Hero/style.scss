@@ -1,11 +1,31 @@
 .swiper {
     @apply mt-[20px];
-  
-    &__item {
-      @apply rounded-lg overflow-hidden w-full h-[100px];
-  
-      img {
-        @apply object-cover w-full h-full;
-      }
+
+    &__burger {
+      @apply top-[50%] right-0 absolute;
+        transform: translate(0px, -50%);
     }
-  }
+
+    &__item {
+        @apply rounded-lg overflow-hidden w-full h-[100px];
+
+        &.another {
+            background: linear-gradient(90deg, #282828 0%, #6f6f6f 100%);
+            @apply w-full h-[100px] py-[16px] px-[24px] relative;
+        }
+    }
+
+    &__bg {
+        @apply object-cover w-full h-full rounded-[8px];
+    }
+
+    &__name {
+        @apply text-[#fff] text-[16px] font-[700];
+    }
+    &__top {
+        @apply flex items-center gap-[12px];
+    }
+    &__text {
+        @apply text-[#BBB] text-[12px] font-[500];
+    }
+}

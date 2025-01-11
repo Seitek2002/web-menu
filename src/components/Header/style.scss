@@ -5,8 +5,20 @@
     @apply flex justify-between items-center;
   }
 
-  &__num {
-    @apply font-semibold text-[16px] bg-white py-[4px] px-[24px] rounded-[8px];
+  &__logo {
+    @apply flex gap-[12px] items-center
+  }
+
+  &__name {
+    @apply font-[700] text-[#090A0B] text-[16px] mt-[4px]
+  }
+
+  &__inner {
+    @apply flex gap-[4px] items-center
+  }
+
+  &__table {
+    @apply font-[500] text-[#626576] text-[12px]
   }
 
   h2 {

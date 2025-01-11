@@ -10,7 +10,7 @@
   }
 
   &-wrapper {
-    @apply h-10 w-10 bg-[url(src/assets/icons/points/bg.svg)] bg-no-repeat flex items-center justify-center mx-auto;
+    @apply w-[56px] h-[56px] rounded-[50%] bg-[#F9F9F9] flex items-center justify-center mx-auto;
   }
 
   p {
@@ -20,8 +20,7 @@
 
 .point-item.active {
   .point-wrapper {
-    @apply bg-no-repeat bg-contain;
-    background-image: url('src/assets/icons/points/bg-blue.svg');
+    @apply bg-[#875AFF];
   }
 }
 
