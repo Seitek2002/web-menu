@@ -11,7 +11,7 @@ type CategoriesResponse = IItem[]
 
 export const Categories = createApi({
   reducerPath: 'categories',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://164.92.201.77/api/' }), // Базовый URL для запросов
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://imenu.kg/' }), // Базовый URL для запросов
   endpoints: (builder) => ({
     getCategories: builder.query<CategoriesResponse, void>({
       query: () => 'categories/',
