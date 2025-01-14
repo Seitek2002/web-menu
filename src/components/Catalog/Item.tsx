@@ -2,7 +2,6 @@ import { FC, useState } from 'react';
 import { addItem, removeItem } from '../../store/yourFeatureSlice';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 
-import blackPlus from '../../assets/icons/cart/blackPlus.svg';
 import whitePlus from '../../assets/icons/cart/plus.svg';
 import whiteMinus from '../../assets/icons/cart/minus.svg';
 
