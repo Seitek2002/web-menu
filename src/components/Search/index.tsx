@@ -6,7 +6,6 @@ import './style.scss';
 const Search: FC = () => {
   return (
     <>
-    hello world!
     </>
   );
 };
