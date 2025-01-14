@@ -51,10 +51,10 @@
     }
 
     &-btn {
-        @apply w-full mt-[10px] rounded-[8px] bg-[#F1F2F3] py-[4px] px-[16px] flex items-center justify-center;
+        @apply w-full mt-[10px] rounded-[8px] bg-[#F1F2F3] py-[4.5px] px-[16px] flex items-center justify-center font-[500] text-[16px] text-[#000];
 
         &.active {
-            @apply bg-[#875AFF] text-[#fff] flex justify-between items-center;
+            @apply bg-[#875AFF] text-[#fff] flex justify-between items-center py-[4px];
         }
     }
 }

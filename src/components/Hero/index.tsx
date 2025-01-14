@@ -1,6 +1,11 @@
 import { FC } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import one from "../../assets/images/Slider/img-1.png"
+import two from "../../assets/images/Slider/img-2.jpg"
+import arrow from "../../assets/icons/hero/arrow.svg"
+import icon from "../../assets/icons/hero/icon.svg"
+
 import './style.scss';
 
 const Hero: FC = () => {
@@ -14,26 +19,26 @@ const Hero: FC = () => {
       <SwiperSlide>
         <div className='swiper__item another'>  
               <div className="swiper__top">
-                <h4 className="swiper__name">Adam Ventures</h4> <img src="/src/assets/icons/hero/arrow.svg" alt="arrow" />
+                <h4 className="swiper__name">iMenu.kg</h4> <img src={arrow} alt="arrow" />
               </div> 
-              <p className="swiper__text">Заказывай еду и не трать время! <br/> (Какой нибудь текст про платформу)</p>
+              <p className="swiper__text">Заказывай еду и не трать время! (Какой нибудь текст про платформу)</p>
             
-            <img className='swiper__burger' src="/src/assets/icons/hero/burger.svg" alt="burger" />
+            <img className='swiper__burger' src={icon} alt="burger" />
           </div>
       </SwiperSlide>
       <SwiperSlide>
         <div className='swiper__item'>
-          <img className='swiper__bg' src='/src/assets/images/Slider/img-1.png' alt='' />
+          <img className='swiper__bg' src={one} alt='' />
         </div>
       </SwiperSlide>
       <SwiperSlide>
         <div className='swiper__item'>
-          <img className='swiper__bg' src='/src/assets/images/Slider/img-2.jpg' alt='' />
+          <img className='swiper__bg' src={two} alt='' />
         </div>
       </SwiperSlide>
       <SwiperSlide>
         <div className='swiper__item'>
-          <img className='swiper__bg' src='/src/assets/images/Slider/img-1.png' alt='' />
+          <img className='swiper__bg' src={one} alt='' />
         </div>
       </SwiperSlide>
     </Swiper>

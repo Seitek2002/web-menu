@@ -13,7 +13,7 @@ const Footer: FC = () => {
       <div className='container'>
         <div className='footer__content'>
           <button>
-            В корзину
+            Добавить
             <span>{ cart.reduce((acc, item) => acc + item.price * item.quantity, 0) } с</span>
           </button>
         </div>

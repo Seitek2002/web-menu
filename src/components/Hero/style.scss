@@ -10,8 +10,8 @@
         @apply rounded-lg overflow-hidden w-full h-[100px];
 
         &.another {
-            background: linear-gradient(90deg, #282828 0%, #6f6f6f 100%);
             @apply w-full h-[100px] py-[16px] px-[24px] relative;
+            background: linear-gradient(90deg, #BC1D77 0%, #6942A8 100%);
         }
     }
 
@@ -20,12 +20,12 @@
     }
 
     &__name {
-        @apply text-[#fff] text-[16px] font-[700];
+        @apply font-baloo text-[#fff] text-[15px] font-[400];
     }
     &__top {
-        @apply flex items-center gap-[12px];
+        @apply flex items-center gap-[8px];
     }
     &__text {
-        @apply text-[#BBB] text-[12px] font-[500];
+        @apply text-[#DFC0DD] text-[12px] font-[500] max-w-[221px];
     }
 }

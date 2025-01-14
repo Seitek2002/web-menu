@@ -75,7 +75,7 @@ const Item: FC<IProps> = ({
         <h4 className='cart-name'>{name}</h4>
         {count === 0 ? (
           <button className='cart-btn' onClick={handleClick}>
-            <img src={blackPlus} alt='img' />
+            Добавить
           </button>
         ) : (
           <>
