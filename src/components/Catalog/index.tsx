@@ -3,6 +3,13 @@ import MenuSkeleton from '../../skeletons/Menu';
 import Item from './Item';
 
 import './style.scss';
+import item1 from "../../assets/images/Catalog/item-1.png";
+import item2 from "../../assets/images/Catalog/item-2.jpg";
+import item3 from "../../assets/images/Catalog/item-3.jpg";
+import item4 from "../../assets/images/Catalog/item-4.jpg";
+import item5 from "../../assets/images/Catalog/item-5.jpg";
+import item6 from "../../assets/images/Catalog/item-6.jpg";
+import item7 from "../../assets/images/Catalog/item-7.jpg";
 
 const Catalog: FC = () => {
   const list: {
@@ -15,65 +22,65 @@ const Catalog: FC = () => {
     promotion: boolean;
   }[] = [
     {
-      id: '0',
-      name: 'Твистер Деклюкс острый',
+      id: "0",
+      name: "Твистер Деклюкс острый",
       weight: 200,
       price: 240,
-      img: '../../assets/images/Catalog/item-1.png',
+      img: item1, // Ссылка на импортированное изображение
       discount: 10,
       promotion: false,
     },
     {
-      id: '1',
-      name: 'Куриный шницель с картофельным пюре',
+      id: "1",
+      name: "Куриный шницель с картофельным пюре",
       weight: 300,
       price: 350,
-      img: '../../assets/images/Catalog/item-2.jpg',
+      img: item2, // Ссылка на импортированное изображение
       discount: 0,
       promotion: true,
     },
     {
-      id: '2',
-      name: 'Греческий салат с оливками',
+      id: "2",
+      name: "Греческий салат с оливками",
       weight: 250,
       price: 180,
-      img: '../../assets/images/Catalog/item-3.jpg',
+      img: item3, // Ссылка на импортированное изображение
       discount: 0,
       promotion: true,
     },
     {
-      id: '3',
-      name: 'Паста с морепродуктами',
+      id: "3",
+      name: "Паста с морепродуктами",
       weight: 350,
       price: 420,
-      img: '../../assets/images/Catalog/item-4.jpg',
+      img: item4, // Ссылка на импортированное изображение
       discount: 15,
       promotion: false,
     },
     {
-      id: '4',
-      name: 'Бургер с беконом и сыром',
+      id: "4",
+      name: "Бургер с беконом и сыром",
       weight: 250,
       price: 290,
-      img: '../../assets/images/Catalog/item-5.jpg',
+      img: item5, // Ссылка на импортированное изображение
       discount: 7,
       promotion: false,
     },
     {
-      id: '5',
-      name: 'Ризотто с грибами',
+      id: "5",
+      name: "Ризотто с грибами",
       weight: 300,
       price: 330,
-      img: '../../assets/images/Catalog/item-6.jpg',
+      img: item6, // Ссылка на импортированное изображение
       discount: 0,
       promotion: false,
     },
     {
-      id: '6',
-      name: 'Суп-пюре из брокколи с кремом',
+      id: "6",
+      name: "Суп-пюре из брокколи с кремом",
       weight: 250,
       price: 220,
-      img: '../../assets/images/Catalog/item-7.jpg',
+      img: item7, // Ссылка на импортированное изображение
       discount: 10,
       promotion: false,
     },
@@ -82,7 +89,7 @@ const Catalog: FC = () => {
       name: 'Стейк с картофелем фри',
       weight: 400,
       price: 550,
-      img: '../../assets/images/Catalog/item-1.png',
+      img: item1,
       discount: 20,
       promotion: false,
     },
@@ -91,7 +98,7 @@ const Catalog: FC = () => {
       name: 'Лосось, запеченный с лимоном',
       weight: 280,
       price: 480,
-      img: '../../assets/images/Catalog/item-2.jpg',
+      img: item3,
       discount: 0,
       promotion: false,
     },
@@ -100,7 +107,7 @@ const Catalog: FC = () => {
       name: 'Цезарь с курицей',
       weight: 350,
       price: 370,
-      img: '../../assets/images/Catalog/item-3.jpg',
+      img: item2,
       discount: 0,
       promotion: false,
     },
