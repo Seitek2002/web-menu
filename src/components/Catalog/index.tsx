@@ -2,7 +2,6 @@ import { FC } from 'react';
 import MenuSkeleton from '../../skeletons/Menu';
 import Item from './Item';
 
-import './style.scss';
 import item1 from "../../assets/images/Catalog/item-1.png";
 import item2 from "../../assets/images/Catalog/item-2.jpg";
 import item3 from "../../assets/images/Catalog/item-3.jpg";
@@ -10,6 +9,8 @@ import item4 from "../../assets/images/Catalog/item-4.jpg";
 import item5 from "../../assets/images/Catalog/item-5.jpg";
 import item6 from "../../assets/images/Catalog/item-6.jpg";
 import item7 from "../../assets/images/Catalog/item-7.jpg";
+
+import './style.scss';
 
 const Catalog: FC = () => {
   const list: {
