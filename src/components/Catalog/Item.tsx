@@ -8,7 +8,7 @@ import whiteMinus from '../../assets/icons/cart/minus.svg';
 import './style.scss';
 
 interface IProps {
-  id: string;
+  id: string; 
   name: string;
   weight: number;
   price: number;

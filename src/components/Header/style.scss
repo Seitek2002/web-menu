@@ -43,10 +43,19 @@
                 }
             }
         }
+
+        &.active {
+          &::after {
+            content:"";
+            @apply absolute w-[37px] h-[2px] bg-[#EFEFEF] top-[64px] left-[13px] z-[11];
+          }
+        }
     }
 
+    
+
     &__wrapper {
-        @apply absolute left-0 top-[31px] w-[61px] h-0 flex items-center flex-wrap p-0 bg-[#F9F9F9] justify-center rounded-[8px] z-10 overflow-hidden box-border;
+        @apply absolute left-0 top-[31px] w-[61px] h-0 flex items-center flex-wrap p-0 bg-[#F9F9F9] justify-center rounded-[8px] z-10 overflow-hidden box-border gap-[4px];
         border: 1px solid #efefef;
         transition: 0.3s;
 
@@ -60,7 +69,4 @@
         @apply text-[12px] text-[#090A0B] font-[500] cursor-pointer w-full text-center;
     }
 
-    &__line {
-        @apply w-[37px] h-[1px] bg-[#EFEFEF];
-    }
 }

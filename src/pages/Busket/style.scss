@@ -1,0 +1,58 @@
+.c {
+    @apply mt-[12px] text-[#090A0B];
+    &-title {
+        @apply font-semibold text-[24px];
+    }
+
+    &-top {
+        @apply flex justify-between items-center;
+    }
+
+    &-wrapper-img {
+        @apply w-[32px] h-[32px] bg-[#FFF] flex items-center justify-center rounded-[8px];
+    }
+
+    &-table {
+        @apply px-[12px] py-[16px] bg-[#FFF] rounded-[8px] flex items-center justify-between mt-[12px];
+
+        &-name {
+            @apply font-[500] text-[14px];
+        }
+
+        &-numb {
+            @apply text-[#875AFF] font-[500] text-[12px];
+        }
+    }
+
+    &-list {
+        @apply flex flex-col rounded-[12px] bg-[#fff] mt-[20px] p-[12px];
+
+        img {
+            @apply w-[83px] h-[63px] rounded-[8px];
+        }
+    }
+
+    &-item {
+        @apply flex gap-[8px] py-[8px];
+    }
+
+    &-info {
+        @apply flex gap-[4px]
+    }
+
+    &-name {
+        @apply font-[500] text-[14px] leading-[15px] w-[120px] mb-[8px] line-clamp-3;
+    }
+
+    &-price {
+        @apply font-[600] text-[#875AFF] text-[12px]
+    }
+
+    &-g {
+        @apply font-[600] text-[#ADADAD] text-[12px]
+    }
+
+    &-btn {
+        @apply bg-[#F1F2F3] p-[12px] flex items-center gap-[16px] rounded-[9999px]
+    }
+}

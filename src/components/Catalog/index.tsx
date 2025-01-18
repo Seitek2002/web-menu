@@ -2,7 +2,6 @@ import { FC } from 'react';
 import MenuSkeleton from '../../skeletons/Menu';
 import Item from './Item';
 
-import './style.scss';
 import item1 from "../../assets/images/Catalog/item-1.png";
 import item2 from "../../assets/images/Catalog/item-2.jpg";
 import item3 from "../../assets/images/Catalog/item-3.jpg";
@@ -10,6 +9,8 @@ import item4 from "../../assets/images/Catalog/item-4.jpg";
 import item5 from "../../assets/images/Catalog/item-5.jpg";
 import item6 from "../../assets/images/Catalog/item-6.jpg";
 import item7 from "../../assets/images/Catalog/item-7.jpg";
+
+import './style.scss';
 
 const Catalog: FC = () => {
   const list: {
@@ -26,7 +27,7 @@ const Catalog: FC = () => {
       name: "Твистер Деклюкс острый",
       weight: 200,
       price: 240,
-      img: item1, // Ссылка на импортированное изображение
+      img: item1, 
       discount: 10,
       promotion: false,
     },
@@ -35,7 +36,7 @@ const Catalog: FC = () => {
       name: "Куриный шницель с картофельным пюре",
       weight: 300,
       price: 350,
-      img: item2, // Ссылка на импортированное изображение
+      img: item2, 
       discount: 0,
       promotion: true,
     },
@@ -44,7 +45,7 @@ const Catalog: FC = () => {
       name: "Греческий салат с оливками",
       weight: 250,
       price: 180,
-      img: item3, // Ссылка на импортированное изображение
+      img: item3, 
       discount: 0,
       promotion: true,
     },
@@ -53,7 +54,7 @@ const Catalog: FC = () => {
       name: "Паста с морепродуктами",
       weight: 350,
       price: 420,
-      img: item4, // Ссылка на импортированное изображение
+      img: item4, 
       discount: 15,
       promotion: false,
     },
@@ -62,7 +63,7 @@ const Catalog: FC = () => {
       name: "Бургер с беконом и сыром",
       weight: 250,
       price: 290,
-      img: item5, // Ссылка на импортированное изображение
+      img: item5, 
       discount: 7,
       promotion: false,
     },
@@ -71,7 +72,7 @@ const Catalog: FC = () => {
       name: "Ризотто с грибами",
       weight: 300,
       price: 330,
-      img: item6, // Ссылка на импортированное изображение
+      img: item6, 
       discount: 0,
       promotion: false,
     },
@@ -80,7 +81,7 @@ const Catalog: FC = () => {
       name: "Суп-пюре из брокколи с кремом",
       weight: 250,
       price: 220,
-      img: item7, // Ссылка на импортированное изображение
+      img: item7, 
       discount: 10,
       promotion: false,
     },
