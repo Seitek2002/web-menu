@@ -33,11 +33,11 @@
     }
 
     &-item {
-        @apply flex gap-[8px] py-[8px];
+        @apply flex items-center justify-between gap-[8px] py-[8px];
     }
 
     &-info {
-        @apply flex gap-[4px]
+        @apply flex gap-[4px];
     }
 
     &-name {
@@ -45,14 +45,18 @@
     }
 
     &-price {
-        @apply font-[600] text-[#875AFF] text-[12px]
+        @apply font-[600] text-[#875AFF] text-[12px];
     }
 
     &-g {
-        @apply font-[600] text-[#ADADAD] text-[12px]
+        @apply font-[600] text-[#ADADAD] text-[12px];
     }
 
     &-btn {
-        @apply bg-[#F1F2F3] p-[12px] flex items-center gap-[16px] rounded-[9999px]
+        @apply bg-[#F1F2F3] p-[12px] flex items-center justify-between gap-[16px] rounded-[9999px];
+
+        img {
+            @apply w-[24px] h-[24px]
+        }
     }
 }

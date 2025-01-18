@@ -3,9 +3,9 @@ import { addItem, removeItem } from "../../store/yourFeatureSlice";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 
 import plus from "../../assets/icons/Busket/plus.svg";
-import minus from "./../assets/icons/Busket/minus.svg";
+import minus from "../../assets/icons/Busket/minus.svg";
 
-import "./style.scss";
+import "../../pages/Busket/style.scss";
 
 interface IProps {
     id: string;
@@ -72,9 +72,9 @@ const Item: FC<IProps> = ({
                     </div>
                 </div>
                 <button className="c-btn">
-                    <img src={minus} alt="minus" />
+                    <img src={minus} alt="minus" onClick={handleUnClick} />
                     0
-                    <img src={plus} alt="plus" />
+                    <img src={plus} alt="plus" onClick={handleClick} />
                 </button>
             </div>
         </>
