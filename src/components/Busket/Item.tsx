@@ -4,11 +4,8 @@ import { useAppDispatch } from "../../hooks/useAppDispatch";
 
 import plus from "../../assets/icons/Busket/plus.svg";
 import minus from "../../assets/icons/Busket/minus.svg";
-<<<<<<< HEAD
 
 import "../../pages/Busket/style.scss";
-=======
->>>>>>> ec28a72e8afd1218066e4aa67301621697e1da1e
 
 interface IProps {
     id: string;
