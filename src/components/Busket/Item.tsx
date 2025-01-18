@@ -3,9 +3,7 @@ import { addItem, removeItem } from "../../store/yourFeatureSlice";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 
 import plus from "../../assets/icons/Busket/plus.svg";
-import minus from "./../assets/icons/Busket/minus.svg";
-
-import "./style.scss";
+import minus from "../../assets/icons/Busket/minus.svg";
 
 interface IProps {
     id: string;
