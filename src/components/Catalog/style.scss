@@ -18,7 +18,7 @@
     }
 
     &-block {
-        @apply rounded-[12px] bg-white p-[4px] max-w-[175px] relative;
+        @apply rounded-[12px] bg-white p-[4px] max-w-full relative flex flex-col justify-between;
     }
 
     &-discount,
