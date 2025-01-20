@@ -119,10 +119,17 @@ const Catalog: FC = () => {
       <div className='container'>
         <h2 className='cart-title'>Все блюда</h2>
         <div className='cart-wrapper'>
-          <MenuSkeleton />
-          {list.map((item) => (
-            <Item key={item.id} {...item} />
-          ))}
+          {
+            !list.length ? (
+              Array(6).fill(5).map(_ => (
+                <MenuSkeleton />
+              ))
+            ) : (
+              list.map((item) => (
+                <Item key={item.id} {...item} />
+              ))
+            )
+          }
         </div>
       </div>
     </section>

@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import { addItem, removeItem } from '../../store/yourFeatureSlice';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
+import ContentLoader from 'react-content-loader';
 
 import whitePlus from '../../assets/icons/cart/plus.svg';
 import whiteMinus from '../../assets/icons/cart/minus.svg';
@@ -27,9 +28,8 @@ const Item: FC<IProps> = ({
   id,
 }) => {
   const [count, setCount] = useState<number>(0);
+  const [isLoaded, setIsLoaded] = useState(false);
   const dispatch = useAppDispatch();
-
-  console.log(discount, promotion, id);
 
   const handleClick = () => {
     setCount(count + 1);
@@ -66,7 +66,21 @@ const Item: FC<IProps> = ({
     <>
       <div className='cart-block'>
         <div className='cart-img'>
-          <img src={img} alt='img' />
+          {!isLoaded && (
+            <ContentLoader
+              speed={1.5}
+              width={'100%'}
+              height={'100%'}
+              backgroundColor='#bebebe'
+              foregroundColor='#fff'
+              style={{
+                padding: '4px',
+              }}
+            >
+              <rect className='skeleton-img' y='0' rx='12' ry='12' />
+            </ContentLoader>
+          )}
+          <img src={img} alt='img' onLoad={() => setIsLoaded(true)} className={isLoaded ? '' : 'hidden'} />
         </div>
         <div className='cart-info'>
           <span className='cart-price'>{price} с</span>
