@@ -1,8 +1,8 @@
-.header {
-    @apply py-[12px];
+.siteHeader {
+    @apply py-[20px];
 
     &__content {
-        @apply flex justify-between items-center;
+        @apply flex justify-between items-center bg-[#fff] p-[12px] rounded-[12px];
     }
 
     &__logo {
@@ -10,26 +10,14 @@
     }
 
     &__name {
-        @apply font-[700] text-[#090A0B] text-[16px] mt-[4px];
+        @apply font-[900] text-[#090A0B] text-[17px] mt-[4px];
     }
-
-    &__inner {
-        @apply flex gap-[4px] items-center;
+    &__block{
+        @apply flex gap-[23px];
     }
-
-    &__time {
-        @apply font-[500] text-[#626576] text-[12px];
+    &__user{
+        @apply bg-[#F9F9F9] h-[32px] w-[32px] rounded-[8px] flex justify-center items-center cursor-pointer ;
     }
-    &__table{
-        @apply py-[12px] px-[16px] bg-[#fff] rounded-[10px];
-        p{
-            @apply font-[500] text-[#626576] text-[14px];
-        }
-    }
-    h2 {
-        @apply text-[24px];
-    }
-
     &__language {
         @apply relative;
 
