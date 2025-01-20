@@ -23,9 +23,6 @@ const Item: FC<IProps> = ({
     weight,
     price,
     img,
-    discount,
-    promotion,
-    id,
     length,
 }) => {
     const [count, setCount] = useState<number>(0);
