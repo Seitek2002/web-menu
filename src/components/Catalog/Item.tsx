@@ -8,7 +8,7 @@ import whiteMinus from '../../assets/icons/cart/minus.svg';
 import './style.scss';
 
 interface IProps {
-  id: string; 
+  id: string;
   name: string;
   weight: number;
   price: number;
@@ -28,6 +28,8 @@ const Item: FC<IProps> = ({
 }) => {
   const [count, setCount] = useState<number>(0);
   const dispatch = useAppDispatch();
+
+  console.log(discount, promotion, id);
 
   const handleClick = () => {
     setCount(count + 1);
