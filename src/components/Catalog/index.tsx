@@ -2,13 +2,13 @@ import { FC } from 'react';
 import MenuSkeleton from '../../skeletons/Menu';
 import Item from './Item';
 
-import item1 from "../../assets/images/Catalog/item-1.png";
-import item2 from "../../assets/images/Catalog/item-2.jpg";
-import item3 from "../../assets/images/Catalog/item-3.jpg";
-import item4 from "../../assets/images/Catalog/item-4.jpg";
-import item5 from "../../assets/images/Catalog/item-5.jpg";
-import item6 from "../../assets/images/Catalog/item-6.jpg";
-import item7 from "../../assets/images/Catalog/item-7.jpg";
+import item1 from "../../assets/images/Catalog/item-1.webp";
+import item2 from "../../assets/images/Catalog/item-2.webp";
+import item3 from "../../assets/images/Catalog/item-3.webp";
+import item4 from "../../assets/images/Catalog/item-4.webp";
+import item5 from "../../assets/images/Catalog/item-5.webp";
+import item6 from "../../assets/images/Catalog/item-6.webp";
+import item7 from "../../assets/images/Catalog/item-7.webp";
 
 import './style.scss';
 
