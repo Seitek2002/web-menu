@@ -125,9 +125,7 @@ const Busket: FC = () => {
         } else {
             setLength(true)
         }
-    }); 
-    
-
+    }, []);
 
     return (
         <>
