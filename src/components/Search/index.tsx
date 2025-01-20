@@ -2,7 +2,7 @@ import { FC, useRef, useState } from "react";
 
 import search from "../../assets/icons/Search/search.svg";
 import close from "../../assets/icons/Search/close.svg";
-import all from "../../assets/icons/Points/all.svg";
+import all from "../../assets/icons/points/all.svg";
 
 import "./style.scss";
 
