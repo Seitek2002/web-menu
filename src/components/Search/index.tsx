@@ -2,6 +2,7 @@ import { FC, useRef, useState } from "react";
 
 import search from "../../assets/icons/Search/search.svg";
 import close from "../../assets/icons/Search/close.svg";
+import arrowBack from "../../assets/icons/Search/arrow-back.svg";
 import all from "../../assets/icons/points/all.svg";
 
 import "./style.scss";
@@ -34,24 +35,29 @@ const Search: FC<IProps> = ({ onToggle }) => {
                 <div className="container">
                     <div className="search-content">
                         <div className="search-top">
-                            <img
-                                src={search}
-                                alt="search"
-                                onClick={handleSearchClick}
-                            />
+                            <div onClick={onClose} className="search-back">
+                                <img src={arrowBack} alt="" />
+                            </div>
+                            <div className="search-input">
+                                <img
+                                    src={search}
+                                    alt="search"
+                                    onClick={handleSearchClick}
+                                />
 
-                            <input
-                                ref={inputRef}
-                                type="text"
-                                placeholder="Поиск..."
-                                value={inputValue} 
-                                onChange={(e) => setInputValue(e.target.value)} 
-                            />
-                            <img
-                                onClick={onClose}
-                                src={close}
-                                alt="close"
-                            />
+                                <input
+                                    ref={inputRef}
+                                    type="text"
+                                    placeholder="Поиск..."
+                                    value={inputValue} 
+                                    onChange={(e) => setInputValue(e.target.value)} 
+                                />
+                                <img
+                                    onClick={onClose}
+                                    src={close}
+                                    alt="close"
+                                />
+                            </div>
                         </div>
                         <h2 className="search-title">Категории</h2>
                         <div className="search-perent">

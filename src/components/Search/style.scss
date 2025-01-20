@@ -1,8 +1,19 @@
 .search {
     @apply fixed w-full h-[100vh] bg-[#F1F2F3] z-20 left-0 top-0;
-
+    
     &-top {
-        @apply mt-[12px] w-full pl-[16px] pr-[12px] bg-white flex items-center justify-center rounded-[8px];
+        @apply mt-[12px] w-full flex items-center justify-center gap-3;
+        
+        .search-input {
+            @apply pl-4 pr-3 bg-white rounded-lg flex-1 flex items-center justify-center;
+        }
+
+        .search-back {
+            @apply cursor-pointer size-6;
+            img {
+                @apply size-full;
+            }
+        }
 
         input {
             @apply ml-[8px] mr-[10px] h-[56px] text-[#090A0B] text-[14px] font-[500] outline-none w-full;
