@@ -2,9 +2,9 @@ import { FC, useState } from 'react';
 
 import './style.scss';
 
-import logo from '../../../assets/icons/siteHeader/logo.svg';
-import arrow from '../../../assets/icons/header/black-arrow.svg';
-import user from '../../../assets/icons/siteHeader/user.svg';
+import logo from '../../../assets/icons/SiteHeader/logo.svg';
+import arrow from '../../../assets/icons/Header/black-arrow.svg';
+import user from '../../../assets/icons/SiteHeader/user.svg';
 
 const SiteHeader: FC = () => {
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
