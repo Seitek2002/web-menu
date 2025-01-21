@@ -1,20 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IFoodCatalog } from 'src/types/food.types';
 
-interface IItem {
-  id: string;
-  name: string;
-  weight: number;
-  price: number;
-  img: string;
-  discount?: number;
-  promotion?: boolean;
+interface IFoodCart extends IFoodCatalog {
   quantity: number;
 }
 
 interface YourFeatureState {
   value: number;
   isShow: boolean;
-  items: IItem[];
+  items: IFoodCart[];
 }
 
 const initialState: YourFeatureState = {
@@ -36,10 +30,10 @@ const yourFeatureSlice = createSlice({
     setShow: (state) => {
       state.isShow = !state.isShow;
     },
-    setItems: (state, action: PayloadAction<IItem[]>) => {
+    setItems: (state, action: PayloadAction<IFoodCart[]>) => {
       state.items = action.payload;
     },
-    addItem: (state, action: PayloadAction<IItem>) => {
+    addItem: (state, action: PayloadAction<IFoodCart>) => {
       const existingItem = state.items.find(
         (item) => item.id === action.payload.id
       );
@@ -48,9 +42,8 @@ const yourFeatureSlice = createSlice({
       } else {
         state.items.push({ ...action.payload, quantity: 1 });
       }
-      console.log(state.items);
     },
-    removeItem: (state, action: PayloadAction<IItem>) => {
+    removeItem: (state, action: PayloadAction<IFoodCart>) => {
       const existingItem = state.items.find(
         (item) => item.id === action.payload.id
       );
@@ -62,7 +55,6 @@ const yourFeatureSlice = createSlice({
           );
         }
       }
-      console.log(state.items);
     },
   },
 });
