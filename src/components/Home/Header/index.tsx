@@ -2,8 +2,8 @@ import { FC } from "react";
 
 import "./style.scss";
 
-import logo from "../../assets/icons/Header/logo.svg";
-import clock from "../../assets/icons/Header/Clock.svg";
+import logo from "../../../assets/icons/Header/logo.svg";
+import clock from "../../../assets/icons/Header/Clock.svg";
 const Header: FC = () => {
     return (
         <header className="header">
