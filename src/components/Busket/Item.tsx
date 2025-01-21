@@ -58,11 +58,7 @@ const Item: FC<IProps> = ({
                     ) : (
                         <>
                         <div className="c-inner">
-                            <p className="c-name">{name}</p>
-                            <div className="c-info">
-                                <span className="c-price">{price} c</span>
-                                <span className="c-g">•{weight}</span>
-                            </div>
+                            <p className="c-name">{name} <span className="c-cart-price">{price} c</span><span className="c-g">•{weight}</span></p>
                         </div>
                         </>
                     )

@@ -36,7 +36,7 @@
         @apply font-[500] text-[14px] leading-[15px]  mb-[8px] line-clamp-3;
     }
 
-    &-price {
+    &-cart-price {
         @apply font-[600] text-[#875AFF] text-[12px];
     }
 
@@ -54,7 +54,174 @@
     &-loy {
         @apply flex gap-[8px];
     }
-    &-detaail {
-        
+    &-detail {
+        @apply p-[12px] bg-white rounded-[12px] my-[20px];
+
+        &-top {
+            @apply flex items-center justify-between mb-[12px];
+        }
+        &-name {
+            @apply font-[500] text-[14px];
+        }
+
+        &-required {
+            @apply font-[500] text-[12px] text-[#875AFF];
+        }
+        &-input {
+            border: 1px solid #e1e2e5;
+            @apply w-full py-[19px] px-[16px] rounded-[8px];
+
+            &::placeholder {
+                @apply font-[500] text-[14px] text-[#80868B];
+            }
+
+            &.first {
+                @apply mb-[8px];
+            }
+        }
+    }
+
+    &-where {
+        @apply flex items-center justify-between gap-[8px];
+        &-wrapper {
+            @apply flex items-center gap-[16px] py-[19px] px-[16px] w-[50%] bg-white rounded-[8px];
+            border: 1px solid #e1e2e5;
+        }
+
+        &-checkbox {
+            @apply w-[20px] h-[20px] rounded-[50%];
+            border: 1px solid #e1e2e5;
+        }
+    }
+
+    &-price {
+        @apply p-[12px] rounded-[12px] bg-white mt-[20px] mb-[12px];
+        &-top {
+            @apply flex items-center justify-between font-[500] text-[14px] text-[#80868B] mb-[16px];
+        }
+
+        &-item {
+            @apply flex items-center justify-between font-[500] text-[12px] text-[#80868B] leading-[13px] py-[8px];
+        }
+
+        &-total {
+            @apply font-[500] text-[12px] leading-[24px] text-[#80868B];
+            &.discount {
+                color: #f80101;
+            }
+            &.bonus {
+                color: #11af22;
+            }
+        }
+
+        &-ress {
+            @apply flex items-center justify-between font-[500] text-[14px] pt-[16px] mt-[8px];
+            border-top: 1px solid #f3f3f3;
+        }
+    }
+
+    &-promo {
+        @apply py-[8px] px-[12px] bg-white rounded-[12px] flex items-center;
+
+        input {
+            @apply w-full py-[11px] pr-[12px] outline-none font-[500] text-[14px];
+
+            &::placeholder {
+                @apply text-[#80868B];
+            }
+        }
+
+        button {
+            @apply bg-[#875AFF] rounded-[12px] font-[500] text-[12px] text-white py-[8px] px-[24px];
+        }
+    }
+
+    &-forgot {
+        @apply my-[20px];
+
+        &-wrapper {
+            @apply flex items-center gap-[8px];
+        }
+
+        &-cart {
+            @apply px-[4px] pt-[4px] pb-[8px] w-[114px] bg-white rounded-[12px] relative;
+        }
+
+        &-title {
+            @apply flex items-center font-[600] text-[24px];
+        }
+
+        &-img {
+            @apply w-[106px] h-[86px] rounded-[16px];
+        }
+
+        &-price {
+            @apply font-[600] text-[16px] text-[#875AFF];
+        }
+
+        &-weight {
+            @apply font-[500] text-[14px] text-[#ADADAD];
+        }
+
+        &-info {
+            @apply mt-[8px] mb-[4px];
+        }
+
+        &-name {
+            @apply line-clamp-2 font-[500] text-[16px] leading-[17px];
+        }
+        &-adding,
+        &-added {
+            @apply flex justify-center items-center w-[24px] h-[24px] rounded-[6px] absolute right-[8px] top-[8px];
+        }
+
+        &-added {
+            @apply bg-[#875AFF];
+        }
+        &-adding {
+            @apply bg-[#F1F2F3];
+        }
+    }
+
+    &-tips {
+        @apply bg-white rounded-[12px] p-[12px] mb-[100px];
+        &-title {
+            @apply font-[600] text-[24px];
+        }
+
+        &-info {
+            @apply flex items-center gap-[13px] mt-[8px] mb-[16px];
+        }
+
+        &-ava {
+            @apply w-[36px] h-[36px] overflow-hidden;
+            img {
+                @apply w-full;
+            }
+        }
+
+        &-inner {
+            @apply flex flex-col gap-[4px];
+        }
+
+        &-name {
+            @apply font-[700] text-[14px];
+        }
+
+        &-job {
+            @apply text-[#626576] text-[12px] font-[400];
+        }
+
+        &-wrapper {
+            @apply flex items-center gap-[8px];
+        }
+
+        &-item {
+            @apply w-[62px] h-[56px] rounded-[50%] bg-[#F9F9F9] flex items-center justify-center;
+
+            &.active {
+                @apply bg-[#875AFF];
+            }
+        }
     }
 }
