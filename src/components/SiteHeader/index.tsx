@@ -6,7 +6,7 @@ import logo from '../../assets/icons/siteHeader/logo.svg';
 import arrow from '../../assets/icons/header/black-arrow.svg';
 import user from '../../assets/icons/SiteHeader/user.svg';
 
-const siteHeader: FC = () => {
+const SiteHeader: FC = () => {
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [active, setActive] = useState('RU');
 
@@ -76,4 +76,4 @@ const siteHeader: FC = () => {
   );
 };
 
-export default siteHeader;
+export default SiteHeader;
