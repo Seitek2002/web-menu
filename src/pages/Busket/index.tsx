@@ -1,6 +1,5 @@
 import { FC, useEffect, useState } from 'react';
 
-<<<<<<< HEAD
 import Item from "../../components/Busket/Item";
 
 import back from "../../assets/icons/Busket/back.svg";
@@ -12,12 +11,6 @@ import added from "../../assets/icons/Busket/added.svg";
 import adding from "../../assets/icons/Busket/adding.svg";
 import ava from "../../assets/icons/Busket/ava.svg";
 import first from "../../assets/icons/Busket/first.svg";
-=======
-import Item from '../../components/Busket/Item';
-
-import back from '../../assets/icons/Busket/back.svg';
-import delet from '../../assets/icons/Busket/delete.svg';
->>>>>>> 3ae7c36e01137b49a44abb508c60cab671bc4857
 
 import item1 from '../../assets/images/Catalog/item-1.webp';
 import item2 from '../../assets/images/Catalog/item-2.webp';
@@ -30,11 +23,7 @@ import item7 from '../../assets/images/Catalog/item-7.webp';
 import './style.scss';
 
 const Busket: FC = () => {
-<<<<<<< HEAD
     const [length, setLength] = useState(true);
-=======
-  const [length, setLength] = useState(true);
->>>>>>> 3ae7c36e01137b49a44abb508c60cab671bc4857
 
   const list: {
     id: string;
@@ -162,7 +151,6 @@ const Busket: FC = () => {
               </div>
             </div>
 
-<<<<<<< HEAD
                         <div className="c-table">Стол №12</div>
 
                         <div className="c-list divide-y">
@@ -307,29 +295,6 @@ const Busket: FC = () => {
             </section>
         </>
     );
-=======
-            <div className='c-table'>Стол №12</div>
-
-            <div className='c-list divide-y'>
-              {list.map((item) => (
-                <Item key={item.id} {...item} length={length} />
-              ))}
-            </div>
-
-            <div className='c-detail'>
-              <div className='c-detail-top'>
-                <h4 className='c-datail-name'></h4>
-                <h4 className='c-datail-required'></h4>
-              </div>
-              <input type='number' className='c-datail-input' placeholder='' />
-              <input type='text' className='c-datail-input' />
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
-  );
->>>>>>> 3ae7c36e01137b49a44abb508c60cab671bc4857
 };
 
 export default Busket;
