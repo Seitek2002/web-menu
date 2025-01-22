@@ -19,7 +19,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow }) => {
   const [counter, setCounter] = useState(1);
 
   const handleCounterChange = (delta: number) => {
-    setCounter((prev) => Math.max(1, prev + delta)); // Ограничиваем до 0
+    setCounter((prev) => Math.max(1, prev + delta));
   };
 
   const handleDone = () => {  
@@ -29,7 +29,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow }) => {
       counter,
     };
 
-    console.log("Выбранные данные:", selectedData); // Вывод в консоль
+    console.log("Выбранные данные:", selectedData);
   };
 
   return (
