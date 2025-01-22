@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 
+
 import img1 from '../../../assets/images/Catalog/item-1.webp';
 import addContainer from './add-container.svg'
 import close from './close.svg'
@@ -15,6 +16,21 @@ interface IProps {
 const FoodDetail: FC<IProps> = ({ setIsShow }) => {
   const [sugar, setSugar] = useState('');
   const [containerAdd, setContainerAdd] = useState(0);
+  const [counter, setCounter] = useState(1);
+
+  const handleCounterChange = (delta: number) => {
+    setCounter((prev) => Math.max(1, prev + delta)); // Ограничиваем до 0
+  };
+
+  const handleDone = () => {  
+    const selectedData = {
+      sugar,
+      containerAdd,
+      counter,
+    };
+
+    console.log("Выбранные данные:", selectedData); // Вывод в консоль
+  };
 
   return (
     <div className='food-detail'>
@@ -113,6 +129,55 @@ const FoodDetail: FC<IProps> = ({ setIsShow }) => {
           <div className='price'>+20 с</div>
         </div>
       </div>
+        <footer className="counter">
+        <div className="counter__left">
+          <svg
+            onClick={() => handleCounterChange(-1)}
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 12H20.25"
+              stroke="black"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <span style={{ margin: "0 12px", fontSize: "16px", fontWeight: "bold" }}>
+            {counter}
+          </span>
+          <svg
+            onClick={() => handleCounterChange(1)}
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 12H20.25"
+              stroke="black"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M12 3.75V20.25"
+              stroke="black"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+        <div className="counter__right">
+          <button onClick={handleDone}>Готово</button>
+        </div>
+        </footer>
     </div>
   );
 };
