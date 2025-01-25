@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import OrderStatusCard from "../../OrderStatusCard";
 
 import one from "../../../assets/images/Slider/img-1.png";
 import two from "../../../assets/images/Slider/img-2.jpg";
@@ -16,6 +17,24 @@ const Hero: FC = () => {
             slidesPerView={1.2}
             centeredSlides={true}
         >
+            <SwiperSlide>
+                <div className="swiper__item">
+                    <OrderStatusCard
+                        title="Ваш заказ принят!"
+                        message="Ожидайте в течении 15-20 минут"
+                        status="accepted"
+                    />
+                </div>
+            </SwiperSlide>
+            <SwiperSlide>
+                <div className="swiper__item">
+                    <OrderStatusCard
+                        title="Ваш заказ в рассмотрении"
+                        message="В ближайшее время админ свяжется с Вами и уточнит детали"
+                        status="pending"
+                    />
+                </div>
+            </SwiperSlide>
             <SwiperSlide>
                 <div className="swiper__item another">
                     <div className="swiper__top">
