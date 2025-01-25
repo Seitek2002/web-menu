@@ -1,15 +1,15 @@
 import { FC, useState } from 'react';
 
 import img1 from '../../../assets/images/Catalog/item-1.webp';
-import addContainer from './add-container.svg'
-import close from './close.svg'
-import minus from './minus.svg'
-import plus from './plus.svg'
+import addContainer from './add-container.svg';
+import close from './close.svg';
+import minus from './minus.svg';
+import plus from './plus.svg';
 
 import './style.scss';
 
 interface IProps {
-  setIsShow: () => void
+  setIsShow: () => void;
 }
 
 const FoodDetail: FC<IProps> = ({ setIsShow }) => {
@@ -21,19 +21,19 @@ const FoodDetail: FC<IProps> = ({ setIsShow }) => {
     setCounter((prev) => Math.max(1, prev + delta));
   };
 
-  const handleDone = () => {  
+  const handleDone = () => {
     const selectedData = {
       sugar,
       containerAdd,
       counter,
     };
 
-    console.log("Выбранные данные:", selectedData);
+    console.log('Выбранные данные:', selectedData);
   };
 
   return (
     <div className='food-detail'>
-      <img src={close} alt="" className="close" onClick={setIsShow} />
+      <img src={close} alt='' className='close' onClick={setIsShow} />
       <div className='img-wrapper'>
         <img src={img1} alt='' />
       </div>
@@ -116,67 +116,81 @@ const FoodDetail: FC<IProps> = ({ setIsShow }) => {
           <div className='flex gap-[12px]'>
             {containerAdd ? (
               <div className='flex gap-[12px]'>
-                <img src={minus} alt="" onClick={() => setContainerAdd(containerAdd - 1)} />
+                <img
+                  src={minus}
+                  alt=''
+                  onClick={() => setContainerAdd(containerAdd - 1)}
+                />
                 {containerAdd}
-                <img src={plus} alt="" onClick={() => setContainerAdd(containerAdd + 1)} />
+                <img
+                  src={plus}
+                  alt=''
+                  onClick={() => setContainerAdd(containerAdd + 1)}
+                />
               </div>
             ) : (
-              <img src={addContainer} alt="" onClick={() => setContainerAdd(1)} />
+              <img
+                src={addContainer}
+                alt=''
+                onClick={() => setContainerAdd(1)}
+              />
             )}
             <span>Контейнер</span>
           </div>
           <div className='price'>+20 с</div>
         </div>
       </div>
-        <footer className="counter">
-        <div className="counter__left">
+      <footer className='counter'>
+        <div className='counter__left'>
           <svg
             onClick={() => handleCounterChange(-1)}
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+            width='24'
+            height='24'
+            viewBox='0 0 24 24'
+            fill='none'
+            xmlns='http://www.w3.org/2000/svg'
           >
             <path
-              d="M3.75 12H20.25"
-              stroke="black"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+              d='M3.75 12H20.25'
+              stroke='black'
+              strokeWidth='1.5'
+              strokeLinecap='round'
+              strokeLinejoin='round'
             />
           </svg>
-          <span style={{ margin: "0 12px", fontSize: "16px", fontWeight: "bold" }}>
+          <span
+            style={{ margin: '0 12px', fontSize: '16px', fontWeight: 'bold' }}
+          >
             {counter}
           </span>
           <svg
             onClick={() => handleCounterChange(1)}
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+            width='24'
+            height='24'
+            viewBox='0 0 24 24'
+            fill='none'
+            xmlns='http://www.w3.org/2000/svg'
           >
             <path
-              d="M3.75 12H20.25"
-              stroke="black"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+              d='M3.75 12H20.25'
+              stroke='black'
+              strokeWidth='1.5'
+              strokeLinecap='round'
+              strokeLinejoin='round'
             />
             <path
-              d="M12 3.75V20.25"
-              stroke="black"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+              d='M12 3.75V20.25'
+              stroke='black'
+              strokeWidth='1.5'
+              strokeLinecap='round'
+              strokeLinejoin='round'
             />
           </svg>
         </div>
-        <div className="counter__right">
+        <div className='counter__right'>
           <button onClick={handleDone}>Готово</button>
         </div>
-        </footer>
+      </footer>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IFoodCatalog } from 'src/types/food.types';
+import { IProductCatalog } from 'src/types/products.types';
 
-interface IFoodCart extends IFoodCatalog {
+interface IFoodCart extends IProductCatalog {
   quantity: number;
 }
 

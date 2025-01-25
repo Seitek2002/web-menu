@@ -88,11 +88,14 @@
   .case {
     @apply flex justify-between items-center;
   }
+
   .counter{
-    @apply bg-white flex items-center justify-center gap-[12px] py-[30px];
+    @apply bg-white flex items-center justify-center gap-[12px] pt-[30px] pb-[40px];
+
     &__left{
       @apply flex gap-[34px] bg-[#F1F2F3] px-[8px] py-[16px] rounded-[12px] font-semibold;
     }
+
     &__right{
       button{
         @apply bg-[#875AFF] text-[#fff] font-semibold px-[42px] py-[16px] rounded-[12px]; 

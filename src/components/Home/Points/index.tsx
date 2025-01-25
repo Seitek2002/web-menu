@@ -1,21 +1,32 @@
 import { FC, useState } from 'react';
-import { useGetCategoriesQuery } from '../../../api/Categories';
+import { useGetCategoriesQuery } from '../../../api/Categories.api';
 import PointsSkeleton from '../../../skeletons/Points';
 import Search from '../Search';
 
 import search from '../../../assets/icons/points/search.svg';
+import all from '../../../assets/icons/points/all.svg';
 
 import './style.scss';
 
-const Points: FC = () => {
-  const { data: items, isLoading } = useGetCategoriesQuery();
+interface IProps {
+  onCategoryChange: (categoryId: number | undefined) => void;
+}
 
-  const [active, setActive] = useState('0');
+const Points: FC<IProps> = ({ onCategoryChange }) => {
+  const { data: categories, isLoading } = useGetCategoriesQuery();
+
+  const [active, setActive] = useState<number | undefined>(0);
   const [show, setShow] = useState(false);
 
   const clickShow = () => {
     setShow(!show);
   };
+
+  const selectCategory = (id: number | undefined) => {
+    setActive(id);
+    if (id) onCategoryChange(id);
+    else onCategoryChange(undefined);
+  }
 
   return (
     <section className='point'>
@@ -23,13 +34,22 @@ const Points: FC = () => {
       <div className='container'>
         <div className='point-perent'>
           <div
-            className={`point-item ${active === '-1' ? 'active' : ''}`}
+            className={`point-item ${active === -1 ? 'active' : ''}`}
             onClick={clickShow}
           >
             <div className='point-wrapper'>
               <img src={search} alt='icon' />
             </div>
             <p>Поиск</p>
+          </div>
+          <div
+            className={`point-item ${active === 0 ? 'active' : ''}`}
+            onClick={() => selectCategory(0)}
+          >
+            <div className='point-wrapper'>
+              <img src={all} alt='icon' />
+            </div>
+            <p>Все</p>
           </div>
           {isLoading ? (
             <>
@@ -41,13 +61,11 @@ const Points: FC = () => {
             </>
           ) : (
             <>
-              {items?.map((item) => (
+              {categories?.map((item) => (
                 <div
-                  className={`point-item ${
-                    active === item.categoryId ? 'active' : ''
-                  }`}
-                  key={item.categoryId}
-                  onClick={() => setActive(item.categoryId)}
+                  className={`point-item ${active === item.id ? 'active' : ''}`}
+                  key={item.id}
+                  onClick={() => selectCategory(item.id)}
                 >
                   <div className='point-wrapper'>
                     <img src={item.categoryPhoto} alt='icon' />

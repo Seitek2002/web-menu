@@ -1,4 +1,4 @@
-export interface IFoodCatalog {
+export interface IProductCatalog {
   id: number;
   productName: string;
   productPrice: string;

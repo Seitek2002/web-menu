@@ -1,22 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-interface IItem {
-  categoryId: string;
-  categoryName: string;
-  categoryPhoto: string;
-  categoryPhotoOrigin: string;
-}
-
-type CategoriesResponse = IItem[]
+import { ICategory } from 'src/types/categories.types';
 
 export const Categories = createApi({
   reducerPath: 'categories',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://imenu.kg/api/' }), // Базовый URL для запросов
   endpoints: (builder) => ({
-    getCategories: builder.query<CategoriesResponse, void>({
+    getCategories: builder.query<ICategory[], void>({
       query: () => 'categories/',
     }),
-    addCategories: builder.mutation<void, IItem>({
+    addCategories: builder.mutation<void, ICategory>({
       query: (newCategory) => ({
         url: 'posts',
         method: 'POST',
