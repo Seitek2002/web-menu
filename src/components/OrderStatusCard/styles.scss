@@ -1,0 +1,44 @@
+.order-status-card {
+  @apply flex items-center h-full pr-[18px] pl-6 rounded-xl gap-4;
+
+  &__icon {
+    @apply flex-shrink-0 size-[52px] flex items-center justify-center rounded-full;
+  }
+
+  &__content {
+    @apply flex-1;
+
+    .title {
+      @apply text-xs font-bold mb-2 tracking-[0.38px];
+    }
+    @media screen and (min-width: 405px) {
+      .title {
+        @apply text-base;
+      }
+      .message {
+        @apply text-xs;
+      }
+    }
+    .message {
+      @apply text-[10px] m-0 text-black font-medium tracking-[-0.08px];
+    }
+  }
+
+  &.accepted {
+    background: url('../../assets/images/OrderStatus/accepted-bg.png') center
+      no-repeat;
+    background-size: cover;
+    .title {
+      color: #06c740;
+    }
+  }
+
+  &.pending {
+    background: url('../../assets/images/OrderStatus/pending-bg.png') center
+      no-repeat;
+    background-size: cover;
+    .title {
+      color: #ff9800;
+    }
+  }
+}
