@@ -19,6 +19,7 @@ const Item: FC<IProps> = ({
   productPrice,
   productPhoto,
   category,
+  weight,
   setIsShow
 }) => {
   const [count, setCount] = useState<number>(0);
@@ -33,6 +34,7 @@ const Item: FC<IProps> = ({
         productName,
         productPrice,
         productPhoto,
+        weight,
         category,
         quantity: 1,
       })
@@ -46,6 +48,7 @@ const Item: FC<IProps> = ({
         id,
         productName,
         productPrice,
+        weight,
         productPhoto,
         category,
         quantity: 0,

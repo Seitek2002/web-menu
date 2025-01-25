@@ -3,6 +3,7 @@ export interface IFoodCatalog {
   productName: string;
   productPrice: string;
   productPhoto: string;
+  weight: number;
   category: {
     id: number;
     categoryName: string;

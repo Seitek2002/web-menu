@@ -22,6 +22,7 @@ const Catalog: FC = () => {
       productName: 'Твистер Делюкс острый',
       productPrice: '240',
       productPhoto: item1,
+      weight: 200,
       category: {
         id: 1,
         categoryName: 'Сэндвичи',
@@ -31,6 +32,7 @@ const Catalog: FC = () => {
       id: 1,
       productName: 'Куриный шницель с картофельным пюре',
       productPrice: '350',
+      weight: 300,
       productPhoto: item2,
       category: {
         id: 2,
@@ -42,6 +44,7 @@ const Catalog: FC = () => {
       productName: 'Греческий салат с оливками',
       productPrice: '180',
       productPhoto: item3,
+      weight: 200,
       category: {
         id: 3,
         categoryName: 'Салаты',
@@ -51,6 +54,7 @@ const Catalog: FC = () => {
       id: 3,
       productName: 'Паста с морепродуктами',
       productPrice: '420',
+      weight: 300,
       productPhoto: item4,
       category: {
         id: 2,
@@ -62,6 +66,7 @@ const Catalog: FC = () => {
       productName: 'Бургер с беконом и сыром',
       productPrice: '290',
       productPhoto: item5,
+      weight: 200,
       category: {
         id: 1,
         categoryName: 'Сэндвичи',
@@ -72,6 +77,7 @@ const Catalog: FC = () => {
       productName: 'Ризотто с грибами',
       productPrice: '330',
       productPhoto: item6,
+      weight: 300,
       category: {
         id: 2,
         categoryName: 'Основные блюда',
@@ -81,6 +87,7 @@ const Catalog: FC = () => {
       id: 6,
       productName: 'Суп-пюре из брокколи с кремом',
       productPrice: '220',
+      weight: 200,
       productPhoto: item7,
       category: {
         id: 4,
@@ -92,6 +99,7 @@ const Catalog: FC = () => {
       productName: 'Стейк с картофелем фри',
       productPrice: '550',
       productPhoto: item1,
+      weight: 200,
       category: {
         id: 2,
         categoryName: 'Основные блюда',
@@ -102,6 +110,7 @@ const Catalog: FC = () => {
       productName: 'Лосось, запеченный с лимоном',
       productPrice: '480',
       productPhoto: item3,
+      weight: 200,
       category: {
         id: 2,
         categoryName: 'Основные блюда',
@@ -112,6 +121,7 @@ const Catalog: FC = () => {
       productName: 'Цезарь с курицей',
       productPrice: '370',
       productPhoto: item2,
+      weight: 200,
       category: {
         id: 3,
         categoryName: 'Салаты',
