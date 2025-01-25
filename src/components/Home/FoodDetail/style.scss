@@ -89,7 +89,7 @@
     @apply flex justify-between items-center;
   }
   .counter{
-    @apply bg-white flex items-center justify-center gap-[12px] py-[12px];
+    @apply bg-white flex items-center justify-center gap-[12px] py-[30px];
     &__left{
       @apply flex gap-[34px] bg-[#F1F2F3] px-[8px] py-[16px] rounded-[12px] font-semibold;
     }
