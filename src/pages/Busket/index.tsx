@@ -1,4 +1,8 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { useDispatch } from 'react-redux';
+import { setButtonText } from '../../store/yourFeatureSlice';
 
 import Item from "../../components/Busket/Item";
 
@@ -12,149 +16,189 @@ import adding from "../../assets/icons/Busket/adding.svg";
 import ava from "../../assets/icons/Busket/ava.svg";
 import first from "../../assets/icons/Busket/first.svg";
 
-import item1 from '../../assets/images/Catalog/item-1.webp';
-import item2 from '../../assets/images/Catalog/item-2.webp';
-import item3 from '../../assets/images/Catalog/item-3.webp';
-import item4 from '../../assets/images/Catalog/item-4.webp';
-import item5 from '../../assets/images/Catalog/item-5.webp';
-import item6 from '../../assets/images/Catalog/item-6.webp';
-import item7 from '../../assets/images/Catalog/item-7.webp';
+import item1 from "../../assets/images/Catalog/item-1.webp";
+import item2 from "../../assets/images/Catalog/item-2.webp";
+import item3 from "../../assets/images/Catalog/item-3.webp";
+import item4 from "../../assets/images/Catalog/item-4.webp";
+import item5 from "../../assets/images/Catalog/item-5.webp";
+import item6 from "../../assets/images/Catalog/item-6.webp";
+import item7 from "../../assets/images/Catalog/item-7.webp";
 
-import './style.scss';
+import "./style.scss";
+
+
 
 const Busket: FC = () => {
+    const dispatch = useDispatch();
+    const [value, setValue] = useState("");
     const [length, setLength] = useState(true);
 
-  const list: {
-    id: string;
-    name: string;
-    weight: number;
-    price: number;
-    img: string;
-    discount: number;
-    promotion: boolean;
-  }[] = [
-    {
-      id: '0',
-      name: 'Твистер Деклюкс острый',
-      weight: 200,
-      price: 240,
-      img: item1,
-      discount: 10,
-      promotion: false,
-    },
-    {
-      id: '1',
-      name: 'Куриный шницель с картофельным пюре',
-      weight: 300,
-      price: 350,
-      img: item2,
-      discount: 0,
-      promotion: true,
-    },
-    {
-      id: '2',
-      name: 'Греческий салат с оливками',
-      weight: 250,
-      price: 180,
-      img: item3,
-      discount: 0,
-      promotion: true,
-    },
-    {
-      id: '3',
-      name: 'Паста с морепродуктами',
-      weight: 350,
-      price: 420,
-      img: item4,
-      discount: 15,
-      promotion: false,
-    },
-    {
-      id: '4',
-      name: 'Бургер с беконом и сыром',
-      weight: 250,
-      price: 290,
-      img: item5,
-      discount: 7,
-      promotion: false,
-    },
-    {
-      id: '5',
-      name: 'Ризотто с грибами',
-      weight: 300,
-      price: 330,
-      img: item6,
-      discount: 0,
-      promotion: false,
-    },
-    {
-      id: '6',
-      name: 'Суп-пюре из брокколи с кремом',
-      weight: 250,
-      price: 220,
-      img: item7,
-      discount: 10,
-      promotion: false,
-    },
-    {
-      id: '7',
-      name: 'Стейк с картофелем фри',
-      weight: 400,
-      price: 550,
-      img: item1,
-      discount: 20,
-      promotion: false,
-    },
-    {
-      id: '8',
-      name: 'Лосось, запеченный с лимоном',
-      weight: 280,
-      price: 480,
-      img: item3,
-      discount: 0,
-      promotion: false,
-    },
-    {
-      id: '9',
-      name: 'Цезарь с курицей',
-      weight: 350,
-      price: 370,
-      img: item2,
-      discount: 0,
-      promotion: false,
-    },
-  ];
+     const cart = useAppSelector(state => state.yourFeature.items); 
 
-    
+    const formatPhoneNumber = (input: string) => {
+      const digits = input.replace(/\D/g, "");
+  
+      const maxDigits = 12;
+      const limitedDigits = digits.slice(0, maxDigits);
+  
+      let formatted = "+996";
+      if (limitedDigits.length > 3) {
+        formatted += ` (${limitedDigits.slice(3, 6)}`;
+      }
+      if (limitedDigits.length > 6) {
+        formatted += `) ${limitedDigits.slice(6, 9)}`;
+      }
+      if (limitedDigits.length > 9) {
+        formatted += `-${limitedDigits.slice(9, 12)}`;
+      }
+  
+      return formatted;
+    };
 
     useEffect(() => {
-        if (list.length >= 6) {
+        dispatch(setButtonText('Далее'));
+
+        return () => {
+          dispatch(setButtonText('Заказать'));
+        };
+      }, [dispatch]);
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const input = e.target.value;
+        const formattedInput = formatPhoneNumber(input);
+        setValue(formattedInput);
+      };
+  
+    
+
+    const list: {
+        id: string;
+        name: string;
+        weight: number;
+        price: number;
+        img: string;
+        discount: number;
+        promotion: boolean;
+    }[] = [
+        {
+            id: "0",
+            name: "Твистер Деклюкс острый",
+            weight: 200,
+            price: 240,
+            img: item1,
+            discount: 10,
+            promotion: false,
+        },
+        {
+            id: "1",
+            name: "Куриный шницель с картофельным пюре",
+            weight: 300,
+            price: 350,
+            img: item2,
+            discount: 0,
+            promotion: true,
+        },
+        {
+            id: "2",
+            name: "Греческий салат с оливками",
+            weight: 250,
+            price: 180,
+            img: item3,
+            discount: 0,
+            promotion: true,
+        },
+        {
+            id: "3",
+            name: "Паста с морепродуктами",
+            weight: 350,
+            price: 420,
+            img: item4,
+            discount: 15,
+            promotion: false,
+        },
+        {
+            id: "4",
+            name: "Бургер с беконом и сыром",
+            weight: 250,
+            price: 290,
+            img: item5,
+            discount: 7,
+            promotion: false,
+        },
+        {
+            id: "5",
+            name: "Ризотто с грибами",
+            weight: 300,
+            price: 330,
+            img: item6,
+            discount: 0,
+            promotion: false,
+        },
+        {
+            id: "6",
+            name: "Суп-пюре из брокколи с кремом",
+            weight: 250,
+            price: 220,
+            img: item7,
+            discount: 10,
+            promotion: false,
+        },
+        {
+            id: "7",
+            name: "Стейк с картофелем фри",
+            weight: 400,
+            price: 550,
+            img: item1,
+            discount: 20,
+            promotion: false,
+        },
+        {
+            id: "8",
+            name: "Лосось, запеченный с лимоном",
+            weight: 280,
+            price: 480,
+            img: item3,
+            discount: 0,
+            promotion: false,
+        },
+        {
+            id: "9",
+            name: "Цезарь с курицей",
+            weight: 350,
+            price: 370,
+            img: item2,
+            discount: 0,
+            promotion: false,
+        },
+    ];
+
+    useEffect(() => {
+        if (cart.length >= 6) {
             setLength(false);
         } else {
             setLength(true);
         }
     }, []);
 
-  return (
-    <>
-      <section className='c'>
-        <div className='container'>
-          <div className='c-content'>
-            <div className='c-top'>
-              <div className='c-wrapper-img'>
-                <img src={back} alt='back' />
-              </div>
-              <h1 className='c-title'>Корзина</h1>
-              <div className='c-wrapper-img'>
-                <img src={delet} alt='delete' />
-              </div>
-            </div>
+    return (
+        <>
+            <section className="c">
+                <div className="container">
+                    <div className="c-content">
+                        <div className="c-top">
+                            <Link to="/" className="c-wrapper-img">
+                                <img src={back} alt="back" />
+                            </Link>
+                            <h1 className="c-title">Корзина</h1>
+                            <div className="c-wrapper-img">
+                                <img src={delet} alt="delete" />
+                            </div>
+                        </div>
 
                         <div className="c-table">Стол №12</div>
 
                         <div className="c-list divide-y">
-                            {list.map((item) => (
+                            {cart.map((item) => (
                                 <Item key={item.id} {...item} length={length} />
                             ))}
                         </div>
@@ -167,10 +211,15 @@ const Busket: FC = () => {
                                 </h4>
                             </div>
                             <input
-                                type="number"
-                                className="c-detail-input first"
+                                className="c-detail-input first"  
+                                id="phone"
+                                type="text"
+                                value={value}
+                                onChange={handleInputChange}
+                                maxLength={18} 
                                 placeholder="+996 700 000 000"
                             />
+                            
                             <input
                                 type="text"
                                 className="c-detail-input"
@@ -279,17 +328,21 @@ const Busket: FC = () => {
                                 </div>
                                 <div className="c-tips-inner">
                                     <span className="c-tips-job">Официант</span>
-                                    <span className="c-tips-name">Имнакулов Дамир</span>
+                                    <span className="c-tips-name">
+                                        Имнакулов Дамир
+                                    </span>
                                 </div>
                             </div>
                             <div className="c-tips-wrapper">
-                                <div className="c-tips-item active"><img src={first} alt="icon" /></div>
+                                <div className="c-tips-item active">
+                                    <img src={first} alt="icon" />
+                                </div>
                                 <div className="c-tips-item">50 c</div>
                                 <div className="c-tips-item">100 c</div>
                                 <div className="c-tips-item">15 %</div>
                                 <div className="c-tips-item">20 %</div>
                             </div>
-                        </div>  
+                        </div>
                     </div>
                 </div>
             </section>

@@ -9,12 +9,14 @@ interface YourFeatureState {
   value: number;
   isShow: boolean;
   items: IFoodCart[];
+  buttonText: string; 
 }
 
 const initialState: YourFeatureState = {
   value: 0,
   isShow: false,
   items: [],
+  buttonText: 'Заказать', 
 };
 
 const yourFeatureSlice = createSlice({
@@ -56,9 +58,21 @@ const yourFeatureSlice = createSlice({
         }
       }
     },
+    setButtonText: (state, action: PayloadAction<string>) => {
+      state.buttonText = action.payload; 
+    },
   },
 });
 
-export const { increment, decrement, setShow, setItems, addItem, removeItem } =
-  yourFeatureSlice.actions;
+export const {
+  increment,
+  decrement,
+  setShow,
+  setItems,
+  addItem,
+  removeItem,
+  setButtonText,
+} = yourFeatureSlice.actions;
+
 export default yourFeatureSlice.reducer;
+

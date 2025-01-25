@@ -5,3 +5,7 @@ body {
 .container {
     @apply px-[16px];
 }
+
+input {
+    @apply outline-none;
+}

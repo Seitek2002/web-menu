@@ -27,7 +27,7 @@ const Item: FC<IProps> = ({
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    setCount(count + 1);
+    setCount(count + 1); 
     dispatch(
       addItem({
         id,

@@ -1,43 +1,77 @@
 import { FC, useState } from "react";
 // import { addItem, removeItem } from "../../store/yourFeatureSlice";
 // import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { addItem, removeItem } from '../../store/yourFeatureSlice';
 
 import plus from "../../assets/icons/Busket/plus.svg";
 import minus from "../../assets/icons/Busket/minus.svg";
 
 import "../../pages/Busket/style.scss";
+import { useAppDispatch } from "src/hooks/useAppDispatch";
 
 interface IProps {
-    id: string;
-    name: string;
+    id:number;
+    productName: string;
     weight: number;
-    price: number;
-    img: string;
+    productPrice: string;
+    productPhoto: string;
     discount?: number;
     promotion?: boolean;
     length?: boolean;
+    quantity:number;
+    category: {
+        id: number;
+        categoryName: string;
+      };
 }
 
 const Item: FC<IProps> = ({
-    name,
+    id,
+    productName,
     weight,
-    price,
-    img,
+    productPrice,
+    productPhoto,
     length,
+    quantity,
+    category,
 }) => {
-    const [count, setCount] = useState<number>(0);
+    const [count, setCount] = useState<number>(quantity);
+    const dispatch = useAppDispatch();
 
     const handleClick = () => {
-        setCount(count + 1);
-        console.log(length);
-        
-    };
-
-    const handleUnClick = () => {
+        setCount(count + 1); 
+        dispatch(
+          addItem({
+            id,
+            productName,
+            productPrice,
+            productPhoto,
+            weight,
+            category,
+            quantity: 1,
+          })
+        );
+      };
+    
+      const handleUnClick = () => {
         if (count) {
             setCount(count - 1);
         } 
-    };
+        dispatch(
+          removeItem({
+            id,
+            productName,
+            productPrice,
+            weight,
+            productPhoto,
+            category,
+            quantity: 0,
+          })
+        );
+      };
+    
+
+   
 
     return (
         <>
@@ -46,11 +80,11 @@ const Item: FC<IProps> = ({
                 {
                     length  ?  (
                         <>
-                        <img className="c-img" src={img} alt="img" />
+                        <img className="c-img" src={productPhoto} alt="img" />
                         <div className="c-inner">
-                            <p className="c-name">{name}</p>
+                            <p className="c-name">{productName}</p>
                             <div className="c-info">
-                                <span className="c-price">{price} c</span>
+                                <span className="c-cart-price">{productPrice} c</span>
                                 <span className="c-g">•{weight}</span>
                             </div>
                         </div>
@@ -58,7 +92,7 @@ const Item: FC<IProps> = ({
                     ) : (
                         <>
                         <div className="c-inner">
-                            <p className="c-name">{name} <span className="c-cart-price">{price} c</span><span className="c-g">•{weight}</span></p>
+                            <p className="c-name">{productName} <span className="c-cart-price">{productPrice} c</span><span className="c-g">•{weight}</span></p>
                         </div>
                         </>
                     )
