@@ -21,28 +21,34 @@ const Item: FC<IProps> = ({
   category,
   weight,
   setIsShow,
+  modificators,
 }) => {
   const [count, setCount] = useState<number>(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    setCount(count + 1); 
-    dispatch(
-      addItem({
-        id,
-        productName,
-        productPrice,
-        productPhoto,
-        weight,
-        category,
-        quantity: 1,
-      })
-    );
+    if (modificators && modificators.length > 0) {
+      setIsShow();
+    } else {
+      setCount((prev) => prev + 1);
+      dispatch(
+        addItem({
+          id,
+          productName,
+          productPrice,
+          productPhoto,
+          weight,
+          category,
+          quantity: 1,
+          modificators: [],
+        })
+      );
+    }
   };
 
   const handleUnClick = () => {
-    setCount(count - 1);
+    setCount((prev) => Math.max(0, prev - 1));
     dispatch(
       removeItem({
         id,
@@ -52,6 +58,7 @@ const Item: FC<IProps> = ({
         productPhoto,
         category,
         quantity: 0,
+        modificators: [],
       })
     );
   };
