@@ -8,4 +8,10 @@ export interface IProductCatalog {
     id: number;
     categoryName: string;
   };
+  modificators: {
+    id: number;
+    externalId: string;
+    name: string;
+    price: string;
+  }[]
 }
