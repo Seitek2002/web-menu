@@ -5,14 +5,17 @@ import addContainer from './add-container.svg';
 import close from './close.svg';
 import minus from './minus.svg';
 import plus from './plus.svg';
+import { IProductCatalog } from 'src/types/products.types';
+
 
 import './style.scss';
 
 interface IProps {
+  item?:IProductCatalog,
   setIsShow: () => void;
 }
 
-const FoodDetail: FC<IProps> = ({ setIsShow }) => {
+const FoodDetail: FC<IProps> = ({ setIsShow, item }) => {
   const [sugar, setSugar] = useState('');
   const [containerAdd, setContainerAdd] = useState(0);
   const [counter, setCounter] = useState(1);
@@ -35,7 +38,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow }) => {
     <div className='food-detail'>
       <img src={close} alt='' className='close' onClick={setIsShow} />
       <div className='img-wrapper'>
-        <img src={img1} alt='' />
+        <img src={item?.productPhoto} alt='' />
       </div>
       <div className='food-detail__content'>
         <div className='description'>
