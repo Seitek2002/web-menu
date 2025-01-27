@@ -279,7 +279,7 @@ const Busket: FC = () => {
 
                         <div className="c-forgot">
                             <h4 className="c-forgot-title">
-                                Ничего не забыли?{" "}
+                                Ничего не забыли?
                                 <img src={cookie} alt="cookie" />
                             </h4>
                             <div className="c-forgot-wrapper">
