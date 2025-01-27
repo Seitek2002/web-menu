@@ -31,7 +31,6 @@ import "./style.scss";
 const Busket: FC = () => {
     const dispatch = useDispatch();
     const [value, setValue] = useState("");
-    const [length, setLength] = useState(true);
 
      const cart = useAppSelector(state => state.yourFeature.items); 
 
@@ -172,14 +171,6 @@ const Busket: FC = () => {
         },
     ];
 
-    useEffect(() => {
-        if (cart.length >= 6) {
-            setLength(false);
-        } else {
-            setLength(true);
-        }
-    }, []);
-
     return (
         <>
             <section className="c">
@@ -199,7 +190,7 @@ const Busket: FC = () => {
 
                         <div className="c-list divide-y">
                             {cart.map((item) => (
-                                <Item key={item.id} {...item} length={length} />
+                                <Item key={item.id} {...item} />
                             ))}
                         </div>
 
@@ -279,7 +270,7 @@ const Busket: FC = () => {
 
                         <div className="c-forgot">
                             <h4 className="c-forgot-title">
-                                Ничего не забыли?{" "}
+                                Ничего не забыли?
                                 <img src={cookie} alt="cookie" />
                             </h4>
                             <div className="c-forgot-wrapper">

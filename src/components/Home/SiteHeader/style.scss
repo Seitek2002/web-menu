@@ -49,11 +49,11 @@
 
     &__wrapper {
         @apply absolute left-0 top-[31px] w-[61px] h-0 flex items-center flex-wrap p-0 bg-[#F9F9F9] justify-center rounded-[8px] z-10 overflow-hidden box-border gap-[4px];
-        border: 1px solid #efefef;
         transition: 0.3s;
 
         &.active {
             @apply h-[57px] py-[5px] px-[4px] top-[37px];
+            border: 1px solid #efefef;
             transition: 0.3s;
         }
     }

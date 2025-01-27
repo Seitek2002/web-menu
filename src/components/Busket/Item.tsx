@@ -8,22 +8,9 @@ import minus from "../../assets/icons/Busket/minus.svg";
 
 import "../../pages/Busket/style.scss";
 import { useAppDispatch } from "src/hooks/useAppDispatch";
+import { IProductCatalog } from "src/types/products.types";
 
-interface IProps {
-    id:number;
-    productName: string;
-    weight: number;
-    productPrice: string;
-    productPhoto: string;
-    discount?: number;
-    promotion?: boolean;
-    length?: boolean;
-    quantity:number;
-    category: {
-        id: number;
-        categoryName: string;
-      };
-}
+type IProps = IProductCatalog & { quantity: number };
 
 const Item: FC<IProps> = ({
     id,
@@ -31,9 +18,9 @@ const Item: FC<IProps> = ({
     weight,
     productPrice,
     productPhoto,
-    length,
-    quantity,
     category,
+    modificators,
+    quantity,
 }) => {
     const [count, setCount] = useState<number>(quantity);
     const dispatch = useAppDispatch();
@@ -49,6 +36,7 @@ const Item: FC<IProps> = ({
             weight,
             category,
             quantity: 1,
+            modificators
           })
         );
       };
@@ -66,6 +54,7 @@ const Item: FC<IProps> = ({
             productPhoto,
             category,
             quantity: 0,
+            modificators
           })
         );
       };
