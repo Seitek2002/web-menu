@@ -1,5 +1,3 @@
-import { FC } from "react";
-
 
 import added from "../../assets/icons/Busket/added.svg";
 import adding from "../../assets/icons/Busket/adding.svg";
@@ -16,7 +14,7 @@ interface ForgotCartProps {
     promotion: boolean;
 }
 
-const ForgotCart: React.FC<ForgotCartProps> = ({ id, name, weight, price, img, discount, promotion }) => {
+const ForgotCart: React.FC<ForgotCartProps> = ({ name, weight, price, img, promotion }) => {
     return (
         <>
             <div className="busket-forgot-cart">
