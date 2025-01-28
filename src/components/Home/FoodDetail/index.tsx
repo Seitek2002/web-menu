@@ -1,6 +1,5 @@
 import { FC, useState } from 'react';
 
-import img1 from '../../../assets/images/Catalog/item-1.webp';
 import addContainer from './add-container.svg';
 import close from './close.svg';
 import minus from './minus.svg';
