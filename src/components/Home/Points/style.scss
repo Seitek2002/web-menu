@@ -10,7 +10,11 @@
   }
 
   &-wrapper {
-    @apply w-[56px] h-[56px] rounded-[50%] bg-[#F9F9F9] flex items-center justify-center mx-auto;
+    @apply w-[56px] h-[56px] rounded-[50%] bg-[#F9F9F9] flex items-center justify-center mx-auto overflow-hidden;
+
+    img {
+      @apply max-w-full h-full object-cover;
+    }
   }
 
   p {

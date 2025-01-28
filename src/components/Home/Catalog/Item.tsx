@@ -11,6 +11,7 @@ import './style.scss';
 
 interface IProps extends IProductCatalog {
   setIsShow: () => void;
+  onClick?: () => void;
 }
 
 const Item: FC<IProps> = ({
