@@ -7,6 +7,10 @@
 
   .img-wrapper {
     @apply rounded-t-[24px] overflow-hidden;
+
+    img {
+      @apply w-full;
+    }
   }
 
   &__content {
