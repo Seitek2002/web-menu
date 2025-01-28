@@ -1,5 +1,5 @@
 .point {
-  @apply overflow-auto py-[30px];
+  @apply overflow-x-auto py-[30px];
 
   &-perent {
     @apply flex items-center gap-[15px];
