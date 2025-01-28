@@ -64,7 +64,7 @@ const Busket: FC = () => {
         return () => {
           dispatch(setButtonText('Заказать'));
         };
-      }, [dispatch]);
+      }, [cart.length]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const input = e.target.value;
