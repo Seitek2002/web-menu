@@ -3,9 +3,9 @@ import MenuSkeleton from "../../../skeletons/Menu";
 import Item from "./Item";
 import FoodDetail from "../FoodDetail";
 import { useGetProductsQuery } from "src/api/Products.api";
+import { IProductCatalog } from "src/types/products.types";
 
 import "./style.scss";
-import { IProductCatalog } from "src/types/products.types";
 
 interface IProps {
   selectedCategory: number | undefined;

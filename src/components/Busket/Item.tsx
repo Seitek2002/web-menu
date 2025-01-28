@@ -10,7 +10,10 @@ import "../../pages/Busket/style.scss";
 import { useAppDispatch } from "src/hooks/useAppDispatch";
 import { IProductCatalog } from "src/types/products.types";
 
-type IProps = IProductCatalog & { quantity: number };
+type IProps = IProductCatalog & { 
+    quantity: number;
+    cartLength: boolean; // Добавляем это сюда
+  };
 
 const Item: FC<IProps> = ({
     id,
@@ -21,6 +24,7 @@ const Item: FC<IProps> = ({
     category,
     modificators,
     quantity,
+    cartLength
 }) => {
     const [count, setCount] = useState<number>(quantity);
     const dispatch = useAppDispatch();
@@ -42,6 +46,7 @@ const Item: FC<IProps> = ({
       };
     
       const handleUnClick = () => {
+        
         if (count) {
             setCount(count - 1);
         } 
@@ -64,30 +69,30 @@ const Item: FC<IProps> = ({
 
     return (
         <>
-            <div className="c-item ">
-               <div className="c-loy">
+            <div className="busket-item ">
+               <div className="busket-loy">
                 {
-                    length  ?  (
+                    cartLength  ?  (
                         <>
-                        <img className="c-img" src={productPhoto} alt="img" />
-                        <div className="c-inner">
-                            <p className="c-name">{productName}</p>
-                            <div className="c-info">
-                                <span className="c-cart-price">{productPrice} c</span>
-                                <span className="c-g">•{weight}</span>
+                        <img className="busket-img" src={productPhoto} alt="img" />
+                        <div className="busket-inner">
+                            <p className="busket-name">{productName}</p>
+                            <div className="busket-info">
+                                <span className="busket-cart-price">{productPrice} c</span>
+                                <span className="busket-g">•{weight}</span>
                             </div>
                         </div>
                         </>
                     ) : (
                         <>
-                        <div className="c-inner">
-                            <p className="c-name">{productName} <span className="c-cart-price">{productPrice} c</span><span className="c-g">•{weight}</span></p>
+                        <div className="busket-inner">
+                            <p className="busket-name">{productName} <span className="busket-cart-price">{productPrice} c</span><span className="busket-g">•{weight}</span></p>
                         </div>
                         </>
                     )
                 }
                </div>
-                <button className="c-btn">
+                <button className="busket-btn">
                     <img src={minus} alt="minus" onClick={handleUnClick} />
                     {count}
                     <img src={plus} alt="plus" onClick={handleClick} />
