@@ -33,13 +33,12 @@ const Catalog: FC<IProps> = ({ selectedCategory }) => {
                 .fill(5)
                 .map(() => <MenuSkeleton key={Math.random()} />)
             : products?.map((item) => (
-                <div onClick={() => setPhotoDetail(item)}>
                   <Item
                     key={item.id}
                     {...item}
                     setIsShow={() => handleClick(true)}
+                    onClick={() => setPhotoDetail(item)}
                   />
-                </div>
               ))}
         </div>
       </div>
