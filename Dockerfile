@@ -44,4 +44,4 @@ RUN npm run build
 EXPOSE 3000
 
 CMD ["cp", "-r", "/app/dist/.", "/frontend_static/"]
-
+RUN npm run dev
