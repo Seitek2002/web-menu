@@ -89,15 +89,34 @@
         }
 
         &-checkbox {
-            @apply w-[20px] h-[20px] rounded-[50%];
+            @apply w-[16px] h-[16px] rounded-[50%];
             border: 1px solid #e1e2e5;
         }
     }
 
     &-price {
         @apply p-[12px] rounded-[12px] bg-white mt-[20px] mb-[12px];
+        
+        &-wrapper {
+            
+            @apply h-0 overflow-hidden;
+            transition: .3s;
+
+            &.active {
+                @apply h-[162px] overflow-visible;
+            }
+        }
+
         &-top {
             @apply flex items-center justify-between font-[500] text-[14px] text-[#80868B] mb-[16px];
+        }
+
+        &-img {
+            transition: .3s;
+            
+            &.active {
+                transform: rotate(180deg)
+            }
         }
 
         &-item {
@@ -106,6 +125,7 @@
 
         &-total {
             @apply font-[500] text-[12px] leading-[24px] text-[#80868B];
+
             &.discount {
                 color: #f80101;
             }
@@ -115,7 +135,7 @@
         }
 
         &-ress {
-            @apply flex items-center justify-between font-[500] text-[14px] pt-[16px] mt-[8px];
+            @apply flex items-center justify-between font-[500] text-[14px] pt-[16px] ;
             border-top: 1px solid #f3f3f3;
         }
     }
@@ -220,8 +240,51 @@
             @apply w-[62px] h-[56px] rounded-[50%] bg-[#F9F9F9] flex items-center justify-center;
 
             &.active {
-                @apply bg-[#875AFF];
+                @apply bg-[#875AFF] text-[#fff];
             }
         }
+    }
+
+    &-modal {
+        @apply fixed  top-0 left-0 bottom-0 right-0 flex items-center justify-center;
+        
+
+        &-bg {
+            @apply bg-[#A9AAAB] w-full h-full absolute top-0 left-0;
+            opacity: .5;
+        }
+
+        &-wrapper {
+            @apply sticky w-full bg-[#fff] rounded-[24px] p-[16px] box-border text-center max-w-[500px] my-0 mx-auto;
+        }
+
+        &-title {
+            @apply font-[600] text-[#090A0B] text-[24px];
+        }
+
+        &-btns {
+            @apply flex items-center justify-center gap-[16px] mt-[16px] ;
+
+            button {
+                @apply rounded-[12px] font-[600] text-[16px] py-[16px] w-full;
+            }
+        }
+
+        &-gray {
+            @apply bg-[#F1F2F3] text-[#000]
+        }
+
+        &-purple {
+            @apply bg-[#875AFF] text-[#fff]
+        }
+
+        &-text {
+            @apply font-[500] text-[14px] text-[#727272] mt-[4px] mb-[24px]
+        }
+
+        &-btn {
+            @apply font-[600] text-[16px] text-[#090A0B] py-[16px] w-full max-w-[380px] text-center bg-[#F1F2F3] rounded-[12px]
+        }
+        
     }
 }

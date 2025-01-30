@@ -1,14 +1,10 @@
 import { FC, useState } from "react";
-// import { addItem, removeItem } from "../../store/yourFeatureSlice";
-// import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { useAppDispatch } from "src/hooks/useAppDispatch";
+import { IProductCatalog } from "src/types/products.types";
 import { addItem, removeItem } from '../../store/yourFeatureSlice';
 
 import plus from "../../assets/icons/Busket/plus.svg";
 import minus from "../../assets/icons/Busket/minus.svg";
-
-import "../../pages/Busket/style.scss";
-import { useAppDispatch } from "src/hooks/useAppDispatch";
-import { IProductCatalog } from "src/types/products.types";
 
 type IProps = IProductCatalog & { 
     quantity: number;
