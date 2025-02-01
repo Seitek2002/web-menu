@@ -1,11 +1,11 @@
-import { FC, useState } from "react";
-import MenuSkeleton from "../../../skeletons/Menu";
-import Item from "./Item";
-import FoodDetail from "../FoodDetail";
-import { useGetProductsQuery } from "src/api/Products.api";
-import { IProductCatalog } from "src/types/products.types";
+import { FC, useState } from 'react';
+import MenuSkeleton from '../../../skeletons/Menu';
+import Item from './Item';
+import FoodDetail from '../FoodDetail';
+import { useGetProductsQuery } from 'src/api/Products.api';
+import { IProductCatalog } from 'src/types/products.types';
 
-import "./style.scss";
+import './style.scss';
 
 interface IProps {
   selectedCategory: number | undefined;
@@ -19,30 +19,33 @@ const Catalog: FC<IProps> = ({ selectedCategory }) => {
   });
 
   const handleClick = (value: boolean) => {
-    document.body.style.overflow = value ? "hidden" : "auto";
+    document.body.style.overflow = value ? 'hidden' : 'auto';
     setIsShow(value);
   };
 
   return (
-    <section className="cart">
-      <div className="container">
-        <h2 className="cart-title">Все блюда</h2>
-        <div className="cart-wrapper">
+    <section className='cart'>
+      <div className='container'>
+        <h2 className='cart-title'>Все блюда</h2>
+        <div className='cart-wrapper'>
           {isLoading
             ? Array(6)
                 .fill(5)
                 .map(() => <MenuSkeleton key={Math.random()} />)
             : products?.map((item) => (
+                <div onClick={() => setPhotoDetail(item)}>
                   <Item
                     key={item.id}
                     {...item}
                     setIsShow={() => handleClick(true)}
-                    onClick={() => setPhotoDetail(item)}
                   />
+                </div>
               ))}
         </div>
       </div>
-      {isShow && <FoodDetail setIsShow={() => handleClick(false)} item={PhotoDetail} />}
+      {isShow && (
+        <FoodDetail setIsShow={() => handleClick(false)} item={PhotoDetail} />
+      )}
     </section>
   );
 };

@@ -11,7 +11,6 @@ import './style.scss';
 
 interface IProps extends IProductCatalog {
   setIsShow: () => void;
-  onClick: () => void;
 }
 
 const Item: FC<IProps> = ({
@@ -22,7 +21,6 @@ const Item: FC<IProps> = ({
   category,
   weight,
   setIsShow,
-  onClick,
   modificators,
 }) => {
   const [count, setCount] = useState<number>(0);
@@ -31,7 +29,6 @@ const Item: FC<IProps> = ({
 
   const handleClick = () => {
     if (modificators && modificators.length > 0) {
-      onClick();
       setIsShow();
     } else {
       setCount((prev) => prev + 1);
