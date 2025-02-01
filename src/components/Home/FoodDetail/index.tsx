@@ -1,24 +1,25 @@
-import { FC, useState } from 'react';
-import { IProductCatalog } from 'src/types/products.types';
-import { useGesture } from '@use-gesture/react';
+import { FC, useState } from "react";
+import { IProductCatalog } from "src/types/products.types";
+import { useGesture } from "@use-gesture/react";
 
-import addContainer from './add-container.svg';
-import close from './close.svg';
-import minus from './minus.svg';
-import plus from './plus.svg';
+import addContainer from "./add-container.svg";
+import close from "./close.svg";
+import minus from "./minus.svg";
+import plus from "./plus.svg";
 
-import './style.scss';
+import "./style.scss";
 
 interface IProps {
-  item?: IProductCatalog,
+  item?: IProductCatalog;
   setIsShow: () => void;
   isShow: boolean;
 }
 
 const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
-  const [sugar, setSugar] = useState('');
+  const [sugar, setSugar] = useState<"with" | "without">("with");
   const [containerAdd, setContainerAdd] = useState(0);
   const [counter, setCounter] = useState(1);
+  const [selectedSize, setSelectedSize] = useState("Маленький");
 
   const handleCounterChange = (delta: number) => {
     setCounter((prev) => Math.max(1, prev + delta));
@@ -31,7 +32,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
       counter,
     };
 
-    console.log('Выбранные данные:', selectedData);
+    console.log("Выбранные данные:", selectedData);
   };
 
   const bind = useGesture({
@@ -43,17 +44,17 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
   });
 
   return (
-    <div className={'food-detail' + (isShow ? ' active' : '')}>
-      <img src={close} alt='' className='close' onClick={setIsShow} />
-      <div {...bind()} className='img-wrapper'>
-        <img src={item?.productPhoto} alt='' />
+    <div className={"food-detail" + (isShow ? " active" : "")}>
+      <img src={close} alt="" className="close" onClick={setIsShow} />
+      <div {...bind()} className="img-wrapper">
+        <img src={item?.productPhoto} alt="" />
       </div>
-      <div className='food-detail__content'>
-        <div className='description'>
+      <div className="food-detail__content">
+        <div className="description">
           <h2>{item?.productName}</h2>
           <p>Кофейный напиток с добавлением молока</p>
         </div>
-        <div className='ingridients'>
+        <div className="ingridients">
           <h2>Состав</h2>
           <ul>
             <li>
@@ -70,135 +71,141 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
             </li>
           </ul>
         </div>
-        <div className='sugar'>
-          <div className='flex items-center justify-between'>
+        <div className="sugar">
+          <div className="flex items-center justify-between">
             <h2>С сахаром или без?</h2>
-            <div className='required'>Обязательно*</div>
+            <div className="required">Обязательно*</div>
           </div>
-          <div className='sugar__content'>
-            <div className='sugar__item'>
-              <label className='checkbox'>
+          <div className="sugar__content">
+            <div className="sugar__item">
+              <label className="checkbox">
                 <input
-                  type='radio'
-                  checked={sugar === 'with' ? true : false}
+                  type="radio"
+                  checked={sugar === "with" ? true : false}
                   value={sugar}
-                  onChange={() => setSugar('with')}
+                  onChange={() => setSugar("with")}
                 />
                 <span>C cахаром</span>
               </label>
-              <div className='price'>+10 с</div>
+              <div className="price">+10 с</div>
             </div>
-            <hr className='my-[8px]' />
-            <div className='sugar__item'>
-              <label className='checkbox'>
+            <hr className="my-[8px]" />
+            <div className="sugar__item">
+              <label className="checkbox">
                 <input
-                  type='radio'
-                  checked={sugar === 'without' ? true : false}
+                  type="radio"
+                  checked={sugar === "without" ? true : false}
                   value={sugar}
-                  onChange={() => setSugar('without')}
+                  onChange={() => setSugar("without")}
                 />
                 <span>Без cахара</span>
               </label>
-              <div className='price'>Бесплатно</div>
+              <div className="price">Бесплатно</div>
             </div>
           </div>
         </div>
-        <div className='size'>
-          <div className='flex items-center justify-between'>
+        <div className="size">
+          <div className="flex items-center justify-between">
             <h2>Выберите размер</h2>
-            <div className='required'>Обязательно*</div>
+            <div className="required">Обязательно*</div>
           </div>
-          <div className='size__content'>
-            <div className='size__item active'>
-              <span>Маленький</span>
-              <div className='price'>110 с</div>
-            </div>
-            <div className='size__item'>
-              <span>Средний</span>
-              <div className='price'>150 с</div>
-            </div>
-            <div className='size__item'>
-              <span>Большой</span>
-              <div className='price'>180 с</div>
-            </div>
+          <div className="size__content">
+            {["Маленький", "Средний", "Большой"].map((size, index) => (
+              <div
+                key={index}
+                className={`size__item ${
+                  selectedSize === size ? "active" : ""
+                }`} 
+                onClick={() => setSelectedSize(size)}
+              >
+                <span>{size}</span>
+                <div className="price">
+                  {size === "Маленький"
+                    ? "110 с"
+                    : size === "Средний"
+                    ? "150 с"
+                    : "180 с"}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-        <div className='case'>
-          <div className='flex gap-[12px]'>
+        <div className="case">
+          <div className="flex gap-[12px]">
             {containerAdd ? (
-              <div className='flex gap-[12px]'>
+              <div className="flex gap-[12px]">
                 <img
                   src={minus}
-                  alt=''
+                  alt=""
                   onClick={() => setContainerAdd(containerAdd - 1)}
                 />
                 {containerAdd}
                 <img
                   src={plus}
-                  alt=''
+                  alt=""
                   onClick={() => setContainerAdd(containerAdd + 1)}
                 />
               </div>
             ) : (
               <img
                 src={addContainer}
-                alt=''
+                alt=""
                 onClick={() => setContainerAdd(1)}
               />
             )}
             <span>Контейнер</span>
           </div>
-          <div className='price'>+20 с</div>
+          <div className="price">+20 с</div>
         </div>
       </div>
-      <footer className='counter'>
-        <div className='counter__left'>
+      <footer className="counter">
+        <div className="counter__left">
           <svg
             onClick={() => handleCounterChange(-1)}
-            width='24'
-            height='24'
-            viewBox='0 0 24 24'
-            fill='none'
-            xmlns='http://www.w3.org/2000/svg'
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d='M3.75 12H20.25'
-              stroke='black'
-              strokeWidth='1.5'
-              strokeLinecap='round'
-              strokeLinejoin='round'
+              d="M3.75 12H20.25"
+              stroke="black"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
           <span
-            style={{ margin: '0 12px', fontSize: '16px', fontWeight: 'bold' }}
+            style={{ margin: "0 12px", fontSize: "16px", fontWeight: "bold" }}
           >
             {counter}
           </span>
           <svg
             onClick={() => handleCounterChange(1)}
-            width='24'
-            height='24'
-            viewBox='0 0 24 24'
-            fill='none'
-            xmlns='http://www.w3.org/2000/svg'
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d='M3.75 12H20.25'
-              stroke='black'
-              strokeWidth='1.5'
-              strokeLinecap='round'
-              strokeLinejoin='round'
+              d="M3.75 12H20.25"
+              stroke="black"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
-              d='M12 3.75V20.25'
-              stroke='black'
-              strokeWidth='1.5'
-              strokeLinecap='round'
-              strokeLinejoin='round'
+              d="M12 3.75V20.25"
+              stroke="black"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         </div>
-        <div className='counter__right'>
+        <div className="counter__right">
           <button onClick={handleDone}>Готово</button>
         </div>
       </footer>

@@ -1,13 +1,12 @@
 .swiper {
     @apply mt-[20px];
-
     &__burger {
       @apply top-[50%] right-0 absolute;
         transform: translate(0px, -50%);
     }
 
     &__item {
-        @apply rounded-lg overflow-hidden w-full h-[100px];
+        @apply rounded-lg overflow-hidden w-full h-[100px] ml-[-40px];
 
         &.another {
             @apply w-full h-[100px] py-[16px] px-[24px] relative;
