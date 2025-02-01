@@ -88,6 +88,7 @@ const Item: FC<IProps> = ({
           alt='img'
           onLoad={() => setIsLoaded(true)}
           className={isLoaded ? '' : 'hidden'}
+          onClick={setIsShow}
         />
       </div>
       <div className='cart-info'>

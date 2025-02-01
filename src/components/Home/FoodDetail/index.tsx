@@ -32,8 +32,6 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item }) => {
     console.log('Выбранные данные:', selectedData);
   };
 
-  console.log(item);
-
   return (
     <div className='food-detail'>
       <img src={close} alt='' className='close' onClick={setIsShow} />
@@ -42,7 +40,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item }) => {
       </div>
       <div className='food-detail__content'>
         <div className='description'>
-          <h2>Капучино</h2>
+          <h2>{item?.productName}</h2>
           <p>Кофейный напиток с добавлением молока</p>
         </div>
         <div className='ingridients'>
