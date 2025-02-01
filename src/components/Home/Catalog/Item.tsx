@@ -31,8 +31,8 @@ const Item: FC<IProps> = ({
 
   const handleClick = () => {
     if (modificators && modificators.length > 0) {
-      setIsShow();
       onClick();
+      setIsShow();
     } else {
       setCount((prev) => prev + 1);
       dispatch(
