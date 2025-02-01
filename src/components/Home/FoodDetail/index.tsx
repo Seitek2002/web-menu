@@ -1,19 +1,21 @@
 import { FC, useState } from 'react';
+import { IProductCatalog } from 'src/types/products.types';
+import { useGesture } from '@use-gesture/react';
 
 import addContainer from './add-container.svg';
 import close from './close.svg';
 import minus from './minus.svg';
 import plus from './plus.svg';
-import { IProductCatalog } from 'src/types/products.types';
 
 import './style.scss';
 
 interface IProps {
   item?: IProductCatalog,
   setIsShow: () => void;
+  isShow: boolean;
 }
 
-const FoodDetail: FC<IProps> = ({ setIsShow, item }) => {
+const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
   const [sugar, setSugar] = useState('');
   const [containerAdd, setContainerAdd] = useState(0);
   const [counter, setCounter] = useState(1);
@@ -32,10 +34,18 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item }) => {
     console.log('Выбранные данные:', selectedData);
   };
 
+  const bind = useGesture({
+    onDrag: ({ movement: [, y], down }) => {
+      if (!down && y > 100) {
+        setIsShow(); // Закрываем компонент при свайпе вниз
+      }
+    },
+  });
+
   return (
-    <div className='food-detail'>
+    <div className={'food-detail' + (isShow ? ' active' : '')}>
       <img src={close} alt='' className='close' onClick={setIsShow} />
-      <div className='img-wrapper'>
+      <div {...bind()} className='img-wrapper'>
         <img src={item?.productPhoto} alt='' />
       </div>
       <div className='food-detail__content'>

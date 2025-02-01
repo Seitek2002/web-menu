@@ -43,9 +43,7 @@ const Catalog: FC<IProps> = ({ selectedCategory }) => {
               ))}
         </div>
       </div>
-      {isShow && (
-        <FoodDetail setIsShow={() => handleClick(false)} item={PhotoDetail} />
-      )}
+      <FoodDetail setIsShow={() => handleClick(false)} item={PhotoDetail} isShow={isShow} />
     </section>
   );
 };
