@@ -11,7 +11,7 @@ import './style.scss';
 
 interface IProps extends IProductCatalog {
   setIsShow: () => void;
-  onClick?: () => void;
+  onClick: () => void;
 }
 
 const Item: FC<IProps> = ({
@@ -22,6 +22,7 @@ const Item: FC<IProps> = ({
   category,
   weight,
   setIsShow,
+  onClick,
   modificators,
 }) => {
   const [count, setCount] = useState<number>(0);
@@ -31,6 +32,7 @@ const Item: FC<IProps> = ({
   const handleClick = () => {
     if (modificators && modificators.length > 0) {
       setIsShow();
+      onClick();
     } else {
       setCount((prev) => prev + 1);
       dispatch(
@@ -86,7 +88,6 @@ const Item: FC<IProps> = ({
           alt='img'
           onLoad={() => setIsLoaded(true)}
           className={isLoaded ? '' : 'hidden'}
-          onClick={setIsShow}
         />
       </div>
       <div className='cart-info'>

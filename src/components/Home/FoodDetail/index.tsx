@@ -6,11 +6,10 @@ import minus from './minus.svg';
 import plus from './plus.svg';
 import { IProductCatalog } from 'src/types/products.types';
 
-
 import './style.scss';
 
 interface IProps {
-  item?:IProductCatalog,
+  item?: IProductCatalog,
   setIsShow: () => void;
 }
 
@@ -32,6 +31,8 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item }) => {
 
     console.log('Выбранные данные:', selectedData);
   };
+
+  console.log(item);
 
   return (
     <div className='food-detail'>
