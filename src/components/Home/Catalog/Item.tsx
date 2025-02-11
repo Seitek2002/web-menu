@@ -94,13 +94,13 @@ const Item: FC<IProps> = ({
       </div>
       <h4 className='cart-name'>{productName}</h4>
       {count === 0 ? (
-        <button className='cart-btn' onClick={handleClick}>
+        <button className='cart-btn bg-[#F1F2F3] text-[#000]' onClick={handleClick}>
           Добавить
         </button>
       ) : (
-        <div className='cart-btn active'>
+        <div className='cart-btn active bg-[#875AFF]'>
           <img onClick={handleUnClick} src={whiteMinus} alt='minus' />
-          <span className='cart-count'>{count}</span>
+          <span className='cart-count text-[#fff]'>{count}</span>
           <img onClick={handleClick} src={whitePlus} alt='plus' />
         </div>
       )}

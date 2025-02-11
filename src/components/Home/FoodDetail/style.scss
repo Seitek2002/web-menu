@@ -1,5 +1,5 @@
 .food-detail {
-  @apply bg-[#F1F2F3] fixed top-[100%] left-0 w-full h-full z-[100] overflow-scroll transition-all duration-300;
+  @apply fixed top-[100%] left-0 w-full h-full z-[100] overflow-scroll transition-all duration-300;
 
   &.active {
     @apply top-[14px];
@@ -99,15 +99,15 @@
   }
 
   .counter{
-    @apply bg-white grid grid-cols-2 items-center gap-[12px] pt-[30px] pb-[40px] px-[16px];
+    @apply grid grid-cols-2 items-center gap-[12px] pt-[30px] pb-[40px] px-[16px];
 
     &__left{
-      @apply flex justify-between gap-[34px] bg-[#F1F2F3] px-[8px] py-[16px] rounded-[12px] font-semibold;
+      @apply flex justify-between gap-[34px] px-[8px] py-[16px] rounded-[12px] font-semibold;
     }
 
     &__right{
       button{
-        @apply w-full bg-[#875AFF] text-[#fff] font-semibold px-[42px] py-[16px] rounded-[12px]; 
+        @apply w-full font-semibold px-[42px] py-[16px] rounded-[12px]; 
       }
     }
   }

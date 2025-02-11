@@ -24,26 +24,26 @@ const SiteHeader: FC = () => {
   return (
     <header className='siteHeader'>
       <div className='container'>
-        <div className='siteHeader__content'>
+        <div className='siteHeader__content bg-[#fff]'>
           <div className='siteHeader__logo'>
             <img src={logo} alt='logo' />
             <div className='siteHeader__info'>
-              <p className='siteHeader__name'>iMenu.kg</p>
+              <p className='siteHeader__name text-[#090A0B]'>iMenu.kg</p>
             </div>
           </div>
           <div className='siteHeader__block'>
-            <div className='siteHeader__user'>
+            <div className='siteHeader__user bg-[#F9F9F9]'>
               <img src={user} alt='user' />
             </div>
             <div
               className={
                 isLanguageOpen
                   ? 'siteHeader__language active'
-                  : 'siteHeader__language'
+                  : 'siteHeader__language text-[#090A0B]'
               }
             >
               <div
-                className={`siteHeader__language-selected ${
+                className={`siteHeader__language-selected bg-[#F9F9F9] ${
                   isLanguageOpen ? 'active' : ''
                 }`}
                 onClick={toggleLanguageMenu}
@@ -52,7 +52,7 @@ const SiteHeader: FC = () => {
                 {active} <img src={arrow} alt='arrow' />{' '}
               </div>
               <div
-                className={`siteHeader__wrapper ${
+                className={`siteHeader__wrapper bg-[#F9F9F9] ${
                   isLanguageOpen ? 'active' : ''
                 }`}
               >
@@ -60,7 +60,7 @@ const SiteHeader: FC = () => {
                   .filter((item) => item != active)
                   .map((item) => (
                     <div
-                      className='siteHeader__item'
+                      className='siteHeader__item text-[#090A0B]'
                       onClick={() => selectLanguage(item)}
                       key={item}
                     >

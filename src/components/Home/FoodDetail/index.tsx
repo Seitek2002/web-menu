@@ -44,7 +44,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
   });
 
   return (
-    <div className={"food-detail" + (isShow ? " active" : "")}>
+    <div className={"food-detail bg-[#F1F2F3]" + (isShow ? " active" : "")}>
       <img src={close} alt="" className="close" onClick={setIsShow} />
       <div {...bind()} className="img-wrapper">
         <img src={item?.productPhoto} alt="" />
@@ -158,8 +158,8 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
           <div className="price">+20 с</div>
         </div>
       </div>
-      <footer className="counter">
-        <div className="counter__left">
+      <footer className="counter bg-[#fff]">
+        <div className="counter__left bg-[#F1F2F3]">
           <svg
             onClick={() => handleCounterChange(-1)}
             width="24"
@@ -205,7 +205,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
             />
           </svg>
         </div>
-        <div className="counter__right">
+        <div className="counter__right bg-[#875AFF] text-[#fff]">
           <button onClick={handleDone}>Готово</button>
         </div>
       </footer>
