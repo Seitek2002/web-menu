@@ -1,30 +1,33 @@
 .swiper {
-    @apply mt-[20px];
-    &__burger {
-      @apply top-[50%] right-0 absolute;
-        transform: translate(0px, -50%);
-    }
+  @apply mt-[20px];
 
-    &__item {
-        @apply rounded-lg overflow-hidden w-full h-[100px] ml-[-40px];
+  &__burger {
+    @apply top-[50%] right-0 absolute;
+    transform: translate(0px, -50%);
+  }
 
-        &.another {
-            @apply w-full h-[100px] py-[16px] px-[24px] relative;
-            background: linear-gradient(90deg, #BC1D77 0%, #6942A8 100%);
-        }
-    }
+  &__item {
+    @apply rounded-lg overflow-hidden w-full h-[100px] ml-[-40px];
 
-    &__bg {
-        @apply object-cover w-full h-full rounded-[8px];
+    &.another {
+      @apply w-full h-[100px] py-[16px] px-[24px] relative;
+      background: linear-gradient(90deg, #bc1d77 0%, #6942a8 100%);
     }
+  }
 
-    &__name {
-        @apply font-baloo text-[#fff] text-[15px] font-[400];
-    }
-    &__top {
-        @apply flex items-center gap-[8px];
-    }
-    &__text {
-        @apply text-[#DFC0DD] text-[12px] font-[500] max-w-[221px];
-    }
+  &__bg {
+    @apply object-cover w-full h-full rounded-[8px];
+  }
+
+  &__name {
+    @apply font-baloo text-[15px] font-[400];
+  }
+
+  &__top {
+    @apply flex items-center gap-[8px];
+  }
+
+  &__text {
+    @apply text-[12px] font-[500] max-w-[221px];
+  }
 }

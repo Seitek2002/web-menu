@@ -11,15 +11,15 @@ const Head: React.FC<HeadProps> = ({renameTitleHead}) => {
     return (
         <>
             <div className="busket-top">
-                <Link to="/" className="busket-wrapper-img">
+                <Link to="/" className="busket-wrapper-img bg-[#FFF]">
                     <img src={back} alt="back" />
                 </Link>
                 <h1 className="busket-title">Корзина</h1>
-                <div className="busket-wrapper-img" onClick={renameTitleHead}>
+                <div className="busket-wrapper-img bg-[#FFF]" onClick={renameTitleHead}>
                     <img src={delet} alt="delete" />
                 </div>
             </div>
-            <div className="busket-table">Стол №12</div>
+            <div className="busket-table bg-[#FFF]">Стол №12</div>
         </>
     );
 };

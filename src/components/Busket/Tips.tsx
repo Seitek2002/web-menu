@@ -8,14 +8,14 @@ const Tips: React.FC = () => {
 
     return (
         <>
-            <div className="busket-tips">
+            <div className="busket-tips bg-[#fff]">
                 <h3 className="busket-tips-title">Чаевые</h3>
                 <div className="busket-tips-info">
                     <div className="busket-tips-ava">
                         <img src={ava} alt="ava" />
                     </div>
                     <div className="busket-tips-inner">
-                        <span className="busket-tips-job">Официант</span>
+                        <span className="busket-tips-job text-[#626576]">Официант</span>
                         <span className="busket-tips-name">
                             Имнакулов Дамир
                         </span>
@@ -24,7 +24,7 @@ const Tips: React.FC = () => {
                 <div className="busket-tips-wrapper">
                     {
                         list.map((item, index) => (
-                        <div key={index} onClick={() => setActive(index)} className={active === index ? "busket-tips-item active" : "busket-tips-item"}>
+                        <div key={index} onClick={() => setActive(index)} className={active === index ? "busket-tips-item active bg-[#875AFF] text-[#fff]" : "busket-tips-item bg-[#F9F9F9]"}>
                             {
                                 item ? (
                                     item

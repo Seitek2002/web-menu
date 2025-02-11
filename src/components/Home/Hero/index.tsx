@@ -38,10 +38,10 @@ const Hero: FC = () => {
             <SwiperSlide>
                 <div className="swiper__item another">
                     <div className="swiper__top">
-                        <h4 className="swiper__name">iMenu.kg</h4>
+                        <h4 className="swiper__name text-[#fff]">iMenu.kg</h4>
                         <img src={arrow} alt="arrow" />
                     </div>
-                    <p className="swiper__text">
+                    <p className="swiper__text text-[#DFC0DD]">
                         Заказывай еду и не трать время! (Какой нибудь текст про
                         платформу)
                     </p>

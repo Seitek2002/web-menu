@@ -10,10 +10,10 @@ const Modal: FC<ModalProps> = ({ title, children, onClose }) => {
     return (
         <>
             <div className="busket-modal"> 
-                <div onClick={onClose} className="busket-modal-bg"></div>
+                <div onClick={onClose} className="busket-modal-bg bg-[#A9AAAB]"></div>
                 <div className="container">
-                    <div className="busket-modal-wrapper">
-                        <h2 className="busket-modal-title">
+                    <div className="busket-modal-wrapper bg-[#fff]">
+                        <h2 className="busket-modal-title text-[#090A0B]">
                             {title}
                         </h2>
                         {children}

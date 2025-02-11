@@ -89,8 +89,8 @@ const Item: FC<IProps> = ({
         />
       </div>
       <div className='cart-info'>
-        <span className='cart-price'>{productPrice} с</span>
-        {/* <span className="cart-category">•{category.categoryName}</span> */}
+        <span className='cart-price text-[#875AFF]'>{productPrice} с</span>
+        {/* <span className="cart-weight text-[#ADADAD]">•{category.categoryName}</span> */}
       </div>
       <h4 className='cart-name'>{productName}</h4>
       {count === 0 ? (

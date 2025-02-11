@@ -29,10 +29,10 @@ const ForgotCart: React.FC = () => {
 
     return (
         <>
-            <div className="busket-detail">
+            <div className="busket-detail bg-white">
                 <div className="busket-detail-top">
                     <h4 className="busket-detail-name">Детали</h4>
-                    <h4 className="busket-detail-required">Обязательно*</h4>
+                    <h4 className="busket-detail-required text-[#875AFF]">Обязательно*</h4>
                 </div>
                 <input
                     className="busket-detail-input first"
@@ -46,7 +46,7 @@ const ForgotCart: React.FC = () => {
 
                 <input
                     type="text"
-                    className="busket-detail-input"
+                    className="busket-detail-input placeholder:text-[#80868B]"
                     placeholder="Напишите время заказа или коментарий"
                 />
             </div>

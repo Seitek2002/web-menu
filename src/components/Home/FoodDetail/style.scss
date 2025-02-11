@@ -23,15 +23,15 @@
   }
 
   h2 {
-    @apply text-[16px] text-[#090A0B] font-semibold;
+    @apply text-[16px] font-semibold;
   }
 
   p {
-    @apply text-[14px] text-[#090A0B];
+    @apply text-[14px];
   }
 
   ul {
-    @apply list-disc text-[14px] text-[#090A0B] pl-5;
+    @apply list-disc text-[14px] pl-5;
   }
 
   input {
@@ -55,11 +55,11 @@
   }
 
   .required {
-    @apply text-[#875AFF] text-[12px];
+    @apply text-[12px];
   }
 
   .price {
-    @apply text-[#626576] text-[14px];
+    @apply text-[14px];
   }
 
   .sugar {
