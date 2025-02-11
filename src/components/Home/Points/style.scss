@@ -10,7 +10,7 @@
   }
 
   &-wrapper {
-    @apply w-[56px] h-[56px] rounded-[50%] bg-[#F9F9F9] flex items-center justify-center mx-auto overflow-hidden border border-solid border-white;
+    @apply w-[56px] h-[56px] rounded-[50%] flex items-center justify-center mx-auto overflow-hidden border border-solid;
 
     img {
       @apply max-w-full h-full object-cover;
@@ -19,12 +19,6 @@
 
   p {
     @apply mt-[8px] font-medium text-[12px] text-center leading-tight;
-  }
-}
-
-.point-item.active {
-  .point-wrapper {
-    @apply bg-[#875AFF] border-[#875AFF];
   }
 }
 

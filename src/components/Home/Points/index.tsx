@@ -37,7 +37,7 @@ const Points: FC<IProps> = ({ onCategoryChange }) => {
             className={`point-item ${active === -1 ? 'active' : ''}`}
             onClick={clickShow}
           >
-            <div className='point-wrapper'>
+            <div className='point-wrapper bg-[#F9F9F9] border-white'>
               <img src={search} alt='icon' />
             </div>
             <p>Поиск</p>
@@ -46,7 +46,7 @@ const Points: FC<IProps> = ({ onCategoryChange }) => {
             className={`point-item ${active === 0 ? 'active' : ''}`}
             onClick={() => selectCategory(0)}
           >
-            <div className='point-wrapper'>
+            <div className={`point-wrapper ${active === 0 ? 'bg-[#875AFF] border-[#875AFF]' : 'border-white'}`}>
               <img src={all} alt='icon' />
             </div>
             <p>Все</p>
@@ -67,7 +67,7 @@ const Points: FC<IProps> = ({ onCategoryChange }) => {
                   key={item.id}
                   onClick={() => selectCategory(item.id)}
                 >
-                  <div className='point-wrapper'>
+                  <div className={`point-wrapper ${active === item.id ? 'bg-[#875AFF] border-[#875AFF]' : 'border-white'}`}>
                     <img src={item.categoryPhoto} alt='icon' />
                   </div>
                   <p>{item.categoryName}</p>
