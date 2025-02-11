@@ -1,11 +1,13 @@
-import AppRoutes from './router/routes'
+import AppRoutes from './router/routes';
 
-import './App.scss'
+import './App.scss';
 
 function App() {
   return (
-    <AppRoutes />
-  )
+    <div className='font-inter bg-[#F1F2F3]'>
+      <AppRoutes />
+    </div>
+  );
 }
 
-export default App
+export default App;

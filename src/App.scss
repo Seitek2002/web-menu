@@ -1,11 +1,11 @@
 body {
-    @apply font-inter m-0 bg-[#F1F2F3];
+  @apply m-0;
 }
 
 .container {
-    @apply px-[16px];
+  @apply px-[16px];
 }
 
 input {
-    @apply outline-none;
+  @apply outline-none;
 }
