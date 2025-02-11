@@ -4,6 +4,7 @@ import 'swiper/swiper-bundle.css';
 import App from './App.tsx'
 import { Provider } from 'react-redux';
 import store from './store/index.ts';
+import "./i18n";
 
 import './index.scss';
 

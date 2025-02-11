@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { useTranslation } from "react-i18next";
 
 import logo from "../../../assets/icons/Header/logo.svg";
 import clock from "../../../assets/icons/Header/Clock.svg";
@@ -6,6 +7,7 @@ import clock from "../../../assets/icons/Header/Clock.svg";
 import "./style.scss";
 
 const Header: FC = () => {
+    const { t } = useTranslation();
     return (
         <header className="header">
             <div className="container">
@@ -21,7 +23,7 @@ const Header: FC = () => {
                         </div>
                     </div>
                     <div className="header__table bg-[#fff]">
-                        <p className="text-[#626576]">Стол №12</p>
+                        <p className="text-[#626576]">{t("table")}</p>
                     </div>
                 </div>
             </div>
