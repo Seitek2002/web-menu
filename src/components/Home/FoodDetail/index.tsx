@@ -73,7 +73,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
             </li>
           </ul>
         </div>
-        <div className='sugar'>
+        <div className='sugar bg-[#fff]'>
           <div className='flex items-center justify-between'>
             <h2 className='text-[#090A0B]'>С сахаром или без?</h2>
             <div className='required text-[#875AFF]'>Обязательно*</div>
@@ -115,8 +115,8 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
             {['Маленький', 'Средний', 'Большой'].map((size, index) => (
               <div
                 key={index}
-                className={`size__item ${
-                  selectedSize === size ? 'active' : ''
+                className={`size__item bg-white ${
+                  selectedSize === size ? 'active border-[#875AFF]' : ''
                 }`}
                 onClick={() => setSelectedSize(size)}
               >

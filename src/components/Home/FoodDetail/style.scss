@@ -64,33 +64,33 @@
 
   .sugar {
     &__content {
-      @apply bg-white p-[12px] rounded-[12px] mt-[8px];
+      @apply p-[12px] rounded-[12px] mt-[8px];
     }
 
     &__item {
-        @apply flex items-center justify-between;
+      @apply flex items-center justify-between;
 
-        label {
-            @apply flex gap-[4px];
-        }
+      label {
+        @apply flex gap-[4px];
+      }
     }
   }
 
   .size {
     &__content {
-        @apply grid grid-cols-3 gap-[8px] text-center;
+      @apply grid grid-cols-3 gap-[8px] text-center;
     }
 
     &__item {
-        @apply bg-white p-[12px] rounded-[8px] mt-[8px];
+      @apply p-[12px] rounded-[8px] mt-[8px];
 
-        span {
-            @apply text-xs;
-        }
+      span {
+        @apply text-xs;
+      }
 
-        &.active {
-            @apply border-[#875AFF] border-[1px];
-        }
+      &.active {
+        @apply border-[1px];
+      }
     }
   }
 
@@ -98,16 +98,16 @@
     @apply flex justify-between items-center;
   }
 
-  .counter{
+  .counter {
     @apply grid grid-cols-2 items-center gap-[12px] pt-[30px] pb-[40px] px-[16px];
 
-    &__left{
+    &__left {
       @apply flex justify-between gap-[34px] px-[8px] py-[16px] rounded-[12px] font-semibold;
     }
 
-    &__right{
-      button{
-        @apply w-full font-semibold px-[42px] py-[16px] rounded-[12px]; 
+    &__right {
+      button {
+        @apply w-full font-semibold px-[42px] py-[16px] rounded-[12px];
       }
     }
   }

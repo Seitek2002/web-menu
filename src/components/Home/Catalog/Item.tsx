@@ -64,7 +64,7 @@ const Item: FC<IProps> = ({
   };
 
   return (
-    <div className='cart-block'>
+    <div className='cart-block bg-white'>
       <div className='cart-img'>
         {!isLoaded && (
           <ContentLoader
