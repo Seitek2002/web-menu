@@ -1,8 +1,8 @@
 .footer {
-    @apply bg-[#fff] py-[12px] fixed bottom-0 left-0 w-full;
+    @apply py-[12px] fixed bottom-0 left-0 w-full;
 
     button {
-        @apply bg-[#875AFF] text-[#fff] w-full relative py-[16px] rounded-[12px] font-semibold text-[16px];
+        @apply w-full relative py-[16px] rounded-[12px] font-semibold text-[16px];
 
         span {
             @apply absolute top-[35%] right-[26px] font-normal text-[14px];

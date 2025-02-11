@@ -14,10 +14,10 @@ const Footer: FC = () => {
   if(!cart.length) return null;
 
   return (
-    <footer className='footer'>
+    <footer className='footer bg-[#fff]'>
       <div className='container'>
         <Link to='/cart' className='footer__content'>
-          <button> 
+          <button className='bg-[#875AFF] text-[#fff]'> 
             {buttonText}
             <span>{ cart.reduce((acc, item) => acc + +item.productPrice * item.quantity, 0) } с</span>
           </button>
