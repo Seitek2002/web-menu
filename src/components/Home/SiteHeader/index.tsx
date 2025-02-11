@@ -44,7 +44,6 @@ const SiteHeader: FC = () => {
         <div className="siteHeader__content bg-[#fff]">
           <div className="siteHeader__logo">
             <div>
-              <p>{t("welcome")}</p>
             </div>
             <img src={logo} alt="logo" />
             <div className="siteHeader__info">

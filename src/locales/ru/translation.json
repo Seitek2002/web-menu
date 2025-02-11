@@ -1,4 +1,48 @@
 {
-    "table": "стол №12"
+    "table": "стол №12",
+    "title": "Жираф",
+    "statusCard": {
+        "accepted": "Ваш заказ принят!",
+        "review": "Ожидайте в течении 15-20 минут"
+    },
+    "message": {
+        "accepted": "Ваш заказ в рассмотрении",
+        "review": "В ближайшее время админ свяжется с Вами и уточнит детали"
+    },
+    "swiperText": "Заказывай еду и не трать время!",
+    "point": {
+        "search": "Поиск",
+        "all": "Все"
+    },
+    "foodDetail": {
+        "ingredients": {
+            "structure": "Состав",
+            "sugar": {
+                "question": "С сахаром или без?",
+                "options": {
+                    "with_sugar": "С сахаром",
+                    "without_sugar": "Без сахара",
+                    "price":"+10 c",
+                    "free":"Бесплатно"
+                }
+            },
+            "necessarily": "Обязательно*"
+        }
+    },
+    "size": {
+        "sizeChoose": "Выберите размер",
+        "small": "Маленький",
+        "medium": "Средний",
+        "large": "Большой",
+        "price": {
+            "small": "110 с",
+            "medium": "150 с",
+            "large": "180 с"
+        }
+    },
+    "container":{
+        "container":"Контейнер",
+        "price":"+20 c"
+    },
+    "counter":"Готова"
 }
-  

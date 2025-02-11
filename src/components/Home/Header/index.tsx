@@ -15,7 +15,7 @@ const Header: FC = () => {
                     <div className="header__logo">
                         <img src={logo} alt="logo" />
                         <div className="header__info">
-                            <p className="header__name text-[#090A0B]">Жираф</p>
+                            <p className="header__name text-[#090A0B]">{t("title")}</p>
                             <div className="header__inner">
                                 <img src={clock} alt="icon" />
                                 <p className="header__time text-[#626576]">10:00 - 22:00</p>

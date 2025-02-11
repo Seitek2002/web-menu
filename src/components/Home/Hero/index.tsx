@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useTranslation } from "react-i18next";
 import OrderStatusCard from "../../OrderStatusCard";
 
 import one from "../../../assets/images/Slider/img-1.png";
@@ -10,6 +11,7 @@ import icon from "../../../assets/icons/Hero/icon.svg";
 import "./style.scss";
 
 const Hero: FC = () => {
+    const { t } = useTranslation();
     return (
         <Swiper
             className="swiper"
@@ -20,8 +22,8 @@ const Hero: FC = () => {
             <SwiperSlide>
                 <div className="swiper__item">
                     <OrderStatusCard
-                        title="Ваш заказ принят!"
-                        message="Ожидайте в течении 15-20 минут"
+                        title={t("statusCard.accepted")}
+                        message={t("statusCard.review")}
                         status="accepted"
                     />
                 </div>
@@ -29,8 +31,8 @@ const Hero: FC = () => {
             <SwiperSlide>
                 <div className="swiper__item">
                     <OrderStatusCard
-                        title="Ваш заказ в рассмотрении"
-                        message="В ближайшее время админ свяжется с Вами и уточнит детали"
+                        title={t("message.accepted")}
+                        message={t("message.review")}
                         status="pending"
                     />
                 </div>
@@ -42,8 +44,7 @@ const Hero: FC = () => {
                         <img src={arrow} alt="arrow" />
                     </div>
                     <p className="swiper__text text-[#DFC0DD]">
-                        Заказывай еду и не трать время! (Какой нибудь текст про
-                        платформу)
+                        -{t("swiperText")}
                     </p>
 
                     <img className="swiper__burger" src={icon} alt="burger" />
