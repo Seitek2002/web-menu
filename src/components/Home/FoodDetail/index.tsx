@@ -78,15 +78,16 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
             </li>
           </ul>
         </div>
-        <div className="sugar bg-[#fff]">
-          <div className="flex items-center justify-between">
-            <h2 className="text-[#090A0B]">
-              {t("foodDetail.ingredients.sugar.question")}
-            </h2>
-            <div className="required text-[#875AFF]">
-              {t("foodDetail.ingredients.necessarily")}
-            </div>
+        <div className="sugar__block flex items-center justify-between">
+          <h2 className="text-[#090A0B]">
+            {t("foodDetail.ingredients.sugar.question")}
+          </h2>
+          <div className="required text-[#875AFF]">
+            {t("foodDetail.ingredients.necessarily")}
           </div>
+        </div>
+        <div className="sugar bg-[#fff]">
+          <div className="flex items-center justify-between"></div>
           <div className="sugar__content">
             <div className="sugar__item">
               <label className="checkbox">

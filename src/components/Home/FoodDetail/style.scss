@@ -63,6 +63,7 @@
   }
 
   .sugar {
+    @apply rounded-[12px] p-[12px];
     &__content {
       @apply p-[12px] rounded-[12px] mt-[8px];
     }
@@ -106,6 +107,7 @@
     }
 
     &__right {
+      @apply rounded-[12px];
       button {
         @apply w-full font-semibold px-[42px] py-[16px] rounded-[12px];
       }
