@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+
 
 const ForgotCart: React.FC = () => {
     const [value, setValue] = useState("");
@@ -26,13 +28,14 @@ const ForgotCart: React.FC = () => {
         const formattedInput = formatPhoneNumber(input);
         setValue(formattedInput);
     };
+    const { t } = useTranslation();
 
     return (
         <>
             <div className="busket-detail bg-white">
                 <div className="busket-detail-top">
-                    <h4 className="busket-detail-name">Детали</h4>
-                    <h4 className="busket-detail-required text-[#875AFF]">Обязательно*</h4>
+                    <h4 className="busket-detail-name">{t("busket.detail")}</h4>
+                    <h4 className="busket-detail-required text-[#875AFF]">{t("foodDetail.ingredients.necessarily")}</h4>
                 </div>
                 <input
                     className="busket-detail-input first"
@@ -47,7 +50,7 @@ const ForgotCart: React.FC = () => {
                 <input
                     type="text"
                     className="busket-detail-input placeholder:text-[#80868B]"
-                    placeholder="Напишите время заказа или коментарий"
+                    placeholder={t("busket.comment")}
                 />
             </div>
         </>

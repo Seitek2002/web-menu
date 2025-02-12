@@ -1,48 +1,57 @@
 {
-    "table": "Table №12",
-    "title": "Giraffe",
-    "statusCard": {
-        "accepted": "Your order has been accepted!",
-        "review": "Please wait for 15-20 minutes"
-    },
-    "message": {
-        "accepted": "Your order is under review",
-        "review": "An admin will contact you shortly to clarify the details"
-    },
-    "swiperText": "Order food and don't waste time!",
-    "point": {
-        "search": "Search",
-        "all": "All"
-    },
-    "foodDetail": {
-        "ingredients": {
-            "structure": "Composition",
-            "sugar": {
-                "question": "With or without sugar?",
-                "options": {
-                    "with_sugar": "With sugar",
-                    "without_sugar": "Without sugar",
-                    "price": "+10 KGS",
-                    "free": "Free"
-                }
-            },
-            "necessarily": "Required*"
+  "table": "Table №12",
+  "title": "Giraffe",
+  "statusCard": {
+    "accepted": "Your order has been accepted!",
+    "review": "Please wait for 15-20 minutes"
+  },
+  "message": {
+    "accepted": "Your order is under review",
+    "review": "An admin will contact you shortly to clarify the details"
+  },
+  "swiperText": "Order food and don't waste time!",
+  "point": {
+    "search": "Search",
+    "all": "All"
+  },
+  "foodDetail": {
+    "ingredients": {
+      "structure": "Composition",
+      "sugar": {
+        "question": "With or without sugar?",
+        "options": {
+          "with_sugar": "With sugar",
+          "without_sugar": "Without sugar",
+          "price": "+10 KGS",
+          "free": "Free"
         }
-    },
-    "size": {
-        "sizeChoose": "Choose a size",
-        "small": "Small",
-        "medium": "Medium",
-        "large": "Large",
-        "price": {
-            "small": "110 KGS",
-            "medium": "150 KGS",
-            "large": "180 KGS"
-        }
-    },
-    "container": {
-        "container": "Container",
-        "price": "+20 KGS"
-    },
-    "counter": "Ready"
+      },
+      "necessarily": "Required*"
+    }
+  },
+  "size": {
+    "sizeChoose": "Choose a size",
+    "small": "Small",
+    "medium": "Medium",
+    "large": "Large",
+    "price": {
+      "small": "110 KGS",
+      "medium": "150 KGS",
+      "large": "180 KGS"
+    }
+  },
+  "container": {
+    "container": "Container",
+    "price": "+20 KGS"
+  },
+  "counter": "Ready",
+  "busket": {
+    "busketTitle": "Basket",
+    "detail": "Details",
+    "comment": "Write the order time or a comment",
+    "where": {
+      "takeaway": "Takeaway",
+      "dinein": "Dine-in"
+    }
+  }
 }

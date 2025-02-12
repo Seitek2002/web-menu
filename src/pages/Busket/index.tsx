@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useDispatch } from 'react-redux';
 import { setButtonText } from '../../store/yourFeatureSlice';
+import { useTranslation } from "react-i18next";
 
 import Item from '../../components/Busket/Item';
 import Head from '../../components/Busket/Head';
@@ -22,10 +23,11 @@ import item3 from '../../assets/images/Catalog/item-3.webp';
 import './style.scss';
 
 const Busket: FC = () => {
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const [length, setLength] = useState(true);
   const cart = useAppSelector((state) => state.yourFeature.items);
-  const [title, setTitle] = useState('Очистить корзину?');
+  const [title, setTitle] = useState(t("busket.modal.clear"));
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
@@ -36,7 +38,7 @@ const Busket: FC = () => {
       setLength(false);
     }
     return () => {
-      dispatch(setButtonText('Заказать'));
+      dispatch(setButtonText('Заказать!'));
     };
   }, [cart.length]);
 
@@ -80,7 +82,7 @@ const Busket: FC = () => {
 
   const renameTitleHead = () => {
     setModal(true);
-    setTitle('Очистить корзину?');
+    setTitle(t("busket.modal.clear"));
   };
   const renameTitlePlaces = () => {
     setModal(true);
@@ -120,31 +122,31 @@ const Busket: FC = () => {
 
         {modal && (
           <Modal title={title} onClose={() => setModal(false)}>
-            {title === 'Очистить корзину?' ? (
+            {title === t("busket.modal.clear")   ? (
               <div className='busket-modal-btns'>
                 <button
                   onClick={() => setModal(false)}
                   className='busket-modal-gray bg-[#F1F2F3] text-[#000]'
                 >
-                  Да
+                   {t("busket.modal.yes")}
                 </button>
                 <button
                   onClick={() => setModal(false)}
                   className='busket-modal-purple bg-[#875AFF] text-[#fff]'
                 >
-                  Отменить
+                  {t("busket.modal.no")}
                 </button>
               </div>
             ) : (
               <>
                 <p className='busket-modal-text text-[#727272]'>
-                  Вы можете оформить заказ с собой
+                {t("busket.modal.arrange")}
                 </p>
                 <button
                   onClick={() => setModal(false)}
                   className='busket-modal-btn text-[#090A0B] bg-[#F1F2F3]'
                 >
-                  Взять с собой
+                  {t("busket.modal.myself")}
                 </button>
               </>
             )}

@@ -4,6 +4,8 @@ import Item from './Item';
 import FoodDetail from '../FoodDetail';
 import { useGetProductsQuery } from 'src/api/Products.api';
 import { IProductCatalog } from 'src/types/products.types';
+import { useTranslation } from "react-i18next";
+
 
 import './style.scss';
 
@@ -22,11 +24,13 @@ const Catalog: FC<IProps> = ({ selectedCategory }) => {
     document.body.style.overflow = value ? 'hidden' : 'auto';
     setIsShow(value);
   };
+  const { t, i18n } = useTranslation();
+
 
   return (
     <section className='cart'>
       <div className='container'>
-        <h2 className='cart-title'>Все блюда</h2>
+        <h2 className='cart-title'>{t("cartTitle")}</h2>
         <div className='cart-wrapper'>
           {isLoading
             ? Array(6)
