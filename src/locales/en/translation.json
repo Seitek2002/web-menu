@@ -2,56 +2,73 @@
   "table": "Table №12",
   "title": "Giraffe",
   "statusCard": {
-    "accepted": "Your order has been accepted!",
-    "review": "Please wait for 15-20 minutes"
+      "accepted": "Your order has been accepted!",
+      "review": "Please wait for 15-20 minutes"
   },
   "message": {
-    "accepted": "Your order is under review",
-    "review": "An admin will contact you shortly to clarify the details"
+      "accepted": "Your order is under review",
+      "review": "An admin will contact you shortly to clarify the details"
   },
   "swiperText": "Order food and don't waste time!",
   "point": {
-    "search": "Search",
-    "all": "All"
+      "search": "Search",
+      "all": "All"
   },
+  "cartTitle": "All dishes",
   "foodDetail": {
-    "ingredients": {
-      "structure": "Composition",
-      "sugar": {
-        "question": "With or without sugar?",
-        "options": {
-          "with_sugar": "With sugar",
-          "without_sugar": "Without sugar",
-          "price": "+10 KGS",
-          "free": "Free"
-        }
-      },
-      "necessarily": "Required*"
-    }
+      "ingredients": {
+          "structure": "Composition",
+          "sugar": {
+              "question": "With or without sugar?",
+              "options": {
+                  "with_sugar": "With sugar",
+                  "without_sugar": "Without sugar",
+                  "price": "+10 KGS",
+                  "free": "Free"
+              }
+          },
+          "necessarily": "Required*"
+      }
   },
   "size": {
-    "sizeChoose": "Choose a size",
-    "small": "Small",
-    "medium": "Medium",
-    "large": "Large",
-    "price": {
-      "small": "110 KGS",
-      "medium": "150 KGS",
-      "large": "180 KGS"
-    }
+      "sizeChoose": "Choose a size",
+      "small": "Small",
+      "medium": "Medium",
+      "large": "Large",
+      "price": {
+          "small": "110 KGS",
+          "medium": "150 KGS",
+          "large": "180 KGS"
+      }
   },
   "container": {
-    "container": "Container",
-    "price": "+20 KGS"
+      "container": "Container",
+      "price": "+20 KGS"
   },
   "counter": "Ready",
   "busket": {
-    "busketTitle": "Basket",
-    "detail": "Details",
-    "comment": "Write the order time or a comment",
-    "where": {
-      "takeaway": "Takeaway",
-      "dinein": "Dine-in"
-    }
+      "busketTitle": "Basket",
+      "detail": "Details",
+      "comment": "Write the order time or a comment",
+      "where": {
+          "takeaway": "Takeaway",
+          "dinein": "Dine-in"
+      },
+      "button": {
+          "next": "Next!"
+      },
+      "forgot": "Did you forget anything?",
+      "tips": "Tips",
+      "job": "Waiter",
+      "modal": {
+          "clear": "Clear the basket?",
+          "yes": "Yes",
+          "no": "Cancel",
+          "arrange": "You can place an order for takeaway",
+          "myself": "Take it with you"
+      },
+      "footer": {
+          "order": "Order!"
+      }
   }
 }
