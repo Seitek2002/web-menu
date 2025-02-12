@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Home from '../pages/Home';
 import Cart from '../pages/Busket';
-import Footer from '../components/Footer';
+import Footer from '../components/Mobile/Footer';
 
 const AppRoutes = () => {
   return (

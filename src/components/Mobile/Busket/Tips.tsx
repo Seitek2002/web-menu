@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import ava from "../../assets/icons/Busket/ava.svg";
-import first from "../../assets/icons/Busket/first.svg";
+import ava from "../../../assets/icons/Busket/ava.svg";
+import first from "../../../assets/icons/Busket/first.svg";
 
 const Tips: React.FC = () => {
     const list = ["", "50 c", "100 c", "15 %", "20 %"]

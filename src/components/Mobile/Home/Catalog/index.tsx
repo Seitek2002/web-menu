@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import MenuSkeleton from '../../../skeletons/Menu';
+import MenuSkeleton from '../../../../skeletons/Menu';
 import Item from './Item';
 import FoodDetail from '../FoodDetail';
 import { useGetProductsQuery } from 'src/api/Products.api';

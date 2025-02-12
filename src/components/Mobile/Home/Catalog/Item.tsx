@@ -1,11 +1,11 @@
 import { FC, useState } from 'react';
-import { addItem, removeItem } from '../../../store/yourFeatureSlice';
-import { useAppDispatch } from '../../../hooks/useAppDispatch';
+import { addItem, removeItem } from '../../../../store/yourFeatureSlice';
+import { useAppDispatch } from '../../../../hooks/useAppDispatch';
 import ContentLoader from 'react-content-loader';
 import { IProductCatalog } from 'src/types/products.types';
 
-import whitePlus from '../../../assets/icons/cart/plus.svg';
-import whiteMinus from '../../../assets/icons/cart/minus.svg';
+import whitePlus from '../../../../assets/icons/cart/plus.svg';
+import whiteMinus from '../../../../assets/icons/cart/minus.svg';
 
 import './style.scss';
 

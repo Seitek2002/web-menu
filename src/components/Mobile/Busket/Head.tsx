@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import back from "../../assets/icons/Busket/back.svg";
-import delet from "../../assets/icons/Busket/delete.svg";
+import back from "../../../assets/icons/Busket/back.svg";
+import delet from "../../../assets/icons/Busket/delete.svg";
 
 type HeadProps = {
     renameTitleHead: () => void;

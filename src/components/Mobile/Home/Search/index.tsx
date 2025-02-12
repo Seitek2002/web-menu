@@ -1,9 +1,9 @@
 import { FC, useRef, useState } from 'react';
 
-import search from '../../../assets/icons/Search/search.svg';
-import close from '../../../assets/icons/Search/close.svg';
-import arrowBack from '../../../assets/icons/Search/arrow-back.svg';
-import all from '../../../assets/icons/points/all.svg';
+import search from '../../../../assets/icons/Search/search.svg';
+import close from '../../../../assets/icons/Search/close.svg';
+import arrowBack from '../../../../assets/icons/Search/arrow-back.svg';
+import all from '../../../../assets/icons/points/all.svg';
 
 import './style.scss';
 

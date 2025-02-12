@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 
-import logo from "../../../assets/icons/Header/logo.svg";
-import clock from "../../../assets/icons/Header/Clock.svg";
+import logo from "../../../../assets/icons/Header/logo.svg";
+import clock from "../../../../assets/icons/Header/Clock.svg";
 
 import "./style.scss";
 

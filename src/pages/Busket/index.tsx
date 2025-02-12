@@ -4,15 +4,15 @@ import { useDispatch } from 'react-redux';
 import { setButtonText } from '../../store/yourFeatureSlice';
 import { useTranslation } from "react-i18next";
 
-import Item from '../../components/Busket/Item';
-import Head from '../../components/Busket/Head';
-import ForgotCart from 'src/components/Busket/ForgotCart';
-import Detail from '../../components/Busket/Detail';
-import Where from '../../components/Busket/Where';
-import Price from '../../components/Busket/Price';
-import Promo from '../../components/Busket/Promo';
-import Tips from '../../components/Busket/Tips';
-import Modal from '../../components/Busket/Modal';
+import Item from '../../components/Mobile/Busket/Item';
+import Head from '../../components/Mobile/Busket/Head';
+import ForgotCart from 'src/components/Mobile/Busket/ForgotCart';
+import Detail from '../../components/Mobile/Busket/Detail';
+import Where from '../../components/Mobile/Busket/Where';
+import Price from '../../components/Mobile/Busket/Price';
+import Promo from '../../components/Mobile/Busket/Promo';
+import Tips from '../../components/Mobile/Busket/Tips';
+import Modal from '../../components/Mobile/Busket/Modal';
 
 import cookie from '../../assets/icons/Busket/cookie.svg';
 

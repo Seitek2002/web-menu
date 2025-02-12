@@ -3,10 +3,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { useTranslation } from "react-i18next";
 import OrderStatusCard from "../../OrderStatusCard";
 
-import one from "../../../assets/images/Slider/img-1.png";
-import two from "../../../assets/images/Slider/img-2.jpg";
-import arrow from "../../../assets/icons/Hero/arrow.svg";
-import icon from "../../../assets/icons/Hero/icon.svg";
+import one from "../../../../assets/images/Slider/img-1.png";
+import two from "../../../../assets/images/Slider/img-2.jpg";
+import arrow from "../../../../assets/icons/Hero/arrow.svg";
+import icon from "../../../../assets/icons/Hero/icon.svg";
 
 import "./style.scss";
 

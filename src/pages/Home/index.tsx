@@ -1,10 +1,10 @@
 import { FC, useState } from 'react';
 
-import SiteHeader from 'src/components/Home/SiteHeader';
-import Header from 'src/components/Home/Header';
-import Hero from 'src/components/Home/Hero';
-import Points from 'src/components/Home/Points';
-import Catalog from 'src/components/Home/Catalog';
+import SiteHeader from '../../components/Mobile/Home/SiteHeader';
+import Header from '../../components/Mobile/Home/Header';
+import Hero from '../../components/Mobile/Home/Hero';
+import Points from '../../components/Mobile/Home/Points';
+import Catalog from '../../components/Mobile/Home/Catalog';
 
 import './style.scss';
 

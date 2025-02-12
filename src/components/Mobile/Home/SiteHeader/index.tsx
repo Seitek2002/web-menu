@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 
 import "./style.scss";
 
-import logo from "../../../assets/icons/SiteHeader/logo.svg";
-import arrow from "../../../assets/icons/Header/black-arrow.svg";
-import user from "../../../assets/icons/SiteHeader/user.svg";
+import logo from "../../../../assets/icons/SiteHeader/logo.svg";
+import arrow from "../../../../assets/icons/Header/black-arrow.svg";
+import user from "../../../../assets/icons/SiteHeader/user.svg";
 
 const SiteHeader: FC = () => {
   const { t, i18n } = useTranslation();

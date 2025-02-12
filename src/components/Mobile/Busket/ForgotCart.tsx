@@ -1,5 +1,5 @@
-import added from "../../assets/icons/Busket/added.svg";
-import adding from "../../assets/icons/Busket/adding.svg";
+import added from "../../../assets/icons/Busket/added.svg";
+import adding from "../../../assets/icons/Busket/adding.svg";
 
 interface ForgotCartProps {
     id: string;

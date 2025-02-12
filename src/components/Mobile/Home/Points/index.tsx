@@ -1,10 +1,10 @@
 import { FC, useState } from 'react';
-import { useGetCategoriesQuery } from '../../../api/Categories.api';
-import PointsSkeleton from '../../../skeletons/Points';
+import { useGetCategoriesQuery } from '../../../../api/Categories.api';
+import PointsSkeleton from '../../../../skeletons/Points';
 import Search from '../Search';
 
-import search from '../../../assets/icons/points/search.svg';
-import all from '../../../assets/icons/points/all.svg';
+import search from '../../../../assets/icons/points/search.svg';
+import all from '../../../../assets/icons/points/all.svg';
 
 import './style.scss';
 

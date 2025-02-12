@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
-import checkedGreen from '../../assets/images/OrderStatus/checked-green.svg';
-import pending from '../../assets/images/OrderStatus/pending.svg';
+import checkedGreen from '../../../assets/images/OrderStatus/checked-green.svg';
+import pending from '../../../assets/images/OrderStatus/pending.svg';
 
 import './styles.scss';
 

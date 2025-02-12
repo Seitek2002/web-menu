@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppSelector } from '../../../hooks/useAppSelector';
 import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { RootState } from 'src/store';

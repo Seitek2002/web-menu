@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import checkbox from "../../assets/icons/Busket/checkbox.svg";
+import checkbox from "../../../assets/icons/Busket/checkbox.svg";
 
 const Where: React.FC = () => {
     const { t, i18n } = useTranslation();

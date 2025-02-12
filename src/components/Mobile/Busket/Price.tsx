@@ -1,5 +1,5 @@
 import { useState } from "react";
-import priceArrow from "../../assets/icons/Busket/priceArrow.svg";
+import priceArrow from "../../../assets/icons/Busket/priceArrow.svg";
 
 const Price: React.FC = () => {
 
