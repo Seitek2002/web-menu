@@ -1,0 +1,45 @@
+.swiper {
+  @apply mt-[20px];
+
+  &__burger {
+    @apply top-[50%] right-0 absolute;
+    transform: translate(0px, -50%);
+  }
+
+  &__item {
+    @apply rounded-lg overflow-hidden w-full h-[220px] ml-[-40px];
+
+    &.another {
+      @apply w-full h-[220px] py-[16px] px-[24px] relative;
+      background: linear-gradient(90deg, #bc1d77 0%, #6942a8 100%);
+    }
+  }
+
+  &__bg {
+    @apply object-cover w-full h-full rounded-[8px];
+  }
+
+  &__name {
+    @apply font-baloo text-[15px] font-[400];
+  }
+
+  &__top {
+    @apply flex items-center gap-[8px];
+  }
+
+  &__text {
+    @apply text-[12px] font-[500] max-w-[221px];
+  }
+}
+
+.swiper-pagination {
+  @apply flex justify-center gap-2 mt-2; /* Центрируем и задаем отступ */
+}
+
+.swiper-pagination-bullet {
+  @apply w-2 h-2 bg-gray-400 opacity-50 transition-all duration-300 rounded-full;
+}
+
+.swiper-pagination-bullet-active {
+  @apply bg-black opacity-100 scale-125; /* Увеличиваем активную точку */
+}

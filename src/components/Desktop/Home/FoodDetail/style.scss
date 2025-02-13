@@ -1,0 +1,116 @@
+.food-detail {
+  @apply fixed top-[100%] left-0 w-full h-full z-[100] overflow-scroll transition-all duration-300;
+
+  &.active {
+    @apply top-[14px];
+  }
+
+  .close {
+    @apply absolute top-[16px] right-[16px];
+  }
+
+  .img-wrapper {
+    @apply rounded-t-[24px] overflow-hidden;
+    touch-action: none;
+
+    img {
+      @apply w-full;
+    }
+  }
+
+  &__content {
+    @apply p-[16px] flex flex-col gap-[24px];
+  }
+
+  h2 {
+    @apply text-[16px] font-semibold;
+  }
+
+  p {
+    @apply text-[14px];
+  }
+
+  ul {
+    @apply list-disc text-[14px] pl-5;
+  }
+
+  input {
+    border-radius: 50%;
+    appearance: none;
+    border-color: #0d6efd;
+    width: 1em;
+    height: 1em;
+    margin-top: 0.25em;
+    vertical-align: top;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+    &:checked {
+      background-color: #0d6efd;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
+    }
+  }
+
+  .required {
+    @apply text-[12px];
+  }
+
+  .price {
+    @apply text-[14px];
+  }
+
+  .sugar {
+    @apply rounded-[12px] p-[12px];
+    &__content {
+      @apply p-[12px] rounded-[12px] mt-[8px];
+    }
+
+    &__item {
+      @apply flex items-center justify-between;
+
+      label {
+        @apply flex gap-[4px];
+      }
+    }
+  }
+
+  .size {
+    &__content {
+      @apply grid grid-cols-3 gap-[8px] text-center;
+    }
+
+    &__item {
+      @apply p-[12px] rounded-[8px] mt-[8px];
+
+      span {
+        @apply text-xs;
+      }
+
+      &.active {
+        @apply border-[1px];
+      }
+    }
+  }
+
+  .case {
+    @apply flex justify-between items-center;
+  }
+
+  .counter {
+    @apply grid grid-cols-2 items-center gap-[12px] pt-[30px] pb-[40px] px-[16px];
+
+    &__left {
+      @apply flex justify-between gap-[34px] px-[8px] py-[16px] rounded-[12px] font-semibold;
+    }
+
+    &__right {
+      @apply rounded-[12px];
+      button {
+        @apply w-full font-semibold px-[42px] py-[16px] rounded-[12px];
+      }
+    }
+  }
+}

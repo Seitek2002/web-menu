@@ -1,0 +1,32 @@
+.point {
+  @apply overflow-x-auto py-[30px];
+
+  &-perent {
+    @apply flex items-center gap-[15px];
+  }
+
+  &-item {
+    @apply text-center w-[63px] h-[63px] box-border;
+  }
+
+  &-wrapper {
+    @apply w-[56px] h-[56px] rounded-[50%] flex items-center justify-center mx-auto overflow-hidden border border-solid;
+
+    img {
+      @apply max-w-full h-full object-cover;
+    }
+  }
+
+  p {
+    @apply mt-[8px] font-medium text-[12px] text-center leading-tight;
+  }
+}
+
+.point {
+  overflow: auto;
+  scrollbar-width: none; /* Для Firefox */
+}
+
+.point::-webkit-scrollbar {
+  display: none; /* Для Chrome, Safari и других Webkit-браузеров */
+}

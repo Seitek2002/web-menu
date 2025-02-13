@@ -3,7 +3,7 @@ body {
 }
 
 .container {
-  @apply px-[16px];
+  @apply px-[16px] md:!max-w-full;
 }
 
 input {
