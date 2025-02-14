@@ -6,11 +6,10 @@ import Hero from "../../components/Mobile/Home/Hero";
 import Points from "../../components/Mobile/Home/Points";
 import Catalog from "../../components/Mobile/Home/Catalog";
 
-import SiteHeaderDesktop  from "../../components/desktop/Home/SiteHeader";
-import HeaderDesktop from "../../components/desktop/Home/Header";
-import HeroDesktop from "../../components/desktop/Home/Hero";
-import PointsDesktop from "../../components/desktop/Home/Points";
-import CatalogDesktop from "../../components/desktop/Home/Catalog";
+import SiteHeaderDesktop  from "../../components/Desktop/Home/SiteHeader";
+import HeroDesktop from "../../components/Desktop/Home/Hero";
+import PointsDesktop from "../../components/Desktop/Home/Points";
+import CatalogDesktop from "../../components/Desktop/Home/Catalog";
 
 import "./style.scss";
 
@@ -32,17 +31,18 @@ const Home: FC = () => {
     <>
       {isMobile ? (
         <>
-          <SiteHeaderDesktop />
-          <HeaderDesktop />
-          <HeroDesktop />
-          <PointsDesktop onCategoryChange={handleCategoryChange} />
-          <CatalogDesktop selectedCategory={selectedCategory} />
+          <SiteHeader />
+          <Header />
+          <Hero />
+          <Points onCategoryChange={handleCategoryChange} />
+          <Catalog selectedCategory={selectedCategory} />
         </>
       ) : (
         <div>
           <SiteHeaderDesktop/>
           <HeroDesktop />
-
+          <PointsDesktop onCategoryChange={handleCategoryChange} />
+          <CatalogDesktop selectedCategory={selectedCategory}/>
         </div>
       )}
     </>

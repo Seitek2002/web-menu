@@ -1,4 +1,4 @@
-.point {
+.desktop .point {
   @apply overflow-x-auto py-[30px];
 
   &-perent {
@@ -6,7 +6,7 @@
   }
 
   &-item {
-    @apply text-center w-[63px] h-[63px] box-border;
+    @apply text-center w-[233px] h-[63px] box-border flex items-center rounded-[100px] ;
   }
 
   &-wrapper {

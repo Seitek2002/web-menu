@@ -44,7 +44,7 @@ const SiteHeader: FC = () => {
   const list = ["RU", "KG", "ENG"];
 
   return (
-    <header className="siteHeader">
+    <header className="desktop siteHeader">
       <div className="container">
         <div className="siteHeader__content">
           <div className="siteHeader__top">
@@ -54,7 +54,7 @@ const SiteHeader: FC = () => {
                 <p className="siteHeader__name text-[#090A0B]">iMenu.kg</p>
               </div>
             </div>
-            <div className="siteHeader__search">
+            <div className="siteHeader__search bg-[#F9F9F9]">
               <img src={search} alt="search" />
               <input type="text" placeholder={t("search")} />
             </div>

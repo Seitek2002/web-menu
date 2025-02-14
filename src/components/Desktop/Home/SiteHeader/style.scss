@@ -1,4 +1,4 @@
-.siteHeader {
+.desktop .siteHeader {
     @apply py-[20px];
 
     &__content {
@@ -18,7 +18,7 @@
     }
 
     &__search {
-        @apply bg-[#F9F9F9] w-2/4 flex gap-[10px] py-2 px-2 rounded-[8px];
+        @apply  w-2/4 flex gap-[10px] py-2 px-2 rounded-[8px];
 
         input {
             @apply rounded-none bg-transparent w-2/4;

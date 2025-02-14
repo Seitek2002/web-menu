@@ -39,7 +39,7 @@ const SiteHeader: FC = () => {
   const list = ["RU", "KG", "ENG"];
 
   return (
-    <header className="siteHeader">
+    <header className="mobile siteHeader">
       <div className="container">
         <div className="siteHeader__content bg-[#fff]">
           <div className="siteHeader__logo">
