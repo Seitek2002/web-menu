@@ -1,105 +1,126 @@
 .desktop .cart {
-    @apply mt-[20px] pb-[100px] h-full;
+  @apply mt-[20px] pb-[100px] h-full;
 
-    &-content {
-        @apply flex gap-6;
+  &-content {
+    @apply flex gap-6;
+  }
+
+  &-left {
+    @apply w-[60%];
+  }
+
+  &-right {
+    @apply w-[40%];
+  }
+
+  &-title {
+    @apply font-[600] text-[24px];
+  }
+
+  &-img {
+    @apply overflow-hidden rounded-[12px] h-[136px] flex items-center justify-center;
+
+    img {
+      @apply object-cover w-full h-full;
+    }
+  }
+
+  &-wrapper {
+    @apply grid grid-cols-3 gap-[8px] mt-[12px];
+  }
+
+  &-block {
+    @apply rounded-[12px] p-[4px] max-w-full relative flex flex-col justify-between min-h-[256px];
+  }
+
+  &-discount,
+  &-promotion {
+    @apply absolute top-[15px] right-[6px] py-[6px] px-[12px] rounded-[100px] rotate-[12deg];
+  }
+
+  &-discount {
+    @apply bg-[#F80101] text-[#fff];
+  }
+
+  &-promotion {
+    @apply bg-[#F89001] text-[#fff];
+  }
+
+  &-info {
+    @apply flex items-center gap-[4px] mt-[8px] mb-[4px];
+  }
+
+  &-price {
+    @apply font-[600] text-[16px] block;
+  }
+
+  &-weight {
+    @apply font-[500] text-[14px] block;
+  }
+
+  &-name {
+    @apply font-[500] text-[16px] leading-[17px] line-clamp-2;
+  }
+
+  &-btn {
+    @apply w-full mt-[10px] rounded-[8px] py-[4.5px] px-[16px] flex items-center justify-center font-[500] text-[16px];
+
+    &.active {
+      @apply flex justify-between items-center py-[4px];
+    }
+  }
+
+  &-table {
+    @apply py-[12px] px-16 rounded-[8px] flex justify-center my-[12px] font-[700] text-[16px];
+  }
+
+  &-title {
+    @apply font-semibold text-[24px];
+  }
+  &-wrapper-img {
+    @apply w-[32px] h-[32px] flex items-center justify-center rounded-[8px];
+  }
+  &-top {
+    @apply flex justify-between items-center;
+  }
+  &-bottom {
+    @apply px-[12px] py-3 rounded-[12px] max-h-[600px] overflow-scroll;
+    hr {
+      @apply my-[8px];
+    }
+  }
+  &-box {
+    @apply flex items-center gap-[10px] justify-between;
+
+    img {
+      @apply w-[50px] lg:w-[100px];
+    }
+  }
+  &-price {
+    @apply flex items-center;
+    p {
+      @apply font-semibold text-[12px];
+    }
+    span {
+      @apply font-medium text-[12px];
+    }
+  }
+  &-text {
+    @apply w-[50%];
+
+    h3 {
+      @apply font-semibold text-[12px] line-clamp-2 lg:text-[16px];
+    }
+  }
+  &-counter {
+    @apply flex items-center px-2 py-2 rounded-[99px] gap-[5px] lg:gap-[10px];
+
+    p {
+      @apply text-[12px] lg:text-[16px];
     }
 
-    &-title {
-        @apply font-[600] text-[24px];
+    img {
+      @apply size-[12px] lg:size-[16px];
     }
-
-    &-img {
-        @apply overflow-hidden rounded-[12px] h-[136px] flex items-center justify-center;
-
-        img {
-            @apply object-cover w-full h-full;
-        }
-    }
-
-    &-wrapper {
-        @apply grid grid-cols-3 gap-[8px] mt-[12px];
-    }
-
-    &-block {
-        @apply rounded-[12px] p-[4px] max-w-full relative flex flex-col justify-between min-h-[256px];
-    }
-
-    &-discount,
-    &-promotion {
-        @apply absolute top-[15px] right-[6px] py-[6px] px-[12px] rounded-[100px] rotate-[12deg];
-    }
-
-    &-discount {
-        @apply bg-[#F80101] text-[#fff];
-    }
-
-    &-promotion {
-        @apply bg-[#F89001] text-[#fff];
-    }
-
-    &-info {
-        @apply flex items-center gap-[4px] mt-[8px] mb-[4px];
-    }
-
-    &-price {
-        @apply font-[600] text-[16px] block;
-    }
-
-    &-weight {
-        @apply font-[500] text-[14px] block;
-    }
-
-    &-name {
-        @apply font-[500] text-[16px] leading-[17px] line-clamp-2;
-    }
-
-    &-btn {
-        @apply w-full mt-[10px] rounded-[8px] py-[4.5px] px-[16px] flex items-center justify-center font-[500] text-[16px];
-
-        &.active {
-            @apply flex justify-between items-center py-[4px];
-        }
-    }
-
-    &-table {
-        @apply py-[12px] px-16 rounded-[8px] flex justify-center my-[12px] font-[700] text-[16px];
-    }
-
-    &-title {
-        @apply font-semibold text-[24px];
-    }
-    &-wrapper-img {
-        @apply w-[32px] h-[32px] flex items-center justify-center rounded-[8px];
-      }
-    &-top {
-        @apply flex justify-between items-center;
-    }
-    &-bottom{
-        @apply px-[12px] py-3 rounded-[12px] max-h-[600px] overflow-scroll;
-        hr{
-            @apply my-[8px];
-        }
-    }
-    &-box{
-        @apply flex items-center gap-[10px];
-    }
-    &-price{
-        @apply flex items-center;
-        h3{
-            @apply font-semibold text-[12px];
-        }
-        p{
-            @apply font-semibold text-[12px];
-        }
-        span{
-            @apply font-medium text-[12px];
-        }
-    }
-    &-counter{
-        @apply flex items-center px-2 py-2 rounded-[99px] gap-[12px];
-        img{
-            @apply w-[40px] h-[40p];
-        }
-    }
+  }
 }

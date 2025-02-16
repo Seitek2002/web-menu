@@ -164,7 +164,7 @@ const Catalog: FC<IProps> = ({ selectedCategory, renameTitleHead }) => {
               <div className="cart-box">
                 <img src={burger} alt="" />
                 <div className="cart-text">
-                  <h3>Салат с креветками много текста </h3>
+                  <h3>Салат с креветками много текста</h3>
                   <div className="cart-price">
                     <p className="text-[#875AFF]">450 с</p>
                     <span className="text-[#ADADAD]">•200г</span>

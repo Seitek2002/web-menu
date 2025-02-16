@@ -29,7 +29,7 @@ const Points: FC<IProps> = ({ onCategoryChange }) => {
   }
 
   return (
-    <section className='point'>
+    <section className='mobile point'>
       {show && <Search onToggle={clickShow} />}
       <div className='container'>
         <div className='point-perent'>
