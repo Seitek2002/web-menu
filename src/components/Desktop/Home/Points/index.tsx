@@ -126,58 +126,6 @@ const Points: FC<IProps> = ({ onCategoryChange }) => {
                 <p>{t('point.all')}</p>
               </div>
             </SwiperSlide>
-            <SwiperSlide>
-              <div
-                className={`point-item ${
-                  active === 0
-                    ? 'bg-[#875AFF] text-[#fff]'
-                    : 'active bg-[#fff] text-[#000]'
-                }`}
-                onClick={() => selectCategory(0)}
-              >
-                <img src={all} alt='icon' />
-                <p>{t('point.all')}</p>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div
-                className={`point-item ${
-                  active === 0
-                    ? 'bg-[#875AFF] text-[#fff]'
-                    : 'active bg-[#fff] text-[#000]'
-                }`}
-                onClick={() => selectCategory(0)}
-              >
-                <img src={all} alt='icon' />
-                <p>{t('point.all')}</p>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div
-                className={`point-item ${
-                  active === 0
-                    ? 'bg-[#875AFF] text-[#fff]'
-                    : 'active bg-[#fff] text-[#000]'
-                }`}
-                onClick={() => selectCategory(0)}
-              >
-                <img src={all} alt='icon' />
-                <p>{t('point.all')}</p>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div
-                className={`point-item ${
-                  active === 0
-                    ? 'bg-[#875AFF] text-[#fff]'
-                    : 'active bg-[#fff] text-[#000]'
-                }`}
-                onClick={() => selectCategory(0)}
-              >
-                <img src={all} alt='icon' />
-                <p>{t('point.all')}</p>
-              </div>
-            </SwiperSlide>
               {isLoading
                 ? Array(6)
                     .fill(0)

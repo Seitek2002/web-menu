@@ -25,7 +25,7 @@
 
   &-button-prev.swiper-button-disabled,
   &-button-next.swiper-button-disabled {
-    @apply hidden;
+    @apply opacity-0 cursor-default;
   }
 }
 
