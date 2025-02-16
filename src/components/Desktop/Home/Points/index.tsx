@@ -72,7 +72,6 @@ const Points: FC<IProps> = ({ onCategoryChange }) => {
       </section> */}
 
       <section className='desktop point'>
-        <input type="color" name="" id="" />
         <div className='container'>
           <div className='point-content'>
             <div className='point-button-prev bg-[#fff]'>
@@ -88,6 +87,84 @@ const Points: FC<IProps> = ({ onCategoryChange }) => {
               }}
               modules={[Navigation]}
             >
+            <SwiperSlide>
+              <div
+                className={`point-item ${
+                  active === 0
+                    ? 'bg-[#875AFF] text-[#fff]'
+                    : 'active bg-[#fff] text-[#000]'
+                }`}
+                onClick={() => selectCategory(0)}
+              >
+                <img src={all} alt='icon' />
+                <p>{t('point.all')}</p>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div
+                className={`point-item ${
+                  active === 0
+                    ? 'bg-[#875AFF] text-[#fff]'
+                    : 'active bg-[#fff] text-[#000]'
+                }`}
+                onClick={() => selectCategory(0)}
+              >
+                <img src={all} alt='icon' />
+                <p>{t('point.all')}</p>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div
+                className={`point-item ${
+                  active === 0
+                    ? 'bg-[#875AFF] text-[#fff]'
+                    : 'active bg-[#fff] text-[#000]'
+                }`}
+                onClick={() => selectCategory(0)}
+              >
+                <img src={all} alt='icon' />
+                <p>{t('point.all')}</p>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div
+                className={`point-item ${
+                  active === 0
+                    ? 'bg-[#875AFF] text-[#fff]'
+                    : 'active bg-[#fff] text-[#000]'
+                }`}
+                onClick={() => selectCategory(0)}
+              >
+                <img src={all} alt='icon' />
+                <p>{t('point.all')}</p>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div
+                className={`point-item ${
+                  active === 0
+                    ? 'bg-[#875AFF] text-[#fff]'
+                    : 'active bg-[#fff] text-[#000]'
+                }`}
+                onClick={() => selectCategory(0)}
+              >
+                <img src={all} alt='icon' />
+                <p>{t('point.all')}</p>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div
+                className={`point-item ${
+                  active === 0
+                    ? 'bg-[#875AFF] text-[#fff]'
+                    : 'active bg-[#fff] text-[#000]'
+                }`}
+                onClick={() => selectCategory(0)}
+              >
+                <img src={all} alt='icon' />
+                <p>{t('point.all')}</p>
+              </div>
+            </SwiperSlide>
             <SwiperSlide>
               <div
                 className={`point-item ${

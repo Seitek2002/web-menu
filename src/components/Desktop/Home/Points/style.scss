@@ -1,20 +1,19 @@
-.desktop.point {
+.desktop .point {
   &-item {
     @apply flex items-center rounded-full px-[15px] py-[5px] gap-[10px];
-
+    p{
+      @apply line-clamp-1;
+    }
     img {
       @apply w-[56px] h-[56px] rounded-full object-cover;
     }
   }
-
+  &-content{
+    @apply flex items-center gap-[10px];
+  }
   .swiper {
     flex: 1;
   }
-
-  &-content {
-    @apply flex items-center gap-[16px];
-  }
-
   &-button-prev,
   &-button-next {
     @apply size-[44px] flex justify-center items-center rounded-[100%] cursor-pointer py-[12px] px-[17px];
