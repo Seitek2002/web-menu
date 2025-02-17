@@ -3,7 +3,7 @@
     @apply top-[50%] right-0 absolute;
     transform: translate(0px, -50%);
   }
-
+  &
   &__item {
     @apply rounded-lg overflow-hidden w-full h-[100px] ml-[-40px];
 
@@ -28,4 +28,7 @@
   &__text {
     @apply text-[12px] font-[500] max-w-[221px];
   }
+}
+.swiper-slide .swiper-slide-prev {
+  @apply w-[435px];
 }

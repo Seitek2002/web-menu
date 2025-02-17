@@ -16,7 +16,7 @@ const Hero: FC = () => {
     <Swiper
       className="mobile swiper"
       spaceBetween={8}
-      slidesPerView={1.2}
+      slidesPerView={1.1}
       centeredSlides={true}
     >
       <SwiperSlide>
