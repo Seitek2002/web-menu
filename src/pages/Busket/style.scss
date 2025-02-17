@@ -1,5 +1,13 @@
 .busket {
-  @apply mt-[12px];
+  @apply pt-[12px];
+
+  &-empty {
+    @apply font-medium text-[16px] text-center;
+
+    button {
+      @apply font-semibold text-[16px] w-full py-[16px] rounded-[12px];
+    }
+  }
 
   &-title {
     @apply font-semibold text-[24px];

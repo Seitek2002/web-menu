@@ -22,7 +22,6 @@ const Head: React.FC<HeadProps> = ({ renameTitleHead }) => {
                     <img src={delet} alt="delete" />
                 </div>
             </div>
-            <div className="busket-table bg-[#FFF]">{t("table")}</div>
         </>
     );
 };
