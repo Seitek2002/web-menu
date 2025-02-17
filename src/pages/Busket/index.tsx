@@ -1,8 +1,9 @@
 import { FC, useEffect, useState } from 'react';
-import { useAppSelector } from '../../hooks/useAppSelector';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import { setButtonText } from '../../store/yourFeatureSlice';
-import { useTranslation } from "react-i18next";
 
 import Item from '../../components/Mobile/Busket/Item';
 import Head from '../../components/Mobile/Busket/Head';
@@ -15,20 +16,21 @@ import Tips from '../../components/Mobile/Busket/Tips';
 import Modal from '../../components/Mobile/Busket/Modal';
 
 import cookie from '../../assets/icons/Busket/cookie.svg';
-
 import item1 from '../../assets/images/Catalog/item-1.webp';
 import item2 from '../../assets/images/Catalog/item-2.webp';
 import item3 from '../../assets/images/Catalog/item-3.webp';
+import emptyCartWebp from '../../assets/images/cart/empty-cart.webp';
 
 import './style.scss';
 
 const Busket: FC = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [length, setLength] = useState(true);
   const cart = useAppSelector((state) => state.yourFeature.items);
-  const [title, setTitle] = useState(t("busket.modal.clear"));
+  const [title, setTitle] = useState(t('busket.modal.clear'));
   const [modal, setModal] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(setButtonText('Далее'));
@@ -40,7 +42,7 @@ const Busket: FC = () => {
     return () => {
       dispatch(setButtonText('Заказать!'));
     };
-  }, [cart.length]);
+  }, [cart.length, dispatch]);
 
   const list: {
     id: string;
@@ -82,12 +84,17 @@ const Busket: FC = () => {
 
   const renameTitleHead = () => {
     setModal(true);
-    setTitle(t("busket.modal.clear"));
+    setTitle(t('busket.modal.clear'));
   };
+
   const renameTitlePlaces = () => {
     setModal(true);
     setTitle('Мест не осталось');
   };
+
+  const handleClick = () => {
+    navigate('/')
+  }
 
   return (
     <>
@@ -96,9 +103,20 @@ const Busket: FC = () => {
           <div className='busket-content'>
             <Head renameTitleHead={renameTitleHead} />
             <div className='busket-list divide-y bg-[#fff]'>
-              {cart.map((item) => (
-                <Item key={item.id} {...item} cartLength={length} />
-              ))}
+              {cart.length ? (
+                <>
+                  <div className='busket-table bg-[#FFF]'>{t('table')}</div>
+                  {cart.map((item) => (
+                    <Item key={item.id} {...item} cartLength={length} />
+                  ))}
+                </>
+              ) : (
+                <div className='busket-empty'>
+                  <h2>Добавьте товары в корзину</h2>
+                  <img src={emptyCartWebp} alt='empty-cart-png' />
+                  <button onClick={handleClick} className='bg-[#F1F2F3]'>В меню</button>
+                </div>
+              )}
             </div>
             <Detail />
             <Where />
@@ -122,31 +140,31 @@ const Busket: FC = () => {
 
         {modal && (
           <Modal title={title} onClose={() => setModal(false)}>
-            {title === t("busket.modal.clear")   ? (
+            {title === t('busket.modal.clear') ? (
               <div className='busket-modal-btns'>
                 <button
                   onClick={() => setModal(false)}
                   className='busket-modal-gray bg-[#F1F2F3] text-[#000]'
                 >
-                   {t("busket.modal.yes")}
+                  {t('busket.modal.yes')}
                 </button>
                 <button
                   onClick={() => setModal(false)}
                   className='busket-modal-purple bg-[#875AFF] text-[#fff]'
                 >
-                  {t("busket.modal.no")}
+                  {t('busket.modal.no')}
                 </button>
               </div>
             ) : (
               <>
                 <p className='busket-modal-text text-[#727272]'>
-                {t("busket.modal.arrange")}
+                  {t('busket.modal.arrange')}
                 </p>
                 <button
                   onClick={() => setModal(false)}
                   className='busket-modal-btn text-[#090A0B] bg-[#F1F2F3]'
                 >
-                  {t("busket.modal.myself")}
+                  {t('busket.modal.myself')}
                 </button>
               </>
             )}
