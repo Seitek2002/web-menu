@@ -18,20 +18,21 @@ const Hero: FC = () => {
     return (
         <>
             <Swiper
+                className="desktop swiper"
                 spaceBetween={8}
                 slidesPerView={1.2}
                 centeredSlides={true}
                 pagination={{
-                    el: ".custom-pagination",
+                    el: ".desktop.custom-pagination",
                     clickable: true,
                     renderBullet: (_, className) => {
-                        return `<span class="${className} pagination-bullet"></span>`;
+                        return `<span class="${className} desktop pagination-bullet"></span>`;
                     },
                 }}
                 modules={[Pagination]}
             >
                 <SwiperSlide>
-                    <div className="swiper__item">
+                    <div className="desktop swiper__item">
                         <OrderStatusCard
                             title={t("statusCard.accepted")}
                             message={t("statusCard.review")}
@@ -40,7 +41,7 @@ const Hero: FC = () => {
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div className="swiper__item">
+                    <div className="desktop swiper__item">
                         <OrderStatusCard
                             title={t("message.accepted")}
                             message={t("message.review")}
@@ -49,32 +50,32 @@ const Hero: FC = () => {
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div className="swiper__item another">
-                        <div className="swiper__top">
-                            <h4 className="swiper__name text-white">iMenu.kg</h4>
+                    <div className="desktop swiper__item another">
+                        <div className="desktop swiper__top">
+                            <h4 className="desktop swiper__name text-white">iMenu.kg</h4>
                             <img src={arrow} alt="arrow" />
                         </div>
-                        <p className="swiper__text">-{t("swiperText")}</p>
-                        <img className="swiper__burger" src={icon} alt="burger" />
+                        <p className="desktop swiper__text">-{t("swiperText")}</p>
+                        <img className="desktop swiper__burger" src={icon} alt="burger" />
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div className="swiper__item">
-                        <img className="swiper__bg" src={one} alt="Slide 1" />
+                    <div className="desktop swiper__item">
+                        <img className="desktop swiper__bg" src={one} alt="Slide 1" />
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div className="swiper__item">
-                        <img className="swiper__bg" src={two} alt="Slide 2" />
+                    <div className="desktop swiper__item">
+                        <img className="desktop swiper__bg" src={two} alt="Slide 2" />
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div className="swiper__item">
-                        <img className="swiper__bg" src={one} alt="Slide 3" />
+                    <div className="desktop swiper__item">
+                        <img className="desktop swiper__bg" src={one} alt="Slide 3" />
                     </div>
                 </SwiperSlide>
             </Swiper>
-            <div className="custom-pagination"></div>
+            <div className="desktop custom-pagination"></div>
         </>
     );
 };

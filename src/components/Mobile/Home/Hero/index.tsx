@@ -14,13 +14,13 @@ const Hero: FC = () => {
     const { t } = useTranslation();
     return (
         <Swiper
-            className="swiper"
+            className="mobile swiper"
             spaceBetween={8}
             slidesPerView={1.2}
             centeredSlides={true}
         >
             <SwiperSlide>
-                <div className="swiper__item">
+                <div className="mobile swiper__item">
                     <OrderStatusCard
                         title={t("statusCard.accepted")}
                         message={t("statusCard.review")}
@@ -29,7 +29,7 @@ const Hero: FC = () => {
                 </div>
             </SwiperSlide>
             <SwiperSlide>
-                <div className="swiper__item">
+                <div className="mobile swiper__item">
                     <OrderStatusCard
                         title={t("message.accepted")}
                         message={t("message.review")}
@@ -38,31 +38,31 @@ const Hero: FC = () => {
                 </div>
             </SwiperSlide>
             <SwiperSlide>
-                <div className="swiper__item another">
-                    <div className="swiper__top">
-                        <h4 className="swiper__name text-[#fff]">iMenu.kg</h4>
+                <div className="mobile swiper__item another">
+                    <div className="mobile swiper__top">
+                        <h4 className="mobile swiper__name text-[#fff]">iMenu.kg</h4>
                         <img src={arrow} alt="arrow" />
                     </div>
-                    <p className="swiper__text text-[#DFC0DD]">
+                    <p className="mobile swiper__text text-[#DFC0DD]">
                         -{t("swiperText")}
                     </p>
 
-                    <img className="swiper__burger" src={icon} alt="burger" />
+                    <img className="mobile swiper__burger" src={icon} alt="burger" />
                 </div>
             </SwiperSlide>
             <SwiperSlide>
-                <div className="swiper__item">
-                    <img className="swiper__bg" src={one} alt="" />
+                <div className="mobile swiper__item">
+                    <img className="mobile swiper__bg" src={one} alt="" />
                 </div>
             </SwiperSlide>
             <SwiperSlide>
-                <div className="swiper__item">
-                    <img className="swiper__bg" src={two} alt="" />
+                <div className="mobile swiper__item">
+                    <img className="mobile swiper__bg" src={two} alt="" />
                 </div>
             </SwiperSlide>
             <SwiperSlide>
-                <div className="swiper__item">
-                    <img className="swiper__bg" src={one} alt="" />
+                <div className="mobile swiper__item">
+                    <img className="mobile swiper__bg" src={one} alt="" />
                 </div>
             </SwiperSlide>
         </Swiper>
