@@ -30,8 +30,8 @@ const Points: FC<IProps> = ({ onCategoryChange }) => {
       <section className='desktop point'>
         <div className='container'>
           <div className='desktop point-content'>
-            <div className='point-button-prev bg-[#fff]'>
-              <img src={arrow} alt='' />
+            <div className='desktop point-button-prev bg-[#fff]'>
+              <img className='bg-[#fff]' src={arrow} alt='' />
             </div>
             <Swiper
               className='swiper'
@@ -39,11 +39,50 @@ const Points: FC<IProps> = ({ onCategoryChange }) => {
               slidesPerView={5}
               navigation={{
                 prevEl: '.desktop.point-button-prev',
-                nextEl: '.desktop .point-button-next',
+                nextEl: '.desktop.point-button-next',
               }}
               modules={[Navigation]}
             >
             <SwiperSlide>
+              <div
+                className={`desktop point-item ${
+                  active === 0
+                    ? 'bg-[#875AFF] text-[#fff]'
+                    : 'active bg-[#fff] text-[#000]'
+                }`}
+                onClick={() => selectCategory(0)}
+              >
+                <img src={all} alt='icon' />
+                <p>{t('point.all')}</p>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div
+                className={`desktop point-item ${
+                  active === 0
+                    ? 'bg-[#875AFF] text-[#fff]'
+                    : 'active bg-[#fff] text-[#000]'
+                }`}
+                onClick={() => selectCategory(0)}
+              >
+                <img src={all} alt='icon' />
+                <p>{t('point.all')}</p>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div
+                className={`desktop point-item ${
+                  active === 0
+                    ? 'bg-[#875AFF] text-[#fff]'
+                    : 'active bg-[#fff] text-[#000]'
+                }`}
+                onClick={() => selectCategory(0)}
+              >
+                <img src={all} alt='icon' />
+                <p>{t('point.all')}</p>
+              </div>
+            </SwiperSlide>
+                        <SwiperSlide>
               <div
                 className={`desktop point-item ${
                   active === 0
