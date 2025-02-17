@@ -3,8 +3,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { useTranslation } from "react-i18next";
 import OrderStatusCard from "../../../Mobile/OrderStatusCard";
-import "swiper/css";
-import "swiper/css/pagination";
 
 import one from "../../../../assets/images/Slider/img-1.png";
 import two from "../../../../assets/images/Slider/img-2.jpg";
