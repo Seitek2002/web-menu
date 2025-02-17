@@ -27,53 +27,9 @@ const Points: FC<IProps> = ({ onCategoryChange }) => {
 
   return (
     <>
-      {/* <section className='desktop point'>
-        <div
-          className={`point-item bg-[#fff] ${
-            active === 0
-              ? 'bg-[#875AFF] border-[#875AFF] text-white'
-              : 'border-white'
-          }`}
-          onClick={() => selectCategory(0)}
-        >
-          <div
-            className={`point-wrapper ${
-              active === 0
-                ? 'bg-[#875AFF] border-[#875AFF] text-white'
-                : 'border-white'
-            }`}
-          >
-            <img src={all} alt='icon' />
-            <p>{t('point.all')}</p>
-          </div>
-        </div>
-        {isLoading
-          ? Array(6)
-              .fill(0)
-              .map((_, index) => <PointsSkeleton key={index} />)
-          : categories?.map((item) => (
-              <div
-                className={`point-item ${active === item.id ? 'active' : ''}`}
-                key={item.id}
-                onClick={() => selectCategory(item.id)}
-              >
-                <div
-                  className={`point-wrapper ${
-                    active === item.id
-                      ? 'bg-[#875AFF] border-[#875AFF] text-white'
-                      : 'border-white'
-                  }`}
-                >
-                  <img src={item.categoryPhoto} alt='icon' />
-                </div>
-                <p>{item.categoryName}</p>
-              </div>
-            ))}
-      </section> */}
-
       <section className='desktop point'>
         <div className='container'>
-          <div className='point-content'>
+          <div className='desktop point-content'>
             <div className='point-button-prev bg-[#fff]'>
               <img src={arrow} alt='' />
             </div>
@@ -82,14 +38,14 @@ const Points: FC<IProps> = ({ onCategoryChange }) => {
               spaceBetween={8}
               slidesPerView={5}
               navigation={{
-                prevEl: '.point-button-prev',
-                nextEl: '.point-button-next',
+                prevEl: '.desktop.point-button-prev',
+                nextEl: '.desktop .point-button-next',
               }}
               modules={[Navigation]}
             >
             <SwiperSlide>
               <div
-                className={`point-item ${
+                className={`desktop point-item ${
                   active === 0
                     ? 'bg-[#875AFF] text-[#fff]'
                     : 'active bg-[#fff] text-[#000]'
@@ -102,20 +58,7 @@ const Points: FC<IProps> = ({ onCategoryChange }) => {
             </SwiperSlide>
             <SwiperSlide>
               <div
-                className={`point-item ${
-                  active === 0
-                    ? 'bg-[#875AFF] text-[#fff]'
-                    : 'active bg-[#fff] text-[#000]'
-                }`}
-                onClick={() => selectCategory(0)}
-              >
-                <img src={all} alt='icon' />
-                <p>{t('point.all')}</p>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div
-                className={`point-item ${
+                className={`desktop point-item ${
                   active === 0
                     ? 'bg-[#875AFF] text-[#fff]'
                     : 'active bg-[#fff] text-[#000]'
@@ -133,7 +76,7 @@ const Points: FC<IProps> = ({ onCategoryChange }) => {
                 : categories?.map((item) => (
                     <SwiperSlide key={item.id}>
                       <div
-                        className={`point-item ${
+                        className={`desktop point-item ${
                           active === item.id
                             ? 'bg-[#875AFF] text-[#fff]'
                             : 'active bg-[#fff]'
@@ -146,7 +89,7 @@ const Points: FC<IProps> = ({ onCategoryChange }) => {
                     </SwiperSlide>
                   ))}
             </Swiper>
-            <div className='point-button-next bg-[#fff]'>
+            <div className='desktop point-button-next bg-[#fff]'>
               <img src={arrow} alt='' />
             </div>
           </div>
