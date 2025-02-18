@@ -7,6 +7,7 @@ import { IProductCatalog } from 'src/types/products.types';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from 'src/hooks/useAppSelector';
 import CardBusket from 'src/components/Cards/Cart';
+import Footer from 'src/components/Mobile/Footer';
 
 import delet from '../../../../assets/icons/Busket/delete.svg';
 
@@ -47,13 +48,14 @@ const Catalog: FC<IProps> = ({ selectedCategory, renameTitleHead }) => {
                       <CatalogCard
                         key={item.id}
                         {...item}
+                        quantity={cart.find(el => el.id === item.id)?.quantity || 0}
                         setIsShow={() => handleClick(true)}
                       />
                     </div>
                   ))}
             </div>
           </div>
-          <div className='cart-right'>
+          <div className='cart-right relative'>
             <div className='cart-top'>
               <h1 className='cart-title'>{t('busket.busketTitle')}</h1>
               <div
@@ -75,6 +77,7 @@ const Catalog: FC<IProps> = ({ selectedCategory, renameTitleHead }) => {
                 </>
               ))}
             </div>
+            <Footer position="absolute" />
           </div>
         </div>
       </div>

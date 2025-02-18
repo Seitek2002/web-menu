@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useAppDispatch } from 'src/hooks/useAppDispatch';
 import { IProductCatalog } from 'src/types/products.types';
 import { addItem, removeItem } from '../../store/yourFeatureSlice';
@@ -24,11 +24,9 @@ const CardBusket: FC<IProps> = ({
   quantity,
   cartLength,
 }) => {
-  const [count, setCount] = useState<number>(quantity);
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    setCount(count + 1);
     dispatch(
       addItem({
         id,
@@ -44,9 +42,6 @@ const CardBusket: FC<IProps> = ({
   };
 
   const handleUnClick = () => {
-    if (count) {
-      setCount(count - 1);
-    }
     dispatch(
       removeItem({
         id,
@@ -94,7 +89,7 @@ const CardBusket: FC<IProps> = ({
         </div>
         <button className='busket-btn bg-[#F1F2F3]'>
           <img src={minus} alt='minus' onClick={handleUnClick} />
-          {count}
+          {quantity}
           <img src={plus} alt='plus' onClick={handleClick} />
         </button>
       </div>

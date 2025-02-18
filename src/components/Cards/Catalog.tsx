@@ -11,6 +11,7 @@ import './style.scss'
 
 interface IProps extends IProductCatalog {
   setIsShow: () => void;
+  quantity: number;
 }
 
 const CatalogCard: FC<IProps> = ({
@@ -22,8 +23,8 @@ const CatalogCard: FC<IProps> = ({
   weight,
   setIsShow,
   modificators,
+  quantity,
 }) => {
-  const [count, setCount] = useState<number>(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const dispatch = useAppDispatch();
 
@@ -31,7 +32,6 @@ const CatalogCard: FC<IProps> = ({
     if (modificators && modificators.length > 0) {
       setIsShow();
     } else {
-      setCount((prev) => prev + 1);
       dispatch(
         addItem({
           id,
@@ -48,7 +48,6 @@ const CatalogCard: FC<IProps> = ({
   };
 
   const handleUnClick = () => {
-    setCount((prev) => Math.max(0, prev - 1));
     dispatch(
       removeItem({
         id,
@@ -93,14 +92,14 @@ const CatalogCard: FC<IProps> = ({
         {/* <span className="cart-weight text-[#ADADAD]">•{category.categoryName}</span> */}
       </div>
       <h4 className='cart-name'>{productName}</h4>
-      {count === 0 ? (
+      {quantity === 0 ? (
         <button className='cart-btn bg-[#F1F2F3] text-[#000]' onClick={handleClick}>
           Добавить
         </button>
       ) : (
         <div className='cart-btn active bg-[#875AFF]'>
           <img onClick={handleUnClick} src={whiteMinus} alt='minus' />
-          <span className='cart-count text-[#fff]'>{count}</span>
+          <span className='cart-count text-[#fff]'>{quantity}</span>
           <img onClick={handleClick} src={whitePlus} alt='plus' />
         </div>
       )}

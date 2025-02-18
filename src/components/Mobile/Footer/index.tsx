@@ -6,15 +6,14 @@ import { RootState } from 'src/store';
 
 import './style.scss';
 
-const Footer: FC = () => {
+const Footer: FC<{position?: string}> = ({ position }) => {
   const cart = useAppSelector(state => state.yourFeature.items); 
   const buttonText = useSelector((state: RootState) => state.yourFeature.buttonText);
-
 
   if(!cart.length) return null;
 
   return (
-    <footer className='footer bg-[#fff]'>
+    <footer className={`footer bg-[#fff] ${position || 'fixed'}`}>
       <div className='container'>
         <Link to='/cart' className='footer__content'>
           <button className='bg-[#875AFF] text-[#fff]'> 

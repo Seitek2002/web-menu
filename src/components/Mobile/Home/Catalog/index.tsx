@@ -5,6 +5,7 @@ import FoodDetail from '../FoodDetail';
 import { useGetProductsQuery } from 'src/api/Products.api';
 import { IProductCatalog } from 'src/types/products.types';
 import { useTranslation } from "react-i18next";
+import { useAppSelector } from 'src/hooks/useAppSelector';
 
 import './style.scss';
 
@@ -15,6 +16,7 @@ interface IProps {
 const Catalog: FC<IProps> = ({ selectedCategory }) => {
   const { t } = useTranslation();
   const [isShow, setIsShow] = useState(false);
+  const cart = useAppSelector((state) => state.yourFeature.items);
   const [PhotoDetail, setPhotoDetail] = useState<IProductCatalog>();
   const { data: products, isLoading } = useGetProductsQuery({
     category: selectedCategory || undefined,
@@ -39,6 +41,7 @@ const Catalog: FC<IProps> = ({ selectedCategory }) => {
                   <CatalogCard
                     key={item.id}
                     {...item}
+                    quantity={cart.find(el => el.id === item.id)?.quantity || 0}
                     setIsShow={() => handleClick(true)}
                   />
                 </div>

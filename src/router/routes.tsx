@@ -13,7 +13,7 @@ const AppRoutes = () => {
         <Route path='/cart' element={<Cart />} />
         <Route path='/order-status' element={<OrderStatus />} />
       </Routes>
-      <Footer />
+      { window.innerWidth <= 768 && <Footer />}
     </BrowserRouter>
   );
 };
