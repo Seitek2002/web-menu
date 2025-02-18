@@ -71,7 +71,7 @@
         }
 
         &-share {
-            @apply absolute top-[12px] right-[12px] w-[36px] h-[36px] flex items-center justify-center rounded-[8px];
+            @apply hidden absolute top-[12px] right-[12px] w-[36px] h-[36px] flex items-center justify-center rounded-[8px];
         }
 
         &-btn {
@@ -96,13 +96,19 @@
             flex-direction: column-reverse;
         }
 
-        &-share {
-            @apply block
+        &-status-share {
+            @apply flex;
         }
 
         &-list,
         &-status {
             @apply w-full
+        }
+        &-head {
+            @apply justify-center
+        }
+        &-img-wrapper {
+            @apply hidden;
         }
     }
 }
