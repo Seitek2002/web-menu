@@ -1,13 +1,9 @@
-import { FC, useState } from 'react';
-import MenuSkeleton from '../../../../skeletons/Menu';
-import FoodDetail from '../FoodDetail';
-import CatalogCard from 'src/components/Cards/Catalog';
-import { useGetProductsQuery } from 'src/api/Products.api';
-import { IProductCatalog } from 'src/types/products.types';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from 'src/hooks/useAppSelector';
 import CardBusket from 'src/components/Cards/Cart';
 import Footer from 'src/components/Mobile/Footer';
+import Menu from 'src/components/Menu';
 
 import delet from '../../../../assets/icons/Busket/delete.svg';
 
@@ -20,40 +16,14 @@ interface IProps {
 
 const Catalog: FC<IProps> = ({ selectedCategory, renameTitleHead }) => {
   const { t } = useTranslation();
-  const [isShow, setIsShow] = useState(false);
-  const [PhotoDetail, setPhotoDetail] = useState<IProductCatalog>();
   const cart = useAppSelector((state) => state.yourFeature.items);
-  const { data: products, isLoading } = useGetProductsQuery({
-    category: selectedCategory || undefined,
-  });
-
-  const handleClick = (value: boolean) => {
-    document.body.style.overflow = value ? 'hidden' : 'auto';
-    setIsShow(value);
-  };
 
   return (
     <section className='desktop cart'>
       <div className='container'>
         <div className='cart-content'>
           <div className='cart-left'>
-            <h2 className='cart-title'>{t('cartTitle')}</h2>
-            <div className='cart-wrapper'>
-              {isLoading
-                ? Array(6)
-                    .fill(5)
-                    .map(() => <MenuSkeleton key={Math.random()} />)
-                : products?.map((item) => (
-                    <div onClick={() => setPhotoDetail(item)}>
-                      <CatalogCard
-                        key={item.id}
-                        {...item}
-                        quantity={cart.find(el => el.id === item.id)?.quantity || 0}
-                        setIsShow={() => handleClick(true)}
-                      />
-                    </div>
-                  ))}
-            </div>
+            <Menu selectedCategory={selectedCategory} />
           </div>
           <div className='cart-right relative'>
             <div className='cart-top'>
@@ -81,11 +51,6 @@ const Catalog: FC<IProps> = ({ selectedCategory, renameTitleHead }) => {
           </div>
         </div>
       </div>
-      <FoodDetail
-        setIsShow={() => handleClick(false)}
-        item={PhotoDetail}
-        isShow={isShow}
-      />
     </section>
   );
 };
