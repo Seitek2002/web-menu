@@ -13,6 +13,7 @@ import "./style.scss";
 
 const Hero: FC = () => {
   const { t } = useTranslation();
+
   return (
     <>
       <Swiper
