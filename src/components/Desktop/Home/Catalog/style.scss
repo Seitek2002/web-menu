@@ -2,7 +2,7 @@
   @apply mt-[20px] pb-[100px] h-full;
 
   &-content {
-    @apply flex gap-6;
+    @apply flex gap-6 items-start;
   }
 
   &-left {
@@ -10,7 +10,7 @@
   }
 
   &-right {
-    @apply w-[40%] relative;
+    @apply w-[40%] relative pb-[70px];
   }
 
   &-title {

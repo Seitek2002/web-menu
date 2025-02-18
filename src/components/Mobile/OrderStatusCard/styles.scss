@@ -25,7 +25,7 @@
   }
 
   &.accepted {
-    background: url('../../assets/images/OrderStatus/accepted-bg.png') center
+    background: url('../../../assets/images/OrderStatus/accepted-bg.png') center
       no-repeat;
     background-size: cover;
     .title {
@@ -34,7 +34,7 @@
   }
 
   &.pending {
-    background: url('../../assets/images/OrderStatus/pending-bg.png') center
+    background: url('../../../assets/images/OrderStatus/pending-bg.png') center
       no-repeat;
     background-size: cover;
     .title {
