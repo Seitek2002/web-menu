@@ -1,11 +1,10 @@
 import { FC, useState } from 'react';
+import CatalogCard from 'src/components/Cards/Catalog';
 import MenuSkeleton from '../../../../skeletons/Menu';
-import Item from './Item';
 import FoodDetail from '../FoodDetail';
 import { useGetProductsQuery } from 'src/api/Products.api';
 import { IProductCatalog } from 'src/types/products.types';
 import { useTranslation } from "react-i18next";
-
 
 import './style.scss';
 
@@ -14,6 +13,7 @@ interface IProps {
 }
 
 const Catalog: FC<IProps> = ({ selectedCategory }) => {
+  const { t } = useTranslation();
   const [isShow, setIsShow] = useState(false);
   const [PhotoDetail, setPhotoDetail] = useState<IProductCatalog>();
   const { data: products, isLoading } = useGetProductsQuery({
@@ -24,8 +24,6 @@ const Catalog: FC<IProps> = ({ selectedCategory }) => {
     document.body.style.overflow = value ? 'hidden' : 'auto';
     setIsShow(value);
   };
-  const { t, i18n } = useTranslation();
-
 
   return (
     <section className='cart'>
@@ -38,7 +36,7 @@ const Catalog: FC<IProps> = ({ selectedCategory }) => {
                 .map(() => <MenuSkeleton key={Math.random()} />)
             : products?.map((item) => (
                 <div onClick={() => setPhotoDetail(item)}>
-                  <Item
+                  <CatalogCard
                     key={item.id}
                     {...item}
                     setIsShow={() => handleClick(true)}

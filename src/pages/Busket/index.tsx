@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { setButtonText } from '../../store/yourFeatureSlice';
 
-import Item from '../../components/Mobile/Busket/Item';
 import Head from '../../components/Mobile/Busket/Head';
 import ForgotCart from 'src/components/Mobile/Busket/ForgotCart';
 import Detail from '../../components/Mobile/Busket/Detail';
@@ -22,6 +21,7 @@ import item3 from '../../assets/images/Catalog/item-3.webp';
 import emptyCartWebp from '../../assets/images/cart/empty-cart.webp';
 
 import './style.scss';
+import CardBusket from 'src/components/Cards/Cart';
 
 const Busket: FC = () => {
   const { t } = useTranslation();
@@ -107,7 +107,7 @@ const Busket: FC = () => {
                 <>
                   <div className='busket-table bg-[#FFF]'>{t('table')}</div>
                   {cart.map((item) => (
-                    <Item key={item.id} {...item} cartLength={length} />
+                    <CardBusket key={item.id} {...item} cartLength={length} />
                   ))}
                 </>
               ) : (

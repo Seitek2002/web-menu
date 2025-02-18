@@ -1,19 +1,19 @@
 import { FC, useState } from 'react';
-import { addItem, removeItem } from '../../../../store/yourFeatureSlice';
-import { useAppDispatch } from '../../../../hooks/useAppDispatch';
+import { addItem, removeItem } from '../../store/yourFeatureSlice';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
 import ContentLoader from 'react-content-loader';
 import { IProductCatalog } from 'src/types/products.types';
 
-import whitePlus from '../../../../assets/icons/cart/plus.svg';
-import whiteMinus from '../../../../assets/icons/cart/minus.svg';
+import whitePlus from '../../assets/icons/cart/plus.svg';
+import whiteMinus from '../../assets/icons/cart/minus.svg';
 
-import './style.scss';
+import './style.scss'
 
 interface IProps extends IProductCatalog {
   setIsShow: () => void;
 }
 
-const Item: FC<IProps> = ({
+const CatalogCard: FC<IProps> = ({
   id,
   productName,
   productPrice,
@@ -108,4 +108,4 @@ const Item: FC<IProps> = ({
   );
 };
 
-export default Item;
+export default CatalogCard;

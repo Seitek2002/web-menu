@@ -1,17 +1,16 @@
-import { FC, useState } from "react";
-import MenuSkeleton from "../../../../skeletons/Menu";
-import Item from "./Item";
-import FoodDetail from "../FoodDetail";
-import { useGetProductsQuery } from "src/api/Products.api";
-import { IProductCatalog } from "src/types/products.types";
-import { useTranslation } from "react-i18next";
-import plus from "../../../../assets/icons/Busket/plus.svg";
-import minus from "../../../../assets/icons/Busket/minus.svg";
-import burger from "../../../../assets/images/cart/burger.png";
+import { FC, useState } from 'react';
+import MenuSkeleton from '../../../../skeletons/Menu';
+import FoodDetail from '../FoodDetail';
+import CatalogCard from 'src/components/Cards/Catalog';
+import { useGetProductsQuery } from 'src/api/Products.api';
+import { IProductCatalog } from 'src/types/products.types';
+import { useTranslation } from 'react-i18next';
+import { useAppSelector } from 'src/hooks/useAppSelector';
+import CardBusket from 'src/components/Cards/Cart';
 
-import delet from "../../../../assets/icons/Busket/delete.svg";
+import delet from '../../../../assets/icons/Busket/delete.svg';
 
-import "./style.scss";
+import './style.scss';
 
 interface IProps {
   selectedCategory: number | undefined;
@@ -19,32 +18,33 @@ interface IProps {
 }
 
 const Catalog: FC<IProps> = ({ selectedCategory, renameTitleHead }) => {
+  const { t } = useTranslation();
   const [isShow, setIsShow] = useState(false);
   const [PhotoDetail, setPhotoDetail] = useState<IProductCatalog>();
+  const cart = useAppSelector((state) => state.yourFeature.items);
   const { data: products, isLoading } = useGetProductsQuery({
     category: selectedCategory || undefined,
   });
 
   const handleClick = (value: boolean) => {
-    document.body.style.overflow = value ? "hidden" : "auto";
+    document.body.style.overflow = value ? 'hidden' : 'auto';
     setIsShow(value);
   };
-  const { t } = useTranslation();
 
   return (
-    <section className="desktop cart">
-      <div className="container">
-        <div className="cart-content">
-          <div className="cart-left">
-            <h2 className="cart-title">{t("cartTitle")}</h2>
-            <div className="cart-wrapper">
+    <section className='desktop cart'>
+      <div className='container'>
+        <div className='cart-content'>
+          <div className='cart-left'>
+            <h2 className='cart-title'>{t('cartTitle')}</h2>
+            <div className='cart-wrapper'>
               {isLoading
                 ? Array(6)
                     .fill(5)
                     .map(() => <MenuSkeleton key={Math.random()} />)
                 : products?.map((item) => (
                     <div onClick={() => setPhotoDetail(item)}>
-                      <Item
+                      <CatalogCard
                         key={item.id}
                         {...item}
                         setIsShow={() => handleClick(true)}
@@ -53,130 +53,27 @@ const Catalog: FC<IProps> = ({ selectedCategory, renameTitleHead }) => {
                   ))}
             </div>
           </div>
-          <div className="cart-right">
-            <div className="cart-top">
-              <h1 className="cart-title">{t("busket.busketTitle")}</h1>
+          <div className='cart-right'>
+            <div className='cart-top'>
+              <h1 className='cart-title'>{t('busket.busketTitle')}</h1>
               <div
-                className="cart-wrapper-img bg-[#FFF]"
+                className='cart-wrapper-img bg-[#FFF]'
                 onClick={renameTitleHead}
               >
-                <img src={delet} alt="delete" />
+                <img src={delet} alt='delete' />
               </div>
             </div>
-            <div className="cart-bottom bg-[#FFF]">
-              <div className="cart-table bg-[#F1F2F3]">{t("table")}</div>
-              <div className="cart-box">
-                <img src={burger} alt="" />
-                <div className="cart-text">
-                  <h3>Салат с креветками много текста </h3>
-                  <div className="cart-price">
-                    <p className="text-[#875AFF]">450 с</p>
-                    <span className="text-[#ADADAD]">•200г</span>
-                  </div>
-                </div>
-                <div className="cart-counter bg-[#F1F2F3]">
-                  <img src={minus} alt="" />
-                  <p>1</p>
-                  <img src={plus} alt="" />
-                </div>
-              </div>
-              <hr />
-              <div className="cart-box">
-                <img src={burger} alt="" />
-                <div className="cart-text">
-                  <h3>Салат с креветками много текста </h3>
-                  <div className="cart-price">
-                    <p className="text-[#875AFF]">450 с</p>
-                    <span className="text-[#ADADAD]">•200г</span>
-                  </div>
-                </div>
-                <div className="cart-counter bg-[#F1F2F3]">
-                  <img src={minus} alt="" />
-                  <p>1</p>
-                  <img src={plus} alt="" />
-                </div>
-              </div>
-              <hr />
-              <div className="cart-box">
-                <img src={burger} alt="" />
-                <div className="cart-text">
-                  <h3>Салат с креветками много текста </h3>
-                  <div className="cart-price">
-                    <p className="text-[#875AFF]">450 с</p>
-                    <span className="text-[#ADADAD]">•200г</span>
-                  </div>
-                </div>
-                <div className="cart-counter bg-[#F1F2F3]">
-                  <img src={minus} alt="" />
-                  <p>1</p>
-                  <img src={plus} alt="" />
-                </div>
-              </div>
-              <hr />
-              <div className="cart-box">
-                <img src={burger} alt="" />
-                <div className="cart-text">
-                  <h3>Салат с креветками много текста </h3>
-                  <div className="cart-price">
-                    <p className="text-[#875AFF]">450 с</p>
-                    <span className="text-[#ADADAD]">•200г</span>
-                  </div>
-                </div>
-                <div className="cart-counter bg-[#F1F2F3]">
-                  <img src={minus} alt="" />
-                  <p>1</p>
-                  <img src={plus} alt="" />
-                </div>
-              </div>
-              <hr />
-              <div className="cart-box">
-                <img src={burger} alt="" />
-                <div className="cart-text">
-                  <h3>Салат с креветками много текста </h3>
-                  <div className="cart-price">
-                    <p className="text-[#875AFF]">450 с</p>
-                    <span className="text-[#ADADAD]">•200г</span>
-                  </div>
-                </div>
-                <div className="cart-counter bg-[#F1F2F3]">
-                  <img src={minus} alt="" />
-                  <p>1</p>
-                  <img src={plus} alt="" />
-                </div>
-              </div>
-              <hr />
-              <div className="cart-box">
-                <img src={burger} alt="" />
-                <div className="cart-text">
-                  <h3>Салат с креветками много текста </h3>
-                  <div className="cart-price">
-                    <p className="text-[#875AFF]">450 с</p>
-                    <span className="text-[#ADADAD]">•200г</span>
-                  </div>
-                </div>
-                <div className="cart-counter bg-[#F1F2F3]">
-                  <img src={minus} alt="" />
-                  <p>1</p>
-                  <img src={plus} alt="" />
-                </div>
-              </div>
-              <hr />
-              <div className="cart-box">
-                <img src={burger} alt="" />
-                <div className="cart-text">
-                  <h3>Салат с креветками много текста</h3>
-                  <div className="cart-price">
-                    <p className="text-[#875AFF]">450 с</p>
-                    <span className="text-[#ADADAD]">•200г</span>
-                  </div>
-                </div>
-                <div className="cart-counter bg-[#F1F2F3]">
-                  <img src={minus} alt="" />
-                  <p>1</p>
-                  <img src={plus} alt="" />
-                </div>
-              </div>
-              <hr />
+            <div className='cart-bottom bg-[#FFF]'>
+              <div className='cart-table bg-[#F1F2F3]'>{t('table')}</div>
+              {cart.map((item) => (
+                <>
+                  <CardBusket
+                    key={item.id}
+                    {...item}
+                    cartLength={!!cart.length}
+                  />
+                </>
+              ))}
             </div>
           </div>
         </div>
