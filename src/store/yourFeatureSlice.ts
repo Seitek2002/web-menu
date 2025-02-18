@@ -32,7 +32,7 @@ const yourFeatureSlice = createSlice({
     setShow: (state) => {
       state.isShow = !state.isShow;
     },
-    setItems: (state, action: PayloadAction<IFoodCart[]>) => {
+    setItems: (state, action: PayloadAction<IFoodCart[] | []>) => {
       state.items = action.payload;
     },
     addItem: (state, action: PayloadAction<IFoodCart>) => {
