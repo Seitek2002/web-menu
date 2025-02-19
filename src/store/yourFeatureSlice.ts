@@ -59,11 +59,11 @@ const yourFeatureSlice = createSlice({
           state.items = state.items.filter((item) => item.id !== action.payload.id);
         }
       }
-      localStorage.setItem('cartItems', JSON.stringify(state.items)); // Сохранение
+      localStorage.setItem('cartItems', JSON.stringify(state.items)); 
     },
     clearCart: (state) => {
       state.items = [];
-      localStorage.removeItem('cartItems'); // Очистка localStorage
+      localStorage.removeItem('cartItems'); 
     },
     setButtonText: (state, action: PayloadAction<string>) => {
       state.buttonText = action.payload;
