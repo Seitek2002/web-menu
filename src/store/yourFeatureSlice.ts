@@ -61,13 +61,17 @@ const yourFeatureSlice = createSlice({
       }
       localStorage.setItem('cartItems', JSON.stringify(state.items)); // Сохранение
     },
+    clearCart: (state) => {
+      state.items = [];
+      localStorage.removeItem('cartItems'); // Очистка localStorage
+    },
     setButtonText: (state, action: PayloadAction<string>) => {
       state.buttonText = action.payload;
     },
   },
 });
 
-export const { increment, decrement, setShow, setItems, addItem, removeItem, setButtonText } =
+export const { increment, decrement, setShow, setItems, addItem, removeItem, clearCart, setButtonText } =
   yourFeatureSlice.actions;
 
 export default yourFeatureSlice.reducer;
