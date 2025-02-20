@@ -4,6 +4,7 @@ import search from '../../../../assets/icons/Search/search.svg';
 import close from '../../../../assets/icons/Search/close.svg';
 import arrowBack from '../../../../assets/icons/Search/arrow-back.svg';
 import all from '../../../../assets/icons/points/all.svg';
+import Menu from 'src/components/Menu';
 
 import './style.scss';
 
@@ -65,6 +66,7 @@ const Search: FC<IProps> = ({ onToggle, onSearchTextChange }) => {
                 <p className='search-name'>Все</p>
               </div>
             </div>
+            <Menu selectedCategory={undefined} searchText={inputValue} />
           </div>
         </div>
       </section>

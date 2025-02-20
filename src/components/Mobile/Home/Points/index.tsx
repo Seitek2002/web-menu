@@ -20,6 +20,7 @@ const Points: FC<IProps> = ({ onCategoryChange, onSearchTextChange }) => {
   const [show, setShow] = useState(false);
 
   const clickShow = () => {
+    document.body.style.overflow = show ? 'auto' : 'hidden';
     setShow(!show);
   };
 

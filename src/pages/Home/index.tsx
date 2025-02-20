@@ -40,14 +40,14 @@ const Home: FC = () => {
           <Header />
           <Hero />
           <Points onCategoryChange={handleCategoryChange} onSearchTextChange={handleSearchTextChange} />
-          <Catalog selectedCategory={selectedCategory} searchText={searchText} />
+          <Catalog selectedCategory={selectedCategory} />
         </>
       ) : (
         <div>
-          <SiteHeaderDesktop/>
+          <SiteHeaderDesktop setSearchText={setSearchText} />
           <HeroDesktop />
           <PointsDesktop onCategoryChange={handleCategoryChange} />
-          <CatalogDesktop selectedCategory={selectedCategory}/>
+          <CatalogDesktop selectedCategory={selectedCategory} searchText={searchText} />
         </div>
       )}
     </>

@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
 
 import logo from "../../../../assets/icons/SiteHeader/logo.svg";
@@ -12,8 +12,9 @@ import check from "../../../../assets/icons/Header/check.svg";
 
 import "./style.scss";
 
-const SiteHeader: FC = () => {
+const SiteHeader: FC<{ setSearchText: (text: string) => void }> = ({ setSearchText }) => {
   const { t, i18n } = useTranslation();
+  const [inputVal, setInputVal] = useState('');
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [active, setActive] = useState("RU");
 
@@ -33,6 +34,11 @@ const SiteHeader: FC = () => {
   const toggleLanguageMenu = () => {
     setIsLanguageOpen((prev) => !prev);
   };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputVal(e.target.value);
+    setSearchText(e.target.value)
+  }
 
   const selectLanguage = (language: string) => {
     const langCode = language === "RU" ? "ru" : language === "KG" ? "kg" : "en";
@@ -56,7 +62,7 @@ const SiteHeader: FC = () => {
             </div>
             <div className="siteHeader__search bg-[#F9F9F9]">
               <img src={search} alt="search" />
-              <input type="text" placeholder={t("search")} />
+              <input value={inputVal} type="text" placeholder={t("search")} onChange={(e) => handleChange(e)} />
             </div>
             <div className="siteHeader__block">
               {/* <div className="siteHeader__user bg-[#F9F9F9]">
