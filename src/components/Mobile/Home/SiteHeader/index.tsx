@@ -51,9 +51,9 @@ const SiteHeader: FC = () => {
             </div>
           </div>
           <div className="siteHeader__block">
-            <div className="siteHeader__user bg-[#F9F9F9]">
+            {/* <div className="siteHeader__user bg-[#F9F9F9]">
               <img src={user} alt="user" />
-            </div>
+            </div> */}
             <div className="siteHeader__language">
               <div
                 className={`siteHeader__language-selected bg-[#F9F9F9] ${
