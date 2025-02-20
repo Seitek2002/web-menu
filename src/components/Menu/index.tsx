@@ -9,9 +9,10 @@ import { IProductCatalog } from 'src/types/products.types';
 
 interface IProps {
   selectedCategory: number | undefined;
+  searchText: string;
 }
 
-const Menu: FC<IProps> = ({ selectedCategory }) => {
+const Menu: FC<IProps> = ({ selectedCategory, searchText }) => {
   const { t } = useTranslation();
   const [isShow, setIsShow] = useState(false);
 
@@ -19,6 +20,7 @@ const Menu: FC<IProps> = ({ selectedCategory }) => {
   const [PhotoDetail, setPhotoDetail] = useState<IProductCatalog>();
   const { data: products, isLoading } = useGetProductsQuery({
     category: selectedCategory || undefined,
+    search: searchText,
   });
 
   const handleClick = (value: boolean) => {

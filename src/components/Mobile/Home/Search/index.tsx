@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react';
+import { ChangeEvent, FC, useRef, useState } from 'react';
 
 import search from '../../../../assets/icons/Search/search.svg';
 import close from '../../../../assets/icons/Search/close.svg';
@@ -9,9 +9,10 @@ import './style.scss';
 
 interface IProps {
   onToggle: () => void;
+  onSearchTextChange: (text: string) => void;
 }
 
-const Search: FC<IProps> = ({ onToggle }) => {
+const Search: FC<IProps> = ({ onToggle, onSearchTextChange }) => {
   const [inputValue, setInputValue] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -26,6 +27,11 @@ const Search: FC<IProps> = ({ onToggle }) => {
       onToggle();
     }
   };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value)
+    onSearchTextChange(e.target.value)
+  }
 
   return (
     <>
@@ -44,7 +50,7 @@ const Search: FC<IProps> = ({ onToggle }) => {
                   type='text'
                   placeholder='Поиск...'
                   value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
+                  onChange={(e) => handleChange(e)}
                   className='text-[#090A0B]'
                 />
                 <img onClick={onClose} src={close} alt='close' />

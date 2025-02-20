@@ -10,9 +10,10 @@ import './style.scss';
 
 interface IProps {
   onCategoryChange: (categoryId: number | undefined) => void;
+  onSearchTextChange: (e: string) => void;
 }
 
-const Points: FC<IProps> = ({ onCategoryChange }) => {
+const Points: FC<IProps> = ({ onCategoryChange, onSearchTextChange }) => {
   const { data: categories, isLoading } = useGetCategoriesQuery();
 
   const [active, setActive] = useState<number | undefined>(0);
@@ -30,7 +31,7 @@ const Points: FC<IProps> = ({ onCategoryChange }) => {
 
   return (
     <section className='mobile point'>
-      {show && <Search onToggle={clickShow} />}
+      {show && <Search onToggle={clickShow} onSearchTextChange={onSearchTextChange} />}
       <div className='container'>
         <div className='mobile point-perent'>
           <div
