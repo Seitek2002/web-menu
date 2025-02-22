@@ -37,9 +37,8 @@ const Menu: FC<IProps> = ({ selectedCategory, searchText }) => {
               .fill(5)
               .map(() => <MenuSkeleton key={Math.random()} />)
           : products?.map((item) => (
-              <div onClick={() => setPhotoDetail(item)}>
+              <div onClick={() => setPhotoDetail(item)} key={item.id}>
                 <CatalogCard
-                  key={item.id}
                   {...item}
                   quantity={cart.find((el) => el.id === item.id)?.quantity || 0}
                   setIsShow={() => handleClick(true)}
