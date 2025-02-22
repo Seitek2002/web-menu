@@ -51,7 +51,6 @@ const Home: FC = () => {
             onCategoryChange={handleCategoryChange} 
             onSearchTextChange={handleSearchTextChange} 
           />
-          {/* Оборачиваем Catalog в контейнер с прокруткой */}
           <div ref={catalogRef} style={{ overflowY: 'auto', maxHeight: '600px' }}>
             <Catalog selectedCategory={selectedCategory} />
           </div>
@@ -61,7 +60,6 @@ const Home: FC = () => {
           <SiteHeaderDesktop setSearchText={setSearchText} />
           <HeroDesktop />
           <PointsDesktop onCategoryChange={handleCategoryChange} />
-          {/* Оборачиваем CatalogDesktop в контейнер с прокруткой */}
           <div ref={catalogRef} style={{ overflowY: 'auto', maxHeight: '600px' }}>
             <CatalogDesktop selectedCategory={selectedCategory} searchText={searchText} />
           </div>

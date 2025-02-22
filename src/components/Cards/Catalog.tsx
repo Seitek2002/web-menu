@@ -89,7 +89,6 @@ const CatalogCard: FC<IProps> = ({
       </div>
       <div className="cart-info">
         <span className="cart-price text-[#875AFF]">{productPrice} с</span>
-        {/* <span className="cart-weight text-[#ADADAD]">•{category.categoryName}</span> */}
       </div>
       <h4 className="cart-name">{productName}</h4>
       {quantity === 0 ? (
