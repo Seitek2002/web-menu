@@ -1,0 +1,6 @@
+.chek {
+    &__adding,
+    &__added {
+        @apply flex justify-center items-center w-[24px] h-[24px] rounded-[6px] absolute right-[8px] top-[8px];
+    }
+}

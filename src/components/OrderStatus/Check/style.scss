@@ -1,0 +1,72 @@
+.check {
+    @apply fixed  left-0 ring-0 bottom-0 top-0 w-full h-full;
+
+    &-bg {
+        opacity: 0.1;
+        @apply absolute w-full h-full left-0 ring-0 bottom-0 top-0 px-[20px];
+    }
+
+    &-block {
+        @apply max-w-[670px] w-full z-10 absolute left-[50%] top-[50%] py-[30px] px-[60px] text-center rounded-[10px];
+        transform: translate(-50%, -50%);
+    }
+
+    &-close {
+        @apply absolute right-[10px] top-[10px];
+    }
+
+    &-head {
+        @apply flex items-center justify-between;
+    }
+    &-cancle {
+        @apply font-[700] text-[16px];
+    }
+
+    &-circle {
+        @apply mb-[24px] mx-auto;
+    }
+    &-title {
+        @apply font-[600] text-[32px] mb-[12px];
+    }
+    &-sum {
+        @apply font-[600] text-[32px];
+    }
+    &-left {
+        @apply font-[500] text-[24px] text-left;
+    }
+    &-right {
+        @apply font-[500] text-[24px] text-right;
+    }
+    &-item {
+        @apply flex justify-between items-center gap-[10px];
+    }
+    &-wrapper {
+        @apply my-[24px] flex flex-col gap-[16px];
+    }
+    &-share {
+        @apply flex items-center gap-[6px] py-[12px] w-full text-center justify-center font-[600] text-[16px] rounded-[10px];
+    }
+
+    @media screen and (max-width: 600px) {
+        &-block {
+            @apply h-full p-[16px];
+            border-radius: 24px 24px 0 0;
+        }
+        &-title {
+            @apply text-[20px] mb-[16px];
+        }
+        &-sum {
+            @apply text-[20px];
+        }
+        &-wrapper {
+            @apply divide-y divide-[#E0E0E0] gap-0;
+        }
+        &-item {
+            @apply py-[5px];
+        }
+        &-left,
+        &-right {
+            @apply text-[14px];
+        }
+    }
+}

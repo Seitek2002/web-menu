@@ -1,0 +1,36 @@
+.busket__forgot {
+    @apply my-[20px];
+
+    &-wrapper {
+        @apply flex items-center gap-[8px];
+    }
+
+    &-cart {
+        @apply px-[4px] pt-[4px] pb-[8px] w-[114px] rounded-[12px] relative;
+    }
+
+    &-title {
+        @apply flex items-center font-[600] text-[24px];
+    }
+
+    &-img {
+        @apply w-[106px] h-[86px] rounded-[16px];
+    }
+
+    &-price {
+        @apply font-[600] text-[16px];
+    }
+
+    &-weight {
+        @apply font-[500] text-[14px];
+    }
+
+    &-info {
+        @apply mt-[8px] mb-[4px];
+    }
+
+    &-name {
+        @apply line-clamp-2 font-[500] text-[16px] leading-[17px];
+    }
+    
+}
