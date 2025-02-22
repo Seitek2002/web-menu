@@ -1,10 +1,12 @@
 import { FC, useState } from 'react';
 import { useAppDispatch } from 'src/hooks/useAppDispatch';
 import { IProductCatalog } from 'src/types/products.types';
-import { addItem, removeItem } from '../../../store/yourFeatureSlice';
+import { addItem, removeItem } from '../../../../store/yourFeatureSlice';
 
-import plus from '../../../assets/icons/Busket/plus.svg';
-import minus from '../../../assets/icons/Busket/minus.svg';
+import plus from "../../../../assets/icons/Busket/back.svg"
+import minus from "../../../../assets/icons/Busket/minus.svg";
+
+import "./style.scss"
 
 type IProps = IProductCatalog & {
   quantity: number;
@@ -61,36 +63,36 @@ const Item: FC<IProps> = ({
 
   return (
     <>
-      <div className='busket-item '>
-        <div className='busket-loy'>
+      <div className='busket__item '>
+        <div className='busket__loy'>
           {cartLength ? (
             <>
-              <img className='busket-img' src={productPhoto} alt='img' />
-              <div className='busket-inner'>
-                <p className='busket-name'>{productName}</p>
-                <div className='busket-info'>
-                  <span className='busket-cart-price text-[#875AFF]'>
+              <img className='busket__img' src={productPhoto} alt='img' />
+              <div className='busket__inner'>
+                <p className='busket__name'>{productName}</p>
+                <div className='busket__info'>
+                  <span className='busket__cart-price text-[#875AFF]'>
                     {productPrice} c
                   </span>
-                  <span className='busket-g text-[#ADADAD]'>•{weight}</span>
+                  <span className='busket__g text-[#ADADAD]'>•{weight}</span>
                 </div>
               </div>
             </>
           ) : (
             <>
-              <div className='busket-inner'>
-                <p className='busket-name'>
-                  {productName}{' '}
-                  <span className='busket-cart-price text-[#875AFF]'>
+              <div className='busket__inner'>
+                <p className='busket__name'>
+                  {productName}
+                  <span className='busket__cart-price text-[#875AFF]'>
                     {productPrice} c
                   </span>
-                  <span className='busket-g text-[#ADADAD]'>•{weight}</span>
+                  <span className='busket__g text-[#ADADAD]'>•{weight}</span>
                 </p>
               </div>
             </>
           )}
         </div>
-        <button className='busket-btn bg-[#F1F2F3]'>
+        <button className='busket__btn bg-[#F1F2F3]'>
           <img src={minus} alt='minus' onClick={handleUnClick} />
           {count}
           <img src={plus} alt='plus' onClick={handleClick} />

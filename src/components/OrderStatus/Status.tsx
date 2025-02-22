@@ -1,16 +1,18 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import share from "../../assets/icons/OrderStatus/share.svg";
 import table from "../../assets/icons/OrderStatus/table.svg";
 
-import doing from "../../assets/images/OrderStatus/doing.png";
-import wait from "../../assets/images/OrderStatus/wait.png";
-import cancel from "../../assets/images/OrderStatus/cancel.png"; 
+import doing from "../../assets/images/OrderStatus/doing.webp";
+import wait from "../../assets/images/OrderStatus/wait.webp";
+import cancel from "../../assets/images/OrderStatus/cancel.webp"; 
 import checkedGreen from "../../assets/icons/OrderStatus/checked-green.svg";
 import pending from "../../assets/icons/OrderStatus/pending.svg";
 
 const OrderStatus: FC = () => {
-    const [toggler, setToggler] = useState(0);
+    const [toggler, setToggler] = useState(0);  
+    const [mobail, setMobail] = useState(window.innerWidth <= 768);
+    
     const [activeList, setActiveList] = useState({
         id: 1,
         name: "Спасибо. заказ принят!",
@@ -22,20 +24,20 @@ const OrderStatus: FC = () => {
 
     const list = [
         {
-            id: 0,
-            name: "Спасибо заказ в ожидании",
-            text: "В ближайшие 5-10 минут администратор свяжется с Вами и уточнит детали",
-            img: wait,
-            icon: pending,
-            titleColor: "text-[#FF8400]"
-        },
-        {
             id: 1,
             name: "Спасибо. заказ принят!",
             text: "ожидайте в течении 15-20 минут!",
             img: doing,
             icon: checkedGreen,
             titleColor: "text-[#06C740]"
+        },
+        {
+            id: 0,
+            name: "Спасибо заказ в ожидании",
+            text: "В ближайшие 5-10 минут администратор свяжется с Вами и уточнит детали",
+            img: wait,
+            icon: pending,
+            titleColor: "text-[#FF8400]"
         },
         {
             id: 2,
@@ -57,16 +59,19 @@ const OrderStatus: FC = () => {
         
     };
 
+    useEffect(() => {
+        setMobail(window.innerWidth <= 768);
+      }, []);
+
     return (
         <>
             <div className="order__status-status bg-white shadow rounded self-start">
-                <h4 className="order__status-status-title text-[#875AFF]">
-                    <img src={table} alt="table" />
-                    Стол №12
-                </h4>
-
+                <h4 onClick={changeToggle} className="order__status-status-title text-[#875AFF]"><img src={table} alt="table" />Стол №12</h4>
                 <img src={activeList.img} alt="doing" className="order__status-status-img" />
-                <div className="order__status-status-share bg-white"><img src={share} alt="doing" /></div>
+                {
+                    mobail && (<div className="order__status-status-share bg-white"><img src={share} alt="doing" /></div>)
+                }
+                
 
                 <h4 className={"order__status-status-name " + activeList.titleColor} >
                     {activeList.icon && (
@@ -75,9 +80,14 @@ const OrderStatus: FC = () => {
                     <div className="">{activeList.name}</div>
                 </h4>
                 <p className="order__status-status-description text-[#ADADAD]">{activeList.text}</p>
-                <button onClick={changeToggle} className="order__status-status-btn text-[#fff] bg-[#875AFF]">
-                    Заказать еще
-                </button>
+                {
+                    !mobail && (
+                        <button onClick={changeToggle} className="order__status-status-btn text-[#fff] bg-[#875AFF]">
+                            Заказать еще
+                        </button>
+                    )
+                }
+               
             </div>
         </>
     );

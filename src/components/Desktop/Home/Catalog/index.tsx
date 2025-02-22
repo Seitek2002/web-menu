@@ -13,20 +13,23 @@ import "./style.scss";
 
 interface IProps {
   selectedCategory: number | undefined;
-  renameTitleHead: () => void;
+  renameTitleHead?: () => void;
+  searchText: string;
 }
 
-const Catalog: FC<IProps> = ({ selectedCategory, renameTitleHead }) => {
+const Catalog: FC<IProps> = ({ selectedCategory, renameTitleHead, searchText }) => {
   const { t } = useTranslation();
   const cart = useAppSelector((state) => state.yourFeature.items);
   const dispatch = useDispatch();
+
+  console.log(renameTitleHead);
 
   return (
     <section className="desktop cart">
       <div className="container">
         <div className="cart-content">
           <div className="cart-left">
-            <Menu selectedCategory={selectedCategory} />
+            <Menu selectedCategory={selectedCategory} searchText={searchText} />
           </div>
           <div className="cart-right relative">
             <div className="cart-top">
@@ -35,7 +38,7 @@ const Catalog: FC<IProps> = ({ selectedCategory, renameTitleHead }) => {
                 className="cart-wrapper-img bg-[#FFF]"
                 onClick={() => {
                   dispatch(clearCart());
-                  renameTitleHead(); // Если нужно менять заголовок
+                  // renameTitleHead(); // Если нужно менять заголовок
                 }}
               >
                 <img src={delet} alt="delete" />

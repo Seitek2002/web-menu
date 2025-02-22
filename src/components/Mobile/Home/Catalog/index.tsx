@@ -12,7 +12,7 @@ const Catalog: FC<IProps> = ({ selectedCategory }) => {
   return (
     <section className='cart'>
       <div className='container'>
-        <Menu selectedCategory={selectedCategory} />
+        <Menu selectedCategory={selectedCategory} searchText={''} />
       </div>
     </section>
   );

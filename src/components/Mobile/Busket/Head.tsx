@@ -13,12 +13,12 @@ const Head: React.FC<HeadProps> = ({ renameTitleHead }) => {
 
     return (
         <>
-            <div className="busket-top">
-                <Link to="/" className="busket-wrapper-img bg-[#FFF]">
+            <div className="busket__top">
+                <Link to="/" className="busket__wrapper-img bg-[#FFF]">
                     <img src={back} alt="back" />
                 </Link>
-                <h1 className="busket-title">{t("busket.busketTitle")}</h1>
-                <div className="busket-wrapper-img bg-[#FFF]" onClick={renameTitleHead}>
+                <h1 className="busket__title">{t("busket.busketTitle")}</h1>
+                <div className="busket__wrapper-img bg-[#FFF]" onClick={renameTitleHead}>
                     <img src={delet} alt="delete" />
                 </div>
             </div>

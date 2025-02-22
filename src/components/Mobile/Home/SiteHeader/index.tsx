@@ -5,7 +5,7 @@ import "./style.scss";
 
 import logo from "../../../../assets/icons/SiteHeader/logo.svg";
 import arrow from "../../../../assets/icons/Header/black-arrow.svg";
-import user from "../../../../assets/icons/SiteHeader/user.svg";
+// import user from "../../../../assets/icons/SiteHeader/user.svg";
 
 const SiteHeader: FC = () => {
   const { t, i18n } = useTranslation();
@@ -51,9 +51,9 @@ const SiteHeader: FC = () => {
             </div>
           </div>
           <div className="siteHeader__block">
-            <div className="siteHeader__user bg-[#F9F9F9]">
+            {/* <div className="siteHeader__user bg-[#F9F9F9]">
               <img src={user} alt="user" />
-            </div>
+            </div> */}
             <div className="siteHeader__language">
               <div
                 className={`siteHeader__language-selected bg-[#F9F9F9] ${

@@ -1,6 +1,8 @@
 import { useState, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import checkbox from "../../../assets/icons/Busket/checkbox.svg";
+import checkbox from "../../../../assets/icons/Busket/checkbox.svg";
+
+import "./style.scss"
 
 const Where: React.FC = () => {
     const { t, i18n } = useTranslation();
@@ -16,19 +18,16 @@ const Where: React.FC = () => {
     }, [list]);
 
     return (
-        <div className="busket-where">
+        <div className="busket__order-type">
             {list.map((item, index) => (
                 <div
                     key={index}
                     onClick={() => setActive(item)}
-                    className={`busket-where-wrapper bg-[#fff] border-[#e1e2e5] ${
-                        active === item ? "active border-[#875AFF]" : ""
-                    }`}
-                >
+                    className={`busket__order-type-wrapper bg-[#fff] border-[#e1e2e5] ${active === item ? "active border-[#875AFF]" : ""}`}>
                     {active === item ? (
                         <img src={checkbox} alt="check" />
                     ) : (
-                        <div className="busket-where-checkbox border-[#e1e2e5]"></div>
+                        <div className="busket__order-type-checkbox border-[#e1e2e5]"></div>
                     )}
                     {item}
                 </div>

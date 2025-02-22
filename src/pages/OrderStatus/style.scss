@@ -67,7 +67,7 @@
         }
 
         &-share {
-            @apply hidden absolute top-[12px] right-[12px] w-[36px] h-[36px] flex items-center justify-center rounded-[8px] cursor-pointer;
+            @apply absolute top-[12px] right-[12px] w-[36px] h-[36px] flex items-center justify-center rounded-[8px] cursor-pointer;
             box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.06);
         }
 
@@ -92,15 +92,10 @@
         }
     }
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 769px) {
         &-wrapper {
             flex-direction: column-reverse;
         }
-
-        &-status-share {
-            @apply flex;
-        }
-
         &-status-name {
             flex-direction: unset
         }
@@ -111,9 +106,6 @@
         }
         &-head {
             @apply justify-center;
-        }
-        &-img-wrapper {
-            @apply hidden;
         }
     }
 }

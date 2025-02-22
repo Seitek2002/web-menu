@@ -1,5 +1,7 @@
 import { FC, ReactNode } from "react";
 
+import "./style.scss"
+
 type ModalProps = {
     title: string;
     children: ReactNode;
@@ -9,11 +11,11 @@ type ModalProps = {
 const Modal: FC<ModalProps> = ({ title, children, onClose }) => {
     return (
         <>
-            <div className="busket-modal"> 
-                <div onClick={onClose} className="busket-modal-bg bg-[#A9AAAB]"></div>
+            <div className="busket__modal"> 
+                <div onClick={onClose} className="busket__modal-bg bg-[#A9AAAB]"></div>
                 <div className="container">
-                    <div className="busket-modal-wrapper bg-[#fff]">
-                        <h2 className="busket-modal-title text-[#090A0B]">
+                    <div className="busket__modal-wrapper bg-[#fff]">
+                        <h2 className="busket__modal-title text-[#090A0B]">
                             {title}
                         </h2>
                         {children}

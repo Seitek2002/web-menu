@@ -12,6 +12,7 @@ import cake from "../../assets/images/OrderStatus/cake.png";
 import pancakes from "../../assets/images/OrderStatus/pancakes.png";
 
 import "./style.scss";
+import Check from "src/components/OrderStatus/Check";
 
 interface Order {
     id: number;
@@ -61,6 +62,8 @@ const OrderStatus: FC = () => {
                     <Status />
                 </div>
             </div>
+
+            {/* <Check /> */}
         </section>
     );
 };

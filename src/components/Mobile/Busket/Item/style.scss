@@ -1,0 +1,64 @@
+.busket {
+    @apply pt-[12px];
+  
+    &__empty {
+      @apply font-medium text-[16px] text-center;
+  
+      button {
+        @apply font-semibold text-[16px] w-full py-[16px] rounded-[12px];
+      }
+    }
+  
+    &__title {
+      @apply font-semibold text-[24px];
+    }
+  
+    &__top {
+      @apply flex justify-between items-center;
+    }
+  
+    &__wrapper-img {
+      @apply w-[32px] h-[32px] flex items-center justify-center rounded-[8px];
+    }
+  
+    &__table {
+      @apply py-[12px] rounded-[8px] flex justify-center mt-[12px] font-[700] text-[16px];
+    }
+  
+    &__list {
+      @apply flex flex-col rounded-[12px] mt-[20px] p-[12px];
+    }
+  
+    &__img {
+      @apply min-w-[83px] max-w-[83px] h-[63px] rounded-[8px];
+    }
+  
+    &__item {
+      @apply flex items-center justify-between gap-[8px] py-[8px];
+    }
+  
+    &__info {
+      @apply flex gap-[4px];
+    }
+  
+    &__name {
+      @apply font-[500] text-[14px] leading-[15px]  mb-[8px] line-clamp-3;
+    }
+  
+    &__cart-price {
+      @apply font-[600] text-[12px];
+    }
+  
+    &__g {
+      @apply font-[600] text-[12px];
+    }
+  
+    &__btn {
+      @apply p-[12px] flex items-center justify-between min-w-[114px] max-w-[114px] gap-[16px] rounded-[9999px] box-border;
+  
+      img {
+        @apply min-w-[24px] h-[24px];
+      }
+    }
+}
+  

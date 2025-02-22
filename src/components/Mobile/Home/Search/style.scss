@@ -1,5 +1,5 @@
 .search {
-  @apply fixed w-full h-[100vh] z-20 left-0 top-0;
+  @apply fixed w-full h-[100vh] z-20 left-0 top-0 overflow-y-auto;
 
   &-top {
     @apply mt-[12px] w-full flex items-center justify-center gap-3;

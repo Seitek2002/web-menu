@@ -1,273 +1,67 @@
 .busket {
-  @apply pt-[12px];
+    @apply pt-[12px];
 
-  &-empty {
-    @apply font-medium text-[16px] text-center;
+    &__empty {
+        @apply font-medium text-[16px] text-center;
 
-    button {
-      @apply font-semibold text-[16px] w-full py-[16px] rounded-[12px];
-    }
-  }
-
-  &-title {
-    @apply font-semibold text-[24px];
-  }
-
-  &-top {
-    @apply flex justify-between items-center;
-  }
-
-  &-wrapper-img {
-    @apply w-[32px] h-[32px] flex items-center justify-center rounded-[8px];
-  }
-
-  &-table {
-    @apply py-[12px] rounded-[8px] flex justify-center mt-[12px] font-[700] text-[16px];
-  }
-
-  &-list {
-    @apply flex flex-col rounded-[12px] mt-[20px] p-[12px];
-  }
-
-  &-img {
-    @apply min-w-[83px] max-w-[83px] h-[63px] rounded-[8px];
-  }
-
-  &-item {
-    @apply flex items-center justify-between gap-[8px] py-[8px];
-  }
-
-  &-info {
-    @apply flex gap-[4px];
-  }
-
-  &-name {
-    @apply font-[500] text-[14px] leading-[15px]  mb-[8px] line-clamp-3;
-  }
-
-  &-cart-price {
-    @apply font-[600] text-[12px];
-  }
-
-  &-g {
-    @apply font-[600] text-[12px];
-  }
-
-  &-btn {
-    @apply p-[12px] flex items-center justify-between min-w-[114px] max-w-[114px] gap-[16px] rounded-[9999px] box-border;
-
-    img {
-      @apply min-w-[24px] h-[24px];
-    }
-  }
-
-  &-loy {
-    @apply flex gap-[8px];
-  }
-
-  &-detail {
-    @apply p-[12px] rounded-[12px] my-[20px];
-
-    &-top {
-      @apply flex items-center justify-between mb-[12px];
+        button {
+            @apply font-semibold text-[16px] w-full py-[16px] rounded-[12px];
+        }
     }
 
-    &-name {
-      @apply font-[500] text-[14px];
+    &__title {
+        @apply font-semibold text-[24px];
     }
 
-    &-required {
-      @apply font-[500] text-[12px];
+    &__top {
+        @apply flex justify-between items-center;
     }
 
-    &-input {
-      border: 1px solid #e1e2e5;
-      @apply w-full py-[19px] px-[16px] rounded-[8px];
-
-      &::placeholder {
-        @apply font-[500] text-[14px];
-      }
-
-      &.first {
-        @apply mb-[8px];
-      }
-    }
-  }
-
-  &-where {
-    @apply flex items-center justify-between gap-[8px];
-
-    &-wrapper {
-      @apply flex items-center gap-[16px] py-[19px] px-[16px] w-[50%] rounded-[8px];
-      border: 1px solid;
+    &__wrapper-img {
+        @apply w-[32px] h-[32px] flex items-center justify-center rounded-[8px];
     }
 
-    &-checkbox {
-      @apply w-[16px] h-[16px] rounded-[50%];
-      border: 1px solid;
-    }
-  }
-
-  &-price {
-    @apply p-[12px] rounded-[12px] mt-[20px] mb-[12px];
-
-    &-wrapper {
-      @apply h-0 overflow-hidden;
-      transition: 0.3s;
-
-      &.active {
-        @apply h-[162px] overflow-visible;
-      }
+    &__table {
+        @apply py-[12px] rounded-[8px] flex justify-center mt-[12px] font-[700] text-[16px];
     }
 
-    &-top {
-      @apply flex items-center justify-between font-[500] text-[14px] mb-[16px];
+    &__list {
+        @apply flex flex-col rounded-[12px] mt-[20px] p-[12px];
     }
 
-    &-img {
-      transition: 0.3s;
-
-      &.active {
-        transform: rotate(180deg);
-      }
+    &__img {
+        @apply min-w-[83px] max-w-[83px] h-[63px] rounded-[8px];
     }
 
-    &-item {
-      @apply flex items-center justify-between font-[500] text-[12px] leading-[13px] py-[8px];
+    &__item {
+        @apply flex items-center justify-between gap-[8px] py-[8px];
     }
 
-    &-total {
-      @apply font-[500] text-[12px] leading-[24px];
+    &__info {
+        @apply flex gap-[4px];
     }
 
-    &-ress {
-      @apply flex items-center justify-between font-[500] text-[14px] pt-[16px];
-      border-top: 1px solid;
-    }
-  }
-
-  &-promo {
-    @apply py-[8px] px-[12px] rounded-[12px] flex items-center;
-
-    input {
-      @apply w-full py-[11px] pr-[12px] outline-none font-[500] text-[14px];
+    &__name {
+        @apply font-[500] text-[14px] leading-[15px]  mb-[8px] line-clamp-3;
     }
 
-    button {
-      @apply rounded-[12px] font-[500] text-[12px] py-[8px] px-[24px];
-    }
-  }
-
-  &-forgot {
-    @apply my-[20px];
-
-    &-wrapper {
-      @apply flex items-center gap-[8px];
+    &__cart-price {
+        @apply font-[600] text-[12px];
     }
 
-    &-cart {
-      @apply px-[4px] pt-[4px] pb-[8px] w-[114px] rounded-[12px] relative;
+    &__g {
+        @apply font-[600] text-[12px];
     }
 
-    &-title {
-      @apply flex items-center font-[600] text-[24px];
+    &__btn {
+        @apply p-[12px] flex items-center justify-between min-w-[114px] max-w-[114px] gap-[16px] rounded-[9999px] box-border;
+
+        img {
+            @apply min-w-[24px] h-[24px];
+        }
     }
 
-    &-img {
-      @apply w-[106px] h-[86px] rounded-[16px];
+    &__loy {
+        @apply flex gap-[8px];
     }
-
-    &-price {
-      @apply font-[600] text-[16px];
-    }
-
-    &-weight {
-      @apply font-[500] text-[14px];
-    }
-
-    &-info {
-      @apply mt-[8px] mb-[4px];
-    }
-
-    &-name {
-      @apply line-clamp-2 font-[500] text-[16px] leading-[17px];
-    }
-    &-adding,
-    &-added {
-      @apply flex justify-center items-center w-[24px] h-[24px] rounded-[6px] absolute right-[8px] top-[8px];
-    }
-  }
-
-  &-tips {
-    @apply rounded-[12px] p-[12px] mb-[100px];
-
-    &-title {
-      @apply font-[600] text-[24px];
-    }
-
-    &-info {
-      @apply flex items-center gap-[13px] mt-[8px] mb-[16px];
-    }
-
-    &-ava {
-      @apply w-[36px] h-[36px] overflow-hidden;
-
-      img {
-        @apply w-full;
-      }
-    }
-
-    &-inner {
-      @apply flex flex-col gap-[4px];
-    }
-
-    &-name {
-      @apply font-[700] text-[14px];
-    }
-
-    &-job {
-      @apply text-[12px] font-[400];
-    }
-
-    &-wrapper {
-      @apply flex items-center gap-[8px];
-    }
-
-    &-item {
-      @apply w-[62px] h-[56px] rounded-[50%] flex items-center justify-center;
-    }
-  }
-
-  &-modal {
-    @apply fixed  top-0 left-0 bottom-0 right-0 flex items-center justify-center;
-
-    &-bg {
-      @apply w-full h-full absolute top-0 left-0;
-      opacity: 0.5;
-    }
-
-    &-wrapper {
-      @apply sticky w-full rounded-[24px] p-[16px] box-border text-center max-w-[500px] my-0 mx-auto;
-    }
-
-    &-title {
-      @apply font-[600] text-[24px];
-    }
-
-    &-btns {
-      @apply flex items-center justify-center gap-[16px] mt-[16px];
-
-      button {
-        @apply rounded-[12px] font-[600] text-[16px] py-[16px] w-full;
-      }
-    }
-
-    &-text {
-      @apply font-[500] text-[14px] mt-[4px] mb-[24px];
-    }
-
-    &-btn {
-      @apply font-[600] text-[16px] py-[16px] w-full max-w-[380px] text-center rounded-[12px];
-    }
-  }
 }

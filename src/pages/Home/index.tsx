@@ -17,6 +17,7 @@ const Home: FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>(
     undefined
   );
+  const [searchText, setSearchText] = useState<string>("");
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
@@ -27,6 +28,10 @@ const Home: FC = () => {
     setSelectedCategory(categoryId);
   };
 
+  const handleSearchTextChange = (text: string) => {
+    setSearchText(text);
+  };
+
   return (
     <>
       {isMobile ? (
@@ -34,15 +39,15 @@ const Home: FC = () => {
           <SiteHeader />
           <Header />
           <Hero />
-          <Points onCategoryChange={handleCategoryChange} />
+          <Points onCategoryChange={handleCategoryChange} onSearchTextChange={handleSearchTextChange} />
           <Catalog selectedCategory={selectedCategory} />
         </>
       ) : (
         <div>
-          <SiteHeaderDesktop/>
+          <SiteHeaderDesktop setSearchText={setSearchText} />
           <HeroDesktop />
           <PointsDesktop onCategoryChange={handleCategoryChange} />
-          <CatalogDesktop selectedCategory={selectedCategory}/>
+          <CatalogDesktop selectedCategory={selectedCategory} searchText={searchText} />
         </div>
       )}
     </>
