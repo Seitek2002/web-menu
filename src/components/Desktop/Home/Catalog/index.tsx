@@ -38,7 +38,6 @@ const Catalog: FC<IProps> = ({ selectedCategory, renameTitleHead, searchText }) 
                 className="cart-wrapper-img bg-[#FFF]"
                 onClick={() => {
                   dispatch(clearCart());
-                  // renameTitleHead(); // Если нужно менять заголовок
                 }}
               >
                 <img src={delet} alt="delete" />

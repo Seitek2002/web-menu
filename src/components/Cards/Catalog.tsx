@@ -8,12 +8,7 @@ import whitePlus from "../../assets/icons/cart/plus.svg";
 import whiteMinus from "../../assets/icons/cart/minus.svg";
 
 import "./style.scss";
-const ScrollClick = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-};
+
 interface IProps extends IProductCatalog {
   setIsShow: () => void;
   quantity: number;
@@ -102,7 +97,6 @@ const CatalogCard: FC<IProps> = ({
           className="cart-btn bg-[#F1F2F3] text-[#000]"
           onClick={() => {
             handleClick();
-            ScrollClick();
           }}
         >
           Добавить
