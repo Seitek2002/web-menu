@@ -2,6 +2,8 @@ import { FC, useState } from "react";
 import { IProductCatalog } from "src/types/products.types";
 import { useGesture } from "@use-gesture/react";
 import { useTranslation } from "react-i18next";
+import { useAppDispatch } from "src/hooks/useAppDispatch";
+import { addItem } from "src/store/yourFeatureSlice";
 
 import addContainer from "./add-container.svg";
 import close from "./close.svg";
@@ -23,6 +25,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
   const [counter, setCounter] = useState(1);
   const [selectedSize, setSelectedSize] = useState('');
   const sizes = [...item?.modificators || []];
+  const dispatch = useAppDispatch();
 
   const handleCounterChange = (delta: number) => {
     setCounter((prev) => Math.max(1, prev + delta));
@@ -33,6 +36,13 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
       containerAdd,
       counter,
     };
+
+    if(item) {
+      dispatch(addItem({
+        ...item,
+        quantity: counter,
+      }))
+    }
 
     console.log("Выбранные данные:", selectedData);
   };
