@@ -2,6 +2,7 @@ export interface IProductCatalog {
   id: number;
   productName: string;
   productPrice: string;
+  productDescription: string | null;
   productPhoto: string;
   weight: number;
   category: {
@@ -10,7 +11,6 @@ export interface IProductCatalog {
   };
   modificators: {
     id: number;
-    externalId: string;
     name: string;
     price: string;
   }[]

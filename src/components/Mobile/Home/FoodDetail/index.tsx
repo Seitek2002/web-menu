@@ -17,18 +17,19 @@ interface IProps {
 }
 
 const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
-  const [sugar, setSugar] = useState<"with" | "without">("with");
+  const { t } = useTranslation();
+  // const [sugar, setSugar] = useState<"with" | "without">("with");
   const [containerAdd, setContainerAdd] = useState(0);
   const [counter, setCounter] = useState(1);
-  const [selectedSize, setSelectedSize] = useState("Маленький");
+  const [selectedSize, setSelectedSize] = useState('');
+  const sizes = [...item?.modificators || []];
 
   const handleCounterChange = (delta: number) => {
     setCounter((prev) => Math.max(1, prev + delta));
   };
-  const sizes = ["small", "medium", "large"];
   const handleDone = () => {
     const selectedData = {
-      sugar,
+      // sugar,
       containerAdd,
       counter,
     };
@@ -44,8 +45,6 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
     },
   });
 
-  const { t } = useTranslation();
-
   return (
     <div className={"food-detail bg-[#F1F2F3]" + (isShow ? " active" : "")}>
       <img src={close} alt="" className="close" onClick={setIsShow} />
@@ -56,7 +55,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
         <div className="description">
           <h2 className="text-[#090A0B]">{item?.productName}</h2>
           <p className="text-[#090A0B]">
-            Кофейный напиток с добавлением молока
+            {item?.productDescription}
           </p>
         </div>
         <div className="ingridients">
@@ -78,7 +77,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
             </li>
           </ul>
         </div>
-        <div className="sugar__block flex items-center justify-between">
+        {/* <div className="sugar__block flex items-center justify-between">
           <h2 className="text-[#090A0B]">
             {t("foodDetail.ingredients.sugar.question")}
           </h2>
@@ -123,7 +122,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="size">
           <div className="flex items-center justify-between">
             <h2 className="text-[#090A0B]">{t("size.sizeChoose")}</h2>
@@ -132,17 +131,17 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
             </div>
           </div>
           <div className="size__content">
-            {sizes.map((sizeKey, index) => (
+            {sizes?.map((sizeKey, index) => (
               <div
                 key={index}
                 className={`size__item bg-white ${
-                  selectedSize === sizeKey ? "active border-[#875AFF]" : ""
+                  selectedSize === sizeKey.name ? "active border-[#875AFF]" : ""
                 }`}
-                onClick={() => setSelectedSize(sizeKey)}
+                onClick={() => setSelectedSize(sizeKey.name)}
               >
-                <span>{t(`size.${sizeKey}`)}</span>
+                <span>{sizeKey.name}</span>
                 <div className="price text-[#626576]">
-                  {t(`size.price.${sizeKey}`)}
+                  {sizeKey.price}
                 </div>
               </div>
             ))}
