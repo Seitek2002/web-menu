@@ -53,8 +53,10 @@ const Home: FC = () => {
       ) : (
         <div>
           <SiteHeaderDesktop setSearchText={setSearchText} />
+          <div className="flex">
           <HeroDesktop />
           <PointsDesktop onCategoryChange={handleCategoryChange} />
+          </div>
           <div ref={catalogRef} style={{ overflowY: 'auto', maxHeight: '600px' }}>
             <CatalogDesktop selectedCategory={selectedCategory} searchText={searchText} />
           </div>

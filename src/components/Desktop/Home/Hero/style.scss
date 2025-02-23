@@ -1,32 +1,35 @@
-.desktop.swiper {
-  @apply my-7;
+.hero {
+  @apply w-1/2 ;
+  .desktop.swiper {
+    @apply my-7;
 
-  &__burger {
-    @apply absolute top-1/2 right-0 transform -translate-y-1/2;
-  }
-
-  &__item {
-    @apply w-full h-[150px] rounded-lg overflow-hidden ml-[-80px];
-
-    &.another {
-      @apply w-full h-[150px] py-4 px-6 relative bg-gradient-to-r from-[#bc1d77] to-[#6942a8];
+    &__burger {
+      @apply absolute top-1/2 right-0 transform -translate-y-1/2;
     }
-  }
 
-  &__bg {
-    @apply w-full h-full object-cover rounded-lg;
-  }
+    &__item {
+      @apply w-full h-[150px] rounded-lg overflow-hidden ml-[-30px];
 
-  &__name {
-    @apply font-baloo text-[15px] font-normal;
-  }
+      &.another {
+        @apply w-full h-[150px] py-4 px-6 relative bg-gradient-to-r from-[#bc1d77] to-[#6942a8];
+      }
+    }
 
-  &__top {
-    @apply flex items-center gap-2;
-  }
+    &__bg {
+      @apply w-full h-full object-cover rounded-lg;
+    }
 
-  &__text {
-    @apply text-[12px] font-medium max-w-[221px] text-[#DFC0DD];
+    &__name {
+      @apply font-baloo text-[15px] font-normal;
+    }
+
+    &__top {
+      @apply flex items-center gap-2;
+    }
+
+    &__text {
+      @apply text-[12px] font-medium max-w-[221px] text-[#DFC0DD];
+    }
   }
 }
 

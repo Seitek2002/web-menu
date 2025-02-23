@@ -2,9 +2,7 @@ import { FC, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useTranslation } from 'react-i18next';
 import { useGetCategoriesQuery } from '../../../../api/Categories.api';
-import { Navigation } from 'swiper/modules';
 import PointsSkeleton from '../../../../skeletons/Points';
-import arrow from '../../../../assets/icons/points/slider-arrow.svg';
 import all from '../../../../assets/icons/points/all.svg';
 
 import './style.scss';
@@ -27,18 +25,10 @@ const Points: FC<IProps> = ({ onCategoryChange }) => {
     <section className="desktop point">
       <div className="container">
         <div className="desktop point-content">
-          <div className="desktop point-button-prev bg-[#fff]">
-            <img className="bg-[#fff]" src={arrow} alt="" />
-          </div>
           <Swiper
-            className="swiper"
-            spaceBetween={8}
-            slidesPerView={5}
-            navigation={{
-              prevEl: ".desktop.point-button-prev",
-              nextEl: ".desktop.point-button-next",
-            }}
-            modules={[Navigation]}
+            className="swiper h-[150px]"
+            direction="vertical"
+            slidesPerView={2}
           >
             <SwiperSlide>
               <div
@@ -73,9 +63,6 @@ const Points: FC<IProps> = ({ onCategoryChange }) => {
                   </SwiperSlide>
                 ))}
           </Swiper>
-          <div className="desktop point-button-next bg-[#fff]">
-            <img src={arrow} alt="" />
-          </div>
         </div>
       </div>
     </section>
