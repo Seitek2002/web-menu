@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
 
 import SiteHeader from "../../components/Mobile/Home/SiteHeader";
 import Header from "../../components/Mobile/Home/Header";
@@ -16,14 +16,9 @@ import "./style.scss";
 const Home: FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>(undefined);
   const [searchText, setSearchText] = useState<string>("");
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   // Создаем ref для контейнера с каталогом
   const catalogRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-  }, []);
 
   const handleCategoryChange = (categoryId: number | undefined) => {
     setSelectedCategory(categoryId);
@@ -42,7 +37,7 @@ const Home: FC = () => {
 
   return (
     <>
-      {isMobile ? (
+      {window.innerWidth <= 768 ? (
         <>
           <SiteHeader />
           <Header />
