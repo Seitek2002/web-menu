@@ -21,6 +21,7 @@ const CardBusket: FC<IProps> = ({
   productPhoto,
   category,
   modificators,
+  productDescription,
   quantity,
   cartLength,
 }) => {
@@ -36,6 +37,7 @@ const CardBusket: FC<IProps> = ({
         weight,
         category,
         quantity: 1,
+        productDescription,
         modificators,
       })
     );
@@ -51,6 +53,7 @@ const CardBusket: FC<IProps> = ({
         productPhoto,
         category,
         quantity: 0,
+        productDescription,
         modificators,
       })
     );

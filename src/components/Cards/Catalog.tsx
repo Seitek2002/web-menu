@@ -22,6 +22,7 @@ const CatalogCard: FC<IProps> = ({
   category,
   weight,
   setIsShow,
+  productDescription,
   modificators,
   quantity,
 }) => {
@@ -38,6 +39,7 @@ const CatalogCard: FC<IProps> = ({
           productName,
           productPrice,
           productPhoto,
+          productDescription,
           weight,
           category,
           quantity: 1,
@@ -56,6 +58,7 @@ const CatalogCard: FC<IProps> = ({
         weight,
         productPhoto,
         category,
+        productDescription,
         quantity: 0,
         modificators: [],
       })
