@@ -4,6 +4,7 @@ import Head from "src/components/OrderStatus/Head";
 import ListItem from "src/components/OrderStatus/List/ListItem";
 import ListHead from "src/components/OrderStatus/List/ListHead";
 import Status from "src/components/OrderStatus/Status";
+// import Check from "src/components/OrderStatus/Check";
 
 import burger from "../../assets/images/Catalog/item-2.webp";
 import shawarma from "../../assets/images/Catalog/item-1.webp";
@@ -12,7 +13,6 @@ import cake from "../../assets/images/OrderStatus/cake.png";
 import pancakes from "../../assets/images/OrderStatus/pancakes.png";
 
 import "./style.scss";
-import Check from "src/components/OrderStatus/Check";
 
 interface Order {
     id: number;

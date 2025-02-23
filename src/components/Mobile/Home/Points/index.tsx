@@ -23,12 +23,14 @@ const Points: FC<IProps> = ({ onCategoryChange, onSearchTextChange }) => {
     document.body.style.overflow = show ? "auto" : "hidden";
     setShow(!show);
   };
+
   const ScrollClick = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
   };
+
   const selectCategory = (id: number | undefined) => {
     setActive(id);
     if (id) onCategoryChange(id);
