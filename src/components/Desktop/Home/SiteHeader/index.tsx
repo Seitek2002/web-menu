@@ -6,7 +6,7 @@ import arrow from "../../../../assets/icons/Header/black-arrow.svg";
 // import user from "../../../../assets/icons/SiteHeader/user.svg";
 import search from "../../../../assets/icons/SiteHeader/search.svg";
 import logoCompanion from "../../../../assets/icons/Header/logo.svg";
-import clock from "../../../../assets/icons/Header/clock.svg";
+import clock from "../../../../assets/icons/Header/Clock.svg";
 import bell from "../../../../assets/icons/Header/bell.svg";
 import check from "../../../../assets/icons/Header/check.svg";
 
