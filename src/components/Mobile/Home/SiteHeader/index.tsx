@@ -8,7 +8,7 @@ import arrow from "../../../../assets/icons/Header/black-arrow.svg";
 // import user from "../../../../assets/icons/SiteHeader/user.svg";
 
 const SiteHeader: FC = () => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [active, setActive] = useState("RU");
 
