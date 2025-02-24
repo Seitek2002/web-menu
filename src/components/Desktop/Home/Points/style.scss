@@ -1,39 +1,28 @@
 .desktop.point {
   &-item {
-    @apply flex items-center rounded-full px-[15px] py-[5px] gap-[10px];
-    p{
+    @apply flex items-center rounded-full px-[100px] py-[5px] gap-[10px] w-full;
+    p {
       @apply line-clamp-1;
     }
     img {
       @apply w-[56px] h-[56px] rounded-full object-cover;
     }
   }
-  &-content{
-    @apply grid grid-cols-2 gap-[10px] my-[24px];
-  }
-  .swiper {
-    flex: 1;
-  }
-  &-button-prev,
-  &-button-next {
-    @apply size-[44px] flex justify-center items-center rounded-[100%] cursor-pointer py-[12px] px-[17px];
-  }
+  &-content {
+    @apply grid grid-cols-2 gap-[10px] my-[24px] overflow-y-scroll h-[250px] w-full;
 
-  &-button-next {
-    @apply rotate-180;
-  }
+    // Чтобы каждый элемент внутри грида занимал всю доступную ширину
+    & > * {
+      @apply w-full;
+    }
 
-  &-button-prev.swiper-button-disabled,
-  &-button-next.swiper-button-disabled {
-    @apply opacity-0 cursor-default;
+    /* Скрываем скроллбар в Firefox и IE */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 }
 
-// .point {
-//   overflow: auto;
-//   scrollbar-width: none; /* Для Firefox */
-// }
-
-// .point::-webkit-scrollbar {
-//   display: none; /* Для Chrome, Safari и других Webkit-браузеров */
-// }
+/* Скрываем скроллбар в Chrome, Safari и Opera */
+.desktop.point-content::-webkit-scrollbar {
+  display: none;
+}

@@ -14,7 +14,9 @@ import CatalogDesktop from "../../components/Desktop/Home/Catalog";
 import "./style.scss";
 
 const Home: FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState<number | undefined>(undefined);
+  const [selectedCategory, setSelectedCategory] = useState<number | undefined>(
+    undefined
+  );
   const [searchText, setSearchText] = useState<string>("");
 
   // Создаем ref для контейнера с каталогом
@@ -42,23 +44,32 @@ const Home: FC = () => {
           <SiteHeader />
           <Header />
           <Hero />
-          <Points 
-            onCategoryChange={handleCategoryChange} 
-            onSearchTextChange={handleSearchTextChange} 
+          <Points
+            onCategoryChange={handleCategoryChange}
+            onSearchTextChange={handleSearchTextChange}
           />
-          <div ref={catalogRef} style={{ overflowY: 'auto', maxHeight: '600px' }}>
+          <div
+            ref={catalogRef}
+            style={{ overflowY: "auto", maxHeight: "600px" }}
+          >
             <Catalog selectedCategory={selectedCategory} />
           </div>
         </>
       ) : (
         <div>
           <SiteHeaderDesktop setSearchText={setSearchText} />
-          <div className="flex">
-          <HeroDesktop />
-          <PointsDesktop onCategoryChange={handleCategoryChange} />
+          <div className="flex justify-around items-center">
+            <HeroDesktop />
+            <PointsDesktop onCategoryChange={handleCategoryChange} />
           </div>
-          <div ref={catalogRef} style={{ overflowY: 'auto', maxHeight: '600px' }}>
-            <CatalogDesktop selectedCategory={selectedCategory} searchText={searchText} />
+          <div
+            ref={catalogRef}
+            style={{ overflowY: "auto", maxHeight: "600px" }}
+          >
+            <CatalogDesktop
+              selectedCategory={selectedCategory}
+              searchText={searchText}
+            />
           </div>
         </div>
       )}

@@ -8,10 +8,10 @@
     }
 
     &__item {
-      @apply w-full h-[150px] rounded-lg overflow-hidden ml-[-30px];
+      @apply w-full h-[270px] rounded-lg overflow-hidden ml-[-30px];
 
       &.another {
-        @apply w-full h-[150px] py-4 px-6 relative bg-gradient-to-r from-[#bc1d77] to-[#6942a8];
+        @apply w-full h-[270px] py-4 px-6 relative bg-gradient-to-r from-[#bc1d77] to-[#6942a8] flex flex-col justify-center;
       }
     }
 
