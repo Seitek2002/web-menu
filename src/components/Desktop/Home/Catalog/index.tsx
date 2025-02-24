@@ -14,7 +14,7 @@ const Catalog: FC<IProps> = ({ selectedCategory, renameTitleHead, searchText }) 
   console.log(renameTitleHead);
 
   return (
-    <section className="desktop cart">
+    <section className="cart">
       <div className="container">
         <div className="cart-content">
           <div className="cart-left">

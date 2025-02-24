@@ -36,63 +36,65 @@
   }
 }
 
-.busket-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #e0e0e0;
-}
+.busket {
+  &-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+  }
 
-.busket-loy {
-  display: flex;
-  align-items: center;
-}
+  &-loy {
+    display: flex;
+    align-items: center;
+  }
 
-.busket-img {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  border-radius: 5px;
-}
+  &-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
 
-.busket-inner {
-  margin-left: 10px;
-}
+  &-inner {
+    margin-left: 10px;
+  }
 
-.busket-name {
-  font-size: 14px;
-  font-weight: bold;
-  color: #333;
-}
+  &-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+  }
 
-.busket-info {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
+  &-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
 
-.busket-cart-price {
-  font-size: 14px;
-  font-weight: bold;
-}
+  &-cart-price {
+    font-size: 14px;
+    font-weight: bold;
+  }
 
-.busket-g {
-  font-size: 12px;
-}
+  &-g {
+    font-size: 12px;
+  }
 
-.busket-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  border: none;
-
-  img {
-    width: 16px;
-    height: 16px;
+  &-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 10px;
+    border-radius: 5px;
     cursor: pointer;
+    border: none;
+
+    img {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
   }
 }

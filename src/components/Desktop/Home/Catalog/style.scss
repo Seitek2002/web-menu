@@ -1,4 +1,4 @@
-.desktop .cart {
+.cart {
   @apply mt-[20px] pb-[100px] h-full;
 
   &-content {
@@ -10,7 +10,7 @@
   }
 
   &-title {
-    @apply font-[600] text-[24px];
+    @apply font-semibold text-[24px];
   }
 
   &-wrapper {
@@ -34,21 +34,22 @@
     @apply py-[12px] px-16 rounded-[8px] flex justify-center my-[12px] font-[700] text-[16px];
   }
 
-  &-title {
-    @apply font-semibold text-[24px];
-  }
   &-wrapper-img {
     @apply w-[32px] h-[32px] flex items-center justify-center rounded-[8px];
   }
+
   &-top {
     @apply flex justify-between items-center;
   }
+
   &-bottom {
     @apply px-[12px] mt-[13px] py-3 rounded-[12px];
+
     hr {
       @apply my-[8px];
     }
   }
+
   &-box {
     @apply flex items-center gap-[10px] justify-between;
 
@@ -56,6 +57,7 @@
       @apply w-[50px] lg:w-[100px];
     }
   }
+
   &-text {
     @apply w-[50%];
 
