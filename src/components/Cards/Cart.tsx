@@ -1,16 +1,14 @@
-import { FC } from 'react';
-import { useAppDispatch } from 'src/hooks/useAppDispatch';
-import { IProductCatalog } from 'src/types/products.types';
-import { addItem, removeItem } from '../../store/yourFeatureSlice';
-
-import plus from '../../assets/icons/Busket/plus.svg';
-import minus from '../../assets/icons/Busket/minus.svg';
-
-import './style.scss'
+import { FC } from "react";
+import { useAppDispatch } from "src/hooks/useAppDispatch";
+import { IProductCatalog } from "src/types/products.types";
+import { addItem, removeItem } from "../../store/yourFeatureSlice";
+import plus from "../../assets/icons/Busket/plus.svg";
+import minus from "../../assets/icons/Busket/minus.svg";
+import "./style.scss";
 
 type IProps = IProductCatalog & {
   quantity: number;
-  cartLength: boolean; // Добавляем это сюда
+  cartLength: boolean;
 };
 
 const CardBusket: FC<IProps> = ({
@@ -27,7 +25,7 @@ const CardBusket: FC<IProps> = ({
 }) => {
   const dispatch = useAppDispatch();
 
-  const handleClick = () => {
+  const handleClick = () =>
     dispatch(
       addItem({
         id,
@@ -41,9 +39,7 @@ const CardBusket: FC<IProps> = ({
         modificators,
       })
     );
-  };
-
-  const handleUnClick = () => {
+  const handleUnClick = () =>
     dispatch(
       removeItem({
         id,
@@ -57,46 +53,41 @@ const CardBusket: FC<IProps> = ({
         modificators,
       })
     );
-  };
 
   return (
-    <>
-      <div className='busket-item '>
-        <div className='busket-loy'>
-          {cartLength ? (
-            <>
-              <img className='busket-img' src={productPhoto} alt='img' />
-              <div className='busket-inner'>
-                <p className='busket-name'>{productName}</p>
-                <div className='busket-info'>
-                  <span className='busket-cart-price text-[#875AFF]'>
-                    {productPrice} c
-                  </span>
-                  <span className='busket-g text-[#ADADAD]'>•{weight}</span>
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className='busket-inner'>
-                <p className='busket-name'>
-                  {productName}{' '}
-                  <span className='busket-cart-price text-[#875AFF]'>
-                    {productPrice} c
-                  </span>
-                  <span className='busket-g text-[#ADADAD]'>•{weight}</span>
-                </p>
-              </div>
-            </>
+    <div className="busket-item">
+      <div className="busket-loy">
+        {cartLength && (
+          <img className="busket-img" src={productPhoto} alt="img" />
+        )}
+        <div className="busket-inner">
+          <p className="busket-name">
+            {productName}
+            {!cartLength && (
+              <>
+                <span className="busket-cart-price text-[#875AFF]">
+                  {productPrice} c
+                </span>
+                <span className="busket-g text-[#ADADAD]">•{weight}</span>
+              </>
+            )}
+          </p>
+          {cartLength && (
+            <div className="busket-info">
+              <span className="busket-cart-price text-[#875AFF]">
+                {productPrice} c
+              </span>
+              <span className="busket-g text-[#ADADAD]">•{weight}</span>
+            </div>
           )}
         </div>
-        <button className='busket-btn bg-[#F1F2F3]'>
-          <img src={minus} alt='minus' onClick={handleUnClick} />
-          {quantity}
-          <img src={plus} alt='plus' onClick={handleClick} />
-        </button>
       </div>
-    </>
+      <button className="busket-btn bg-[#F1F2F3]">
+        <img src={minus} alt="minus" onClick={handleUnClick} />
+        {quantity}
+        <img src={plus} alt="plus" onClick={handleClick} />
+      </button>
+    </div>
   );
 };
 

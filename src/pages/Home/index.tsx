@@ -1,25 +1,25 @@
-import { FC, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import { useAppSelector } from 'src/hooks/useAppSelector';
-import { clearCart } from 'src/store/yourFeatureSlice';
+import { FC, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "src/hooks/useAppSelector";
+import { clearCart } from "src/store/yourFeatureSlice";
 
-import CardBusket from 'src/components/Cards/Cart';
-import SiteHeader from "../../components/Mobile/Home/SiteHeader";
-import Header from "../../components/Mobile/Home/Header";
-import Hero from "../../components/Mobile/Home/Hero";
-import Points from "../../components/Mobile/Home/Points";
-import Catalog from "../../components/Mobile/Home/Catalog";
+import CardBusket from "src/components/Cards/Cart";
+import SiteHeader from "src/components/Mobile/Home/SiteHeader";
+import Header from "src/components/Mobile/Home/Header";
+import Hero from "src/components/Mobile/Home/Hero";
+import Points from "src/components/Mobile/Home/Points";
+import Catalog from "src/components/Mobile/Home/Catalog";
 
-import SiteHeaderDesktop from '../../components/Desktop/Home/SiteHeader';
-import HeroDesktop from '../../components/Desktop/Home/Hero';
-import PointsDesktop from '../../components/Desktop/Home/Points';
-import CatalogDesktop from '../../components/Desktop/Home/Catalog';
-import Footer from 'src/components/Mobile/Footer';
+import SiteHeaderDesktop from "src/components/Desktop/Home/SiteHeader";
+import HeroDesktop from "src/components/Desktop/Home/Hero";
+import PointsDesktop from "src/components/Desktop/Home/Points";
+import CatalogDesktop from "src/components/Desktop/Home/Catalog";
+import Footer from "src/components/Mobile/Footer";
 
-import delet from '../../assets/icons/Busket/delete.svg';
+import delet from "src/assets/icons/Busket/delete.svg";
 
-import './style.scss';
+import "./style.scss";
 
 const Home: FC = () => {
   const { t } = useTranslation();
@@ -28,35 +28,26 @@ const Home: FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>(
     undefined
   );
-  const [searchText, setSearchText] = useState<string>('');
-
+  const [searchText, setSearchText] = useState("");
   const catalogRef = useRef<HTMLDivElement>(null);
 
-  const handleCategoryChange = (categoryId: number | undefined) => {
+  const handleCategoryChange = (categoryId?: number) => {
     setSelectedCategory(categoryId);
-    // Прокручиваем внутреннее содержимое контейнера до начала
-    if (catalogRef.current) {
-      catalogRef.current.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    }
+    catalogRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleSearchTextChange = (text: string) => {
-    setSearchText(text);
-  };
+  const isMobile = window.innerWidth <= 768;
 
   return (
-    <div className='home'>
-      {window.innerWidth <= 768 ? (
+    <div className="home">
+      {isMobile ? (
         <>
           <SiteHeader />
           <Header />
           <Hero />
           <Points
             onCategoryChange={handleCategoryChange}
-            onSearchTextChange={handleSearchTextChange}
+            onSearchTextChange={setSearchText}
           />
           <div ref={catalogRef}>
             <Catalog selectedCategory={selectedCategory} />
@@ -65,8 +56,8 @@ const Home: FC = () => {
       ) : (
         <div>
           <SiteHeaderDesktop setSearchText={setSearchText} />
-          <div className='flex justify-between gap-[20px]'>
-            <div className='home__left w-[60%] max-h-dvh overflow-y-auto'>
+          <div className="flex justify-between gap-[20px]">
+            <div className="home__left w-[60%] max-h-dvh overflow-y-auto">
               <HeroDesktop />
               <div ref={catalogRef}>
                 <CatalogDesktop
@@ -75,34 +66,30 @@ const Home: FC = () => {
                 />
               </div>
             </div>
-            <div className='home__right max-h-dvh overflow-y-auto'>
+            <div className="home__right max-h-dvh overflow-y-auto">
               <PointsDesktop onCategoryChange={handleCategoryChange} />
-              <div className='desktop cart'>
-                <div className='cart-right relative'>
-                  <div className='cart-top'>
-                    <h1 className='cart-title'>{t('busket.busketTitle')}</h1>
+              <div className="desktop cart">
+                <div className="cart-right relative">
+                  <div className="cart-top flex justify-between items-center">
+                    <h1 className="cart-title">{t("busket.busketTitle")}</h1>
                     <div
-                      className='cart-wrapper-img bg-[#FFF]'
-                      onClick={() => {
-                        dispatch(clearCart());
-                      }}
+                      className="cart-wrapper-img bg-[#FFF]"
+                      onClick={() => dispatch(clearCart())}
                     >
-                      <img src={delet} alt='delete' />
+                      <img src={delet} alt="delete" />
                     </div>
                   </div>
-                  <div className='cart-bottom bg-[#FFF]'>
-                    <div className='cart-table bg-[#F1F2F3]'>{t('table')}</div>
+                  <div className="cart-bottom bg-[#FFF]">
+                    <div className="cart-table bg-[#F1F2F3]">{t("table")}</div>
                     {cart.map((item) => (
-                      <>
-                        <CardBusket
-                          key={item.id}
-                          {...item}
-                          cartLength={!!cart.length}
-                        />
-                      </>
+                      <CardBusket
+                        key={item.id}
+                        {...item}
+                        cartLength={!!cart.length}
+                      />
                     ))}
                   </div>
-                  <Footer position='absolute' />
+                  <Footer position="absolute" />
                 </div>
               </div>
             </div>
