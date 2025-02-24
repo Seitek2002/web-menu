@@ -65,7 +65,7 @@ const Home: FC = () => {
       ) : (
         <div>
           <SiteHeaderDesktop setSearchText={setSearchText} />
-          <div className='flex justify-between'>
+          <div className='flex justify-between gap-[20px]'>
             <div className='home__left w-[60%] max-h-dvh overflow-y-auto'>
               <HeroDesktop />
               <div ref={catalogRef}>
@@ -75,7 +75,7 @@ const Home: FC = () => {
                 />
               </div>
             </div>
-            <div className='home__right max-h-full overflow-y-auto'>
+            <div className='home__right max-h-dvh overflow-y-auto'>
               <PointsDesktop onCategoryChange={handleCategoryChange} />
               <div className='desktop cart'>
                 <div className='cart-right relative'>
