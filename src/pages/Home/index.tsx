@@ -6,26 +6,31 @@ import Hero from "../../components/Mobile/Home/Hero";
 import Points from "../../components/Mobile/Home/Points";
 import Catalog from "../../components/Mobile/Home/Catalog";
 
-import SiteHeaderDesktop  from "../../components/Desktop/Home/SiteHeader";
-import HeroDesktop from "../../components/Desktop/Home/Hero";
-import PointsDesktop from "../../components/Desktop/Home/Points";
-import CatalogDesktop from "../../components/Desktop/Home/Catalog";
+import SiteHeaderDesktop from '../../components/Desktop/Home/SiteHeader';
+import HeroDesktop from '../../components/Desktop/Home/Hero';
+import PointsDesktop from '../../components/Desktop/Home/Points';
+import CatalogDesktop from '../../components/Desktop/Home/Catalog';
 
-import "./style.scss";
+import './style.scss';
 
 const Home: FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>(
     undefined
   );
-  const [searchText, setSearchText] = useState<string>("");
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [searchText, setSearchText] = useState<string>('');
 
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-  }, []);
+  // Создаем ref для контейнера с каталогом
+  const catalogRef = useRef<HTMLDivElement>(null);
 
   const handleCategoryChange = (categoryId: number | undefined) => {
     setSelectedCategory(categoryId);
+    // Прокручиваем внутреннее содержимое контейнера до начала
+    if (catalogRef.current) {
+      catalogRef.current.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
   };
 
   const handleSearchTextChange = (text: string) => {
@@ -34,21 +39,32 @@ const Home: FC = () => {
 
   return (
     <>
-      {isMobile ? (
+      {window.innerWidth <= 768 ? (
         <>
           <SiteHeader />
           <Header />
           <Hero />
-          <Points onCategoryChange={handleCategoryChange} onSearchTextChange={handleSearchTextChange} />
-          <Catalog selectedCategory={selectedCategory} />
+          <Points
+            onCategoryChange={handleCategoryChange}
+            onSearchTextChange={handleSearchTextChange}
+          />
+          <div ref={catalogRef}>
+            <Catalog selectedCategory={selectedCategory} />
+          </div>
         </>
       ) : (
         <div>
           <SiteHeaderDesktop setSearchText={setSearchText} />
-          <HeroDesktop />
-          <PointsDesktop onCategoryChange={handleCategoryChange} />
-          <CatalogDesktop selectedCategory={selectedCategory} searchText={searchText} />
-          
+          <div className='flex justify-around items-center'>
+            <HeroDesktop />
+            <PointsDesktop onCategoryChange={handleCategoryChange} />
+          </div>
+          <div ref={catalogRef}>
+            <CatalogDesktop
+              selectedCategory={selectedCategory}
+              searchText={searchText}
+            />
+          </div>
         </div>
       )}
     </>

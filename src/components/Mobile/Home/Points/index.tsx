@@ -1,12 +1,12 @@
-import { FC, useState } from 'react';
-import { useGetCategoriesQuery } from '../../../../api/Categories.api';
-import PointsSkeleton from '../../../../skeletons/Points';
-import Search from '../Search';
+import { FC, useState } from "react";
+import { useGetCategoriesQuery } from "../../../../api/Categories.api";
+import PointsSkeleton from "../../../../skeletons/Points";
+import Search from "../Search";
 
-import search from '../../../../assets/icons/points/search.svg';
-import all from '../../../../assets/icons/points/all.svg';
+import search from "../../../../assets/icons/points/search.svg";
+import all from "../../../../assets/icons/points/all.svg";
 
-import './style.scss';
+import "./style.scss";
 
 interface IProps {
   onCategoryChange: (categoryId: number | undefined) => void;
@@ -20,36 +20,52 @@ const Points: FC<IProps> = ({ onCategoryChange, onSearchTextChange }) => {
   const [show, setShow] = useState(false);
 
   const clickShow = () => {
-    document.body.style.overflow = show ? 'auto' : 'hidden';
+    document.body.style.overflow = show ? "auto" : "hidden";
     setShow(!show);
+  };
+
+  const ScrollClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const selectCategory = (id: number | undefined) => {
     setActive(id);
     if (id) onCategoryChange(id);
     else onCategoryChange(undefined);
-  }
+  };
 
   return (
-    <section className='mobile point'>
-      {show && <Search onToggle={clickShow} onSearchTextChange={onSearchTextChange} />}
-      <div className='container'>
-        <div className='mobile point-perent'>
+    <section className="mobile point">
+      {show && (
+        <Search onToggle={clickShow} onSearchTextChange={onSearchTextChange} />
+      )}
+      <div className="container">
+        <div className="mobile point-perent">
           <div
-            className={`mobile point-item ${active === -1 ? 'active' : ''}`}
+            className={`mobile point-item ${active === -1 ? "active" : ""}`}
             onClick={clickShow}
           >
-            <div className='mobile point-wrapper bg-[#F9F9F9] border-white'>
-              <img src={search} alt='icon' />
+            <div className="mobile point-wrapper bg-[#F9F9F9] border-white">
+              <img src={search} alt="icon" />
             </div>
             <p>Поиск</p>
           </div>
           <div
-            className={`mobile point-item ${active === 0 ? 'active' : ''}`}
-            onClick={() => selectCategory(0)}
+            className={`mobile point-item ${active === 0 ? "active" : ""}`}
+            onClick={() => {
+              selectCategory(0);
+              ScrollClick();
+            }}
           >
-            <div className={`mobile point-wrapper ${active === 0 ? 'bg-[#875AFF] border-[#875AFF]' : 'border-white'}`}>
-              <img src={all} alt='icon' />
+            <div
+              className={`mobile point-wrapper ${
+                active === 0 ? "bg-[#875AFF] border-[#875AFF]" : "border-white"
+              }`}
+            >
+              <img src={all} alt="icon" />
             </div>
             <p>Все</p>
           </div>
@@ -65,12 +81,20 @@ const Points: FC<IProps> = ({ onCategoryChange, onSearchTextChange }) => {
             <>
               {categories?.map((item) => (
                 <div
-                  className={`mobile point-item ${active === item.id ? 'active' : ''}`}
+                  className={`mobile point-item ${
+                    active === item.id ? "active" : ""
+                  }`}
                   key={item.id}
                   onClick={() => selectCategory(item.id)}
                 >
-                  <div className={`mobile point-wrapper ${active === item.id ? 'bg-[#875AFF] border-[#875AFF]' : 'border-white'}`}>
-                    <img src={item.categoryPhoto} alt='icon' />
+                  <div
+                    className={`mobile point-wrapper ${
+                      active === item.id
+                        ? "bg-[#875AFF] border-[#875AFF]"
+                        : "border-white"
+                    }`}
+                  >
+                    <img src={item.categoryPhoto} alt="icon" />
                   </div>
                   <p>{item.categoryName}</p>
                 </div>

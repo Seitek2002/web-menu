@@ -48,7 +48,7 @@
         "container":"Контейнер",
         "price":"+20 c"
     },
-    "counter":"Готова",
+    "counter":"Добавить",
     "busket": {
         "busketTitle": "Корзина",
         "detail": "Детали",

@@ -8,7 +8,7 @@ import "./style.scss"
 const Tips: React.FC = () => {
     const list = ["", "50 c", "100 c", "15 %", "20 %"]
     const [active, setActive] = useState(0)
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     return (
         <>

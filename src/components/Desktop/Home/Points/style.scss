@@ -1,39 +1,27 @@
 .desktop.point {
   &-item {
-    @apply flex items-center rounded-full px-[15px] py-[5px] gap-[10px];
-    p{
+    @apply flex items-center rounded-full px-[15px] py-[5px] gap-[10px] w-full lg:px-[50px];
+    p {
       @apply line-clamp-1;
     }
     img {
       @apply w-[56px] h-[56px] rounded-full object-cover;
     }
   }
-  &-content{
-    @apply flex items-center gap-[10px] my-[24px];
-  }
-  .swiper {
-    flex: 1;
-  }
-  &-button-prev,
-  &-button-next {
-    @apply size-[44px] flex justify-center items-center rounded-[100%] cursor-pointer py-[12px] px-[17px];
-  }
-
-  &-button-next {
-    @apply rotate-180;
-  }
-
-  &-button-prev.swiper-button-disabled,
-  &-button-next.swiper-button-disabled {
-    @apply opacity-0 cursor-default;
+  &-content {
+    @apply grid grid-cols-2 gap-[10px] my-[24px] overflow-y-scroll h-[250px] w-full;
+    &{
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* Internet Explorer и Edge */
+    }
+    
+    /* Для WebKit-браузеров (Chrome, Safari, Opera) */
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      display: none;
+    }
+    
   }
 }
 
-// .point {
-//   overflow: auto;
-//   scrollbar-width: none; /* Для Firefox */
-// }
-
-// .point::-webkit-scrollbar {
-//   display: none; /* Для Chrome, Safari и других Webkit-браузеров */
-// }

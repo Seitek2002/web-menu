@@ -28,32 +28,27 @@ const Menu: FC<IProps> = ({ selectedCategory, searchText }) => {
         setIsShow(value);
     };
 
-    return (
-        <>
-            <h2 className="cart-title">{t("cartTitle")}</h2>
-            <div className="cart-wrapper">
-                {isLoading
-                    ? Array(6)
-                          .fill(5)
-                          .map(() => <MenuSkeleton key={Math.random()} />)
-                    : products?.map((item) => (
-                        <div key={item.id} onClick={() => setPhotoDetail(item)}>
-                        <CatalogCard
-                            {...item}
-                            quantity={cart.find((el) => el.id === item.id)?.quantity || 0}
-                            setIsShow={() => handleClick(true)}
-                        />
-                    </div>
-                    
-                      ))}
-            </div>
-            <FoodDetail
-                setIsShow={() => handleClick(false)}
-                item={PhotoDetail}
-                isShow={isShow}
-            />
-        </>
-    );
+  return (
+    <>
+      <h2 className='cart-title'>{t('cartTitle')}</h2>
+      <div className='cart-wrapper'>
+        {isLoading
+          ? Array(6)
+              .fill(5)
+              .map(() => <MenuSkeleton key={Math.random()} />)
+          : products?.map((item) => (
+              <div onClick={() => setPhotoDetail(item)} key={item.id}>
+                <CatalogCard
+                  {...item}
+                  quantity={cart.find((el) => el.id === item.id)?.quantity || 0}
+                  setIsShow={() => handleClick(true)}
+                />
+              </div>
+            ))}
+      </div>
+      <FoodDetail setIsShow={() => handleClick(false)} item={PhotoDetail} isShow={isShow} />
+    </>
+  );
 };
 
 export default Menu;
