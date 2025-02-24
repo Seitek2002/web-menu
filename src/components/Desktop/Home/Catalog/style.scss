@@ -48,7 +48,7 @@
     @apply flex justify-between items-center;
   }
   &-bottom {
-    @apply px-[12px] py-3 rounded-[12px] max-h-[600px] overflow-y-auto;
+    @apply px-[12px] mt-[13px] py-3 rounded-[12px] max-h-[600px] overflow-y-auto;
     hr {
       @apply my-[8px];
     }
