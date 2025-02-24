@@ -1,0 +1,19 @@
+.home {
+  &__left,
+  &__right {
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #888; /* Цвет ползунка */
+      border-radius: 4px; /* Закругление краёв */
+    }
+
+    /* Фон скроллбара */
+    &::-webkit-scrollbar-track {
+      background: #f0f0f0; /* Цвет фона дорожки */
+      border-radius: 4px;
+    }
+  }
+}

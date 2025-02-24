@@ -48,7 +48,7 @@ const Home: FC = () => {
   };
 
   return (
-    <>
+    <div className='home'>
       {window.innerWidth <= 768 ? (
         <>
           <SiteHeader />
@@ -66,7 +66,7 @@ const Home: FC = () => {
         <div>
           <SiteHeaderDesktop setSearchText={setSearchText} />
           <div className='flex justify-between'>
-            <div className='w-[60%] max-h-dvh overflow-y-auto'>
+            <div className='home__left w-[60%] max-h-dvh overflow-y-auto'>
               <HeroDesktop />
               <div ref={catalogRef}>
                 <CatalogDesktop
@@ -75,7 +75,7 @@ const Home: FC = () => {
                 />
               </div>
             </div>
-            <div className='max-h-full overflow-y-auto'>
+            <div className='home__right max-h-full overflow-y-auto'>
               <PointsDesktop onCategoryChange={handleCategoryChange} />
               <div className='desktop cart'>
                 <div className='cart-right relative'>
@@ -109,7 +109,7 @@ const Home: FC = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
