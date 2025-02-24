@@ -1,6 +1,6 @@
 .desktop.point {
   &-item {
-    @apply flex items-center rounded-full px-[100px] py-[5px] gap-[10px] w-full;
+    @apply flex items-center rounded-full px-[15px] py-[5px] gap-[10px] w-full lg:px-[50px];
     p {
       @apply line-clamp-1;
     }
