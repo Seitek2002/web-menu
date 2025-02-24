@@ -1,7 +1,7 @@
 import { FC, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppSelector } from 'src/hooks/useAppSelector';
 import { useDispatch } from 'react-redux';
+import { useAppSelector } from 'src/hooks/useAppSelector';
 import { clearCart } from 'src/store/yourFeatureSlice';
 
 import CardBusket from 'src/components/Cards/Cart';
