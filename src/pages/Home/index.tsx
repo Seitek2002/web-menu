@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 // изменения пришли ?
 import SiteHeader from "../../components/Mobile/Home/SiteHeader";
 import Header from "../../components/Mobile/Home/Header";
