@@ -1,6 +1,6 @@
 .desktop.point {
   &-item {
-    @apply flex items-center rounded-full px-[15px] py-[5px] gap-[10px] w-full;
+    @apply flex items-center rounded-full px-[15px] py-5 gap-10 w-full;
 
     p {
       @apply line-clamp-1;
@@ -10,18 +10,12 @@
       @apply w-[56px] h-[56px] rounded-full object-cover;
     }
   }
+
   &-content {
     @apply grid grid-cols-2 gap-[10px] my-[24px];
-
-    & {
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* Internet Explorer и Edge */
-    }
-
-    /* Для WebKit-браузеров (Chrome, Safari, Opera) */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     &::-webkit-scrollbar {
-      width: 0;
-      height: 0;
       display: none;
     }
   }
