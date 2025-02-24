@@ -9,7 +9,7 @@
     }
   }
   &-content{
-    @apply flex items-center gap-[10px] my-[24px];
+    @apply grid grid-cols-2 gap-[10px] my-[24px];
   }
   .swiper {
     flex: 1;

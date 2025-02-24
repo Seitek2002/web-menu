@@ -1,11 +1,11 @@
-import { FC, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { useTranslation } from 'react-i18next';
-import { useGetCategoriesQuery } from '../../../../api/Categories.api';
-import PointsSkeleton from '../../../../skeletons/Points';
-import all from '../../../../assets/icons/points/all.svg';
+import { FC, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { useTranslation } from "react-i18next";
+import { useGetCategoriesQuery } from "../../../../api/Categories.api";
+import PointsSkeleton from "../../../../skeletons/Points";
+import all from "../../../../assets/icons/points/all.svg";
 
-import './style.scss';
+import "./style.scss";
 
 interface IProps {
   onCategoryChange: (categoryId: number | undefined) => void;
@@ -22,33 +22,27 @@ const Points: FC<IProps> = ({ onCategoryChange }) => {
   };
 
   return (
-    <section className="desktop point">
-      <div className="container">
-        <div className="desktop point-content">
-          <Swiper
-            className="swiper h-[150px]"
-            direction="vertical"
-            slidesPerView={2}
-          >
-            <SwiperSlide>
-              <div
-                className={`desktop point-item ${
-                  active === 0
-                    ? "bg-[#875AFF] text-[#fff]"
-                    : "active bg-[#fff] text-[#000]"
-                }`}
-                onClick={() => selectCategory(0)}
-              >
-                <img src={all} alt="icon" />
-                <p>{t("point.all")}</p>
-              </div>
-            </SwiperSlide>
+    <>
+      <section className="desktop point">
+        <div className="container">
+          <div className="desktop point-content">
+            <div
+              className={`desktop point-item ${
+                active === 0
+                  ? "bg-[#875AFF] text-[#fff]"
+                  : "active bg-[#fff] text-[#000]"
+              }`}
+              onClick={() => selectCategory(0)}
+            >
+              <img src={all} alt="icon" />
+              <p>{t("point.all")}</p>
+            </div>
             {isLoading
               ? Array(6)
                   .fill(0)
                   .map((_, index) => <PointsSkeleton key={index} />)
               : categories?.map((item) => (
-                  <SwiperSlide key={item.id}>
+                  <div key={item.id}>
                     <div
                       className={`desktop point-item ${
                         active === item.id
@@ -60,12 +54,12 @@ const Points: FC<IProps> = ({ onCategoryChange }) => {
                       <img src={item.categoryPhoto} alt="icon" />
                       <p>{item.categoryName}</p>
                     </div>
-                  </SwiperSlide>
+                  </div>
                 ))}
-          </Swiper>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 
