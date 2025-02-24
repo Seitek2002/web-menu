@@ -1,5 +1,5 @@
 body {
-  @apply m-0;
+  @apply m-0 max-h-none overflow-y-auto md:max-h-dvh md:overflow-y-hidden;
 }
 
 .container {

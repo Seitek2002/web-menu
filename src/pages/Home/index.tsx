@@ -1,5 +1,10 @@
 import { FC, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useAppSelector } from 'src/hooks/useAppSelector';
+import { useDispatch } from 'react-redux';
+import { clearCart } from 'src/store/yourFeatureSlice';
 
+import CardBusket from 'src/components/Cards/Cart';
 import SiteHeader from '../../components/Mobile/Home/SiteHeader';
 import Header from '../../components/Mobile/Home/Header';
 import Hero from '../../components/Mobile/Home/Hero';
@@ -10,16 +15,21 @@ import SiteHeaderDesktop from '../../components/Desktop/Home/SiteHeader';
 import HeroDesktop from '../../components/Desktop/Home/Hero';
 import PointsDesktop from '../../components/Desktop/Home/Points';
 import CatalogDesktop from '../../components/Desktop/Home/Catalog';
+import Footer from 'src/components/Mobile/Footer';
+
+import delet from '../../assets/icons/Busket/delete.svg';
 
 import './style.scss';
 
 const Home: FC = () => {
+  const { t } = useTranslation();
+  const cart = useAppSelector((state) => state.yourFeature.items);
+  const dispatch = useDispatch();
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>(
     undefined
   );
   const [searchText, setSearchText] = useState<string>('');
 
-  // Создаем ref для контейнера с каталогом
   const catalogRef = useRef<HTMLDivElement>(null);
 
   const handleCategoryChange = (categoryId: number | undefined) => {
@@ -55,15 +65,47 @@ const Home: FC = () => {
       ) : (
         <div>
           <SiteHeaderDesktop setSearchText={setSearchText} />
-          <div className='flex justify-around items-center'>
-            <HeroDesktop />
-            <PointsDesktop onCategoryChange={handleCategoryChange} />
-          </div>
-          <div ref={catalogRef}>
-            <CatalogDesktop
-              selectedCategory={selectedCategory}
-              searchText={searchText}
-            />
+          <div className='flex justify-between'>
+            <div className='w-[60%] max-h-dvh overflow-y-auto'>
+              <HeroDesktop />
+              <div ref={catalogRef}>
+                <CatalogDesktop
+                  selectedCategory={selectedCategory}
+                  searchText={searchText}
+                />
+              </div>
+            </div>
+            <div className='max-h-full overflow-y-auto'>
+              <PointsDesktop onCategoryChange={handleCategoryChange} />
+              <div className='desktop cart'>
+                <div className='cart-right relative'>
+                  <div className='cart-top'>
+                    <h1 className='cart-title'>{t('busket.busketTitle')}</h1>
+                    <div
+                      className='cart-wrapper-img bg-[#FFF]'
+                      onClick={() => {
+                        dispatch(clearCart());
+                      }}
+                    >
+                      <img src={delet} alt='delete' />
+                    </div>
+                  </div>
+                  <div className='cart-bottom bg-[#FFF]'>
+                    <div className='cart-table bg-[#F1F2F3]'>{t('table')}</div>
+                    {cart.map((item) => (
+                      <>
+                        <CardBusket
+                          key={item.id}
+                          {...item}
+                          cartLength={!!cart.length}
+                        />
+                      </>
+                    ))}
+                  </div>
+                  <Footer position='absolute' />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}

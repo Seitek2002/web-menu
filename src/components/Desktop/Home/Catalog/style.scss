@@ -5,12 +5,8 @@
     @apply flex gap-6 items-start;
   }
 
-  &-left {
-    @apply w-[60%];
-  }
-
   &-right {
-    @apply w-[40%] relative pb-[70px];
+    @apply relative pb-[70px];
   }
 
   &-title {
