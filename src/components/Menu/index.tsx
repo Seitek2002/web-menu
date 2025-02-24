@@ -1,32 +1,32 @@
-import { FC, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useGetProductsQuery } from 'src/api/Products.api';
-import { useAppSelector } from 'src/hooks/useAppSelector';
-import MenuSkeleton from 'src/skeletons/Menu';
-import CatalogCard from '../Cards/Catalog';
-import FoodDetail from '../Mobile/Home/FoodDetail';
-import { IProductCatalog } from 'src/types/products.types';
+import { FC, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useGetProductsQuery } from "src/api/Products.api";
+import { useAppSelector } from "src/hooks/useAppSelector";
+import MenuSkeleton from "src/skeletons/Menu";
+import CatalogCard from "../Cards/Catalog";
+import FoodDetail from "../Mobile/Home/FoodDetail";
+import { IProductCatalog } from "src/types/products.types";
 
 interface IProps {
-  selectedCategory: number | undefined;
-  searchText: string;
+    selectedCategory: number | undefined;
+    searchText: string;
 }
 
 const Menu: FC<IProps> = ({ selectedCategory, searchText }) => {
-  const { t } = useTranslation();
-  const [isShow, setIsShow] = useState(false);
+    const { t } = useTranslation();
+    const [isShow, setIsShow] = useState(false);
 
-  const cart = useAppSelector((state) => state.yourFeature.items);
-  const [PhotoDetail, setPhotoDetail] = useState<IProductCatalog>();
-  const { data: products, isLoading } = useGetProductsQuery({
-    category: selectedCategory || undefined,
-    search: searchText,
-  });
+    const cart = useAppSelector((state) => state.yourFeature.items);
+    const [PhotoDetail, setPhotoDetail] = useState<IProductCatalog>();
+    const { data: products, isLoading } = useGetProductsQuery({
+        category: selectedCategory || undefined,
+        search: searchText,
+    });
 
-  const handleClick = (value: boolean) => {
-    document.body.style.overflow = value ? 'hidden' : 'auto';
-    setIsShow(value);
-  };
+    const handleClick = (value: boolean) => {
+        document.body.style.overflow = value ? "hidden" : "auto";
+        setIsShow(value);
+    };
 
   return (
     <>

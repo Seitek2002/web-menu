@@ -5,11 +5,11 @@ import { useDispatch } from 'react-redux';
 import { clearCart } from 'src/store/yourFeatureSlice';
 
 import CardBusket from 'src/components/Cards/Cart';
-import SiteHeader from '../../components/Mobile/Home/SiteHeader';
-import Header from '../../components/Mobile/Home/Header';
-import Hero from '../../components/Mobile/Home/Hero';
-import Points from '../../components/Mobile/Home/Points';
-import Catalog from '../../components/Mobile/Home/Catalog';
+import SiteHeader from "../../components/Mobile/Home/SiteHeader";
+import Header from "../../components/Mobile/Home/Header";
+import Hero from "../../components/Mobile/Home/Hero";
+import Points from "../../components/Mobile/Home/Points";
+import Catalog from "../../components/Mobile/Home/Catalog";
 
 import SiteHeaderDesktop from '../../components/Desktop/Home/SiteHeader';
 import HeroDesktop from '../../components/Desktop/Home/Hero';
