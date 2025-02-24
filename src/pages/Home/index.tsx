@@ -49,6 +49,7 @@ const Home: FC = () => {
 
   return (
     <div className='home'>
+      
       {window.innerWidth <= 768 ? (
         <>
           <SiteHeader />

@@ -4,7 +4,8 @@ import { useGetProductsQuery } from "src/api/Products.api";
 import { useAppSelector } from "src/hooks/useAppSelector";
 import MenuSkeleton from "src/skeletons/Menu";
 import CatalogCard from "../Cards/Catalog";
-import FoodDetail from "../Mobile/Home/FoodDetail";
+import MobileFoodDetail from "../Mobile/Home/FoodDetail";
+import DesktopFoodDetail from "../Desktop/Home/FoodDetail";
 import { IProductCatalog } from "src/types/products.types";
 
 interface IProps {
@@ -38,15 +39,12 @@ const Menu: FC<IProps> = ({ selectedCategory, searchText }) => {
               .map(() => <MenuSkeleton key={Math.random()} />)
           : products?.map((item) => (
               <div onClick={() => setPhotoDetail(item)} key={item.id}>
-                <CatalogCard
-                  {...item}
-                  quantity={cart.find((el) => el.id === item.id)?.quantity || 0}
-                  setIsShow={() => handleClick(true)}
-                />
+                <CatalogCard {...item} quantity={cart.find((el) => el.id === item.id)?.quantity || 0} setIsShow={() => handleClick(true)} />
               </div>
             ))}
       </div>
-      <FoodDetail setIsShow={() => handleClick(false)} item={PhotoDetail} isShow={isShow} />
+      {/* <MobileFoodDetail setIsShow={() => handleClick(false)} item={PhotoDetail} isShow={isShow} /> */}
+      <DesktopFoodDetail setIsShow={() => handleClick(false)} item={PhotoDetail} isShow={isShow} />
     </>
   );
 };
