@@ -8,7 +8,7 @@ import { useAppSelector } from "../../hooks/useAppSelector";
 import { setButtonText } from "../../store/yourFeatureSlice";
 
 import Head from "../../components/Mobile/Busket/Head";
-import ForgotCart from "src/components/Mobile/Busket/Forgot";
+// import ForgotCart from "src/components/Mobile/Busket/Forgot";
 import Detail from "../../components/Mobile/Busket/Detail";
 import OrderType from "../../components/Mobile/Busket/OrderType";
 import Price from "../../components/Mobile/Busket/Price";
@@ -17,13 +17,14 @@ import Tips from "../../components/Mobile/Busket/Tips";
 import Modal from "../../components/Mobile/Busket/Modal";
 import CardBusket from "src/components/Cards/Cart";
 
-import cookie from "../../assets/icons/Busket/cookie.svg";
+
 import item1 from "../../assets/images/Catalog/item-1.webp";
 import item2 from "../../assets/images/Catalog/item-2.webp";
 import item3 from "../../assets/images/Catalog/item-3.webp";
 import emptyCartWebp from "../../assets/images/cart/empty-cart.webp";
 
 import "./style.scss";
+import Forgot from "src/components/Mobile/Busket/Forgot/Forgot";
 
 const Busket: FC = () => {
   const { t } = useTranslation();
@@ -33,6 +34,7 @@ const Busket: FC = () => {
   const [title, setTitle] = useState(t("busket.modal.clear"));
   const [modal, setModal] = useState(false);
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     dispatch(setButtonText("Далее"));
@@ -47,7 +49,7 @@ const Busket: FC = () => {
   }, [cart.length, dispatch]);
 
   const list: {
-    id: string;
+    id: number;
     name: string;
     weight: number;
     price: number;
@@ -56,7 +58,7 @@ const Busket: FC = () => {
     promotion: boolean;
   }[] = [ 
     {
-      id: "0",
+      id: 0,
       name: "Твистер Деклюкс острый",
       weight: 200,
       price: 240,
@@ -65,7 +67,7 @@ const Busket: FC = () => {
       promotion: false,
     },
     {
-      id: "1",
+      id: 1,
       name: "Куриный шницель с картофельным пюре",
       weight: 300,
       price: 350,
@@ -74,7 +76,7 @@ const Busket: FC = () => {
       promotion: true,
     },
     {
-      id: "2",
+      id: 2,
       name: "Греческий салат с оливками",
       weight: 250,
       price: 180,
@@ -104,10 +106,10 @@ const Busket: FC = () => {
         <div className="container">
           <div className="busket__content">
             <Head renameTitleHead={renameTitleHead} />
+            { cart.length ? (<div className="busket__table bg-[#FFF]">{t("table")}</div>) : (<></>)}
             <div className="busket__list divide-y bg-[#fff]">
               {cart.length ? (
                 <>
-                  <div className="busket__table bg-[#FFF]">{t("table")}</div>
                   {cart.map((item) => (
                     <CardBusket key={item.id} {...item} cartLength={length} />
                   ))}
@@ -125,7 +127,7 @@ const Busket: FC = () => {
             <Price />
             <Promo renameTitlePlaces={renameTitlePlaces} />
 
-            <div className="busket__forgot">
+            {/* <div className="busket__forgot">
               <h4 className="busket__forgot-title">
                 Ничего не забыли?
                 <img src={cookie} alt="cookie" />
@@ -135,7 +137,8 @@ const Busket: FC = () => {
                     <ForgotCart key={item.id} {...item} />
                   ))}
                 </div>
-            </div>
+            </div> */}
+            <Forgot list={list} />
             <Tips />
           </div>
         </div>

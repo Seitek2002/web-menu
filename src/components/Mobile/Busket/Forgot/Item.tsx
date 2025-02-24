@@ -1,9 +1,9 @@
-import AddItem from "src/components/AddItem";
+import AddItem from "../../../AddItem";
 
 import "./style.scss"
 
 interface ForgotCartProps {
-    id: string;
+    id: number;
     name: string;
     weight: number;
     price: number;
@@ -11,12 +11,20 @@ interface ForgotCartProps {
     discount: number;
 }
 
-const Forgot: React.FC<ForgotCartProps> = ({ name, weight, price, img,  }) => {
+const Item: React.FC<ForgotCartProps> = ({ name, weight, price, img,   }) => {
+      const added = () => {
+        console.log("added", name);
+        
+      }
+      const dalete = () => {
+        console.log("dalete", name);
+      }
+
     return (
         <>
             <div className="busket__forgot-cart bg-[#fff]">
                 <div className="busket__forgot-inner">
-                  <AddItem />
+                  <AddItem setDalete={dalete} setAdded={added} />
                 </div>
                 <img src={img} className="busket__forgot-img" alt="img" />
                 <div className="busket__forgot-info">
@@ -31,4 +39,4 @@ const Forgot: React.FC<ForgotCartProps> = ({ name, weight, price, img,  }) => {
     );
 };
 
-export default Forgot;
+export default Item;

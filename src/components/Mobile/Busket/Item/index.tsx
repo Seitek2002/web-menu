@@ -27,39 +27,39 @@ const Item: FC<IProps> = ({
   const [count, setCount] = useState<number>(quantity);
   const dispatch = useAppDispatch();
 
-  const handleClick = () => {
-    setCount(count + 1);
-    dispatch(
-      addItem({
-        id,
-        productName,
-        productPrice,
-        productPhoto,
-        weight,
-        category,
-        quantity: 1,
-        modificators,
-      })
-    );
-  };
+  // const handleClick = () => {
+  //   setCount(count + 1);
+  //   dispatch(
+  //     addItem({
+  //       id,
+  //       productName,
+  //       productPrice,
+  //       productPhoto,
+  //       weight,
+  //       category,
+  //       quantity: 1,
+  //       modificators,
+  //     })
+  //   );
+  // };
 
-  const handleUnClick = () => {
-    if (count) {
-      setCount(count - 1);
-    }
-    dispatch(
-      removeItem({
-        id,
-        productName,
-        productPrice,
-        weight,
-        productPhoto,
-        category,
-        quantity: 0,
-        modificators,
-      })
-    );
-  };
+  // const handleUnClick = () => {
+  //   if (count) {
+  //     setCount(count - 1);
+  //   }
+  //   dispatch(
+  //     removeItem({
+  //       id,
+  //       productName,
+  //       productPrice,
+  //       weight,
+  //       productPhoto,
+  //       category,
+  //       quantity: 0,
+  //       modificators,
+  //     })
+  //   );
+  // };
 
   return (
     <>

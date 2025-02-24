@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-
+// изменения пришли ?
 import SiteHeader from "../../components/Mobile/Home/SiteHeader";
 import Header from "../../components/Mobile/Home/Header";
 import Hero from "../../components/Mobile/Home/Hero";
@@ -48,6 +48,7 @@ const Home: FC = () => {
           <HeroDesktop />
           <PointsDesktop onCategoryChange={handleCategoryChange} />
           <CatalogDesktop selectedCategory={selectedCategory} searchText={searchText} />
+          
         </div>
       )}
     </>

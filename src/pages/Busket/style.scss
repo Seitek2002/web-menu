@@ -7,6 +7,14 @@
         button {
             @apply font-semibold text-[16px] w-full py-[16px] rounded-[12px];
         }
+
+        img {
+            @apply mx-auto
+        }
+
+        h2 {
+            @apply  mb-[16px]
+        }
     }
 
     &__title {
