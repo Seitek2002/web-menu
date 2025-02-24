@@ -1,5 +1,4 @@
 import { FC, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { useTranslation } from "react-i18next";
 import { useGetCategoriesQuery } from "../../../../api/Categories.api";
 import PointsSkeleton from "../../../../skeletons/Points";
@@ -23,50 +22,6 @@ const Points: FC<IProps> = ({ onCategoryChange }) => {
 
   return (
     <>
-      {/* <section className="desktop point">
-        <div className="container">
-          <div className="desktop point-content">
-            <Swiper
-              className="swiper h-[150px]"
-              direction="vertical"
-              slidesPerView={2}
-            >
-              <SwiperSlide>
-                <div
-                  className={`desktop point-item ${
-                    active === 0
-                      ? "bg-[#875AFF] text-[#fff]"
-                      : "active bg-[#fff] text-[#000]"
-                  }`}
-                  onClick={() => selectCategory(0)}
-                >
-                  <img src={all} alt="icon" />
-                  <p>{t("point.all")}</p>
-                </div>
-              </SwiperSlide>
-              {isLoading
-                ? Array(6)
-                    .fill(0)
-                    .map((_, index) => <PointsSkeleton key={index} />)
-                : categories?.map((item) => (
-                    <SwiperSlide key={item.id}>
-                      <div
-                        className={`desktop point-item ${
-                          active === item.id
-                            ? "bg-[#875AFF] text-[#fff]"
-                            : "active bg-[#fff]"
-                        }`}
-                        onClick={() => selectCategory(item.id)}
-                      >
-                        <img src={item.categoryPhoto} alt="icon" />
-                        <p>{item.categoryName}</p>
-                      </div>
-                    </SwiperSlide>
-                  ))}
-            </Swiper>
-          </div>
-        </div>
-      </section> */}
       <section className="desktop point">
         <div className="container">
           <div className="desktop point-content">

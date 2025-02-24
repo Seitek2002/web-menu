@@ -50,7 +50,7 @@ const SiteHeader: FC<{ setSearchText: (text: string) => void }> = ({ setSearchTe
   const list = ["RU", "KG", "ENG"];
 
   return (
-    <header className="desktop siteHeader">
+    <header className="desktop siteHeader pt-[20px]">
       <div className="container">
         <div className="siteHeader__content">
           <div className="siteHeader__top">
