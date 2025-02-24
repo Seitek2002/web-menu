@@ -1,23 +1,23 @@
-import { FC, useRef, useState } from "react";
+import { FC, useRef, useState } from 'react';
 
-import SiteHeader from "../../components/Mobile/Home/SiteHeader";
-import Header from "../../components/Mobile/Home/Header";
-import Hero from "../../components/Mobile/Home/Hero";
-import Points from "../../components/Mobile/Home/Points";
-import Catalog from "../../components/Mobile/Home/Catalog";
+import SiteHeader from '../../components/Mobile/Home/SiteHeader';
+import Header from '../../components/Mobile/Home/Header';
+import Hero from '../../components/Mobile/Home/Hero';
+import Points from '../../components/Mobile/Home/Points';
+import Catalog from '../../components/Mobile/Home/Catalog';
 
-import SiteHeaderDesktop from "../../components/Desktop/Home/SiteHeader";
-import HeroDesktop from "../../components/Desktop/Home/Hero";
-import PointsDesktop from "../../components/Desktop/Home/Points";
-import CatalogDesktop from "../../components/Desktop/Home/Catalog";
+import SiteHeaderDesktop from '../../components/Desktop/Home/SiteHeader';
+import HeroDesktop from '../../components/Desktop/Home/Hero';
+import PointsDesktop from '../../components/Desktop/Home/Points';
+import CatalogDesktop from '../../components/Desktop/Home/Catalog';
 
-import "./style.scss";
+import './style.scss';
 
 const Home: FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>(
     undefined
   );
-  const [searchText, setSearchText] = useState<string>("");
+  const [searchText, setSearchText] = useState<string>('');
 
   // Создаем ref для контейнера с каталогом
   const catalogRef = useRef<HTMLDivElement>(null);
@@ -28,7 +28,7 @@ const Home: FC = () => {
     if (catalogRef.current) {
       catalogRef.current.scrollTo({
         top: 0,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
     }
   };
@@ -48,24 +48,18 @@ const Home: FC = () => {
             onCategoryChange={handleCategoryChange}
             onSearchTextChange={handleSearchTextChange}
           />
-          <div
-            ref={catalogRef}
-            style={{ overflowY: "auto", maxHeight: "600px" }}
-          >
+          <div ref={catalogRef}>
             <Catalog selectedCategory={selectedCategory} />
           </div>
         </>
       ) : (
         <div>
           <SiteHeaderDesktop setSearchText={setSearchText} />
-          <div className="flex justify-around items-center">
+          <div className='flex justify-around items-center'>
             <HeroDesktop />
             <PointsDesktop onCategoryChange={handleCategoryChange} />
           </div>
-          <div
-            ref={catalogRef}
-            style={{ overflowY: "auto", maxHeight: "600px" }}
-          >
+          <div ref={catalogRef}>
             <CatalogDesktop
               selectedCategory={selectedCategory}
               searchText={searchText}
