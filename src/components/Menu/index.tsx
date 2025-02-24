@@ -29,24 +29,47 @@ const Menu: FC<IProps> = ({ selectedCategory, searchText }) => {
         setIsShow(value);
     };
 
-  return (
-    <>
-      <h2 className='cart-title'>{t('cartTitle')}</h2>
-      <div className='cart-wrapper'>
-        {isLoading
-          ? Array(6)
-              .fill(5)
-              .map(() => <MenuSkeleton key={Math.random()} />)
-          : products?.map((item) => (
-              <div onClick={() => setPhotoDetail(item)} key={item.id}>
-                <CatalogCard {...item} quantity={cart.find((el) => el.id === item.id)?.quantity || 0} setIsShow={() => handleClick(true)} />
-              </div>
-            ))}
-      </div>
-      {/* <MobileFoodDetail setIsShow={() => handleClick(false)} item={PhotoDetail} isShow={isShow} /> */}
-      <DesktopFoodDetail setIsShow={() => handleClick(false)} item={PhotoDetail} isShow={isShow} />
-    </>
-  );
+    const isMobile = window.innerWidth <= 768;
+
+    return (
+        <>
+            <h2 className="cart-title">{t("cartTitle")}</h2>
+            <div className="cart-wrapper">
+                {isLoading
+                    ? Array(6)
+                          .fill(5)
+                          .map(() => <MenuSkeleton key={Math.random()} />)
+                    : products?.map((item) => (
+                          <div
+                              onClick={() => setPhotoDetail(item)}
+                              key={item.id}
+                          >
+                              <CatalogCard
+                                  {...item}
+                                  quantity={
+                                      cart.find((el) => el.id === item.id)
+                                          ?.quantity || 0
+                                  }
+                                  setIsShow={() => handleClick(true)}
+                              />
+                          </div>
+                      ))}
+            </div>
+            {isMobile ? (
+                <MobileFoodDetail
+                    setIsShow={() => handleClick(false)}
+                    item={PhotoDetail}
+                    isShow={isShow}
+                />
+            ) : (
+                <DesktopFoodDetail
+                    setIsShow={() => handleClick(false)}
+                    item={PhotoDetail}
+                    isShow={isShow}
+                />
+            )}
+        </>
+    );
 };
 
 export default Menu;
