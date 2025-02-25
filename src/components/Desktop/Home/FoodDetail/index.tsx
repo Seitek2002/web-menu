@@ -109,7 +109,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
               </h4>
             </div>
             <div className='food-detailll__size'>
-              {[...sizes,...sizes,...sizes].slice(0,5)?.map((sizeKey, index) => (
+              {sizes?.map((sizeKey, index) => (
                 <div
                   key={index}
                   className={`food-detailll__size-item bg-[#F1F2F3] ${
