@@ -43,27 +43,41 @@ const yourFeatureSlice = createSlice({
       localStorage.setItem('cartItems', JSON.stringify(state.items)); // Сохранение
     },
     addItem: (state, action: PayloadAction<IFoodCart>) => {
-      const existingItem = state.items.find((item) => item.id === action.payload.id);
-      if (existingItem) {
-        existingItem.quantity += 1;
+      const existingItem = state.items.find(
+        (item) => item.id === action.payload.id
+      );
+      if (action.payload.quantity) {
+        if (existingItem) {
+          existingItem.quantity += action.payload.quantity;
+        } else {
+          state.items.push({ ...action.payload });
+        }
       } else {
-        state.items.push({ ...action.payload, quantity: 1 });
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          state.items.push({ ...action.payload, quantity: 1 });
+        }
       }
       localStorage.setItem('cartItems', JSON.stringify(state.items)); // Сохранение
     },
     removeItem: (state, action: PayloadAction<IFoodCart>) => {
-      const existingItem = state.items.find((item) => item.id === action.payload.id);
+      const existingItem = state.items.find(
+        (item) => item.id === action.payload.id
+      );
       if (existingItem) {
         existingItem.quantity -= 1;
         if (existingItem.quantity === 0) {
-          state.items = state.items.filter((item) => item.id !== action.payload.id);
+          state.items = state.items.filter(
+            (item) => item.id !== action.payload.id
+          );
         }
       }
-      localStorage.setItem('cartItems', JSON.stringify(state.items)); 
+      localStorage.setItem('cartItems', JSON.stringify(state.items));
     },
     clearCart: (state) => {
       state.items = [];
-      localStorage.removeItem('cartItems'); 
+      localStorage.removeItem('cartItems');
     },
     setButtonText: (state, action: PayloadAction<string>) => {
       state.buttonText = action.payload;
@@ -71,7 +85,15 @@ const yourFeatureSlice = createSlice({
   },
 });
 
-export const { increment, decrement, setShow, setItems, addItem, removeItem, clearCart, setButtonText } =
-  yourFeatureSlice.actions;
+export const {
+  increment,
+  decrement,
+  setShow,
+  setItems,
+  addItem,
+  removeItem,
+  clearCart,
+  setButtonText,
+} = yourFeatureSlice.actions;
 
 export default yourFeatureSlice.reducer;
