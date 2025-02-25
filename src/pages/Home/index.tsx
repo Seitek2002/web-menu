@@ -17,7 +17,8 @@ import PointsDesktop from "src/components/Desktop/Home/Points";
 import CatalogDesktop from "src/components/Desktop/Home/Catalog";
 import Footer from "src/components/Mobile/Footer";
 
-import delet from "src/assets/icons/Busket/delete.svg";
+import delet from "../../assets/icons/Busket/delete.svg";
+import Modal from "../../components/Mobile/Busket/Modal"; // Подключаем модалку
 
 import "./style.scss";
 
@@ -29,6 +30,8 @@ const Home: FC = () => {
     undefined
   );
   const [searchText, setSearchText] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState(t("busket.modal.clear")); // ✅ Исправлено
   const catalogRef = useRef<HTMLDivElement>(null);
 
   const handleCategoryChange = (categoryId?: number) => {
@@ -36,11 +39,14 @@ const Home: FC = () => {
     catalogRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const isMobile = window.innerWidth <= 768;
+  const handleClearCart = () => {
+    dispatch(clearCart());
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="home">
-      {isMobile ? (
+      {window.innerWidth <= 768 ? (
         <>
           <SiteHeader />
           <Header />
@@ -74,7 +80,7 @@ const Home: FC = () => {
                     <h1 className="cart-title">{t("busket.busketTitle")}</h1>
                     <div
                       className="cart-wrapper-img bg-[#FFF]"
-                      onClick={() => dispatch(clearCart())}
+                      onClick={() => setIsModalOpen(true)}
                     >
                       <img src={delet} alt="delete" />
                     </div>
@@ -95,6 +101,38 @@ const Home: FC = () => {
             </div>
           </div>
         </div>
+      )}
+      {isModalOpen && (
+        <Modal title={modalTitle} onClose={() => setIsModalOpen(false)}>
+          {modalTitle === t("busket.modal.clear") ? (
+            <div className="busket__modal-btns">
+              <button
+                onClick={handleClearCart}
+                className="busket__modal-gray bg-[#F1F2F3] text-[#000]"
+              >
+                {t("busket.modal.yes")}
+              </button>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="busket__modal-purple bg-[#875AFF] text-[#fff]"
+              >
+                {t("busket.modal.no")}
+              </button>
+            </div>
+          ) : (
+            <>
+              <p className="busket__modal-text text-[#727272]">
+                {t("busket.modal.arrange")}
+              </p>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="busket__modal-btn text-[#090A0B] bg-[#F1F2F3]"
+              >
+                {t("busket.modal.myself")}
+              </button>
+            </>
+          )}
+        </Modal>
       )}
     </div>
   );

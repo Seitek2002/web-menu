@@ -8,13 +8,11 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background: #888; /* Цвет ползунка */
-      border-radius: 4px; /* Закругление краёв */
+      background: #888; 
+      border-radius: 4px; 
     }
-
-    /* Фон скроллбара */
     &::-webkit-scrollbar-track {
-      background: #f0f0f0; /* Цвет фона дорожки */
+      background: #f0f0f0;
       border-radius: 4px;
     }
   }
@@ -22,4 +20,12 @@
   &__right {
     flex: 1;
   }
+}
+
+.busket__modal {
+  @apply fixed top-0 left-0 w-[100vw] h-[100vw] flex items-center justify-center bg-[rgba(0,0,0,0.5)] z-40;
+}
+
+.busket__modal-wrapper {
+  @apply bg-[#fff] p-5 rounded-[10px] max-w-[500px] w-[100%] z-50;
 }

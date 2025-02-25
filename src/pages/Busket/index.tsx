@@ -8,7 +8,6 @@ import { useAppSelector } from "../../hooks/useAppSelector";
 import { setButtonText } from "../../store/yourFeatureSlice";
 
 import Head from "../../components/Mobile/Busket/Head";
-// import ForgotCart from "src/components/Mobile/Busket/Forgot";
 import Detail from "../../components/Mobile/Busket/Detail";
 import OrderType from "../../components/Mobile/Busket/OrderType";
 import Price from "../../components/Mobile/Busket/Price";
@@ -126,18 +125,6 @@ const Busket: FC = () => {
             <OrderType />
             <Price />
             <Promo renameTitlePlaces={renameTitlePlaces} />
-
-            {/* <div className="busket__forgot">
-              <h4 className="busket__forgot-title">
-                Ничего не забыли?
-                <img src={cookie} alt="cookie" />
-              </h4>
-                <div className="busket__forgot-wrapper">
-                  {list.map((item) => (
-                    <ForgotCart key={item.id} {...item} />
-                  ))}
-                </div>
-            </div> */}
             <Forgot list={list} />
             <Tips />
           </div>

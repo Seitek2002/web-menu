@@ -17,19 +17,17 @@ interface IProps {
 }
 
 const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
-  // const [sugar, setSugar] = useState<"with" | "without">("with");
-  // const [containerAdd, setContainerAdd] = useState(0);
-  // const [counter, setCounter] = useState(1);
-  const [containerCounter, setContainerCounter] = useState(0);
+  const [containerCounter, setContainerCounter] = useState(1);
   const [selectedSize, setSelectedSize] = useState('');
   const [counter, setCounter] = useState(1);
   const sizes = [...(item?.modificators || [])];
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
-  const handleContainerCounterChange = (delta: number) => {
+  const ContainerCounter = (delta: number) => {
     setContainerCounter((prev) => Math.max(1, prev + delta));
   };
+  
 
   const handleDone = () => {
     const selectedData = {
@@ -84,7 +82,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
                 <img
                   src={minus}
                   alt='minus'
-                  onClick={() => setCounter(counter - 1)}
+                  onClick={() => setCounter((prev) => Math.max(1, prev - 1))}
                 />
                 {counter}
                 <img
@@ -131,23 +129,23 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
                 <img
                   src={minus}
                   alt='minus'
-                  onClick={() => handleContainerCounterChange(-1)}
+                  onClick={() => ContainerCounter(-1)}
                 />
                 {containerCounter}
                 <img
                   src={plus}
                   alt='plus'
-                  onClick={() => handleContainerCounterChange(1)}
+                  onClick={() => ContainerCounter(1)}
                 />
               </div>
-              <span className='food-detailll__container-money text-[#626576]'>
-                {t('foodDetail.container.price')}
+              <span className='food-detailll__container-money text-[#090A0B] font-semibold'>
+                {t('container.container')}
               </span>
+              <h4 className='detailll__ingridients-title text-[#626576]'>
+                {t('container.price')}
+              </h4>
             </div>
             <div className='food-detailll__ingridients'>
-              <h4 className='detailll__ingridients-title text-[#090A0B]'>
-                {t('foodDetail.ingredients.structure')}
-              </h4>
               <ul className='detailll__ingridients-list text-[#090A0B]'>
                 <li>
                   <p className='text-[#090A0B]'>

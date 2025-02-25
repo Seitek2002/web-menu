@@ -41,7 +41,7 @@
         @apply absolute right-[10px] top-[10px] cursor-pointer;
     }
     &__img {
-        @apply w-[200px] h-[162px];
+        @apply w-[200px] h-[162px] rounded-[24px];
     }
     &__head {
         @apply flex items-center justify-between mb-[10px];
