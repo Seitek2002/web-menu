@@ -23,8 +23,9 @@
 }
 
 .busket__modal {
-  @apply fixed top-0 left-0 w-[100vw] h-[100vw] flex items-center justify-center bg-[rgba(0,0,0,0.5)] z-40;
+  @apply fixed top-0 left-0 w-[100vw] h-[100vh] flex items-center justify-center bg-[rgba(0,0,0,0.5)] z-40;
 }
+
 
 .busket__modal-wrapper {
   @apply bg-[#fff] p-5 rounded-[10px] max-w-[500px] w-[100%] z-50;
