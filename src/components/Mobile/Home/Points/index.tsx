@@ -35,6 +35,10 @@ const Points: FC<IProps> = ({ onCategoryChange, onSearchTextChange }) => {
     setActive(id);
     if (id) onCategoryChange(id);
     else onCategoryChange(undefined);
+
+    if (navigator.vibrate) {
+      navigator.vibrate(10);
+    }
   };
 
   return (

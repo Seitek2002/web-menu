@@ -1,3 +1,9 @@
+export interface IProductModificator {
+  id: number;
+  name: string;
+  price: string;
+}
+
 export interface IProductCatalog {
   id: number;
   productName: string;
@@ -9,9 +15,5 @@ export interface IProductCatalog {
     id: number;
     categoryName: string;
   };
-  modificators: {
-    id: number;
-    name: string;
-    price: string;
-  }[]
+  modificators: IProductModificator[]
 }

@@ -47,6 +47,9 @@ const CatalogCard: FC<IProps> = ({
         })
       );
     }
+    if (navigator.vibrate) {
+      navigator.vibrate(50); // Вибрация на 50 мс
+    }
   };
 
   const handleUnClick = () => {
@@ -63,6 +66,9 @@ const CatalogCard: FC<IProps> = ({
         modificators: [],
       })
     );
+    if (navigator.vibrate) {
+      navigator.vibrate(50); // Вибрация на 50 мс
+    }
   };
 
   return (
