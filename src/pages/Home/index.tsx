@@ -31,7 +31,7 @@ const Home: FC = () => {
   );
   const [searchText, setSearchText] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalTitle, setModalTitle] = useState(t("busket.modal.clear")); // ✅ Исправлено
+  const modalTitle = t("busket.modal.clear");
   const catalogRef = useRef<HTMLDivElement>(null);
 
   const handleCategoryChange = (categoryId?: number) => {
