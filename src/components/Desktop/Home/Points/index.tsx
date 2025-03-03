@@ -5,6 +5,7 @@ import PointsSkeleton from "../../../../skeletons/Points";
 import all from "../../../../assets/icons/points/all.svg";
 
 import "./style.scss";
+import Item from "./Item";
 
 interface IProps {
   onCategoryChange: (categoryId: number | undefined) => void;
@@ -21,44 +22,35 @@ const Points: FC<IProps> = ({ onCategoryChange }) => {
   };
 
   return (
-    <>
-      <section className="desktop point">
-        <div className="container">
-          <div className="desktop point-content">
-            <div
-              className={`desktop point-item ${
-                active === 0
-                  ? "bg-[#875AFF] text-[#fff]"
-                  : "active bg-[#fff] text-[#000]"
-              }`}
-              onClick={() => selectCategory(0)}
-            >
-              <img src={all} alt="icon" />
-              <p>{t("point.all")}</p>
-            </div>
-            {isLoading
-              ? Array(6)
-                  .fill(0)
-                  .map((_, index) => <PointsSkeleton key={index} />)
-              : categories?.map((item) => (
-                  <div key={item.id}>
-                    <div
-                      className={`desktop point-item ${
-                        active === item.id
-                          ? "bg-[#875AFF] text-[#fff]"
-                          : "active bg-[#fff]"
-                      }`}
-                      onClick={() => selectCategory(item.id)}
-                    >
-                      <img src={item.categoryPhoto} alt="icon" />
-                      <p>{item.categoryName}</p>
-                    </div>
-                  </div>
-                ))}
+    <section className="desktop point">
+      <div className="container">
+        <div className="desktop point-content">
+          <div
+            className={`desktop point-item ${
+              active === 0
+                ? "bg-[#875AFF] text-[#fff]"
+                : "bg-[#fff] text-[#000]"
+            }`}
+            onClick={() => selectCategory(0)}
+          >
+            <img src={all} alt="icon" />
+            <p>{t("point.all")}</p>
           </div>
+          {isLoading
+            ? Array(6)
+                .fill(0)
+                .map((_, index) => <PointsSkeleton key={index} />)
+            : categories?.map((item) => (
+                <Item
+                  key={item.id}
+                  item={item}
+                  active={active}
+                  selectCategory={selectCategory}
+                />
+              ))}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 

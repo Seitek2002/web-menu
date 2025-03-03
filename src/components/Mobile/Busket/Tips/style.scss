@@ -15,6 +15,7 @@
         img {
             @apply w-full;
         }
+        
     }
 
     &-inner {
@@ -30,10 +31,13 @@
     }
 
     &-wrapper {
-        @apply flex items-center gap-[8px];
+        @apply flex items-center gap-[8px] flex-wrap;
     }
 
     &-item {
-        @apply w-[62px] h-[56px] rounded-[50%] flex items-center justify-center cursor-pointer;
+        @apply w-[62px] h-[56px] rounded-[50%] flex items-center justify-center cursor-pointer text-[12px] font-[400];
+    }
+    @media screen and (min-width:768px) {
+        @apply mb-0
     }
 }

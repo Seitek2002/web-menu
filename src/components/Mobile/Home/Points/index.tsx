@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import { useGetCategoriesQuery } from "../../../../api/Categories.api";
 import PointsSkeleton from "../../../../skeletons/Points";
 import Search from "../Search";
+import Item from "./Item";
 
 import search from "../../../../assets/icons/points/search.svg";
 import all from "../../../../assets/icons/points/all.svg";
@@ -33,8 +34,7 @@ const Points: FC<IProps> = ({ onCategoryChange, onSearchTextChange }) => {
 
   const selectCategory = (id: number | undefined) => {
     setActive(id);
-    if (id) onCategoryChange(id);
-    else onCategoryChange(undefined);
+    onCategoryChange(id ?? undefined);
 
     if (navigator.vibrate) {
       navigator.vibrate(10);
@@ -82,28 +82,14 @@ const Points: FC<IProps> = ({ onCategoryChange, onSearchTextChange }) => {
                 ))}
             </>
           ) : (
-            <>
-              {categories?.map((item) => (
-                <div
-                  className={`mobile point-item ${
-                    active === item.id ? "active" : ""
-                  }`}
-                  key={item.id}
-                  onClick={() => selectCategory(item.id)}
-                >
-                  <div
-                    className={`mobile point-wrapper ${
-                      active === item.id
-                        ? "bg-[#875AFF] border-[#875AFF]"
-                        : "border-white"
-                    }`}
-                  >
-                    <img src={item.categoryPhoto} alt="icon" />
-                  </div>
-                  <p>{item.categoryName}</p>
-                </div>
-              ))}
-            </>
+            categories?.map((item) => (
+              <Item
+                key={item.id}
+                item={item}
+                active={active}
+                selectCategory={selectCategory}
+              />
+            ))
           )}
         </div>
       </div>

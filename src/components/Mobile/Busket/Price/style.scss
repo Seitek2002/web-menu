@@ -3,10 +3,11 @@
 
     &-wrapper {
         @apply h-0 overflow-hidden;
-        transition: 0.3s;
+        transition: 0.2s;
 
         &.active {
-            @apply h-[162px] overflow-visible;
+            @apply h-[165px] ;
+            overflow: unset
         }
     }
 

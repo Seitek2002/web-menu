@@ -31,10 +31,16 @@
 
     &__table {
         @apply py-[12px] rounded-[8px] flex justify-center mt-[12px] font-[700] text-[16px];
+        &.desktop {
+            @apply  m-0
+        }
     }
 
     &__list {
         @apply flex flex-col rounded-[12px] mt-[20px] p-[12px];
+        &.desktop {
+            @apply p-0 overflow-auto max-h-[400px]
+        }
     }
 
     &__img {
@@ -72,4 +78,20 @@
     &__loy {
         @apply flex gap-[8px];
     }
+}
+.busket-desktop {
+    @apply flex items-start gap-[20px] mt-[24px];  
+
+    &__left {
+        @apply w-[60%] py-[10px] px-[12px]  rounded-[12px];
+    }
+
+    &__right {
+            @apply relative w-[40%] pt-[10px] pb-[75px] px-[12px]  rounded-[12px]
+    }
+
+    // .footer {
+    //     @apply 
+    // }
+    
 }
