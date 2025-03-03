@@ -6,7 +6,7 @@ import './App.scss';
 
 function App() {
   return (
-    <div className='font-inter bg-[#F1F2F3]'>
+    <div className='font-inter bg-[#F1F2F3] h-[100dvh]'>
       <AppRoutes />
     </div>
   );
