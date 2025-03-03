@@ -13,7 +13,11 @@ interface IProps extends IProductCatalog {
   setIsShow: () => void;
   quantity: number;
 }
-
+const VibrationClick = () => {
+  if (navigator.vibrate) {
+    navigator.vibrate(50);
+  }
+};
 const CatalogCard: FC<IProps> = ({
   id,
   productName,
@@ -93,7 +97,7 @@ const CatalogCard: FC<IProps> = ({
           alt="img"
           onLoad={() => setIsLoaded(true)}
           className={isLoaded ? "" : "hidden"}
-          onClick={setIsShow}
+          onClick={() => {setIsShow(), VibrationClick()}}
         />
       </div>
       <div className="cart-info">
@@ -105,15 +109,16 @@ const CatalogCard: FC<IProps> = ({
           className="cart-btn bg-[#F1F2F3] text-[#000]"
           onClick={() => {
             handleClick();
+            VibrationClick()
           }}
         >
           Добавить
         </button>
       ) : (
         <div className="cart-btn active bg-[#875AFF]">
-          <img onClick={handleUnClick} src={whiteMinus} alt="minus" />
+          <img onClick={() => {handleUnClick(), VibrationClick()}} src={whiteMinus} alt="minus" />
           <span className="cart-count text-[#fff]">{quantity}</span>
-          <img onClick={handleClick} src={whitePlus} alt="plus" />
+          <img onClick={() => {handleClick(), VibrationClick()}} src={whitePlus} alt="plus" />
         </div>
       )}
     </div>

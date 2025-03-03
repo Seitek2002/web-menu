@@ -26,7 +26,11 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
   const [selectedSize, setSelectedSize] = useState('');
   const sizes: IProductModificator[] = [...(item?.modificators || [])];
   const dispatch = useAppDispatch();
-
+  const VibrationClick = () => {
+    if (navigator.vibrate) {
+      navigator.vibrate(50);
+    }
+  };
   const handleCounterChange = (delta: number) => {
     setCounter((prev) => Math.max(1, prev + delta));
   };
@@ -67,7 +71,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
 
   return (
     <div className={'food-detail bg-[#F1F2F3]' + (isShow ? ' active' : '')}>
-      <img src={close} alt='' className='close' onClick={setIsShow} />
+      <img src={close} alt='' className='close' onClick={() => {setIsShow(), VibrationClick()}} />
       <div {...bind()} className='img-wrapper'>
         <img src={item?.productPhoto} alt='' />
       </div>
@@ -95,52 +99,6 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
             </li>
           </ul>
         </div>
-        {/* <div className="sugar__block flex items-center justify-between">
-          <h2 className="text-[#090A0B]">
-            {t("foodDetail.ingredients.sugar.question")}
-          </h2>
-          <div className="required text-[#875AFF]">
-            {t("foodDetail.ingredients.necessarily")}
-          </div>
-        </div>
-        <div className="sugar bg-[#fff]">
-          <div className="flex items-center justify-between"></div>
-          <div className="sugar__content">
-            <div className="sugar__item">
-              <label className="checkbox">
-                <input
-                  type="radio"
-                  checked={sugar === "with" ? true : false}
-                  value={sugar}
-                  onChange={() => setSugar("with")}
-                />
-                <span>
-                  {t("foodDetail.ingredients.sugar.options.with_sugar")}
-                </span>
-              </label>
-              <div className="price text-[#626576]">
-                {t("foodDetail.ingredients.sugar.options.price")}
-              </div>
-            </div>
-            <hr className="my-[8px]" />
-            <div className="sugar__item">
-              <label className="checkbox">
-                <input
-                  type="radio"
-                  checked={sugar === "without" ? true : false}
-                  value={sugar}
-                  onChange={() => setSugar("without")}
-                />
-                <span>
-                  {t("foodDetail.ingredients.sugar.options.without_sugar")}
-                </span>
-              </label>
-              <div className="price text-[#626576]">
-                {t("foodDetail.ingredients.sugar.options.free")}
-              </div>
-            </div>
-          </div>
-        </div> */}
         <div className='size'>
           <div className='flex items-center justify-between'>
             <h2 className='text-[#090A0B]'>{t('size.sizeChoose')}</h2>
@@ -155,7 +113,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
                 className={`size__item bg-white ${
                   selectedSize === sizeKey.name ? 'active border-[#875AFF]' : ''
                 }`}
-                onClick={() => selectSize(sizeKey)}
+                onClick={() => {selectSize(sizeKey), VibrationClick()}}
               >
                 <span>{sizeKey.name}</span>
                 <div className='price text-[#626576]'>{sizeKey.price}</div>
@@ -170,20 +128,20 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
                 <img
                   src={minus}
                   alt=''
-                  onClick={() => setContainerAdd(containerAdd - 1)}
+                  onClick={() => {setContainerAdd(containerAdd - 1), VibrationClick()}}
                 />
                 {containerAdd}
                 <img
                   src={plus}
                   alt=''
-                  onClick={() => setContainerAdd(containerAdd + 1)}
+                  onClick={() => {setContainerAdd(containerAdd + 1), VibrationClick()}}
                 />
               </div>
             ) : (
               <img
                 src={addContainer}
                 alt=''
-                onClick={() => setContainerAdd(1)}
+                onClick={() => {setContainerAdd(1), VibrationClick()}}
               />
             )}
             <span>{t('container.container')}</span>
@@ -194,7 +152,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
       <footer className='counter bg-[#fff]'>
         <div className='counter__left bg-[#F1F2F3]'>
           <svg
-            onClick={() => handleCounterChange(-1)}
+            onClick={() => {handleCounterChange(-1), VibrationClick()}}
             width='24'
             height='24'
             viewBox='0 0 24 24'
@@ -215,7 +173,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
             {counter}
           </span>
           <svg
-            onClick={() => handleCounterChange(1)}
+            onClick={() => {handleCounterChange(1), VibrationClick()}}
             width='24'
             height='24'
             viewBox='0 0 24 24'
@@ -239,7 +197,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
           </svg>
         </div>
         <div className='counter__right bg-[#875AFF] text-[#fff]'>
-          <button onClick={handleDone}>{t('counter')}</button>
+          <button onClick={() => {handleDone(), VibrationClick()}}>{t('counter')}</button>
         </div>
       </footer>
     </div>

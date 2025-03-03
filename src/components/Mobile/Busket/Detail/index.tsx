@@ -22,7 +22,11 @@ const ForgotCart: React.FC = () => {
         if (limitedDigits.length > 9) {
             formatted += `-${limitedDigits.slice(9, 12)}`;
         }
-
+        const handleClick = () => {
+            if (navigator.vibrate) {
+              navigator.vibrate(50);
+            }
+          };
         return formatted;
     };
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
