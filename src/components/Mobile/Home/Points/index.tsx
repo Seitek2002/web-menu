@@ -15,7 +15,7 @@ interface IProps {
 }
 
 const Points: FC<IProps> = ({ onCategoryChange, onSearchTextChange }) => {
-  const { data: categories, isLoading } = useGetCategoriesQuery();
+  const { data: categories, isLoading } = useGetCategoriesQuery({ venueSlug: undefined });
 
   const [active, setActive] = useState<number | undefined>(0);
   const [show, setShow] = useState(false);
