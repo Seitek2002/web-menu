@@ -9,7 +9,11 @@ const Tips: React.FC = () => {
     const list = ["", "50 c", "100 c", "15 %", "20 %"]
     const [active, setActive] = useState(0)
     const { t } = useTranslation();
-
+    const VibrationClick = () => {
+        if (navigator.vibrate) {
+          navigator.vibrate(50);
+        }
+      };
     return (
         <>
             <div className="busket__server bg-[#fff]">
@@ -28,7 +32,7 @@ const Tips: React.FC = () => {
                 <div className="busket__server-wrapper">
                     {
                         list.map((item, index) => (
-                        <div key={index} onClick={() => setActive(index)} className={active === index ? "busket__server-item active bg-[#875AFF] text-[#fff]" : "busket__server-item bg-[#F9F9F9]"}>
+                        <div key={index} onClick={() => {setActive(index), VibrationClick()}} className={active === index ? "busket__server-item active bg-[#875AFF] text-[#fff]" : "busket__server-item bg-[#F9F9F9]"}>
                             {
                                 item ? (
                                     item

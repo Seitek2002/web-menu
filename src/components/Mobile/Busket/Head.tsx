@@ -10,15 +10,24 @@ type HeadProps = {
 
 const Head: React.FC<HeadProps> = ({ renameTitleHead }) => { 
     const { t } = useTranslation();
+    const handleClick = () => {
+        if (navigator.vibrate) {
+          navigator.vibrate(50);
+        }
+      };
 
     return (
         <>
             <div className="busket__top">
                 <Link to="/" className="busket__wrapper-img bg-[#FFF]">
-                    <img src={back} alt="back" />
+                    <img src={back} alt="back"
+                    onClick={handleClick}
+                    />
                 </Link>
                 <h1 className="busket__title">{t("busket.busketTitle")}</h1>
-                <div className="busket__wrapper-img bg-[#FFF]" onClick={renameTitleHead}>
+                <div className="busket__wrapper-img bg-[#FFF]" 
+                onClick={() => {renameTitleHead(), handleClick()}}
+                >
                     <img src={delet} alt="delete" />
                 </div>
             </div>

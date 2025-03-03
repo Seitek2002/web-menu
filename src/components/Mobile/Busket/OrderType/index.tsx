@@ -10,7 +10,11 @@ const Where: React.FC = () => {
         t("busket.where.takeaway"),
         t("busket.where.dinein")
     ], [i18n.language]); 
-
+    const VibrationClick = () => {
+        if (navigator.vibrate) {
+          navigator.vibrate(50);
+        }
+      };
     const [active, setActive] = useState(list[1]);
 
     useEffect(() => {
@@ -22,7 +26,7 @@ const Where: React.FC = () => {
             {list.map((item, index) => (
                 <div
                     key={index}
-                    onClick={() => setActive(item)}
+                    onClick={() => {setActive(item), VibrationClick()}}
                     className={`busket__order-type-wrapper bg-[#fff] border-[#e1e2e5] ${active === item ? "active border-[#875AFF]" : ""}`}>
                     {active === item ? (
                         <img src={checkbox} alt="check" />

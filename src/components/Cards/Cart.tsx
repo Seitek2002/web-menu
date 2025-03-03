@@ -10,7 +10,11 @@ type IProps = IProductCatalog & {
   quantity: number;
   cartLength: boolean;
 };
-
+const VibrationClick = () => {
+  if (navigator.vibrate) {
+    navigator.vibrate(50);
+  }
+};
 const CardBusket: FC<IProps> = ({
   id,
   productName,
@@ -83,9 +87,9 @@ const CardBusket: FC<IProps> = ({
         </div>
       </div>
       <button className="busket-btn bg-[#F1F2F3]">
-        <img src={minus} alt="minus" onClick={handleUnClick} />
+        <img src={minus} alt="minus" onClick={() => {handleUnClick(), VibrationClick()}} />
         {quantity}
-        <img src={plus} alt="plus" onClick={handleClick} />
+        <img src={plus} alt="plus" onClick={() => {handleClick(), VibrationClick()}} />
       </button>
     </div>
   );

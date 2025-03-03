@@ -18,7 +18,12 @@ const SiteHeader: FC = () => {
     kg: "KG",
     en: "ENG",
   };
-
+  const handleClick = () => {
+    if (navigator.vibrate) {
+      navigator.vibrate(50); // Вибрация на 100 мс
+    }
+    console.log("Клик обработан");
+  };
   // Обновляем active при смене языка
   useEffect(() => {
     const lang = i18n.language;
@@ -43,8 +48,7 @@ const SiteHeader: FC = () => {
       <div className="container">
         <div className="siteHeader__content bg-[#fff]">
           <div className="siteHeader__logo">
-            <div>
-            </div>
+            <div></div>
             <img src={logo} alt="logo" />
             <div className="siteHeader__info">
               <p className="siteHeader__name text-[#090A0B]">iMenu.kg</p>
@@ -59,7 +63,7 @@ const SiteHeader: FC = () => {
                 className={`siteHeader__language-selected bg-[#F9F9F9] ${
                   isLanguageOpen ? "active" : ""
                 }`}
-                onClick={toggleLanguageMenu}
+                onClick={() => (toggleLanguageMenu(), handleClick())}
               >
                 {active} <img src={arrow} alt="arrow" />
               </div>
@@ -70,7 +74,7 @@ const SiteHeader: FC = () => {
                     .map((item) => (
                       <div
                         className="siteHeader__item text-[#090A0B] cursor-pointer"
-                        onClick={() => selectLanguage(item)}
+                        onClick={() => (selectLanguage(item), handleClick())}
                         key={item}
                       >
                         {item}
