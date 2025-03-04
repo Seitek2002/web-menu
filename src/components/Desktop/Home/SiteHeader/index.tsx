@@ -52,25 +52,25 @@ const SiteHeader: FC<{ setSearchText: (text: string) => void }> = ({ setSearchTe
   return (
     <header className="desktop siteHeader pt-[20px]">
       <div className="container">
-        <div className="siteHeader__content">
-          <div className="siteHeader__top">
-            <div className="siteHeader__logo">
+        <div className="desktop siteHeader__content">
+          <div className="desktop siteHeader__top">
+            <div className="desktop siteHeader__logo">
               <img src={logo} alt="logo" />
-              <div className="siteHeader__info">
-                <p className="siteHeader__name text-[#090A0B]">iMenu.kg</p>
+              <div className="desktop siteHeader__info">
+                <p className="desktop siteHeader__name text-[#090A0B]">iMenu.kg</p>
               </div>
             </div>
-            <div className="siteHeader__search bg-[#F9F9F9]">
+            <div className="desktop siteHeader__search bg-[#F9F9F9]">
               <img src={search} alt="search" />
               <input value={inputVal} type="text" placeholder={t("search")} onChange={(e) => handleChange(e)} />
             </div>
-            <div className="siteHeader__block">
+            <div className="desktop siteHeader__block">
               {/* <div className="siteHeader__user bg-[#F9F9F9]">
                 <img src={user} alt="user" />
               </div> */}
-              <div className="siteHeader__language">
+              <div className="desktop siteHeader__language">
                 <div
-                  className={`siteHeader__language-selected bg-[#F9F9F9] ${
+                  className={`desktop siteHeader__language-selected bg-[#F9F9F9] ${
                     isLanguageOpen ? "active" : ""
                   }`}
                   onClick={toggleLanguageMenu}
@@ -78,12 +78,12 @@ const SiteHeader: FC<{ setSearchText: (text: string) => void }> = ({ setSearchTe
                   {active} <img src={arrow} alt="arrow" />
                 </div>
                 {isLanguageOpen && (
-                  <div className="siteHeader__wrapper bg-[#F9F9F9] active">
+                  <div className="desktop siteHeader__wrapper bg-[#F9F9F9] active">
                     {list
                       .filter((item) => item !== active)
                       .map((item) => (
                         <div
-                          className="siteHeader__item text-[#090A0B] cursor-pointer"
+                          className="desktop siteHeader__item text-[#090A0B] cursor-pointer"
                           onClick={() => selectLanguage(item)}
                           key={item}
                         >
@@ -96,27 +96,27 @@ const SiteHeader: FC<{ setSearchText: (text: string) => void }> = ({ setSearchTe
             </div>
           </div>
           <hr />
-          <div className="siteHeader__bottom">
-            <div className="header__logo">
+          <div className="desktop siteHeader__bottom">
+            <div className="desktop header__logo">
               <img src={logoCompanion} alt="logo" />
-              <div className="header__left">
-                <p className="header__name text-[#090A0B]">{t("title")}</p>
-                <div className="header__inner">
+              <div className="desktop header__left">
+                <p className="desktop header__name text-[#090A0B]">{t("title")}</p>
+                <div className="desktop header__inner">
                   <img src={clock} alt="icon" />
-                  <p className="header__time text-[#626576]">10:00 - 22:00</p>
+                  <p className="desktop header__time text-[#626576]">10:00 - 22:00</p>
                 </div>
               </div>
             </div>
             <div className="flex gap-[20px]">
-              <div className="siteHeader__notify">
+              <div className="desktop siteHeader__notify">
                 <img src={bell} alt="bell" />
                 <p>{t("notify")}</p>
               </div>
-              <div className="siteHeader__check">
+              <div className="desktop siteHeader__check">
                 <img src={check} alt="check" />
                 <p>{t("check")}</p>
               </div>
-              <div className="header__table bg-[#F9F9F9]">
+              <div className="desktop header__table bg-[#F9F9F9]">
                 <p className="text-[#626576]">{t("table")}</p>
               </div>
             </div>
