@@ -9,20 +9,20 @@ import "./style.scss";
 const Header: FC = () => {
     const { t } = useTranslation();
     return (
-        <header className="header">
+        <header className="desktop header">
             <div className="container">
-                <div className="header__content">
-                    <div className="header__logo">
+                <div className="desktop header__content">
+                    <div className="desktop header__logo">
                         <img src={logo} alt="logo" />
-                        <div className="header__info">
-                            <p className="header__name text-[#090A0B]">{t("title")}</p>
-                            <div className="header__inner">
+                        <div className="desktop header__info">
+                            <p className="desktop header__name text-[#090A0B]">{t("title")}</p>
+                            <div className="desktop header__inner">
                                 <img src={clock} alt="icon" />
-                                <p className="header__time text-[#626576]">10:00 - 22:00</p>
+                                <p className="desktop header__time text-[#626576]">10:00 - 22:00</p>
                             </div>
                         </div>
                     </div>
-                    <div className="header__table bg-[#fff]">
+                    <div className="desktop header__table bg-[#fff]">
                         <p className="text-[#626576]">{t("table")}</p>
                     </div>
                 </div>
