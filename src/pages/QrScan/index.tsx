@@ -10,26 +10,37 @@ const QrScan: FC = () => {
       await navigator.mediaDevices.getUserMedia({ video: true });
       setIsErr(''); // Очистить ошибку, если разрешение получено
     } catch (error) {
-      setIsErr(error.name); // Сохранить код ошибки
+      setIsErr((error as Error).name); // Сохранить код ошибки
     }
   };
 
-  const onError = (error: any) => {
+  const onError = (error: unknown) => {
     console.log(error);
-    setIsErr(error.name);
+    if (typeof error === 'string') {
+      setIsErr(error);
+    }
+    setIsErr((error as Error).name);
   };
 
   return (
     <div className='h-[100dvh] flex flex-col items-center justify-center'>
-      <button onClick={() => setIsPause(!isPause)} className='bg-[#875AFF] p-2 rounded-md text-white mb-4'>
+      <button
+        onClick={() => setIsPause(!isPause)}
+        className='bg-[#875AFF] p-2 rounded-md text-white mb-4'
+      >
         {isPause ? 'Resume' : 'Pause'}
       </button>
 
       <div className='w-[200px] h-[200px] flex items-center justify-center border border-gray-400'>
         {isErr === 'NotAllowedError' ? (
           <div className='text-center'>
-            <p className='text-red-500'>Дайте разрешение на использование камеры</p>
-            <button onClick={requestCameraPermission} className='mt-2 bg-blue-500 text-white p-2 rounded-md'>
+            <p className='text-red-500'>
+              Дайте разрешение на использование камеры
+            </p>
+            <button
+              onClick={requestCameraPermission}
+              className='mt-2 bg-blue-500 text-white p-2 rounded-md'
+            >
               Повторить запрос
             </button>
           </div>
