@@ -5,8 +5,13 @@ export const Categories = createApi({
   reducerPath: 'categories',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://imenu.kg/api/' }), // Базовый URL для запросов
   endpoints: (builder) => ({
-    getCategories: builder.query<ICategory[], void>({
-      query: () => 'categories/',
+    getCategories: builder.query<ICategory[], { venueSlug?: string }>({
+      query: ({ venueSlug }) => {
+        const params = new URLSearchParams();
+        if (venueSlug) params.append('venueSlug', venueSlug);
+
+        return `categories/?${params.toString()}`;
+      },
     }),
     addCategories: builder.mutation<void, ICategory>({
       query: (newCategory) => ({

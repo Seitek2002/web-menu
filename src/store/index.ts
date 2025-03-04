@@ -1,16 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
 import yourReducer from './yourFeatureSlice';
-import { Categories } from 'src/api/Categories.api';
-import { Products } from 'src/api/Products.api';
+import { Categories, Orders, Products } from 'src/api';
 
 const store = configureStore({
   reducer: {
     yourFeature: yourReducer,
     [Categories.reducerPath]: Categories.reducer,
-    [Products.reducerPath]: Products.reducer
+    [Products.reducerPath]: Products.reducer,
+    [Orders.reducerPath]: Orders.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(Categories.middleware).concat(Products.middleware),
+    getDefaultMiddleware().concat(Categories.middleware).concat(Products.middleware).concat(Orders.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

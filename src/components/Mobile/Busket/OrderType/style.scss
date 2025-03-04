@@ -10,4 +10,13 @@
         @apply w-[20px] h-[20px] rounded-[50%];
         border: 1px solid;
     }
+
+    @media screen and (max-width:385px) {
+        & {
+            @apply flex-col
+        }
+        &-wrapper {
+            width: 100%;
+        }
+    }
 }

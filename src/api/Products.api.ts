@@ -6,11 +6,13 @@ export const Products = createApi({
   reducerPath: 'productsApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://imenu.kg/api/' }),
   endpoints: (builder) => ({
-    getProducts: builder.query<IProductCatalog[], { category?: number; search?: string }>({
-      query: ({ category, search }) => {
+    getProducts: builder.query<IProductCatalog[], { category?: number; search?: string; spotSlug?: string, venueSlug?: string }>({
+      query: ({ category, search, spotSlug, venueSlug }) => {
         const params = new URLSearchParams();
         if (category) params.append('category', category + '');
         if (search) params.append('search', search);
+        if (spotSlug) params.append('spotSlug', spotSlug);
+        if (venueSlug) params.append('venueSlug', venueSlug);
 
         return `products/?${params.toString()}`;
       },
