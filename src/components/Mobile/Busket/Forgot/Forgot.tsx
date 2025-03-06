@@ -2,14 +2,23 @@ import Item from "./Item";
 import cookie from "src/assets/icons/Busket/cookie.svg";
 import "./style.scss";
 
-interface ItemProps {
+interface IProductModificator {
   id: number;
   name: string;
+  price: string;
+}
+interface ItemProps {
+  id: number;
+  productName: string;
+  productPrice: string;
+  productDescription: string | null;
+  productPhoto: string;
   weight: number;
-  price: number;
-  img: string;
-  discount: number;
-  promotion: boolean;
+  category: {
+      id: number;
+      categoryName: string;
+  },
+  modificators: IProductModificator[]
 }
 
 const Forgot: React.FC<{ list: ItemProps[] }> = ({ list }) => {
