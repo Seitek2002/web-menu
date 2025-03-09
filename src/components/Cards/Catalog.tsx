@@ -11,7 +11,7 @@ import "./style.scss";
 
 interface IProps extends IProductCatalog {
   setIsShow: () => void;
-  quantity: number;
+  quantity: number; 
 }
 const VibrationClick = () => {
   if (navigator.vibrate) {

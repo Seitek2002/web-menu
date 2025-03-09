@@ -47,43 +47,105 @@ const Busket: FC = () => {
         };
     }, [cart.length, dispatch]);
 
-    const list: {
+    interface IProductModificator {
         id: number;
         name: string;
+        price: string;
+    }
+
+    const list: {
+       id: number;
+        productName: string;
+        productPrice: string;
+        productDescription: string | null;
+        productPhoto: string;
         weight: number;
-        price: number;
-        img: string;
-        discount: number;
-        promotion: boolean;
+        category: {
+          id: number;
+          categoryName: string;
+        };
+        modificators: IProductModificator[]
     }[] = [
         {
-            id: 0,
-            name: "Твистер Деклюкс острый",
-            weight: 200,
-            price: 240,
-            img: item1,
-            discount: 10,
-            promotion: false,
+          "id": 14,
+          "productName": "Borjomi 0.5l",
+          "productDescription": null,
+          "productPrice": "10.00",
+          "weight": 0,
+          "productPhoto": "https://joinposter.com/upload/pos_cdb_7631/menu/product_1464609975_1.jpg",
+          "category": {
+            "id": 9,
+            "categoryName": "Cold drinks"
+          },
+          "modificators": []
         },
         {
-            id: 1,
-            name: "Куриный шницель с картофельным пюре",
-            weight: 300,
-            price: 350,
-            img: item2,
-            discount: 0,
-            promotion: true,
+          "id": 16,
+          "productName": "Capucino 250ml",
+          "productDescription": null,
+          "productPrice": "3.00",
+          "weight": 248,
+          "productPhoto": "https://joinposter.com/upload/pos_cdb_7631/menu/product_1464608672_3.jpg",
+          "category": {
+            "id": 7,
+            "categoryName": "Coffee"
+          },
+          "modificators": []
         },
         {
-            id: 2,
-            name: "Греческий салат с оливками",
-            weight: 250,
-            price: 180,
-            img: item3,
-            discount: 0,
-            promotion: true,
+          "id": 17,
+          "productName": "Croissant with chocolate",
+          "productDescription": null,
+          "productPrice": "4.00",
+          "weight": 190,
+          "productPhoto": "https://joinposter.com/upload/pos_cdb_7631/menu/product_1464251849_5.jpg",
+          "category": {
+            "id": 8,
+            "categoryName": "Pastry"
+          },
+          "modificators": []
         },
-    ];
+        {
+          "id": 20,
+          "productName": "Блины с творогом",
+          "productDescription": null,
+          "productPrice": "100.00",
+          "weight": 0,
+          "productPhoto": "https://joinposter.com/upload/pos_cdb_420172/menu/product_1739898117_11.jpeg",
+          "category": {
+            "id": 10,
+            "categoryName": "Завтраки"
+          },
+          "modificators": []
+        },
+        {
+          "id": 21,
+          "productName": "Каша рисовая",
+          "productDescription": null,
+          "productPrice": "150.00",
+          "weight": 0,
+          "productPhoto": "https://joinposter.com/upload/pos_cdb_420172/menu/product_1739897994_10.jpeg",
+          "category": {
+            "id": 10,
+            "categoryName": "Завтраки"
+          },
+          "modificators": []
+        },
+        {
+          "id": 22,
+          "productName": "Круассан баварский ",
+          "productDescription": null,
+          "productPrice": "200.00",
+          "weight": 0,
+          "productPhoto": "https://joinposter.com/upload/pos_cdb_420172/menu/product_1739898222_12.jpeg",
+          "category": {
+            "id": 10,
+            "categoryName": "Завтраки"
+          },
+          "modificators": []
+        },
+      ]
+    
 
     const renameTitleHead = () => {
         setModal(true);
@@ -99,6 +161,7 @@ const Busket: FC = () => {
         dispatch(clearCart());
         renameTitleHead();
         setModal(false);
+        renameTitlePlaces()
     };
 
     return (
@@ -133,39 +196,45 @@ const Busket: FC = () => {
                             <Detail />
                             <OrderType />
                             <Price tips={tips} />
-                            <Promo renameTitlePlaces={renameTitlePlaces} />
-                            <Forgot list={list} />
+                            {window.innerWidth <= 375 ? (
+                                <Forgot list={list.splice(4)} />
+                            ) : (
+                                <Forgot list={list.splice(3)} />
+                            )}
+                            
                             <Tips setItemName={setTips}/>
                         </div>
                     ) : (
-                        <div className="busket-desktop">
-                            <div className="busket-desktop__left bg-[#fff]">
-                                <Detail />
-                                <OrderType />
-                                <Price tips={tips} />
-                                <Tips setItemName={setTips}/>
-                            </div>
-                            <div className="busket-desktop__right bg-[#fff]">
-                                <div className="busket__table desktop bg-[#F1F2F3]">{t("table")}</div>
-                                <div className="busket__list divide-y desktop bg-[#fff]">
-                                    {cart.length ? (
-                                        <>
-                                            {cart.map((item) => (
-                                                <CardBusket
-                                                    key={item.id}
-                                                    {...item}
-                                                    cartLength={length}
-                                                />
-                                            ))}
-                                        </>
-                                    ) : (
-                                        <Empty />
-                                    )}
+                        <>
+                            <div className="busket-desktop">
+                                <div className="busket-desktop__left bg-[#fff]">
+                                    <Detail />
+                                    <OrderType />
+                                    <Price tips={tips} />
+                                    <Tips setItemName={setTips}/>
                                 </div>
-                                <Footer position="absolute"  />
+                                <div className="busket-desktop__right bg-[#fff]">
+                                    <div className="busket__table desktop bg-[#F1F2F3]">{t("table")}</div>
+                                    <div className="busket__list divide-y desktop bg-[#fff]">
+                                        {cart.length ? (
+                                            <>
+                                                {cart.map((item) => (
+                                                    <CardBusket
+                                                        key={item.id}
+                                                        {...item}
+                                                        cartLength={length}
+                                                    />
+                                                ))}
+                                            </>
+                                        ) : (
+                                            <Empty />
+                                        )}
+                                    </div>
+                                    <Footer position="absolute"  />
+                                </div>
                             </div>
-                        </div>
-                        
+                            <Forgot list={list} />  
+                        </>
                     )}
                 </div>
 
