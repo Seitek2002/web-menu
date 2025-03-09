@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from 'src/hooks/useAppDispatch';
 import { addItem } from 'src/store/yourFeatureSlice';
 
-import addContainer from './add-container.svg';
+// import addContainer from './add-container.svg';
 import close from './close.svg';
-import minus from './minus.svg';
-import plus from './plus.svg';
+// import minus from './minus.svg';
+// import plus from './plus.svg';
 
 import './style.scss';
 
@@ -21,7 +21,7 @@ interface IProps {
 const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
   const { t } = useTranslation();
   // const [sugar, setSugar] = useState<"with" | "without">("with");
-  const [containerAdd, setContainerAdd] = useState(0);
+  // const [containerAdd, setContainerAdd] = useState(0);
   const [counter, setCounter] = useState(1);
   const [selectedSize, setSelectedSize] = useState('');
   const sizes: IProductModificator[] = [...(item?.modificators || [])];
@@ -38,7 +38,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
   const handleDone = () => {
     const selectedData = {
       // sugar,
-      containerAdd,
+      // containerAdd,
       counter,
     };
 
@@ -71,6 +71,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
 
   return (
     <div className={'food-detail bg-[#F1F2F3]' + (isShow ? ' active' : '')}>
+      {/* eslint-disable-next-line @typescript-eslint/no-unused-expressions */}
       <img src={close} alt='' className='close' onClick={() => {setIsShow(), VibrationClick()}} />
       <div {...bind()} className='img-wrapper'>
         <img src={item?.productPhoto} alt='' />
@@ -113,6 +114,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
                 className={`size__item bg-white ${
                   selectedSize === sizeKey.name ? 'active border-[#875AFF]' : ''
                 }`}
+                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                 onClick={() => {selectSize(sizeKey), VibrationClick()}}
               >
                 <span>{sizeKey.name}</span>
@@ -121,7 +123,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
             ))}
           </div>
         </div>
-        <div className='case'>
+        {/* <div className='case'>
           <div className='flex gap-[12px]'>
             {containerAdd ? (
               <div className='flex gap-[12px]'>
@@ -147,11 +149,12 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
             <span>{t('container.container')}</span>
           </div>
           <div className='price text-[#626576]'>{t('container.price')}</div>
-        </div>
+        </div> */}
       </div>
       <footer className='counter bg-[#fff]'>
         <div className='counter__left bg-[#F1F2F3]'>
           <svg
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             onClick={() => {handleCounterChange(-1), VibrationClick()}}
             width='24'
             height='24'
@@ -173,6 +176,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
             {counter}
           </span>
           <svg
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             onClick={() => {handleCounterChange(1), VibrationClick()}}
             width='24'
             height='24'
@@ -197,6 +201,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
           </svg>
         </div>
         <div className='counter__right bg-[#875AFF] text-[#fff]'>
+          {/* eslint-disable-next-line @typescript-eslint/no-unused-expressions */}
           <button onClick={() => {handleDone(), VibrationClick()}}>{t('counter')}</button>
         </div>
       </footer>

@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { clearCart } from "src/store/yourFeatureSlice";
+import { useParams } from 'react-router-dom';
 
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../../hooks/useAppSelector";
@@ -32,6 +33,7 @@ const Busket: FC = () => {
     const [title, setTitle] = useState(t("busket.modal.clear"));
     const [modal, setModal] = useState(false);
     const [tips, setTips] = useState("")
+    const { table } = useParams<{ table?: string }>(); // Получаем номер стола из URL
 
     useEffect(() => {
         dispatch(setButtonText("Далее"));
@@ -108,7 +110,7 @@ const Busket: FC = () => {
                         <div className="busket__content">
                             {cart.length ? (
                                 <div className="busket__table bg-[#FFF]">
-                                    {t("table")}
+                                    {table ? `Стол №${table}` : 'Выберите стол'}
                                 </div>
                             ) : (
                                 <></>

@@ -1,7 +1,7 @@
 export interface IOrderProduct {
   product: number;
   count: number;
-  modificator: number;
+  modificator?: number;
 }
 
 export interface IOrder {

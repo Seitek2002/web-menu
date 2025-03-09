@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "src/hooks/useAppSelector";
 import { clearCart } from "src/store/yourFeatureSlice";
-
 import CardBusket from "src/components/Cards/Cart";
 import SiteHeader from "src/components/Mobile/Home/SiteHeader";
 import Header from "src/components/Mobile/Home/Header";
@@ -18,7 +17,7 @@ import CatalogDesktop from "src/components/Desktop/Home/Catalog";
 import Footer from "src/components/Mobile/Footer";
 
 import delet from "../../assets/icons/Busket/delete.svg";
-import Modal from "../../components/Mobile/Busket/Modal"; // Подключаем модалку
+import Modal from "../../components/Mobile/Busket/Modal";
 
 import "./style.scss";
 
@@ -43,7 +42,6 @@ const Home: FC = () => {
     dispatch(clearCart());
     setIsModalOpen(false);
   };
-
   return (
     <div className="home">
       {window.innerWidth <= 768 ? (

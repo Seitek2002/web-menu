@@ -1,9 +1,11 @@
-import { FC, useState } from 'react';
-import { Scanner } from '@yudiel/react-qr-scanner';
+import { FC, useEffect, useState } from 'react';
+import { IDetectedBarcode, Scanner } from '@yudiel/react-qr-scanner';
+import { useNavigate } from 'react-router-dom';
 
 const QrScan: FC = () => {
   const [isPause, setIsPause] = useState(false);
-  const [isErr, setIsErr] = useState('');
+  const [isErr, setIsErr] = useState('NotAllowedError');
+  const navigate = useNavigate();
 
   const requestCameraPermission = async () => {
     try {
@@ -14,13 +16,27 @@ const QrScan: FC = () => {
     }
   };
 
+  const retry = () => {
+    setIsErr('');
+  };
+
   const onError = (error: unknown) => {
     console.log(error);
     if (typeof error === 'string') {
       setIsErr(error);
     }
     setIsErr((error as Error).name);
+    requestCameraPermission();
   };
+
+  const handleScan = (data: IDetectedBarcode[]) => {
+    const route = data[0].rawValue.split('/').slice(3).join('/');
+    navigate(`/${route}`);
+  };
+
+  useEffect(() => {
+    requestCameraPermission();
+  }, [])
 
   return (
     <div className='h-[100dvh] flex flex-col items-center justify-center'>
@@ -38,18 +54,14 @@ const QrScan: FC = () => {
               Дайте разрешение на использование камеры
             </p>
             <button
-              onClick={requestCameraPermission}
+              onClick={retry}
               className='mt-2 bg-blue-500 text-white p-2 rounded-md'
             >
               Повторить запрос
             </button>
           </div>
         ) : (
-          <Scanner
-            paused={isPause}
-            onScan={(result) => console.log(result[0].rawValue)}
-            onError={onError}
-          />
+          <Scanner paused={isPause} onScan={handleScan} onError={onError} />
         )}
       </div>
     </div>

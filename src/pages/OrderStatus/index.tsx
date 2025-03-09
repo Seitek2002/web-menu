@@ -32,7 +32,7 @@ const allOrders: Order[] = [
     { id: 2, img: burger, name: "Бургер стандартный", price: 600, weight: 300, quantity: 2 },
     { id: 3, img: cake, name: "Шоколадный торт", price: 480, weight: 120, quantity: 2 },
     { id: 4, img: pancakes, name: "Японские панкейки с ягодами и медовым сиропом", price: 230, weight: 350, quantity: 1 },
-    ...myOrders, 
+    ...myOrders, // Это объединяет myOrders в allOrders
 ];
 
 const OrderStatus: FC = () => {
