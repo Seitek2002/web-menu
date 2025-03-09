@@ -33,7 +33,7 @@ const Item: React.FC<ForgotCartProps> = ({
   productPhoto, 
   weight, 
   category, 
-  modificators 
+  // modificators 
 }) => {
 
   const dispatch = useAppDispatch();

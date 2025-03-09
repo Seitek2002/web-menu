@@ -13,11 +13,11 @@ const Tips: React.FC<TipsProps> = ({ setItemName }) => {
     const list = ["", "50 c", "100 c", "15 %", "20 %"];
     const [active, setActive] = useState(0);
     const { t } = useTranslation();
-    const VibrationClick = () => {
-        if (navigator.vibrate) {
-          navigator.vibrate(50);
-        }
-      };
+    // const VibrationClick = () => {
+    //     if (navigator.vibrate) {
+    //       navigator.vibrate(50);
+    //     }
+    //   };
     return (
         <div className="busket__server bg-[#fff]">
             <h3 className="busket__server-title">{t("busket.tips")}</h3>

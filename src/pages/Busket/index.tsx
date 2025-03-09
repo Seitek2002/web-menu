@@ -11,7 +11,7 @@ import Head from "../../components/Mobile/Busket/Head";
 import Detail from "../../components/Mobile/Busket/Detail";
 import OrderType from "../../components/Mobile/Busket/OrderType";
 import Price from "../../components/Mobile/Busket/Price";
-import Promo from "../../components/Mobile/Busket/PromoCode";
+// import Promo from "../../components/Mobile/Busket/PromoCode";
 import Tips from "../../components/Mobile/Busket/Tips";
 import Modal from "../../components/Mobile/Busket/Modal";
 import Forgot from "src/components/Mobile/Busket/Forgot/Forgot";
@@ -19,9 +19,9 @@ import CardBusket from "src/components/Cards/Cart";
 import Empty from "src/components/Mobile/Busket/Empty";
 import Footer from "src/components/Mobile/Footer";
 
-import item1 from "../../assets/images/Catalog/item-1.webp";
-import item2 from "../../assets/images/Catalog/item-2.webp";
-import item3 from "../../assets/images/Catalog/item-3.webp";
+// import item1 from "../../assets/images/Catalog/item-1.webp";
+// import item2 from "../../assets/images/Catalog/item-2.webp";
+// import item3 from "../../assets/images/Catalog/item-3.webp";
 
 import "./style.scss";
 
