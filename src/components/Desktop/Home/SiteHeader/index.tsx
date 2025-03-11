@@ -1,6 +1,7 @@
 import { FC, useState, useEffect, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
+import { IVenues } from 'src/types/venues.types';
 
 import logo from '../../../../assets/icons/SiteHeader/logo.svg';
 import arrow from '../../../../assets/icons/Header/black-arrow.svg';
@@ -12,8 +13,9 @@ import check from '../../../../assets/icons/Header/check.svg';
 
 import './style.scss';
 
-const SiteHeader: FC<{ setSearchText: (text: string) => void }> = ({
+const SiteHeader: FC<{ setSearchText: (text: string) => void, venueData: IVenues }> = ({
   setSearchText,
+  venueData
 }) => {
   const { t, i18n } = useTranslation();
   const { table } = useParams<{ table?: string }>(); // Получаем номер стола из URL
@@ -103,7 +105,9 @@ const SiteHeader: FC<{ setSearchText: (text: string) => void }> = ({
           <hr />
           <div className='desktop siteHeader__bottom'>
             <div className='desktop header__logo'>
-              <img src={logoCompanion} alt='logo' />
+              <div className='w-[60px] rounded-full overflow-hidden'>
+                <img src={venueData.logo} alt='logo' className='w-[100%]' />
+              </div>
               <div className='desktop header__left'>
                 <p className='desktop header__name text-[#090A0B]'>
                   {t('title')}
@@ -111,7 +115,7 @@ const SiteHeader: FC<{ setSearchText: (text: string) => void }> = ({
                 <div className='desktop header__inner'>
                   <img src={clock} alt='icon' />
                   <p className='desktop header__time text-[#626576]'>
-                    10:00 - 22:00
+                    {venueData.schedule}
                   </p>
                 </div>
               </div>

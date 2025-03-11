@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "src/hooks/useAppSelector";
@@ -20,8 +20,10 @@ import delet from "../../assets/icons/Busket/delete.svg";
 import Modal from "../../components/Mobile/Busket/Modal";
 
 import "./style.scss";
+import { useGetVenueQuery } from "src/api/Venue.api";
 
 const Home: FC = () => {
+  const { data: venueData } = useGetVenueQuery({ venueSlug: 'ONEKI2' });
   const { t } = useTranslation();
   const cart = useAppSelector((state) => state.yourFeature.items);
   const dispatch = useDispatch();
@@ -42,6 +44,11 @@ const Home: FC = () => {
     dispatch(clearCart());
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    console.log(venueData);
+  }, [venueData])
+
   return (
     <div className="home">
       {window.innerWidth <= 768 ? (
@@ -59,7 +66,7 @@ const Home: FC = () => {
         </>
       ) : (
         <div>
-          <SiteHeaderDesktop setSearchText={setSearchText} />
+          <SiteHeaderDesktop setSearchText={setSearchText} venueData={venueData} />
           <div className="flex justify-between gap-[20px]">
             <div className="home__left w-[60%] max-h-dvh overflow-y-auto">
               <HeroDesktop />

@@ -1,67 +1,78 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState, useCallback } from 'react';
 import { IDetectedBarcode, Scanner } from '@yudiel/react-qr-scanner';
 import { useNavigate } from 'react-router-dom';
 
 const QrScan: FC = () => {
-  const [isPause, setIsPause] = useState(false);
-  const [isErr, setIsErr] = useState('NotAllowedError');
+  const [isPaused, setIsPaused] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  const requestCameraPermission = async () => {
+  const requestCameraPermission = useCallback(async () => {
+    localStorage.setItem('cartItems', JSON.stringify([]))
     try {
-      await navigator.mediaDevices.getUserMedia({ video: true });
-      setIsErr(''); // Очистить ошибку, если разрешение получено
-    } catch (error) {
-      setIsErr((error as Error).name); // Сохранить код ошибки
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      const videoDevices = devices.filter(device => device.kind === 'videoinput');
+
+      if (videoDevices.length === 0) throw new Error('No camera found');
+
+      const selectedCamera = videoDevices.find(device => !device.label.includes('OBS')) || videoDevices[0];
+
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { deviceId: selectedCamera.deviceId ? { exact: selectedCamera.deviceId } : undefined },
+      });
+
+      stream.getTracks().forEach(track => track.stop()); // Освобождаем камеру
+      setError(null);
+    } catch (err) {
+      setError((err as Error).name);
     }
-  };
+  }, []);
 
-  const retry = () => {
-    setIsErr('');
-  };
+  const handleScan = useCallback(
+    (data: IDetectedBarcode[]) => {
+      if (!data.length) return;
+      const route = data[0].rawValue.split('/').slice(3).join('/');
+      navigate(`/home/${route}`);
+    },
+    [navigate]
+  );
 
-  const onError = (error: unknown) => {
-    console.log(error);
-    if (typeof error === 'string') {
-      setIsErr(error);
-    }
-    setIsErr((error as Error).name);
-    requestCameraPermission();
-  };
-
-  const handleScan = (data: IDetectedBarcode[]) => {
-    const route = data[0].rawValue.split('/').slice(3).join('/');
-    navigate(`/${route}`);
-  };
+  const handleError = useCallback(
+    (err: unknown) => {
+      if ((err as Error).name !== error) {
+        setError((err as Error).name);
+        requestCameraPermission();
+      }
+    },
+    [requestCameraPermission, error]
+  );
 
   useEffect(() => {
     requestCameraPermission();
-  }, [])
+  }, [requestCameraPermission]);
 
   return (
-    <div className='h-[100dvh] flex flex-col items-center justify-center'>
+    <div className="h-[100dvh] flex flex-col items-center justify-center">
       <button
-        onClick={() => setIsPause(!isPause)}
-        className='bg-[#875AFF] p-2 rounded-md text-white mb-4'
+        onClick={() => setIsPaused(prev => !prev)}
+        className="bg-[#875AFF] p-2 rounded-md text-white mb-4"
       >
-        {isPause ? 'Resume' : 'Pause'}
+        {isPaused ? 'Resume' : 'Pause'}
       </button>
 
-      <div className='w-[200px] h-[200px] flex items-center justify-center border border-gray-400'>
-        {isErr === 'NotAllowedError' ? (
-          <div className='text-center'>
-            <p className='text-red-500'>
-              Дайте разрешение на использование камеры
-            </p>
+      <div className="w-[200px] h-[200px] flex items-center justify-center border border-gray-400">
+        {error === 'NotAllowedError' ? (
+          <div className="text-center">
+            <p className="text-red-500">Дайте разрешение на использование камеры</p>
             <button
-              onClick={retry}
-              className='mt-2 bg-blue-500 text-white p-2 rounded-md'
+              onClick={() => window.location.reload()}
+              className="mt-2 bg-blue-500 text-white p-2 rounded-md"
             >
               Повторить запрос
             </button>
           </div>
         ) : (
-          <Scanner paused={isPause} onScan={handleScan} onError={onError} />
+          <Scanner paused={isPaused} onScan={handleScan} onError={handleError} />
         )}
       </div>
     </div>

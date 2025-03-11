@@ -26,7 +26,7 @@ const Footer: FC<{ position?: string }> = ({ position }) => {
     //   tipsPrice: '0',
     //   orderProducts: cart,
     // });
-    navigate('cart');
+    navigate('/cart' + localStorage.getItem('currentUrl'));
 
     if (navigator.vibrate) {
       navigator.vibrate(50);

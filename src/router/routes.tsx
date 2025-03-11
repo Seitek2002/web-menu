@@ -10,10 +10,9 @@ const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<QrScan />} />
-        <Route path='/:venue/:bo/:table' element={<Home />}>
-          <Route path='cart' element={<Cart />} />
-          <Route path='order-status' element={<OrderStatus />} />
-        </Route>
+        <Route path='/home/:venue/:bo/:table' element={<Home />} />
+        <Route path='/cart/:venue/:bo/:table' element={<Cart />} />
+        <Route path='/order-status/:venue/:bo/:table' element={<OrderStatus />} />
       </Routes>
       {window.innerWidth <= 768 && <Footer />}
     </BrowserRouter>

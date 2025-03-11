@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IProductCatalog } from 'src/types/products.types';
+import { IVenues } from 'src/types/venues.types';
 
 interface IFoodCart extends IProductCatalog {
   quantity: number;
@@ -10,6 +11,7 @@ interface YourFeatureState {
   isShow: boolean;
   items: IFoodCart[];
   buttonText: string;
+  venue: IVenues | undefined;
 }
 
 // Функция для загрузки из localStorage
@@ -23,6 +25,13 @@ const initialState: YourFeatureState = {
   isShow: false,
   items: loadItemsFromStorage(), // Загружаем при инициализации
   buttonText: 'Заказать',
+  venue: {
+    colorTheme: '',
+    companyName: '',
+    slug: '',
+    logo: '',
+    schedule: '',
+  }
 };
 
 const yourFeatureSlice = createSlice({
@@ -41,6 +50,10 @@ const yourFeatureSlice = createSlice({
     setItems: (state, action: PayloadAction<IFoodCart[]>) => {
       state.items = action.payload;
       localStorage.setItem('cartItems', JSON.stringify(state.items)); // Сохранение
+    },
+    setVenue: (state, action: PayloadAction<IVenues | undefined>) => {
+      state.venue = action.payload;
+      localStorage.setItem('venue', JSON.stringify(state.venue));
     },
     addItem: (state, action: PayloadAction<IFoodCart>) => {
       const existingItem = state.items.find(
@@ -90,6 +103,7 @@ export const {
   decrement,
   setShow,
   setItems,
+  setVenue,
   addItem,
   removeItem,
   clearCart,

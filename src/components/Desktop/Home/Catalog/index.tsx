@@ -9,9 +9,9 @@ interface IProps {
   searchText: string;
 }
 
-const Catalog: FC<IProps> = ({ selectedCategory, renameTitleHead, searchText }) => {
+const Catalog: FC<IProps> = ({ selectedCategory, searchText }) => {
 
-  console.log(renameTitleHead);
+  // console.log(renameTitleHead);
 
   return (
     <section className="cart">

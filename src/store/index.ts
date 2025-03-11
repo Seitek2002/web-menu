@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import yourReducer from './yourFeatureSlice';
-import { Categories, Orders, Products } from 'src/api';
+import { Categories, Orders, Products, Venues } from 'src/api';
 
 const store = configureStore({
   reducer: {
@@ -8,9 +8,10 @@ const store = configureStore({
     [Categories.reducerPath]: Categories.reducer,
     [Products.reducerPath]: Products.reducer,
     [Orders.reducerPath]: Orders.reducer,
+    [Venues.reducerPath]: Venues.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(Categories.middleware).concat(Products.middleware).concat(Orders.middleware),
+    getDefaultMiddleware().concat(Categories.middleware).concat(Products.middleware).concat(Orders.middleware).concat(Venues.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
