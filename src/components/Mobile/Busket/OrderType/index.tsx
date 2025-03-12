@@ -1,43 +1,59 @@
-import { useState, useEffect, useMemo } from "react";
-import { useTranslation } from "react-i18next";
-import checkbox from "../../../../assets/icons/Busket/checkbox.svg";
+import { useState, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import checkbox from '../../../../assets/icons/Busket/checkbox.svg';
+import { useAppSelector } from 'src/hooks/useAppSelector';
 
-import "./style.scss"
+import './style.scss';
 
 const Where: React.FC = () => {
-    const { t, i18n } = useTranslation();
-    const list = useMemo(() => [
-        t("busket.where.takeaway"),
-        t("busket.where.dinein")
-    ], [i18n.language]); 
-    const VibrationClick = () => {
-        if (navigator.vibrate) {
-          navigator.vibrate(50);
-        }
-      };
-    const [active, setActive] = useState(list[1]);
+  const colorTheme = useAppSelector(
+    (state) => state.yourFeature.venue?.colorTheme
+  );
+  const { t, i18n } = useTranslation();
 
-    useEffect(() => {
-        setActive(list[1]);
-    }, [list]);
+  const list = useMemo(
+    () => [t('busket.where.takeaway'), t('busket.where.dinein')],
+    [i18n.language]
+  );
 
-    return (
-        <div className="busket__order-type">
-            {list.map((item, index) => (
-                <div
-                    key={index}
-                    onClick={() => {setActive(item), VibrationClick()}}
-                    className={`busket__order-type-wrapper bg-[#fff] border-[#e1e2e5] ${active === item ? "active border-[#875AFF]" : ""}`}>
-                    {active === item ? (
-                        <img src={checkbox} alt="check" />
-                    ) : (
-                        <div className="busket__order-type-checkbox border-[#e1e2e5]"></div>
-                    )}
-                    {item}
-                </div>
-            ))}
+  const VibrationClick = () => {
+    if (navigator.vibrate) {
+      navigator.vibrate(50);
+    }
+  };
+
+  const [activeIndex, setActiveIndex] = useState(1); // Используем индекс вместо значения
+
+  useEffect(() => {
+    setActiveIndex(1); // Обновляем активный индекс, когда список меняется
+  }, [list]);
+
+  return (
+    <div className='busket__order-type'>
+      {list.map((item, index) => (
+        <div
+          key={index}
+          onClick={() => {
+            setActiveIndex(index);
+            VibrationClick();
+          }}
+          className={`busket__order-type-wrapper bg-[#fff] border-[#e1e2e5] ${
+            activeIndex === index ? `active` : ''
+          }`}
+          style={{
+            borderColor: activeIndex === index ? colorTheme : '#e1e2e5', // динамическое применение цвета
+          }}
+        >
+          {activeIndex === index ? (
+            <img src={checkbox} alt='check' />
+          ) : (
+            <div className='busket__order-type-checkbox border-[#e1e2e5]'></div>
+          )}
+          {item}
         </div>
-    );
+      ))}
+    </div>
+  );
 };
 
 export default Where;

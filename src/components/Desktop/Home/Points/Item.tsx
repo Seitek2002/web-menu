@@ -1,5 +1,6 @@
-import { FC } from "react";
-import "./style.scss";
+import { FC } from 'react';
+import { useAppSelector } from 'src/hooks/useAppSelector';
+import './style.scss';
 
 interface IProps {
   item: {
@@ -12,12 +13,18 @@ interface IProps {
 }
 
 const Item: FC<IProps> = ({ item, active, selectCategory }) => {
+  const colorTheme = useAppSelector(
+    (state) => state.yourFeature.venue?.colorTheme
+  );
+
   return (
     <div key={item.id}>
       <div
-        className={`desktop point-item ${
-          active === item.id ? "bg-[#875AFF] text-[#fff]" : "bg-[#fff]"
-        }`}
+        className="desktop point-item"
+        style={{
+          backgroundColor: active === item.id ? colorTheme : '#fff',
+          color: active === item.id ? '#fff' : '#000',
+        }}
         onClick={() => selectCategory(item.id)}
       >
         <img src={item.categoryPhoto} alt="icon" />

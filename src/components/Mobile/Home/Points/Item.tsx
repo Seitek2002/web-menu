@@ -1,5 +1,6 @@
 import { FC } from "react";
 import "./style.scss";
+import { useAppSelector } from "src/hooks/useAppSelector";
 
 interface IProps {
   item: {
@@ -12,6 +13,8 @@ interface IProps {
 }
 
 const Item: FC<IProps> = ({ item, active, selectCategory }) => {
+  const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme);
+
   return (
     <div
       className={`mobile point-item ${active === item.id ? "active" : ""}`}
@@ -19,11 +22,11 @@ const Item: FC<IProps> = ({ item, active, selectCategory }) => {
       onClick={() => selectCategory(item.id)}
     >
       <div
-        className={`mobile point-wrapper ${
-          active === item.id
-            ? "bg-[#875AFF] border-[#875AFF]"
-            : "border-white"
-        }`}
+        className={`mobile point-wrapper`}
+        style={{
+          backgroundColor: active === item.id ? colorTheme : '#F9F9F9', 
+          borderColor: active === item.id ? colorTheme : 'white',
+        }}
       >
         <img src={item.categoryPhoto} alt="icon" />
       </div>

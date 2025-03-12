@@ -1,8 +1,8 @@
 import { FC, useState } from "react";
-import { addItem, removeItem } from "../../store/yourFeatureSlice";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
 import ContentLoader from "react-content-loader";
 import { IProductCatalog } from "src/types/products.types";
+import { useAppSelector } from "src/hooks/useAppSelector";
+import { useCartActions } from "src/hooks/useCartActions";
 
 import whitePlus from "../../assets/icons/cart/plus.svg";
 import whiteMinus from "../../assets/icons/cart/minus.svg";
@@ -11,13 +11,9 @@ import "./style.scss";
 
 interface IProps extends IProductCatalog {
   setIsShow: () => void;
-  quantity: number; 
+  quantity: number;
 }
-const VibrationClick = () => {
-  if (navigator.vibrate) {
-    navigator.vibrate(50);
-  }
-};
+
 const CatalogCard: FC<IProps> = ({
   id,
   productName,
@@ -31,49 +27,19 @@ const CatalogCard: FC<IProps> = ({
   quantity,
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const dispatch = useAppDispatch();
-
-  const handleClick = () => {
-    if (modificators && modificators.length > 0) {
-      setIsShow();
-    } else {
-      dispatch(
-        addItem({
-          id,
-          productName,
-          productPrice,
-          productPhoto,
-          productDescription,
-          weight,
-          category,
-          quantity: 1,
-          modificators: [],
-        })
-      );
-    }
-    if (navigator.vibrate) {
-      navigator.vibrate(50); // Вибрация на 50 мс
-    }
-  };
-
-  const handleUnClick = () => {
-    dispatch(
-      removeItem({
-        id,
-        productName,
-        productPrice,
-        weight,
-        productPhoto,
-        category,
-        productDescription,
-        quantity: 0,
-        modificators: [],
-      })
-    );
-    if (navigator.vibrate) {
-      navigator.vibrate(50); // Вибрация на 50 мс
-    }
-  };
+  const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme);
+  const { handleClick, handleUnClick } = useCartActions({
+    id,
+    productName,
+    productPrice,
+    productPhoto,
+    weight,
+    category,
+    productDescription,
+    modificators,
+    setIsShow,
+    quantity
+  });
 
   return (
     <div className="cart-block bg-white">
@@ -85,9 +51,7 @@ const CatalogCard: FC<IProps> = ({
             height="100%"
             backgroundColor="#bebebe"
             foregroundColor="#fff"
-            style={{
-              padding: "4px",
-            }}
+            style={{ padding: "4px" }}
           >
             <rect className="skeleton-img" y="0" rx="12" ry="12" />
           </ContentLoader>
@@ -97,28 +61,24 @@ const CatalogCard: FC<IProps> = ({
           alt="img"
           onLoad={() => setIsLoaded(true)}
           className={isLoaded ? "" : "hidden"}
-          onClick={() => {setIsShow(), VibrationClick()}}
+          onClick={setIsShow}
         />
       </div>
       <div className="cart-info">
-        <span className="cart-price text-[#875AFF]">{productPrice} с</span>
+        <span className="cart-price" style={{ color: colorTheme }}>
+          {productPrice} с
+        </span>
       </div>
       <h4 className="cart-name">{productName}</h4>
       {quantity === 0 ? (
-        <button
-          className="cart-btn bg-[#F1F2F3] text-[#000]"
-          onClick={() => {
-            handleClick();
-            VibrationClick()
-          }}
-        >
+        <button className="cart-btn bg-[#F1F2F3] text-[#000]" onClick={handleClick}>
           Добавить
         </button>
       ) : (
-        <div className="cart-btn active bg-[#875AFF]">
-          <img onClick={() => {handleUnClick(), VibrationClick()}} src={whiteMinus} alt="minus" />
+        <div className="cart-btn active" style={{ backgroundColor: colorTheme }}>
+          <img onClick={handleUnClick} src={whiteMinus} alt="minus" />
           <span className="cart-count text-[#fff]">{quantity}</span>
-          <img onClick={() => {handleClick(), VibrationClick()}} src={whitePlus} alt="plus" />
+          <img onClick={handleClick} src={whitePlus} alt="plus" />
         </div>
       )}
     </div>

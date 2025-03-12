@@ -7,8 +7,8 @@ import Item from './Item';
 
 import search from '../../../../assets/icons/points/search.svg';
 import all from '../../../../assets/icons/points/all.svg';
-
 import './style.scss';
+import { useAppSelector } from 'src/hooks/useAppSelector';
 
 interface IProps {
   onCategoryChange: (categoryId: number | undefined) => void;
@@ -23,6 +23,8 @@ const Points: FC<IProps> = ({ onCategoryChange, onSearchTextChange }) => {
 
   const [active, setActive] = useState<number | undefined>(0);
   const [show, setShow] = useState(false);
+
+  const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme); // Получаем colorTheme из store
 
   const clickShow = () => {
     document.body.style.overflow = show ? 'auto' : 'inherit';
@@ -56,7 +58,7 @@ const Points: FC<IProps> = ({ onCategoryChange, onSearchTextChange }) => {
             className={`mobile point-item ${active === -1 ? 'active' : ''}`}
             onClick={clickShow}
           >
-            <div className='mobile point-wrapper bg-[#F9F9F9] border-white'>
+            <div className='mobile point-wrapper' style={{ backgroundColor: '#F9F9F9', borderColor: 'white' }}>
               <img src={search} alt='icon' />
             </div>
             <p>Поиск</p>
@@ -69,9 +71,11 @@ const Points: FC<IProps> = ({ onCategoryChange, onSearchTextChange }) => {
             }}
           >
             <div
-              className={`mobile point-wrapper ${
-                active === 0 ? 'bg-[#875AFF] border-[#875AFF]' : 'border-white'
-              }`}
+              className={`mobile point-wrapper`}
+              style={{
+                backgroundColor: active === 0 ? colorTheme : '#F9F9F9', 
+                borderColor: active === 0 ? colorTheme : 'white',
+              }}
             >
               <img src={all} alt='icon' />
             </div>

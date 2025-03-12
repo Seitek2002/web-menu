@@ -26,6 +26,7 @@ import Footer from "src/components/Mobile/Footer";
 import "./style.scss";
 
 const Busket: FC = () => {
+    const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme);
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const [length, setLength] = useState(true);
@@ -251,6 +252,7 @@ const Busket: FC = () => {
                                 <button
                                     onClick={() => setModal(false)}
                                     className="busket__modal-purple bg-[#875AFF] text-[#fff]"
+                                    style={{ backgroundColor: colorTheme }}
                                 >
                                     {t("busket.modal.no")}
                                 </button>

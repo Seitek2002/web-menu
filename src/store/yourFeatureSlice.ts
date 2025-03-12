@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IProductCatalog } from 'src/types/products.types';
 import { IVenues } from 'src/types/venues.types';
 
-interface IFoodCart extends IProductCatalog {
+export interface IFoodCart extends IProductCatalog {
   quantity: number;
 }
 
@@ -26,7 +26,7 @@ const initialState: YourFeatureState = {
   items: loadItemsFromStorage(), // Загружаем при инициализации
   buttonText: 'Заказать',
   venue: {
-    colorTheme: '',
+    colorTheme: '#875AFF',
     companyName: '',
     slug: '',
     logo: '',
@@ -53,6 +53,7 @@ const yourFeatureSlice = createSlice({
     },
     setVenue: (state, action: PayloadAction<IVenues | undefined>) => {
       state.venue = action.payload;
+      console.log(state.venue);
       localStorage.setItem('venue', JSON.stringify(state.venue));
     },
     addItem: (state, action: PayloadAction<IFoodCart>) => {

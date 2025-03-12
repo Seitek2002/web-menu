@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useGetCategoriesQuery } from "../../../../api/Categories.api";
 import PointsSkeleton from "../../../../skeletons/Points";
 import all from "../../../../assets/icons/points/all.svg";
+import { useAppSelector } from "src/hooks/useAppSelector";
 
 import "./style.scss";
 import Item from "./Item";
@@ -12,6 +13,7 @@ interface IProps {
 }
 
 const Points: FC<IProps> = ({ onCategoryChange }) => {
+  const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme);
   const { data: categories, isLoading } = useGetCategoriesQuery({ venueSlug: undefined });
   const [active, setActive] = useState<number | undefined>(0);
   const { t } = useTranslation();
@@ -26,11 +28,11 @@ const Points: FC<IProps> = ({ onCategoryChange }) => {
       <div className="container">
         <div className="desktop point-content">
           <div
-            className={`desktop point-item ${
-              active === 0
-                ? "bg-[#875AFF] text-[#fff]"
-                : "bg-[#fff] text-[#000]"
-            }`}
+            className="desktop point-item"
+            style={{
+              backgroundColor: active === 0 ? colorTheme : '#fff',
+              color: active === 0 ? '#fff' : '#000',
+            }}
             onClick={() => selectCategory(0)}
           >
             <img src={all} alt="icon" />

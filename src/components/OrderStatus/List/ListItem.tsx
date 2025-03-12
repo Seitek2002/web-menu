@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { useAppSelector } from "src/hooks/useAppSelector";
 
 interface ListItemProps {
     img: string;
@@ -9,6 +10,8 @@ interface ListItemProps {
 }
 
 const ListItem: FC<ListItemProps> = ({ img, name, price, weight, quantity }) => {
+    const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme);
+
     return (
         <div className="order__status-list-item">
             <div className="order__status-list-img-wrapper">
@@ -24,7 +27,7 @@ const ListItem: FC<ListItemProps> = ({ img, name, price, weight, quantity }) => 
                     </span>
                 </div>
                 <div className="order__status-list-info">
-                    <span className="order__status-list-price text-[#875AFF]">
+                    <span className="order__status-list-price" style={{ color: colorTheme }}>
                         {price} с
                     </span>
                     <span className="order__status-list-quantity text-[#727272]">

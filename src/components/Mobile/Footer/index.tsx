@@ -14,18 +14,11 @@ const Footer: FC<{ position?: string }> = ({ position }) => {
   const buttonText = useSelector(
     (state: RootState) => state.yourFeature.buttonText
   );
+  const colorTheme = useAppSelector(
+    (state) => state.yourFeature.venue?.colorTheme
+  );
+
   const handleClick = () => {
-    // addPoster({
-    //   comment: '',
-    //   createdAt: new Date().toISOString(),
-    //   id: 0,
-    //   phone: '',
-    //   serviceMode: 1,
-    //   status: 1,
-    //   servicePrice: '0',
-    //   tipsPrice: '0',
-    //   orderProducts: cart,
-    // });
     navigate('/cart' + localStorage.getItem('currentUrl'));
 
     if (navigator.vibrate) {
@@ -36,11 +29,13 @@ const Footer: FC<{ position?: string }> = ({ position }) => {
   if (!cart.length) return null;
 
   return (
-    <footer className={`footer bg-[#fff] ${position || 'fixed'}`}>
+    <footer className={`footer ${position || 'fixed'}`} style={{ backgroundColor: '#fff' }}>
       <div className='container'>
-        {/* <Link to={`${location.pathname}/cart`} className='footer__content'> */}
         <div className='footer__content'>
-          <button className='bg-[#875AFF] text-[#fff]' onClick={handleClick}>
+          <button 
+            style={{ backgroundColor: colorTheme, color: '#fff' }} 
+            onClick={handleClick}
+          >
             {buttonText}
             <span>
               {cart.reduce(
@@ -51,7 +46,6 @@ const Footer: FC<{ position?: string }> = ({ position }) => {
             </span>
           </button>
         </div>
-        {/* </Link> */}
       </div>
     </footer>
   );

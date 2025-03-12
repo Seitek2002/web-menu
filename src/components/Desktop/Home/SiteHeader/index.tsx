@@ -13,7 +13,7 @@ import check from '../../../../assets/icons/Header/check.svg';
 
 import './style.scss';
 
-const SiteHeader: FC<{ setSearchText: (text: string) => void, venueData: IVenues }> = ({
+const SiteHeader: FC<{ setSearchText: (text: string) => void, venueData: IVenues | undefined }> = ({
   setSearchText,
   venueData
 }) => {
@@ -116,7 +116,7 @@ const SiteHeader: FC<{ setSearchText: (text: string) => void, venueData: IVenues
                 <div className='desktop header__inner'>
                   <img src={clock} alt='icon' />
                   <p className='desktop header__time text-[#626576]'>
-                    {venueData.schedule}
+                    {venueData?.schedule}
                   </p>
                 </div>
               </div>
