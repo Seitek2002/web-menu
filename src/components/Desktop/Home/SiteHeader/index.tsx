@@ -111,7 +111,7 @@ const SiteHeader: FC<{ setSearchText: (text: string) => void, venueData: IVenues
               </div>
               <div className='desktop header__left'>
                 <p className='desktop header__name text-[#090A0B]'>
-                  {t('title')}
+                  {venueData?.companyName}
                 </p>
                 <div className='desktop header__inner'>
                   <img src={clock} alt='icon' />

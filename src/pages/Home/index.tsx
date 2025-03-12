@@ -57,7 +57,7 @@ const Home: FC = () => {
       {window.innerWidth <= 768 ? (
         <>
           <SiteHeader />
-          <Header />
+          <Header venueData={venueData} />
           <Hero />
           <Points
             onCategoryChange={handleCategoryChange}
