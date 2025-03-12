@@ -54,7 +54,6 @@ const Home: FC = () => {
 
   return (
     <div className='home'>
-      <h1 style={{ color: colorTheme }}>PIDOR</h1>
       {window.innerWidth <= 768 ? (
         <>
           <SiteHeader />
