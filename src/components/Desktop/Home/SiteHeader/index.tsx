@@ -6,7 +6,7 @@ import { IVenues } from 'src/types/venues.types';
 import logo from '../../../../assets/icons/SiteHeader/logo.svg';
 import arrow from '../../../../assets/icons/Header/black-arrow.svg';
 import search from '../../../../assets/icons/SiteHeader/search.svg';
-import logoCompanion from '../../../../assets/icons/Header/logo.svg';
+// import logoCompanion from '../../../../assets/icons/Header/logo.svg';
 import clock from '../../../../assets/icons/Header/Clock.svg';
 import bell from '../../../../assets/icons/Header/bell.svg';
 import check from '../../../../assets/icons/Header/check.svg';
@@ -72,6 +72,7 @@ const SiteHeader: FC<{ setSearchText: (text: string) => void, venueData: IVenues
                 type='text'
                 placeholder={t('search')}
                 onChange={(e) => handleChange(e)}
+                className='flex-1'
               />
             </div>
             <div className='desktop siteHeader__block'>
@@ -106,7 +107,7 @@ const SiteHeader: FC<{ setSearchText: (text: string) => void, venueData: IVenues
           <div className='desktop siteHeader__bottom'>
             <div className='desktop header__logo'>
               <div className='w-[60px] rounded-full overflow-hidden'>
-                <img src={venueData.logo} alt='logo' className='w-[100%]' />
+                <img src={venueData?.logo} alt='logo' className='w-[100%]' />
               </div>
               <div className='desktop header__left'>
                 <p className='desktop header__name text-[#090A0B]'>
