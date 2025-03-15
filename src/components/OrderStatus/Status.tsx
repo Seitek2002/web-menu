@@ -55,7 +55,6 @@ const OrderStatus: FC = () => {
       setActiveList(list[newToggler]);
       return newToggler;
     });
-    console.log(toggler);
   };
 
   return (

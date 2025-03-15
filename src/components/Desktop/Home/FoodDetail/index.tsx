@@ -47,8 +47,6 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
         })
       );
     }
-
-    console.log('Выбранные данные:', selectedData);
   };
 
   return (

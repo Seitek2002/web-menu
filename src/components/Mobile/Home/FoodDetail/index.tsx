@@ -44,8 +44,6 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
         })
       );
     }
-
-    console.log('Выбранные данные:', { counter });
   }, [counter, dispatch, item]);
 
   const selectSize = useCallback(

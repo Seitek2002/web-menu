@@ -55,6 +55,10 @@ const Home: FC = () => {
     dispatch(setVenue(venueData));
   }, [dispatch, venueData]);
 
+  useEffect(() => {
+    localStorage.setItem('currentUrl', `${params.venue}/${params.bo}/${params.table}`);
+  }, [])
+
   return (
     <div className='home'>
       {window.innerWidth <= 768 ? (

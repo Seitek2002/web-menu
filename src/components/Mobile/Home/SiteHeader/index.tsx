@@ -22,7 +22,6 @@ const SiteHeader: FC = () => {
     if (navigator.vibrate) {
       navigator.vibrate(50); // Вибрация на 100 мс
     }
-    console.log("Клик обработан");
   };
   // Обновляем active при смене языка
   useEffect(() => {

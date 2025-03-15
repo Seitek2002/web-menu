@@ -53,7 +53,6 @@ const yourFeatureSlice = createSlice({
     },
     setVenue: (state, action: PayloadAction<IVenues | undefined>) => {
       state.venue = action.payload;
-      console.log(state.venue);
       localStorage.setItem('venue', JSON.stringify(state.venue));
     },
     addItem: (state, action: PayloadAction<IFoodCart>) => {
