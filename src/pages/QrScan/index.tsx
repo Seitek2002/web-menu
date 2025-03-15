@@ -32,6 +32,7 @@ const QrScan: FC = () => {
     (data: IDetectedBarcode[]) => {
       if (!data.length) return;
       const route = data[0].rawValue.split('/').slice(3).join('/');
+      localStorage.setItem('currentUrl', route);
       navigate(`/home/${route}`);
     },
     [navigate]
@@ -51,6 +52,10 @@ const QrScan: FC = () => {
     requestCameraPermission();
     localStorage.setItem('cartItems', [].toString());
   }, [requestCameraPermission]);
+
+  useEffect(() => {
+    localStorage.setItem('cartItems', [].toString());
+  }, [])
 
   return (
     <div className="h-[100dvh] flex flex-col items-center justify-center">

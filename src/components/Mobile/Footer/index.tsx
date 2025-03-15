@@ -19,7 +19,7 @@ const Footer: FC<{ position?: string }> = ({ position }) => {
   );
 
   const handleClick = () => {
-    navigate('/cart' + localStorage.getItem('currentUrl'));
+    navigate('/cart/' + localStorage.getItem('currentUrl'));
 
     if (navigator.vibrate) {
       navigator.vibrate(50);
