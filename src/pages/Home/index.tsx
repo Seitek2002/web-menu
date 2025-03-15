@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useAppSelector } from 'src/hooks/useAppSelector';
 import { clearCart, setVenue } from 'src/store/yourFeatureSlice';
 import { useGetVenueQuery } from 'src/api/Venue.api';
+import { useParams } from 'react-router-dom';
 import CardBusket from 'src/components/Cards/Cart';
 import SiteHeader from 'src/components/Mobile/Home/SiteHeader';
 import Header from 'src/components/Mobile/Home/Header';
@@ -21,15 +22,14 @@ import delet from '../../assets/icons/Busket/delete.svg';
 import Modal from '../../components/Mobile/Busket/Modal';
 
 import './style.scss';
-import { useParams } from 'react-router-dom';
 
 const Home: FC = () => {
+  const params = useParams();
   const colorTheme = useAppSelector(
     (state) => state.yourFeature.venue?.colorTheme
   );
-  const params = useParams();
-  const { data: venueData } = useGetVenueQuery({ venueSlug: params.venue });
-  
+  const { data: venueData } = useGetVenueQuery({ venueSlug: params.venue ?? '' });
+
   const { t } = useTranslation();
   const cart = useAppSelector((state) => state.yourFeature.items);
   const dispatch = useDispatch();
@@ -52,7 +52,7 @@ const Home: FC = () => {
   };
 
   useEffect(() => {
-    dispatch(setVenue(venueData))
+    dispatch(setVenue(venueData));
   }, [dispatch, venueData]);
 
   return (
