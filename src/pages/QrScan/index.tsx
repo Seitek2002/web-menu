@@ -49,6 +49,7 @@ const QrScan: FC = () => {
 
   useEffect(() => {
     requestCameraPermission();
+    localStorage.setItem('cartItems', [].toString());
   }, [requestCameraPermission]);
 
   return (
