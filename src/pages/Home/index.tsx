@@ -21,12 +21,15 @@ import delet from '../../assets/icons/Busket/delete.svg';
 import Modal from '../../components/Mobile/Busket/Modal';
 
 import './style.scss';
+import { useParams } from 'react-router-dom';
 
 const Home: FC = () => {
   const colorTheme = useAppSelector(
     (state) => state.yourFeature.venue?.colorTheme
   );
-  const { data: venueData } = useGetVenueQuery({ venueSlug: 'ONEKI2' });
+  const params = useParams();
+  const { data: venueData } = useGetVenueQuery({ venueSlug: params.venue });
+  
   const { t } = useTranslation();
   const cart = useAppSelector((state) => state.yourFeature.items);
   const dispatch = useDispatch();

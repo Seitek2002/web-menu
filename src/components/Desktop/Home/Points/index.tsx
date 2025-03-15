@@ -4,17 +4,19 @@ import { useGetCategoriesQuery } from "../../../../api/Categories.api";
 import PointsSkeleton from "../../../../skeletons/Points";
 import all from "../../../../assets/icons/points/all.svg";
 import { useAppSelector } from "src/hooks/useAppSelector";
+import Item from "./Item";
 
 import "./style.scss";
-import Item from "./Item";
+import { useParams } from "react-router-dom";
 
 interface IProps {
   onCategoryChange: (categoryId: number | undefined) => void;
 }
 
 const Points: FC<IProps> = ({ onCategoryChange }) => {
+  const params = useParams();
   const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme);
-  const { data: categories, isLoading } = useGetCategoriesQuery({ venueSlug: undefined });
+  const { data: categories, isLoading } = useGetCategoriesQuery({ venueSlug: params.venue });
   const [active, setActive] = useState<number | undefined>(0);
   const { t } = useTranslation();
 
