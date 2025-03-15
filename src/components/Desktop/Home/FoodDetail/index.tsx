@@ -33,11 +33,11 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
   };
 
   const handleDone = () => {
-    const selectedData = {
+    // const selectedData = {
       // sugar,
       // containerAdd,
       // counter,
-    };
+    // };
 
     if (item) {
       dispatch(
