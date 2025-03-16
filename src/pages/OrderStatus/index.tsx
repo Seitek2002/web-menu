@@ -1,9 +1,9 @@
 import { FC } from "react";
 
-import Head from "src/components/OrderStatus/Head";
-import ListItem from "src/components/OrderStatus/List/ListItem";
-import ListHead from "src/components/OrderStatus/List/ListHead";
-import Status from "src/components/OrderStatus/Status";
+import Head from "./components/Desktop/Head";
+import ListItem from "./components/Desktop/List/ListItem";
+import ListHead from "./components/Desktop/List/ListHead";
+import Status from "./components/Desktop/Status";
 // import Check from "src/components/OrderStatus/Check";
 
 import burger from "../../assets/images/Catalog/item-2.webp";
