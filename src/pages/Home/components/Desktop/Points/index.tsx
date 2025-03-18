@@ -1,13 +1,14 @@
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useGetCategoriesQuery } from "../../../../../api/Categories.api";
-import PointsSkeleton from "../../../../../skeletons/Points";
-import all from "../../../../../assets/icons/points/all.svg";
 import { useAppSelector } from "src/hooks/useAppSelector";
+import { useParams } from "react-router-dom";
+import PointsSkeleton from "../../../../../skeletons/Points";
 import Item from "./Item";
 
+import all from "../../../../../assets/icons/points/all.svg";
+
 import "./style.scss";
-import { useParams } from "react-router-dom";
 
 interface IProps {
     onCategoryChange: (categoryId: number | undefined) => void;
