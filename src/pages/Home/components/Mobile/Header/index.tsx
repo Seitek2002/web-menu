@@ -33,7 +33,7 @@ const Header: FC<{ venueData: IVenues | undefined }> = ({ venueData }) => {
           </div>
           <div className='header__table bg-[#fff]'>
             <p className='text-[#626576]'>
-              {table ? `Стол №${table}` : 'Выберите стол'}
+              {table ? `Стол №${table}` : 'На вынос'}
             </p>
           </div>
         </div>

@@ -181,7 +181,7 @@ const Busket: FC = () => {
             <div className='busket__content'>
               {cart.length ? (
                 <div className='busket__table bg-[#FFF]'>
-                  {table ? `Стол №${table}` : 'Выберите стол'}
+                  {table ? `Стол №${table}` : 'На вынос'}
                 </div>
               ) : (
                 <></>

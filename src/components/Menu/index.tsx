@@ -28,6 +28,7 @@ const Menu: FC<IProps> = ({ selectedCategory, searchText }) => {
     });
 
     const handleClick = (value: boolean) => {
+        document.body.style.height = value ? "100dvh" : "auto";
         document.body.style.overflow = value ? "hidden" : "inherit";
         setIsShow(value);
     };

@@ -2,7 +2,7 @@
   @apply fixed top-[100%] left-0 w-full h-full z-[100] overflow-scroll transition-all duration-300;
 
   &.active {
-    @apply top-[14px];
+    @apply absolute top-[14px];
   }
 
   .close {
