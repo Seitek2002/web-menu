@@ -66,7 +66,7 @@ const CatalogCard: FC<IProps> = ({
       </div>
       <div className="cart-info">
         <span className="cart-price" style={{ color: colorTheme }}>
-          {productPrice} с
+          {+productPrice} с
         </span>
       </div>
       <h4 className="cart-name">{productName}</h4>
