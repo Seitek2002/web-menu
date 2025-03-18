@@ -132,7 +132,7 @@ const SiteHeader: FC<{ setSearchText: (text: string) => void, venueData: IVenues
               </div>
               <div className='desktop header__table bg-[#F9F9F9]'>
                 <p className='text-[#626576]'>
-                  {table ? `Стол №${table}` : 'Выберите стол'}
+                  {table ? `Стол №${table}` : 'На вынос'}
                 </p>
               </div>
             </div>

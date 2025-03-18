@@ -17,3 +17,19 @@ export interface IProductCatalog {
   };
   modificators: IProductModificator[]
 }
+
+export interface IOrderProduct {
+  venueSlug: string,
+  spotSlug: string,
+  tableNum?: string,
+  phone: string,
+  comment: string,
+  serviceMode: number,
+  servicePrice: string,
+  tipsPrice: string,
+  orderProducts: {
+    product: number,
+    count: number,
+    modificator?: number
+  }[]
+}

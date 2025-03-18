@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IProductCatalog } from 'src/types/products.types';
+import { IOrderProduct, IProductCatalog } from 'src/types/products.types';
 import { IVenues } from 'src/types/venues.types';
 
 export interface IFoodCart extends IProductCatalog {
@@ -12,6 +12,7 @@ interface YourFeatureState {
   items: IFoodCart[];
   buttonText: string;
   venue: IVenues | undefined;
+  order: IOrderProduct;
 }
 
 // Функция для загрузки из localStorage
@@ -31,7 +32,18 @@ const initialState: YourFeatureState = {
     slug: '',
     logo: '',
     schedule: '',
-  }
+  },
+  order: {
+    comment: '',
+    orderProducts: [],
+    phone: '',
+    serviceMode: 0,
+    servicePrice: '',
+    tableNum: '',
+    tipsPrice: '',
+    venueSlug: '',
+    spotSlug: '',
+  },
 };
 
 const yourFeatureSlice = createSlice({
@@ -95,6 +107,9 @@ const yourFeatureSlice = createSlice({
     setButtonText: (state, action: PayloadAction<string>) => {
       state.buttonText = action.payload;
     },
+    setOrder: (state, action: PayloadAction<IOrderProduct>) => {
+      state.order = action.payload;
+    }
   },
 });
 
@@ -108,6 +123,7 @@ export const {
   removeItem,
   clearCart,
   setButtonText,
+  setOrder,
 } = yourFeatureSlice.actions;
 
 export default yourFeatureSlice.reducer;

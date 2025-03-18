@@ -3,14 +3,16 @@ import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'src/store';
 import { useAppSelector } from '../../../hooks/useAppSelector';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import './style.scss';
 
 const Footer: FC<{ position?: string }> = ({ position }) => {
+  const params = useParams<{ venue: string; bo: string; table: string }>();
   const navigate = useNavigate();
   // const [addPoster] = usePostOrdersMutation();
   const cart = useAppSelector((state) => state.yourFeature.items);
+  const order = useAppSelector((state) => state.yourFeature.order);
   const buttonText = useSelector(
     (state: RootState) => state.yourFeature.buttonText
   );
@@ -18,8 +20,25 @@ const Footer: FC<{ position?: string }> = ({ position }) => {
     (state) => state.yourFeature.venue?.colorTheme
   );
 
+  const totalPrice = cart.reduce(
+    (acc, item) => acc + +item.productPrice * item.quantity,
+    0
+  );
+
   const handleClick = () => {
     navigate('/cart/' + localStorage.getItem('currentUrl'));
+    const objects = {
+      ...order,
+      servicePrice: totalPrice,
+      orderProducts: cart.map((item) => ({
+        product: item.id,
+        count: item.quantity,
+      })),
+      venueSlug: params.venue,
+      spotSlug: params.bo,
+      tableNum: params.table,
+    };
+    console.log(objects);
 
     if (navigator.vibrate) {
       navigator.vibrate(50);
@@ -29,21 +48,19 @@ const Footer: FC<{ position?: string }> = ({ position }) => {
   if (!cart.length) return null;
 
   return (
-    <footer className={`footer ${position || 'fixed'}`} style={{ backgroundColor: '#fff' }}>
+    <footer
+      className={`footer ${position || 'fixed'}`}
+      style={{ backgroundColor: '#fff' }}
+    >
       <div className='container'>
         <div className='footer__content'>
-          <button 
-            style={{ backgroundColor: colorTheme, color: '#fff' }} 
+          <button
+            style={{ backgroundColor: colorTheme, color: '#fff' }}
             onClick={handleClick}
+            type='submit'
           >
             {buttonText}
-            <span>
-              {cart.reduce(
-                (acc, item) => acc + +item.productPrice * item.quantity,
-                0
-              )}{' '}
-              с
-            </span>
+            <span>{totalPrice} с</span>
           </button>
         </div>
       </div>

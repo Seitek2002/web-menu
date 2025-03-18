@@ -3,12 +3,17 @@ import { useTranslation } from 'react-i18next';
 import { useAppSelector } from 'src/hooks/useAppSelector';
 
 import './style.scss';
+import { useAppDispatch } from 'src/hooks/useAppDispatch';
+import { setOrder } from 'src/store/yourFeatureSlice';
 
 const ForgotCart: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const order = useAppSelector((state) => state.yourFeature.order);
   const colorTheme = useAppSelector(
     (state) => state.yourFeature.venue?.colorTheme
   );
-  const [value, setValue] = useState('');
+  const [phone, setPhone] = useState('');
+  const [comment, setComment] = useState('');
   const { t } = useTranslation();
 
   const formatPhoneNumber = (input: string) => {
@@ -33,7 +38,13 @@ const ForgotCart: React.FC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
     const formattedInput = formatPhoneNumber(input);
-    setValue(formattedInput);
+    setPhone(formattedInput);
+    dispatch(setOrder({ ...order, phone: formattedInput }));
+  };
+
+  const handleCommentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setComment(e.target.value);
+    dispatch(setOrder({ ...order, comment: e.target.value }));
   };
 
   return (
@@ -52,7 +63,7 @@ const ForgotCart: React.FC = () => {
         className='busket__detail-input first'
         id='phone'
         type='text'
-        value={value}
+        value={phone}
         onChange={handleInputChange}
         maxLength={18}
         placeholder='+996 700 000 000'
@@ -60,7 +71,9 @@ const ForgotCart: React.FC = () => {
 
       <input
         type='text'
+        value={comment}
         className='busket__detail-input placeholder:text-[#80868B]'
+        onChange={handleCommentChange}
         placeholder={t('busket.comment')}
       />
     </div>

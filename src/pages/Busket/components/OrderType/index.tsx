@@ -2,14 +2,19 @@ import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import checkbox from '../../../../assets/icons/Busket/checkbox.svg';
 import { useAppSelector } from 'src/hooks/useAppSelector';
+import { useAppDispatch } from 'src/hooks/useAppDispatch';
+import { setOrder } from 'src/store/yourFeatureSlice';
 
 import './style.scss';
 
 const Where: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const order = useAppSelector((state) => state.yourFeature.order);
   const colorTheme = useAppSelector(
     (state) => state.yourFeature.venue?.colorTheme
   );
   const { t, i18n } = useTranslation();
+  const [activeIndex, setActiveIndex] = useState(1); // Используем индекс вместо значения
 
   const list = useMemo(
     () => [t('busket.where.takeaway'), t('busket.where.dinein')],
@@ -22,7 +27,11 @@ const Where: React.FC = () => {
     }
   };
 
-  const [activeIndex, setActiveIndex] = useState(1); // Используем индекс вместо значения
+  const handleClick = (index: number) => {
+    setActiveIndex(index);
+    VibrationClick();
+    dispatch(setOrder({ ...order, serviceMode: index })); // 0 — на вынос, 1 — внутри заведения
+  };
 
   useEffect(() => {
     setActiveIndex(1); // Обновляем активный индекс, когда список меняется
@@ -34,7 +43,7 @@ const Where: React.FC = () => {
         <div
           key={index}
           onClick={() => {
-            setActiveIndex(index);
+            handleClick(index);
             VibrationClick();
           }}
           className={`busket__order-type-wrapper bg-[#fff] border-[#e1e2e5] ${

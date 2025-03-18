@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import ava from "../../../../assets/icons/Busket/ava.svg";
 import first from "../../../../assets/icons/Busket/first.svg";
 import { useAppSelector } from "src/hooks/useAppSelector";
+import { useAppDispatch } from "src/hooks/useAppDispatch";
+import { setOrder } from "src/store/yourFeatureSlice";
 
 import "./style.scss";
 
@@ -11,10 +13,18 @@ interface TipsProps {
 }
 
 const Tips: React.FC<TipsProps> = ({ setItemName }) => {
+  const dispatch = useAppDispatch();
+  const order = useAppSelector((state) => state.yourFeature.order);
   const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme);
   const list: string[] = ["", "50 c", "100 c", "15 %", "20 %"];
   const [active, setActive] = useState<number>(0);
   const { t } = useTranslation();
+
+  const handleClick = (index: number) => {
+    setActive(index);
+    setItemName(list[index]);
+    dispatch(setOrder({ ...order, tipsPrice: list[index] }));
+  }
 
   return (
     <div className="busket__server bg-[#fff]">
@@ -32,10 +42,7 @@ const Tips: React.FC<TipsProps> = ({ setItemName }) => {
         {list.map((item, index) => (
           <div 
             key={index}
-            onClick={() => {
-              setActive(index);
-              setItemName(item);
-            }} 
+            onClick={() => handleClick(index)} 
             className={`busket__server-item ${active === index ? "active" : "bg-[#F9F9F9]"}`}
             style={active === index ? { backgroundColor: colorTheme, color: '#fff' } : {}}
           >
