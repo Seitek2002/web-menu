@@ -50,6 +50,8 @@ const OrderStatus: FC = () => {
   ];
 
   const changeToggle = () => {
+    console.log(toggler);
+
     setToggler((prev) => {
       const newToggler = prev === 2 ? 0 : prev + 1;
       setActiveList(list[newToggler]);
