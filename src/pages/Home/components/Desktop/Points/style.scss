@@ -1,6 +1,6 @@
 .desktop.point {
   &-item {
-    @apply flex items-center rounded-full px-[15px] py-[5px] gap-10 w-full;
+    @apply flex items-center rounded-full px-[15px] py-[5px] gap-4 w-full;
 
     p {
       @apply line-clamp-1;
@@ -12,7 +12,12 @@
   }
 
   &-content {
-    @apply grid grid-cols-2 gap-[10px] my-[24px];
+    @apply flex flex-wrap justify-center gap-[10px] my-[24px];
+
+    &>div {
+      @apply w-[40%];
+    }
+
     scrollbar-width: none;
     -ms-overflow-style: none;
     &::-webkit-scrollbar {
