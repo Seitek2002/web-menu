@@ -63,6 +63,7 @@ const Home: FC = () => {
     } else {
       localStorage.setItem('currentUrl', `${venue}/${bo}`);
     }
+    document.title = venue || '';
   }, []);
 
   return (
@@ -106,7 +107,7 @@ const Home: FC = () => {
                       className='cart-wrapper-img bg-[#FFF]'
                       onClick={() => setIsModalOpen(true)}
                     >
-                      <img src={delet} alt='delete' />
+                      <img src={delet} alt='delete' className='cursor-pointer' />
                     </div>
                   </div>
                   <div className='cart-bottom bg-[#FFF]'>
