@@ -1,74 +1,63 @@
-import { FC } from "react";
-import { IProductCatalog } from "src/types/products.types";
-import { useAppSelector } from "src/hooks/useAppSelector";
-import plus from "../../assets/icons/Busket/plus.svg";
-import minus from "../../assets/icons/Busket/minus.svg";
-import "./style.scss";
-import { useCartActions } from "src/hooks/useCartActions";
+import { FC, useState } from 'react';
 
-type IProps = IProductCatalog & {
-  quantity: number;
-  cartLength: boolean;
-};
+import { IFoodCart } from 'types/products.types';
+import { useAppDispatch } from 'hooks/useAppDispatch';
 
-const CardBusket: FC<IProps> = ({
-  id,
-  productName,
-  weight,
-  productPrice,
-  productPhoto,
-  category,
-  modificators,
-  productDescription,
-  quantity,
-  cartLength,
-}) => {
-  const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme);
-  const { handleClick, handleUnClick } = useCartActions({
-    id,
-    productName,
-    productPrice,
-    productPhoto,
-    weight,
-    category,
-    productDescription,
-    modificators,
-    quantity
-  });
+import minus from 'assets/icons/Busket/minus.svg';
+import plus from 'assets/icons/Busket/plus.svg';
+
+import { addToCart, incrementFromCart } from 'src/store/yourFeatureSlice';
+
+interface IProps {
+  item: IFoodCart;
+}
+
+const BusketCard: FC<IProps> = ({ item }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const dispatch = useAppDispatch();
+  const colorTheme = 'red';
+
+  const increment = () => {
+    dispatch(addToCart({ ...item, quantity: 1 }));
+  };
+
+  const decrement = () => {
+    dispatch(incrementFromCart(item));
+  };
 
   return (
-    <div className="busket-item">
-      <div className="busket-loy">
-        {cartLength && <img className="busket-img" src={productPhoto} alt="img" />}
-        <div className="busket-inner">
-          <p className="busket-name">
-            {productName}
-            {!cartLength && (
-              <>
-                <span className="busket-cart-price" style={{ color: colorTheme }}>
-                  {productPrice} c
-                </span>
-                <span className="busket-g text-[#ADADAD]">•{weight}</span>
-              </>
-            )}
-          </p>
-          {cartLength && (
-            <div className="busket-info">
-              <span className="busket-cart-price" style={{ color: colorTheme }}>
-                {productPrice} c
-              </span>
-              <span className="busket-g text-[#ADADAD]">•{weight}</span>
-            </div>
+    <div className='busket-card'>
+      <div className='busket-card__img-wrapper'>
+        {!isLoaded && (
+          <div className='cart-img-skeleton absolute top-0 left-0 w-full h-full bg-gray-300 animate-pulse'></div>
+        )}
+        <img
+          src={item.productPhoto}
+          alt=''
+          onLoad={() => setIsLoaded(true)}
+          className={`transition-opacity duration-300 ${
+            isLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
+        />
+      </div>
+      <div className='busket-card__text'>
+        <h3>{item.productName}</h3>
+        <div className='flex items-center'>
+          <span className='price' style={{ color: colorTheme }}>
+            {+item.productPrice}с
+          </span>
+          {item.modificators.name && (
+            <span className='weight'>|{item.modificators.name}</span>
           )}
         </div>
       </div>
-      <button className="busket-btn bg-[#F1F2F3]">
-        <img src={minus} alt="minus" onClick={handleUnClick} />
-        {quantity}
-        <img src={plus} alt="plus" onClick={handleClick} />
-      </button>
+      <div className='busket-card__counter'>
+        <img onClick={decrement} src={minus} alt='' />
+        <span>{item.quantity}</span>
+        <img onClick={increment} src={plus} alt='' />
+      </div>
     </div>
   );
 };
 
-export default CardBusket;
+export default BusketCard;

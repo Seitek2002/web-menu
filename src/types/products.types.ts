@@ -1,21 +1,35 @@
-export interface IProductModificator {
+export interface ICategory {
   id: number;
-  name: string;
-  price: string;
+  categoryName: string;
 }
 
-export interface IProductCatalog {
+export interface IFoodCart {
+  id: string;
+  productName: string;
+  productDescription: string;
+  productPrice: number;
+  weight: number;
+  productPhoto: string;
+  category: ICategory;
+  quantity: number;
+  modificators: IModificator;
+}
+
+export interface IModificator {
+  id: number;
+  name: string;
+  price: number;
+}
+
+export interface IProduct {
   id: number;
   productName: string;
-  productPrice: string;
-  productDescription: string | null;
-  productPhoto: string;
+  productDescription: string;
+  productPrice: number;
   weight: number;
-  category: {
-    id: number;
-    categoryName: string;
-  };
-  modificators: IProductModificator[]
+  productPhoto: string;
+  category: ICategory;
+  modificators: IModificator[];
 }
 
 export interface IOrderProduct {

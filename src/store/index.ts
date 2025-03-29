@@ -1,5 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
+
 import yourReducer from './yourFeatureSlice';
+
 import { Categories, Orders, Products, Venues } from 'src/api';
 
 const store = configureStore({

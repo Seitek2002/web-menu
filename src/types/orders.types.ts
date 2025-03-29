@@ -15,3 +15,21 @@ export interface IOrder {
   createdAt: string;
   orderProducts: IOrderProduct[];
 }
+
+// orderProducts: [
+//   {
+//     product: 10;
+//     count: 1;
+//     modificator?: 2;
+//   },
+//   {
+//     product: 10;
+//     count: 1;
+//     modificator?: 1;
+//   },
+//   {
+//     product: 10;
+//     count: 1;
+//     modificator?: 0;
+//   },
+// ]

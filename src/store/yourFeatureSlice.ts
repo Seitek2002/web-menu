@@ -1,30 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IOrderProduct, IProductCatalog } from 'src/types/products.types';
+
+import { IFoodCart, IOrderProduct } from 'src/types/products.types';
 import { IVenues } from 'src/types/venues.types';
 
-export interface IFoodCart extends IProductCatalog {
-  quantity: number;
-}
+import { loadCartFromStorage, saveCartToStorage } from 'src/utlis/storageUtils';
 
 interface YourFeatureState {
   value: number;
   isShow: boolean;
-  items: IFoodCart[];
+  cart: IFoodCart[];
   buttonText: string;
-  venue: IVenues | undefined;
+  venue: IVenues;
   order: IOrderProduct;
 }
-
-// Функция для загрузки из localStorage
-const loadItemsFromStorage = (): IFoodCart[] => {
-  const storedItems = localStorage.getItem('cartItems');
-  return storedItems ? JSON.parse(storedItems) : [];
-};
 
 const initialState: YourFeatureState = {
   value: 0,
   isShow: false,
-  items: loadItemsFromStorage(), // Загружаем при инициализации
+  cart: loadCartFromStorage(),
   buttonText: 'Заказать',
   venue: {
     colorTheme: '#875AFF',
@@ -32,6 +25,10 @@ const initialState: YourFeatureState = {
     slug: '',
     logo: '',
     schedule: '',
+    table: {
+      id: 0,
+      tableNum: '',
+    }
   },
   order: {
     comment: '',
@@ -59,49 +56,37 @@ const yourFeatureSlice = createSlice({
     setShow: (state) => {
       state.isShow = !state.isShow;
     },
-    setItems: (state, action: PayloadAction<IFoodCart[]>) => {
-      state.items = action.payload;
-      localStorage.setItem('cartItems', JSON.stringify(state.items)); // Сохранение
-    },
-    setVenue: (state, action: PayloadAction<IVenues | undefined>) => {
+    setVenue: (state, action: PayloadAction<IVenues>) => {
       state.venue = action.payload;
       localStorage.setItem('venue', JSON.stringify(state.venue));
     },
-    addItem: (state, action: PayloadAction<IFoodCart>) => {
-      const existingItem = state.items.find(
+    addToCart: (state, action: PayloadAction<IFoodCart>) => {
+      const foundItem = state.cart.find(
         (item) => item.id === action.payload.id
       );
-      if (action.payload.quantity) {
-        if (existingItem) {
-          existingItem.quantity += action.payload.quantity;
-        } else {
-          state.items.push({ ...action.payload });
-        }
+      if (foundItem) {
+        foundItem.quantity += action.payload.quantity;
       } else {
-        if (existingItem) {
-          existingItem.quantity += 1;
-        } else {
-          state.items.push({ ...action.payload, quantity: 1 });
-        }
+        state.cart.push({
+          ...action.payload,
+          quantity: action.payload.quantity,
+        });
       }
-      localStorage.setItem('cartItems', JSON.stringify(state.items)); // Сохранение
+      saveCartToStorage(state.cart)
     },
-    removeItem: (state, action: PayloadAction<IFoodCart>) => {
-      const existingItem = state.items.find(
-        (item) => item.id === action.payload.id
-      );
-      if (existingItem) {
-        existingItem.quantity -= 1;
-        if (existingItem.quantity === 0) {
-          state.items = state.items.filter(
-            (item) => item.id !== action.payload.id
-          );
+    incrementFromCart: (state, action) => {
+      const foundItem = state.cart.find((item) => item.id === action.payload.id);
+      if (foundItem) {
+        if (foundItem.quantity > 1) {
+          foundItem.quantity -= 1;
+        } else {
+          state.cart = state.cart.filter((item) => item.id !== action.payload.id);
         }
       }
-      localStorage.setItem('cartItems', JSON.stringify(state.items));
+      saveCartToStorage(state.cart);
     },
     clearCart: (state) => {
-      state.items = [];
+      state.cart = [];
       localStorage.removeItem('cartItems');
     },
     setButtonText: (state, action: PayloadAction<string>) => {
@@ -109,7 +94,7 @@ const yourFeatureSlice = createSlice({
     },
     setOrder: (state, action: PayloadAction<IOrderProduct>) => {
       state.order = action.payload;
-    }
+    },
   },
 });
 
@@ -117,13 +102,12 @@ export const {
   increment,
   decrement,
   setShow,
-  setItems,
   setVenue,
-  addItem,
-  removeItem,
   clearCart,
   setButtonText,
   setOrder,
+  addToCart,
+  incrementFromCart,
 } = yourFeatureSlice.actions;
 
 export default yourFeatureSlice.reducer;

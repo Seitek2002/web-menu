@@ -1,76 +1,56 @@
-import { FC, useState } from "react";
-import ContentLoader from "react-content-loader";
-import { IProductCatalog } from "src/types/products.types";
-import { useAppSelector } from "src/hooks/useAppSelector";
-import { useCartActions } from "src/hooks/useCartActions";
+import { FC, useState } from 'react';
 
-import whitePlus from "../../assets/icons/cart/plus.svg";
-import whiteMinus from "../../assets/icons/cart/minus.svg";
+import { IProduct } from 'types/products.types';
 
-import "./style.scss";
+import './style.scss';
 
-interface IProps extends IProductCatalog {
-  setIsShow: () => void;
-  quantity: number;
+interface IProps {
+  item: IProduct;
+  foodDetail?: (item: IProduct) => void;
 }
 
-const CatalogCard: FC<IProps> = ({
-  id,
-  productName,
-  productPrice,
-  productPhoto,
-  category,
-  weight,
-  setIsShow,
-  productDescription,
-  modificators,
-  quantity,
-}) => {
+const CatalogCard: FC<IProps> = ({ item, foodDetail }) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme);
-  const { handleClick, handleUnClick } = useCartActions({
-    id,
-    productName,
-    productPrice,
-    productPhoto,
-    weight,
-    category,
-    productDescription,
-    modificators,
-    setIsShow,
-    quantity
-  });
+  // const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme);
+  const colorTheme = 'red';
+
+  const openFoodDetail = () => {
+    if (foodDetail) foodDetail(item as IProduct);
+  };
+
+  const handleClick = () => {
+    openFoodDetail();
+  };
 
   return (
-    <div className="cart-block bg-white">
-      <div className="cart-img">
+    <div className='cart-block bg-white'>
+      <div className='cart-img'>
         {!isLoaded && (
-          <ContentLoader
-            speed={1.5}
-            width="100%"
-            height="100%"
-            backgroundColor="#bebebe"
-            foregroundColor="#fff"
-            style={{ padding: "4px" }}
-          >
-            <rect className="skeleton-img" y="0" rx="12" ry="12" />
-          </ContentLoader>
+          <div className='cart-img-skeleton absolute top-0 left-0 w-full h-full bg-gray-300 animate-pulse'></div>
         )}
         <img
-          src={productPhoto}
-          alt="img"
-          onLoad={() => setIsLoaded(true)}
-          className={isLoaded ? "" : "hidden"}
-          onClick={setIsShow}
+          src={item.productPhoto}
+          alt='img'
+          onLoad={() => setIsLoaded(true)} // Когда загрузится — показываем
+          className={`transition-opacity duration-300 cursor-pointer ${
+            isLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
+          onClick={openFoodDetail}
         />
       </div>
-      <div className="cart-info">
-        <span className="cart-price" style={{ color: colorTheme }}>
-          {+productPrice} с
+      <div className='cart-info'>
+        <span className='cart-price' style={{ color: colorTheme }}>
+          {+item.productPrice} с
         </span>
       </div>
-      <h4 className="cart-name">{productName}</h4>
-      {quantity === 0 ? (
+      <h4 className='cart-name'>{item.productName}</h4>
+      <button
+        className='cart-btn bg-[#F1F2F3] text-[#000]'
+        onClick={handleClick}
+      >
+        Добавить
+      </button>
+      {/* {quantity === 0 ? (
         <button className="cart-btn bg-[#F1F2F3] text-[#000]" onClick={handleClick}>
           Добавить
         </button>
@@ -80,7 +60,7 @@ const CatalogCard: FC<IProps> = ({
           <span className="cart-count text-[#fff]">{quantity}</span>
           <img onClick={handleClick} src={whitePlus} alt="plus" />
         </div>
-      )}
+      )} */}
     </div>
   );
 };

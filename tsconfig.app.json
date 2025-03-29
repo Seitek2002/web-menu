@@ -8,7 +8,7 @@
     "skipLibCheck": true,
 
     /* Bundler mode */
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
@@ -22,12 +22,17 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "baseUrl": "./",
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
     "paths": {
-      "src/*": ["src/*"]
+      "assets/*": ["src/assets/*"],
+      "components/*": ["src/components/*"],
+      "pages/*": ["src/pages/*"],
+      "hooks/*": ["src/hooks/*"],
+      "types/*": ["src/types/*"],
+      "utils/*": ["src/utils/*"],
+      "router/*": ["src/router/*"],
+      "api/*": ["src/api/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "src/types"],
   "exclude": ["node_modules", "dist"]
 }

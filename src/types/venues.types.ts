@@ -4,4 +4,8 @@ export interface IVenues {
   slug: string;
   logo: string;
   schedule: string;
+  table: {
+    id: number;
+    tableNum: string;
+  }
 }

@@ -1,12 +1,10 @@
-import AppRoutes from './router/routes';
+import AppRoutes from './router';
 
 import './App.scss';
 
-// http://localhost:3000/home/ONEKI2/ONEKI2/6/
-
 function App() {
   return (
-    <div className='font-inter bg-[#F1F2F3]'>
+    <div className='font-inter bg-[#F1F2F3] px-[16px] pt-[12px]'>
       <AppRoutes />
     </div>
   );

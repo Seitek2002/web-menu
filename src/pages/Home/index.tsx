@@ -1,169 +1,95 @@
-import { FC, useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import { useAppSelector } from 'src/hooks/useAppSelector';
-import { clearCart, setVenue } from 'src/store/yourFeatureSlice';
-import { useGetVenueQuery } from 'src/api/Venue.api';
-import { useParams } from 'react-router-dom';
-import CardBusket from 'src/components/Cards/Cart';
-import SiteHeader from 'src/pages/Home/components/Mobile/SiteHeader';
-import Header from 'src/pages/Home/components/Mobile/Header';
-import Hero from 'src/pages/Home/components/Mobile/Hero';
-import Points from 'src/pages/Home/components/Mobile/Points';
-import Catalog from 'src/pages/Home/components/Mobile/Catalog';
+import { useRef, useState } from 'react';
 
-import SiteHeaderDesktop from 'src/pages/Home/components/Desktop/SiteHeader';
-import HeroDesktop from 'src/pages/Home/components/Desktop/Hero';
-import PointsDesktop from 'src/pages/Home/components/Desktop/Points';
-import CatalogDesktop from 'src/pages/Home/components/Desktop/Catalog';
-import Footer from 'src/components/Mobile/Footer';
+import { useAppDispatch } from 'hooks/useAppDispatch';
+import Catalog from './components/Catalog';
+import Categories from './components/Categories';
+import Search from './components/Search';
+import BusketDesktop from 'components/BusketDesktop';
+import Header from 'components/Header';
+import Hero from 'components/Hero';
+import SupHeader from 'components/SubHeader';
 
-import delet from '../../assets/icons/Busket/delete.svg';
-import Modal from '../Busket/components/Modal';
+import clearCartIcon from 'assets/icons/Busket/clear-cart.svg';
 
-import './style.scss';
+import { clearCart } from 'src/store/yourFeatureSlice';
 
-const Home: FC = () => {
-  const { venue, table, bo } = useParams();
-  const colorTheme = useAppSelector(
-    (state) => state.yourFeature.venue?.colorTheme
-  );
-  const { data: venueData } = useGetVenueQuery({
-    venueSlug: venue ?? '',
-  });
-
-  const { t } = useTranslation();
-  const cart = useAppSelector((state) => state.yourFeature.items);
-  const dispatch = useDispatch();
+const Home = () => {
+  const [searchText, setSearchText] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>(
     undefined
   );
-  const [searchText, setSearchText] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const modalTitle = t('busket.modal.clear');
   const catalogRef = useRef<HTMLDivElement>(null);
+
+  const dispatch = useAppDispatch();
+  const [search, onSearch] = useState(false);
+
+  const clearCartHandler = () => {
+    dispatch(clearCart());
+  };
+
+  const onSearchChange = (bool: boolean) => {
+    onSearch(bool);
+    document.body.style.overflow = bool ? 'hidden' : '';
+    window.scrollTo(0, 0);
+  };
 
   const handleCategoryChange = (categoryId?: number) => {
     setSelectedCategory(categoryId);
     catalogRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleClearCart = () => {
-    dispatch(clearCart());
-    setIsModalOpen(false);
-  };
-
-  useEffect(() => {
-    dispatch(setVenue(venueData));
-  }, [dispatch, venueData]);
-
-  useEffect(() => {
-    if (table) {
-      localStorage.setItem('currentUrl', `${venue}/${bo}/${table}`);
-    } else {
-      localStorage.setItem('currentUrl', `${venue}/${bo}`);
-    }
-    document.title = venue || '';
-  }, []);
-
   return (
-    <div className='home'>
-      {window.innerWidth <= 768 ? (
+    <>
+      <div className='bg-white rounded-[12px] p-[12px]'>
+        <Header searchText={searchText} setSearchText={setSearchText} />
+        <hr className='my-[10px]' />
+        <SupHeader />
+      </div>
+      {window.innerWidth < 768 ? (
         <>
-          <SiteHeader />
-          <Header venueData={venueData} />
+          {search && (
+            <Search
+              onSearchChange={onSearchChange}
+              searchText={searchText}
+              setSearchText={setSearchText}
+            />
+          )}
           <Hero />
-          <Points
+          <Categories
             onCategoryChange={handleCategoryChange}
-            onSearchTextChange={setSearchText}
+            onSearchChange={onSearchChange}
           />
-          <div ref={catalogRef}>
+          <div ref={catalogRef} className='pb-[100px]'>
             <Catalog selectedCategory={selectedCategory} />
           </div>
         </>
       ) : (
-        <div>
-          <SiteHeaderDesktop
-            setSearchText={setSearchText}
-            venueData={venueData}
-          />
-          <div className='flex justify-between gap-[20px]'>
-            <div className='home__left w-[60%] max-h-dvh overflow-y-auto'>
-              <HeroDesktop />
-              <div ref={catalogRef}>
-                <CatalogDesktop
-                  selectedCategory={selectedCategory}
-                  searchText={searchText}
+        <div className='flex gap-[30px] items-start pb-[50px]'>
+          <div className='max-w-[60%]'>
+            <Hero />
+            <Catalog searchText={searchText} selectedCategory={selectedCategory} />
+          </div>
+          <div className='max-w-[40%] sticky top-0'>
+            <Categories
+              onCategoryChange={handleCategoryChange}
+              onSearchChange={onSearchChange}
+            />
+            <div className='busket'>
+              <header className='busket__header'>
+                <h2>Корзина</h2>
+                <img
+                  onClick={clearCartHandler}
+                  src={clearCartIcon}
+                  alt=''
+                  className='cursor-pointer'
                 />
-              </div>
-            </div>
-            <div className='home__right max-h-dvh overflow-y-auto'>
-              <PointsDesktop onCategoryChange={handleCategoryChange} />
-              <div className='desktop cart'>
-                <div className='cart-right relative'>
-                  <div className='cart-top flex justify-between items-center'>
-                    <h1 className='cart-title'>{t('busket.busketTitle')}</h1>
-                    <div
-                      className='cart-wrapper-img bg-[#FFF]'
-                      onClick={() => setIsModalOpen(true)}
-                    >
-                      <img src={delet} alt='delete' className='cursor-pointer' />
-                    </div>
-                  </div>
-                  <div className='cart-bottom bg-[#FFF]'>
-                    <div className='cart-table bg-[#F1F2F3]'>
-                      {/* {t("table")} */}
-                      {table ? `Стол №${table}` : 'На вынос'}
-                    </div>
-                    {cart.map((item) => (
-                      <CardBusket
-                        key={item.id}
-                        {...item}
-                        cartLength={!!cart.length}
-                      />
-                    ))}
-                  </div>
-                  <Footer position='absolute' />
-                </div>
-              </div>
+              </header>
+              <BusketDesktop to='/cart' />
             </div>
           </div>
         </div>
       )}
-      {isModalOpen && (
-        <Modal title={modalTitle} onClose={() => setIsModalOpen(false)}>
-          {modalTitle === t('busket.modal.clear') ? (
-            <div className='busket__modal-btns'>
-              <button
-                onClick={handleClearCart}
-                className='busket__modal-gray bg-[#F1F2F3] text-[#000]'
-              >
-                {t('busket.modal.yes')}
-              </button>
-              <button
-                onClick={() => setIsModalOpen(false)}
-                style={{ backgroundColor: colorTheme }}
-                className={`busket__modal-purple text-[#fff]`}
-              >
-                {t('busket.modal.no')}
-              </button>
-            </div>
-          ) : (
-            <>
-              <p className='busket__modal-text text-[#727272]'>
-                {t('busket.modal.arrange')}
-              </p>
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className='busket__modal-btn text-[#090A0B] bg-[#F1F2F3]'
-              >
-                {t('busket.modal.myself')}
-              </button>
-            </>
-          )}
-        </Modal>
-      )}
-    </div>
+    </>
   );
 };
 

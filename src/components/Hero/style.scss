@@ -1,0 +1,13 @@
+.hero {
+  &__item {
+    @apply rounded-lg overflow-hidden w-full h-[100px] md:h-[270px];
+
+    img {
+      @apply w-full h-full object-cover;
+    }
+  }
+
+  &-swiper {
+    @apply py-[20px];
+  }
+}

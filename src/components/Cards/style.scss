@@ -4,7 +4,7 @@
   }
 
   &-img {
-    @apply overflow-hidden rounded-[12px] h-[136px] flex items-center justify-center;
+    @apply overflow-hidden rounded-[12px] h-[136px] flex items-center justify-center relative;
 
     img {
       @apply object-cover w-full h-full;
@@ -36,65 +36,34 @@
   }
 }
 
-.busket {
-  &-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #e0e0e0;
+.busket-card {
+  @apply flex items-center justify-between gap-[8px] border-b-[#F3F3F3] border-b-[1px] pb-[8px] mb-[8px];
+
+  h3 {
+    @apply font-medium text-[12px] leading-tight mb-[8px] line-clamp-3;
   }
 
-  &-loy {
-    display: flex;
-    align-items: center;
+  .price {
+    @apply font-semibold text-[10px];
   }
 
-  &-img {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 5px;
+  .weight {
+    @apply font-medium text-[10px] text-[#ADADAD];
   }
 
-  &-inner {
-    margin-left: 10px;
+  &__text {
+    @apply flex-1;
   }
 
-  &-name {
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-  }
-
-  &-info {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  &-cart-price {
-    font-size: 14px;
-    font-weight: bold;
-  }
-
-  &-g {
-    font-size: 12px;
-  }
-
-  &-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    border: none;
+  &__img-wrapper {
+    @apply w-[68px] h-[68px] overflow-hidden rounded-[8px] relative;
 
     img {
-      width: 16px;
-      height: 16px;
-      cursor: pointer;
+      @apply w-full h-full object-cover;
     }
+  }
+
+  &__counter {
+    @apply flex gap-[12px] items-center bg-[#F1F2F3] rounded-full px-[5px] py-[8px] text-[12px];
   }
 }
