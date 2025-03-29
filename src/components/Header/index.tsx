@@ -49,7 +49,7 @@ const Header: FC<IProps> = ({ searchText, setSearchText }) => {
           <span>iMenu.kg</span>
         </div>
 
-        {pathname !== '/scan' && (
+        {pathname !== '/' && (
           <label htmlFor='search' className='header__search bg-[#F9F9F9]'>
             <img src={search} alt='' />
             <input
