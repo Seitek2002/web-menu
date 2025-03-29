@@ -69,7 +69,7 @@ const Scan: FC = () => {
 
   return (
     <>
-      <Header />
+      <Header searchText='' setSearchText={() => {}} />
       <div className='h-[89dvh] mt-[20px] flex flex-col items-center justify-center bg-white'>
         <div className='w-[80%] flex items-center justify-center md:w-[30%]'>
           {error ? (
