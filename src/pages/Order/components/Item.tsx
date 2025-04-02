@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import { useAppSelector } from 'hooks/useAppSelector';
+
 import './style.scss';
 
 interface IProps {
@@ -11,7 +13,7 @@ interface IProps {
 }
 
 const Item: FC<IProps> = ({ img, name, price, weight, quantity }) => {
-  const colorTheme = 'red';
+  const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme);
 
   return (
     <div className='order__status-list-item'>

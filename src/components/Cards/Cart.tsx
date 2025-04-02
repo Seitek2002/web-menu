@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 
 import { IFoodCart } from 'types/products.types';
 import { useAppDispatch } from 'hooks/useAppDispatch';
+import { useAppSelector } from 'hooks/useAppSelector';
 
 import minus from 'assets/icons/Busket/minus.svg';
 import plus from 'assets/icons/Busket/plus.svg';
@@ -15,7 +16,9 @@ interface IProps {
 const BusketCard: FC<IProps> = ({ item }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const dispatch = useAppDispatch();
-  const colorTheme = 'red';
+  const colorTheme = useAppSelector(
+    (state) => state.yourFeature.venue?.colorTheme
+  );
 
   const increment = () => {
     dispatch(addToCart({ ...item, quantity: 1 }));

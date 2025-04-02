@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 
 import { IProduct } from 'types/products.types';
+import { useAppSelector } from 'hooks/useAppSelector';
 
 import './style.scss';
 
@@ -11,8 +12,7 @@ interface IProps {
 
 const CatalogCard: FC<IProps> = ({ item, foodDetail }) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  // const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme);
-  const colorTheme = 'red';
+  const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme);
 
   const openFoodDetail = () => {
     if (foodDetail) foodDetail(item as IProduct);

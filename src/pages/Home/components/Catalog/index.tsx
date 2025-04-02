@@ -22,8 +22,8 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
   const [isShow, setIsShow] = useState(false);
   const [activeFood, setActiveFood] = useState<IProduct | null>(null);
   const cart = useAppSelector((state) => state.yourFeature.cart);
+  const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme);
   const navigate = useNavigate();
-  const colorTheme = 'red';
   const { data: items } = useGetProductsQuery({
     category: selectedCategory || undefined,
     search: searchText,

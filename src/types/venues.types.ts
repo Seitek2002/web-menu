@@ -1,3 +1,9 @@
+export interface ISpot {
+  id: number;
+  name: string;
+  address: string | null;
+}
+
 export interface IVenues {
   colorTheme: string;
   companyName: string;
@@ -7,5 +13,6 @@ export interface IVenues {
   table: {
     id: number;
     tableNum: string;
-  }
+  };
+  spots?: ISpot[]
 }

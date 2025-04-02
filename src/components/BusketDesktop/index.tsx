@@ -7,7 +7,7 @@ import './style.scss';
 
 const BusketDesktop = ({ to }: { to: string }) => {
   const navigate = useNavigate();
-  const colorTheme = 'red';
+  const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme);
   const cart = useAppSelector((state) => state.yourFeature.cart);
 
   return (

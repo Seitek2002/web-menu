@@ -3,12 +3,20 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IFoodCart, IOrderProduct } from 'src/types/products.types';
 import { IVenues } from 'src/types/venues.types';
 
-import { loadCartFromStorage, saveCartToStorage } from 'src/utlis/storageUtils';
+import { loadCartFromStorage, loadUsersDataFromStorage, saveCartToStorage, saveUsersDataToStorage } from 'src/utlis/storageUtils';
+
+export interface IUsersData {
+  phoneNumber: string;
+  address?: string;
+  comment?: string;
+  name?: string;
+}
 
 interface YourFeatureState {
   value: number;
   isShow: boolean;
   cart: IFoodCart[];
+  usersData: IUsersData;
   buttonText: string;
   venue: IVenues;
   order: IOrderProduct;
@@ -18,6 +26,7 @@ const initialState: YourFeatureState = {
   value: 0,
   isShow: false,
   cart: loadCartFromStorage(),
+  usersData: loadUsersDataFromStorage(),
   buttonText: 'Заказать',
   venue: {
     colorTheme: '#875AFF',
@@ -95,6 +104,10 @@ const yourFeatureSlice = createSlice({
     setOrder: (state, action: PayloadAction<IOrderProduct>) => {
       state.order = action.payload;
     },
+    setUsersData: (state, action) => {
+      state.usersData = action.payload;
+      saveUsersDataToStorage(state.usersData);
+    }
   },
 });
 
@@ -108,6 +121,7 @@ export const {
   setOrder,
   addToCart,
   incrementFromCart,
+  setUsersData,
 } = yourFeatureSlice.actions;
 
 export default yourFeatureSlice.reducer;

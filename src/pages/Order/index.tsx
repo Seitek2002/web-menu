@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
+import { useAppSelector } from 'hooks/useAppSelector';
 import Item from './components/Item';
 import shawarma from 'assets/images/Catalog/item-1.webp';
 import burger from 'assets/images/Catalog/item-2.webp';
@@ -71,7 +72,9 @@ const allOrders: Order[] = [
 
 const Order = () => {
   const navigate = useNavigate();
-  const colorTheme = 'red';
+  const colorTheme = useAppSelector(
+    (state) => state.yourFeature.venue?.colorTheme
+  );
 
   return (
     <div className='order'>
@@ -182,7 +185,10 @@ const Order = () => {
             Спасибо,заказ принят!
           </h3>
           <span>Ожидайте в течении 15-20 минут</span>
-          <button className='hidden md:block text-white w-full py-[16px] rounded-[12px] mt-[16px]' style={{ backgroundColor: colorTheme }}>
+          <button
+            className='hidden md:block text-white w-full py-[16px] rounded-[12px] mt-[16px]'
+            style={{ backgroundColor: colorTheme }}
+          >
             Заказать еще
           </button>
         </div>

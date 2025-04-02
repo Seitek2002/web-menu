@@ -21,6 +21,9 @@ interface IProps {
 
 const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
   const cart = useAppSelector((state) => state.yourFeature.cart);
+  const colorTheme = useAppSelector(
+    (state) => state.yourFeature.venue?.colorTheme
+  );
   const [isLoaded, setIsLoaded] = useState(false);
   const { t } = useTranslation();
   const [counter, setCounter] = useState(1);
@@ -31,10 +34,6 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
     price: 0,
   });
   const dispatch = useAppDispatch();
-  // const colorTheme = useAppSelector(
-  //   (state) => state.yourFeature.venue?.colorTheme
-  // );
-  const colorTheme = 'red';
 
   const VibrationClick = useCallback(() => {
     if (navigator.vibrate) {

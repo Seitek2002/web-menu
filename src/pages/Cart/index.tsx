@@ -121,12 +121,12 @@ const forgotList: {
 const Cart = () => {
   const { t, i18n } = useTranslation();
   const cart = useAppSelector((state) => state.yourFeature.cart);
+  const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme);
   const [activeIndex, setActiveIndex] = useState(0);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [active, setActive] = useState(false);
   const [serverActive, setServerActive] = useState('');
   const navigate = useNavigate();
-  const colorTheme = 'red';
 
   const inputRef = useMask({
     mask: '+996 (___) ___-___',

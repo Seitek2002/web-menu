@@ -8,7 +8,9 @@ export const Venues = createApi({
   endpoints: (builder) => ({
     getVenue: builder.query<IVenues, {venueSlug: string, tableId?: number}>({
       query: ({ venueSlug, tableId }) => {
+        if(!tableId) return `venues/${venueSlug}/`;
         if(!venueSlug || !tableId) return '/venues';
+
         return `venues/${venueSlug}/table/${tableId}/`;
       },
     }),
