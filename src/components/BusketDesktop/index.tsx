@@ -8,11 +8,16 @@ import './style.scss';
 const BusketDesktop = ({ to }: { to: string }) => {
   const navigate = useNavigate();
   const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme);
+  const venueData = useAppSelector(state => state.yourFeature.venue);
   const cart = useAppSelector((state) => state.yourFeature.cart);
 
   return (
     <div className='busket__content'>
-      <div className='table-num'>Стол №12</div>
+      {
+        venueData?.table?.tableNum && (
+          <div className='table-num'>Стол №12</div>
+        )
+      }
       {cart.length > 0 ? (
         <>
           {cart.map((item) => (

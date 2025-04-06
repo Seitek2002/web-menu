@@ -1,4 +1,5 @@
 import { FC, useEffect, useMemo, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { ISpot } from 'types/venues.types';
 import { useAppDispatch } from 'hooks/useAppDispatch';
@@ -17,7 +18,9 @@ interface IProps {
 }
 
 const Tabs: FC<IProps> = ({ spots }) => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const params = useParams();
   const userData = loadUsersDataFromStorage();
   const [isActive, setIsActive] = useState('');
   const [phoneNumber, setPhoneNumber] = useState(userData.phoneNumber);
@@ -44,8 +47,8 @@ const Tabs: FC<IProps> = ({ spots }) => {
       comment,
       address,
     };
-    console.log(data);
     dispatch(setUsersData(data));
+    navigate(`/I/${params.venue}/d`);
   };
 
   const isFormValid = useMemo(() => {

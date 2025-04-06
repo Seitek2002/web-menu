@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IFoodCart, IOrderProduct } from 'src/types/products.types';
 import { IVenues } from 'src/types/venues.types';
 
-import { loadCartFromStorage, loadUsersDataFromStorage, saveCartToStorage, saveUsersDataToStorage } from 'src/utlis/storageUtils';
+import { loadCartFromStorage, loadUsersDataFromStorage, loadVenueFromStorage, saveCartToStorage, saveUsersDataToStorage } from 'src/utlis/storageUtils';
 
 export interface IUsersData {
   phoneNumber: string;
@@ -28,17 +28,7 @@ const initialState: YourFeatureState = {
   cart: loadCartFromStorage(),
   usersData: loadUsersDataFromStorage(),
   buttonText: 'Заказать',
-  venue: {
-    colorTheme: '#875AFF',
-    companyName: '',
-    slug: '',
-    logo: '',
-    schedule: '',
-    table: {
-      id: 0,
-      tableNum: '',
-    }
-  },
+  venue: loadVenueFromStorage(),
   order: {
     comment: '',
     orderProducts: [],

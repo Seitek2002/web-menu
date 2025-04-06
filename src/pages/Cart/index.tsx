@@ -121,12 +121,17 @@ const forgotList: {
 const Cart = () => {
   const { t, i18n } = useTranslation();
   const cart = useAppSelector((state) => state.yourFeature.cart);
-  const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme);
+  const colorTheme = useAppSelector(
+    (state) => state.yourFeature.venue?.colorTheme
+  );
+  const venueData = useAppSelector((state) => state.yourFeature.venue);
   const [activeIndex, setActiveIndex] = useState(0);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [active, setActive] = useState(false);
   const [serverActive, setServerActive] = useState('');
   const navigate = useNavigate();
+
+  console.log(venueData);
 
   const inputRef = useMask({
     mask: '+996 (___) ___-___',
@@ -210,7 +215,9 @@ const Cart = () => {
       </header>
       {window.innerWidth < 768 && (
         <>
-          <div className='cart__top'>Стол №12</div>
+          {venueData?.table?.tableNum && (
+            <div className='cart__top'>Стол №12</div>
+          )}
           <div className='cart__items'>
             {cart.length > 0 ? (
               <>

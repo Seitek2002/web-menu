@@ -72,6 +72,7 @@ const allOrders: Order[] = [
 
 const Order = () => {
   const navigate = useNavigate();
+  const venueData = useAppSelector((state) => state.yourFeature.venue);
   const colorTheme = useAppSelector(
     (state) => state.yourFeature.venue?.colorTheme
   );
@@ -150,7 +151,11 @@ const Order = () => {
                   </clipPath>
                 </defs>
               </svg>
-              <span style={{ color: colorTheme }}>Стол №12</span>
+              {
+                venueData?.table?.tableNum && (
+                  <span style={{ color: colorTheme }}>Стол №12</span>
+                )
+              }
             </div>
             <img src={share} alt='' className='share' />
           </div>

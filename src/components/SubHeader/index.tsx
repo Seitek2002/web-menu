@@ -15,7 +15,10 @@ import { setVenue } from 'src/store/yourFeatureSlice';
 const SubHeader = () => {
   const { venue, id } = useParams();
   const dispatch = useDispatch();
-  const { data } = useGetVenueQuery({ venueSlug: venue || '', tableId: +(id || 0) });
+  const { data } = useGetVenueQuery({
+    venueSlug: venue || '',
+    tableId: id || undefined,
+  });
 
   useEffect(() => {
     if (data) dispatch(setVenue(data));
@@ -34,15 +37,28 @@ const SubHeader = () => {
           </div>
         </div>
         <div className='flex items-center justify-between max-w-[50%] flex-1 md:gap-[12px] md:flex-initial'>
-          <div className='call'>
-            <img src={bell} alt='' />
-            <span className='hidden md:inline'>Позвать официанта</span>
-          </div>
-          <div className='check'>
-            <img src={check} alt='' />
-            <span className='hidden md:inline'>Чек</span>
-          </div>
-          <div className='table'>Стол №{data?.table.tableNum}</div>
+          {data?.table?.tableNum && (
+            <div className='call'>
+              <img src={bell} alt='' />
+              <span className='hidden md:inline'>Позвать официанта</span>
+            </div>
+          )}
+          {
+            data?.table?.tableNum ? (
+              <div className='check'>
+                <img src={check} alt='' />
+                <span className='hidden md:inline'>Чек</span>
+              </div>
+            ) : (
+              <div className='check'>
+                <img src={check} alt='' />
+                <span>Чек</span>
+              </div>
+            )
+          }
+          {data?.table?.tableNum && (
+            <div className='table'>Стол №{data.table.tableNum}</div>
+          )}
         </div>
       </div>
     </div>
