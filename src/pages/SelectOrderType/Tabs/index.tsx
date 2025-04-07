@@ -9,7 +9,6 @@ import geoIcon from 'assets/icons/Order/geo.svg';
 
 import './style.scss';
 
-import { useMask } from '@react-input/mask';
 import { setUsersData } from 'src/store/yourFeatureSlice';
 import { loadUsersDataFromStorage } from 'src/utlis/storageUtils';
 
@@ -30,13 +29,8 @@ const Tabs: FC<IProps> = ({ spots }) => {
     (state) => state.yourFeature.venue?.colorTheme
   );
 
-  const inputRef = useMask({
-    mask: '+996 (___) ___-___',
-    replacement: { _: /\d/ },
-  });
-
   const tabs = useMemo(() => {
-    return ['Доставка', 'Самовывоз'];
+    return ['Доставка', 'Самовынос'];
   }, []);
 
   const handleClick = (e: { preventDefault: () => void }) => {
@@ -76,7 +70,7 @@ const Tabs: FC<IProps> = ({ spots }) => {
           </div>
         ))}
       </div>
-      {isActive === 'Самовывоз' ? (
+      {isActive === 'Самовынос' ? (
         <div className='tabs__pickup'>
           {spots.map((spot) => (
             <button
@@ -96,42 +90,7 @@ const Tabs: FC<IProps> = ({ spots }) => {
         </div>
       ) : (
         <div className='tabs__content'>
-          <form className='cart__contacts' onSubmit={handleClick}>
-            <div className='flex items-center justify-between mb-[12px]'>
-              <h4>Ваши контакты</h4>
-              <span className='required' style={{ color: colorTheme }}>
-                Обязательно*
-              </span>
-            </div>
-            <input
-              required
-              type='text'
-              placeholder='+996'
-              ref={inputRef}
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-            />
-            <input
-              required
-              type='text'
-              placeholder='Адрес или ссылка на 2гис'
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-            />
-            <input
-              type='text'
-              placeholder='Напишите время заказа или коментарий'
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-            />
-            <button
-              className='tabs__btn'
-              style={{ backgroundColor: colorTheme }}
-              disabled={!isFormValid}
-            >
-              Далее
-            </button>
-          </form>
+          
         </div>
       )}
     </div>

@@ -200,7 +200,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
                 </div>
               </div>
             )}
-            <div className='ingridients'>
+            {/* <div className='ingridients'>
               <h2>{t('foodDetail.ingredients.structure')}</h2>
               <ul>
                 <li>
@@ -216,7 +216,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
                   </p>
                 </li>
               </ul>
-            </div>
+            </div> */}
             {window.innerWidth < 768 && (
               <footer className='counter'>
                 <div className='counter__left'>

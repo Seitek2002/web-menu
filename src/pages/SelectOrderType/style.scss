@@ -1,3 +1,27 @@
+.select-order-type {
+  height: 100dvh;
+
+  &__content {
+    @apply p-[15px] bg-white rounded-[12px] mt-[24px];
+
+    h2 {
+      @apply text-center font-medium;
+    }
+  }
+
+  &__items {
+    @apply flex flex-col divide-y-2 px-[20px];
+  }
+
+  &__item {
+    @apply flex items-center gap-[10px] text-[14px] mt-[20px] pt-[20px];
+
+    svg {
+      @apply size-[60px];
+    }
+  }
+}
+
 .tabs {
   &__select {
     @apply flex;

@@ -4,9 +4,8 @@ import { useDispatch } from 'react-redux';
 
 import { useGetVenueQuery } from 'api/Venue.api';
 
-import bell from 'assets/icons/SubHeader/bell.svg';
-import check from 'assets/icons/SubHeader/check.svg';
-
+// import bell from 'assets/icons/SubHeader/bell.svg';
+// import check from 'assets/icons/SubHeader/check.svg';
 // import logo from 'assets/images/SubHeader/logo.png';
 import './style.scss';
 
@@ -37,7 +36,7 @@ const SubHeader = () => {
           </div>
         </div>
         <div className='flex items-center justify-between max-w-[50%] flex-1 md:gap-[12px] md:flex-initial'>
-          {data?.table?.tableNum && (
+          {/* {data?.table?.tableNum && (
             <div className='call'>
               <img src={bell} alt='' />
               <span className='hidden md:inline'>Позвать официанта</span>
@@ -55,7 +54,7 @@ const SubHeader = () => {
                 <span>Чек</span>
               </div>
             )
-          }
+          } */}
           {data?.table?.tableNum && (
             <div className='table'>Стол №{data.table.tableNum}</div>
           )}
