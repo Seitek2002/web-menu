@@ -14,7 +14,7 @@
   }
 
   &__item {
-    @apply flex items-center gap-[10px] text-[14px] mt-[20px] pt-[20px];
+    @apply flex items-center gap-[10px] text-[14px] mt-[20px] pt-[20px] cursor-pointer;
 
     svg {
       @apply size-[60px];

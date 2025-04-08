@@ -1,13 +1,21 @@
+import { useNavigate } from 'react-router-dom';
+
+import { ISpot } from 'types/venues.types';
 import { useAppSelector } from 'hooks/useAppSelector';
 import Header from 'components/Header';
 
 import geoIcon from 'assets/icons/Order/geo.svg';
 
 const Takeaway = () => {
+  const navigate = useNavigate();
   const data = useAppSelector((state) => state.yourFeature.venue);
   const colorTheme = useAppSelector(
     (state) => state.yourFeature.venue?.colorTheme
   );
+
+  const handleClick = (spot: ISpot) => {
+    navigate(`/I/${data.companyName}/${spot.id}/s`);
+  };
 
   return (
     <div className='h-[98dvh]'>
@@ -33,6 +41,7 @@ const Takeaway = () => {
             className='tabs__pickup-item'
             style={{ backgroundColor: colorTheme }}
             key={spot.id}
+            onClick={() => handleClick(spot)}
           >
             <img src={geoIcon} alt='geoIcon' />
             <div>
