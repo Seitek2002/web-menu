@@ -35,7 +35,7 @@ const Item: FC<IProps> = ({ item, active, selectCategory }) => {
           {item.categoryName}
         </span>
       </div>
-      <span className='leading-tight block md:hidden'>{item.categoryName}</span>
+      <span className='leading-tight block md:hidden text-black'>{item.categoryName}</span>
     </div>
   );
 };
