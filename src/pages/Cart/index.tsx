@@ -12,9 +12,9 @@ import clearCartIcon from 'assets/icons/Busket/clear-cart.svg';
 import cookie from 'assets/icons/Busket/cookie.svg';
 import headerArrowIcon from 'assets/icons/Busket/header-arrow.svg';
 import priceArrow from 'assets/icons/Busket/price-arrow.svg';
-import all from 'assets/icons/Order/all.svg';
-import ava from 'assets/icons/Order/ava.svg';
 
+// import all from 'assets/icons/Order/all.svg';
+// import ava from 'assets/icons/Order/ava.svg';
 import './style.scss';
 
 import { useMask } from '@react-input/mask';
@@ -128,7 +128,7 @@ const Cart = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [active, setActive] = useState(false);
-  const [serverActive, setServerActive] = useState('');
+  // const [serverActive, setServerActive] = useState('');
   const navigate = useNavigate();
 
   console.log(venueData);
@@ -154,22 +154,24 @@ const Cart = () => {
     VibrationClick();
   };
 
-  const handleClickServer = (index: string) => {
-    setServerActive(index);
-    VibrationClick();
-  };
+  // const handleClickServer = (index: string) => {
+  //   setServerActive(index);
+  //   VibrationClick();
+  // };
 
   const solveTotalSum = () => {
     const cartSum =
       cart.reduce((acc, item) => acc + item.productPrice * item.quantity, 0) +
       150;
-    if (serverActive.includes('%')) {
-      const totalSum = cartSum * (+serverActive.replace(' %', '') / 100);
-      return totalSum + cartSum;
-    } else {
-      const totalSum = cartSum + +serverActive.replace(' c', '');
-      return totalSum;
-    }
+    // if (serverActive.includes('%')) {
+    //   const totalSum = cartSum * (+serverActive.replace(' %', '') / 100);
+    //   return totalSum + cartSum;
+    // } else {
+    //   const totalSum = cartSum + +serverActive.replace(' c', '');
+    //   return totalSum;
+    // }
+
+    return cartSum
   };
 
   const checkDatas = () => {
@@ -318,7 +320,7 @@ const Cart = () => {
                   }
                   style={{
                     height:
-                      active && serverActive ? '115px' : active ? '80px' : '0',
+                      active ? '80px' : '0',
                   }}
                 >
                   <div className='cart__sum-item text-[#80868B]'>
@@ -340,13 +342,6 @@ const Cart = () => {
                     Обслуживание
                     <div className='cart__sum-total service'>150 с</div>
                   </div>
-                  {serverActive && (
-                    <div className='cart__sum-item text-[#80868B]'>
-                      Чаевые
-                      {/* <div className="cart__sum-total tips">{Math.round(calculateTips())} с</div> */}
-                      <div className='cart__sum-total tips'>{serverActive}</div>
-                    </div>
-                  )}
                 </div>
                 <div className='cart__sum-ress border-[#f3f3f3]'>
                   Итоговая сумма <span>{solveTotalSum()} с</span>
