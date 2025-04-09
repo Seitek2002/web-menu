@@ -352,7 +352,7 @@ const Cart = () => {
                   Итоговая сумма <span>{solveTotalSum()} с</span>
                 </div>
               </div>
-              <div className='cart__server bg-[#fff]'>
+              {/* <div className='cart__server bg-[#fff]'>
                 <h3 className='cart__server-title'>{t('busket.tips')}</h3>
                 <div className='cart__server-info'>
                   <div className='cart__server-ava'>
@@ -383,7 +383,7 @@ const Cart = () => {
                     </div>
                   ))}
                 </div>
-              </div>
+              </div> */}
             </>
           ) : (
             <div className=''>
