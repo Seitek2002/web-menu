@@ -1,6 +1,7 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useAppDispatch } from 'hooks/useAppDispatch';
+import { useAppSelector } from 'hooks/useAppSelector';
 import Catalog from './components/Catalog';
 import Categories from './components/Categories';
 import Search from './components/Search';
@@ -19,6 +20,7 @@ const Home = () => {
     undefined
   );
   const catalogRef = useRef<HTMLDivElement>(null);
+  const venue = useAppSelector((state) => state.yourFeature.venue);
 
   const dispatch = useAppDispatch();
   const [search, onSearch] = useState(false);
@@ -37,6 +39,10 @@ const Home = () => {
     setSelectedCategory(categoryId);
     catalogRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    document.title = venue.companyName;
+  }, [venue.companyName])
 
   return (
     <>
