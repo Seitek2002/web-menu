@@ -10,27 +10,6 @@ import search from 'assets/icons/Categories/search.svg';
 
 import './style.scss';
 
-// const categories = [
-//   {
-//     id: 13,
-//     categoryName: 'Чай',
-//     categoryPhoto:
-//       'https://imenu.kg/media/menu/category/2025/03/2c37fb5960249296946d146045c5827f_3.jpg',
-//   },
-//   {
-//     id: 11,
-//     categoryName: 'Кофе',
-//     categoryPhoto:
-//       'https://imenu.kg/media/menu/category/2025/03/7b1e70307c83681416d95abd2492384260e5efb9.webp',
-//   },
-//   {
-//     id: 12,
-//     categoryName: 'Холодный кофе',
-//     categoryPhoto:
-//       'https://imenu.kg/media/menu/category/2025/03/Iced_Caffe_Latte_.jpeg.webp',
-//   },
-// ];
-
 interface IProps {
   onCategoryChange: (id: number | undefined) => void;
   onSearchChange: (bool: boolean) => void;
