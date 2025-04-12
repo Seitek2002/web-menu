@@ -1,9 +1,15 @@
 import { FC, useState } from 'react';
 
 import { IProduct } from 'types/products.types';
+import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAppSelector } from 'hooks/useAppSelector';
 
+import whiteMinus from 'assets/icons/CatalogCard/white-minus.svg';
+import whitePlus from 'assets/icons/CatalogCard/white-plus.svg';
+
 import './style.scss';
+
+import { addToCart, incrementFromCart } from 'src/store/yourFeatureSlice';
 
 interface IProps {
   item: IProduct;
@@ -11,16 +17,41 @@ interface IProps {
 }
 
 const CatalogCard: FC<IProps> = ({ item, foodDetail }) => {
+  const dispatch = useAppDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme);
+  const cart = useAppSelector((state) => state.yourFeature.cart);
+  const colorTheme = useAppSelector(
+    (state) => state.yourFeature.venue?.colorTheme
+  );
 
   const openFoodDetail = () => {
     if (foodDetail) foodDetail(item as IProduct);
   };
 
   const handleClick = () => {
-    openFoodDetail();
+    if (item.modificators.length) {
+      openFoodDetail();
+    } else {
+      const newItem = {
+        ...item,
+        modificators: undefined,
+        quantity: 1,
+      };
+      dispatch(addToCart(newItem));
+    }
   };
+
+  const handleDecrement = () => {
+    if (item.modificators.length) {
+      openFoodDetail();
+    } else {
+      dispatch(incrementFromCart(item));
+    }
+  };
+
+  const foundCartItem = cart.find(
+    (cartItem) => cartItem.productName === item.productName
+  );
 
   return (
     <div className='cart-block bg-white'>
@@ -44,23 +75,37 @@ const CatalogCard: FC<IProps> = ({ item, foodDetail }) => {
         </span>
       </div>
       <h4 className='cart-name'>{item.productName}</h4>
-      <button
-        className='cart-btn bg-[#F1F2F3] text-[#000]'
-        onClick={handleClick}
-      >
-        Добавить
-      </button>
-      {/* {quantity === 0 ? (
-        <button className="cart-btn bg-[#F1F2F3] text-[#000]" onClick={handleClick}>
+      {!foundCartItem && (
+        <button
+          className='cart-btn bg-[#F1F2F3] text-[#000]'
+          onClick={handleClick}
+        >
           Добавить
         </button>
-      ) : (
-        <div className="cart-btn active" style={{ backgroundColor: colorTheme }}>
-          <img onClick={handleUnClick} src={whiteMinus} alt="minus" />
-          <span className="cart-count text-[#fff]">{quantity}</span>
-          <img onClick={handleClick} src={whitePlus} alt="plus" />
+      )}
+      {foundCartItem &&
+        foundCartItem.modificators &&
+        foundCartItem.modificators.name && (
+          <button
+            className='cart-btn text-[#fff]'
+            style={{ backgroundColor: colorTheme }}
+            onClick={handleClick}
+          >
+            Добавлено
+          </button>
+        )}
+      {foundCartItem && !foundCartItem?.modificators?.name && (
+        <div
+          className='cart-btn active'
+          style={{ backgroundColor: colorTheme }}
+        >
+          <img onClick={handleDecrement} src={whiteMinus} alt='minus' />
+          <span className='cart-count text-[#fff]'>
+            {foundCartItem?.quantity}
+          </span>
+          <img onClick={handleClick} src={whitePlus} alt='plus' />
         </div>
-      )} */}
+      )}
     </div>
   );
 };

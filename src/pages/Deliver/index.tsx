@@ -46,7 +46,7 @@ const Deliver = () => {
   return (
     <div className='h-[98dvh]'>
       <div className='header bg-white rounded-[12px] p-[12px]'>
-        <Header searchText='' setSearchText={() => {}} />
+        <Header searchText='' />
         <hr className='my-[10px]' />
         <div className='sub-header'>
           <div className='sub-header__content'>

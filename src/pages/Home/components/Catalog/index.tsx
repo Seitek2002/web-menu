@@ -5,8 +5,7 @@ import { useGetProductsQuery } from 'api/Products.api';
 import { IProduct } from 'types/products.types';
 import { useAppSelector } from 'hooks/useAppSelector';
 import CatalogCard from 'components/Cards/Catalog';
-
-import FoodDetail from './FoodDetail';
+import FoodDetail from 'components/FoodDetail';
 
 import nothing from 'assets/images/not-found-products.png';
 
@@ -22,7 +21,9 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
   const [isShow, setIsShow] = useState(false);
   const [activeFood, setActiveFood] = useState<IProduct | null>(null);
   const cart = useAppSelector((state) => state.yourFeature.cart);
-  const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme);
+  const colorTheme = useAppSelector(
+    (state) => state.yourFeature.venue?.colorTheme
+  );
   const navigate = useNavigate();
   const { data: items } = useGetProductsQuery({
     category: selectedCategory || undefined,
@@ -56,6 +57,7 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
             productPrice: 0,
             weight: 0,
             productDescription: '',
+            isRecommended: false,
             modificators: [
               {
                 id: 0,

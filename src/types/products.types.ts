@@ -4,7 +4,7 @@ export interface ICategory {
 }
 
 export interface IFoodCart {
-  id: string;
+  id: string | number;
   productName: string;
   productDescription: string;
   productPrice: number;
@@ -12,7 +12,7 @@ export interface IFoodCart {
   productPhoto: string;
   category: ICategory;
   quantity: number;
-  modificators: IModificator;
+  modificators?: IModificator;
 }
 
 export interface IModificator {
@@ -30,6 +30,7 @@ export interface IProduct {
   productPhoto: string;
   category: ICategory;
   modificators: IModificator[];
+  isRecommended: boolean
 }
 
 export interface IOrderProduct {

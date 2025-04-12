@@ -5,7 +5,7 @@ import { useGetProductsQuery } from 'api/Products.api';
 import { IProduct } from 'types/products.types';
 import CatalogCard from 'components/Cards/Catalog';
 
-import FoodDetail from '../Catalog/FoodDetail';
+import FoodDetail from '../../../../components/FoodDetail';
 
 import nothing from 'assets/images/not-found-products.png';
 

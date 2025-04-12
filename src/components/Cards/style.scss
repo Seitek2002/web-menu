@@ -27,6 +27,10 @@
     @apply font-[500] text-[16px] leading-[17px] line-clamp-2;
   }
 
+  &-count {
+    @apply font-benzin text-[14px];
+  }
+
   &-btn {
     @apply w-full mt-[10px] rounded-[8px] py-[4.5px] px-[16px] flex items-center justify-center font-[500] text-[16px];
 

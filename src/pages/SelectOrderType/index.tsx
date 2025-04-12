@@ -8,7 +8,6 @@ import Header from 'components/Header';
 
 import './style.scss';
 
-// import Tabs from './Tabs';
 import { setVenue } from 'src/store/yourFeatureSlice';
 
 const SelectOrderType = () => {
@@ -31,7 +30,7 @@ const SelectOrderType = () => {
   return (
     <div className='select-order-type'>
       <div className='header bg-white rounded-[12px] p-[12px]'>
-        <Header searchText='' setSearchText={() => {}} />
+        <Header searchText='' />
         <hr className='my-[10px]' />
         <div className='sub-header'>
           <div className='sub-header__content'>

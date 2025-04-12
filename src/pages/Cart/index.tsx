@@ -1,137 +1,44 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { IModificator } from 'types/products.types';
+import { useGetProductsQuery } from 'api/Products.api';
+import { IProduct } from 'types/products.types';
 import { useAppSelector } from 'hooks/useAppSelector';
 import Empty from './components/Empty';
 import BusketDesktop from 'components/BusketDesktop';
 import BusketCard from 'components/Cards/Cart';
+import CatalogCard from 'components/Cards/Catalog';
+import FoodDetail from 'components/FoodDetail';
 
 import clearCartIcon from 'assets/icons/Busket/clear-cart.svg';
 import cookie from 'assets/icons/Busket/cookie.svg';
 import headerArrowIcon from 'assets/icons/Busket/header-arrow.svg';
 import priceArrow from 'assets/icons/Busket/price-arrow.svg';
 
-// import all from 'assets/icons/Order/all.svg';
-// import ava from 'assets/icons/Order/ava.svg';
 import './style.scss';
 
 import { useMask } from '@react-input/mask';
-
-const forgotList: {
-  id: number;
-  productName: string;
-  productPrice: string;
-  productDescription: string | null;
-  productPhoto: string;
-  weight: number;
-  category: {
-    id: number;
-    categoryName: string;
-  };
-  modificators: IModificator[];
-}[] = [
-  {
-    id: 14,
-    productName: 'Borjomi 0.5l',
-    productDescription: null,
-    productPrice: '10.00',
-    weight: 0,
-    productPhoto:
-      'https://joinposter.com/upload/pos_cdb_7631/menu/product_1464609975_1.jpg',
-    category: {
-      id: 9,
-      categoryName: 'Cold drinks',
-    },
-    modificators: [],
-  },
-  {
-    id: 16,
-    productName: 'Capucino 250ml',
-    productDescription: null,
-    productPrice: '3.00',
-    weight: 248,
-    productPhoto:
-      'https://joinposter.com/upload/pos_cdb_7631/menu/product_1464608672_3.jpg',
-    category: {
-      id: 7,
-      categoryName: 'Coffee',
-    },
-    modificators: [],
-  },
-  {
-    id: 17,
-    productName: 'Croissant with chocolate',
-    productDescription: null,
-    productPrice: '4.00',
-    weight: 190,
-    productPhoto:
-      'https://joinposter.com/upload/pos_cdb_7631/menu/product_1464251849_5.jpg',
-    category: {
-      id: 8,
-      categoryName: 'Pastry',
-    },
-    modificators: [],
-  },
-  {
-    id: 20,
-    productName: 'Блины с творогом',
-    productDescription: null,
-    productPrice: '100.00',
-    weight: 0,
-    productPhoto:
-      'https://joinposter.com/upload/pos_cdb_420172/menu/product_1739898117_11.jpeg',
-    category: {
-      id: 10,
-      categoryName: 'Завтраки',
-    },
-    modificators: [],
-  },
-  {
-    id: 21,
-    productName: 'Каша рисовая',
-    productDescription: null,
-    productPrice: '150.00',
-    weight: 0,
-    productPhoto:
-      'https://joinposter.com/upload/pos_cdb_420172/menu/product_1739897994_10.jpeg',
-    category: {
-      id: 10,
-      categoryName: 'Завтраки',
-    },
-    modificators: [],
-  },
-  {
-    id: 22,
-    productName: 'Круассан баварский ',
-    productDescription: null,
-    productPrice: '200.00',
-    weight: 0,
-    productPhoto:
-      'https://joinposter.com/upload/pos_cdb_420172/menu/product_1739898222_12.jpeg',
-    category: {
-      id: 10,
-      categoryName: 'Завтраки',
-    },
-    modificators: [],
-  },
-];
+import { loadUsersDataFromStorage } from 'src/utlis/storageUtils';
 
 const Cart = () => {
+  const userData = loadUsersDataFromStorage();
   const { t, i18n } = useTranslation();
+  const [isShow, setIsShow] = useState(false);
   const cart = useAppSelector((state) => state.yourFeature.cart);
   const colorTheme = useAppSelector(
     (state) => state.yourFeature.venue?.colorTheme
   );
   const venueData = useAppSelector((state) => state.yourFeature.venue);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState(userData.phoneNumber);
+  const [activeFood, setActiveFood] = useState<IProduct | null>(null);
   const [active, setActive] = useState(false);
   // const [serverActive, setServerActive] = useState('');
   const navigate = useNavigate();
-
-  console.log(venueData);
+  const { data: items } = useGetProductsQuery({
+    venueSlug: venueData.companyName,
+  });
 
   const inputRef = useMask({
     mask: '+996 (___) ___-___',
@@ -154,11 +61,6 @@ const Cart = () => {
     VibrationClick();
   };
 
-  // const handleClickServer = (index: string) => {
-  //   setServerActive(index);
-  //   VibrationClick();
-  // };
-
   const solveTotalSum = () => {
     const cartSum =
       cart.reduce((acc, item) => acc + item.productPrice * item.quantity, 0) +
@@ -171,12 +73,25 @@ const Cart = () => {
     //   return totalSum;
     // }
 
-    return cartSum
+    return cartSum;
   };
 
-  const checkDatas = () => {
+  const handleClose = () => {
+    setIsShow(false);
+    document.body.style.height = '';
+    document.body.style.overflow = '';
+  };
+
+  const handleOpen = (food: IProduct) => {
+    setIsShow(true);
+    setActiveFood(food);
+    document.body.style.height = '100dvh';
+    document.body.style.overflow = 'hidden';
+  };
+
+  const handleOrder = () => {
     const orderProducts = cart.map((item) => {
-      if (item.modificators.id) {
+      if (item.modificators?.id) {
         return {
           product: +item.id.split(',')[0],
           count: +item.quantity,
@@ -205,11 +120,38 @@ const Cart = () => {
       acc.serviceMode = 2;
     }
     console.log('приветик :3', acc);
+    navigate('/order')
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <section className='cart'>
-      <button onClick={checkDatas}>Проверка данных</button>
+      <FoodDetail
+        isShow={isShow}
+        setIsShow={handleClose}
+        item={
+          activeFood || {
+            category: { categoryName: '', id: 0 },
+            productName: '',
+            productPhoto: '',
+            productPrice: 0,
+            weight: 0,
+            productDescription: '',
+            isRecommended: false,
+            modificators: [
+              {
+                id: 0,
+                name: '',
+                price: 0,
+              },
+            ],
+            id: 0,
+          }
+        }
+      />
       <header className='cart__header'>
         <img src={headerArrowIcon} alt='' onClick={() => navigate(-1)} />
         <h3>Корзина</h3>
@@ -319,8 +261,7 @@ const Cart = () => {
                       : 'cart__sum-wrapper divide-y'
                   }
                   style={{
-                    height:
-                      active ? '80px' : '0',
+                    height: active ? '80px' : '0',
                   }}
                 >
                   <div className='cart__sum-item text-[#80868B]'>
@@ -398,38 +339,19 @@ const Cart = () => {
           <img src={cookie} alt='cookie' />
         </h4>
         <div className='cart__forgot-wrapper'>
-          {forgotList.slice(0, window.innerWidth < 768 ? 3 : 6).map((item) => (
-            <div className='cart__forgot-cart bg-[#fff]'>
-              <div className='cart__forgot-inner'>
-                {/* <AddItem setDalete={deleteItem} setAdded={added} /> */}
-              </div>
-              <img
-                src={item.productPhoto}
-                className='cart__forgot-img'
-                alt='img'
-              />
-              <div className='cart__forgot-info'>
-                <span
-                  className='cart__forgot-price'
-                  style={{ color: colorTheme }}
-                >
-                  {item.productPrice} с
-                </span>
-                <span className='cart__forgot-weight text-[#ADADAD]'>
-                  • {item.weight} г
-                </span>
-              </div>
-              <p className='cart__forgot-name'>{item.productName}</p>
-            </div>
-          ))}
+          {items
+            ?.filter((item) => item.isRecommended)
+            .map((item) => (
+              <CatalogCard foodDetail={handleOpen} key={item.id} item={item} />
+            ))}
         </div>
       </div>
       {window.innerWidth < 768 && (
         <footer className='cart__footer'>
           <button
-            disabled={!cart.length}
+            disabled={!(cart.length && phoneNumber.length)}
             style={{ backgroundColor: colorTheme }}
-            onClick={() => navigate('/order')}
+            onClick={handleOrder}
           >
             Далее
           </button>

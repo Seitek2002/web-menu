@@ -49,7 +49,7 @@ const BusketCard: FC<IProps> = ({ item }) => {
           <span className='price' style={{ color: colorTheme }}>
             {+item.productPrice}с
           </span>
-          {item.modificators.name && (
+          {item.modificators?.name && (
             <span className='weight'>|{item.modificators.name}</span>
           )}
         </div>

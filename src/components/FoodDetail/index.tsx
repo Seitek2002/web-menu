@@ -5,13 +5,12 @@ import { IModificator, IProduct } from 'types/products.types';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAppSelector } from 'hooks/useAppSelector';
 
-import { addToCart } from '../../../../../store/yourFeatureSlice';
-
 import close from './close.svg';
 import minus from 'assets/icons/Busket/minus.svg';
 import plus from 'assets/icons/Busket/plus.svg';
 
 import { useGesture } from '@use-gesture/react';
+import { addToCart } from 'src/store/yourFeatureSlice';
 
 interface IProps {
   item: IProduct;

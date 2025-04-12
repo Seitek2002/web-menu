@@ -1,6 +1,5 @@
 import { FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
 
 import arrowIcon from 'assets/icons/Header/arrow.svg';
 import logoIcon from 'assets/icons/Header/logo.svg';
@@ -17,13 +16,12 @@ const LANGUAGE_MAP: Record<string, string> = {
 
 interface IProps {
   searchText: string;
-  setSearchText: (text: string) => void;
+  setSearchText?: (text: string) => void;
 }
 
 const Header: FC<IProps> = ({ searchText, setSearchText }) => {
   const { i18n } = useTranslation();
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
-  const { pathname } = useLocation();
 
   const activeLang = useMemo(
     () => LANGUAGE_MAP[i18n.language] || 'RU',
@@ -49,7 +47,7 @@ const Header: FC<IProps> = ({ searchText, setSearchText }) => {
           <span>iMenu.kg</span>
         </div>
 
-        {pathname !== '/' && (
+        {setSearchText && (
           <label htmlFor='search' className='header__search bg-[#F9F9F9]'>
             <img src={search} alt='' />
             <input
