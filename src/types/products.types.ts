@@ -4,7 +4,7 @@ export interface ICategory {
 }
 
 export interface IFoodCart {
-  id: string | number;
+  id: string;
   productName: string;
   productDescription: string;
   productPrice: number;

@@ -53,6 +53,7 @@ const Search: FC<IProps> = ({ onSearchChange, searchText, setSearchText }) => {
             productPrice: 0,
             weight: 0,
             productDescription: '',
+            isRecommended: false,
             modificators: [
               {
                 id: 0,
