@@ -75,7 +75,7 @@ const yourFeatureSlice = createSlice({
       saveCartToStorage(state.cart)
     },
     incrementFromCart: (state, action) => {
-      const foundItem = state.cart.find((item) => item.id === action.payload.id);
+      const foundItem = state.cart.find((item) => item.id == action.payload.id);
       if (foundItem) {
         if (foundItem.quantity > 1) {
           foundItem.quantity -= 1;
