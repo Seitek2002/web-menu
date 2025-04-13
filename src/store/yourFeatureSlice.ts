@@ -80,7 +80,7 @@ const yourFeatureSlice = createSlice({
         if (foundItem.quantity > 1) {
           foundItem.quantity -= 1;
         } else {
-          state.cart = state.cart.filter((item) => item.id !== action.payload.id);
+          state.cart = state.cart.filter((item) => item.id != action.payload.id);
         }
       }
       saveCartToStorage(state.cart);

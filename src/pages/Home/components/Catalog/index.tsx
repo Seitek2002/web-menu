@@ -21,6 +21,7 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
   const [isShow, setIsShow] = useState(false);
   const [activeFood, setActiveFood] = useState<IProduct | null>(null);
   const cart = useAppSelector((state) => state.yourFeature.cart);
+  const venueData = useAppSelector(state => state.yourFeature.venue);
   const colorTheme = useAppSelector(
     (state) => state.yourFeature.venue?.colorTheme
   );
@@ -42,6 +43,14 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
     setActiveFood(food);
     document.body.style.height = '100dvh';
     document.body.style.overflow = 'hidden';
+  };
+
+  const solveTotalSum = () => {
+    const subtotal =
+      cart.reduce((acc, item) => acc + item.productPrice * item.quantity, 0);
+    const cartSum = subtotal + subtotal * (venueData.serviceFeePercent / 100);
+
+    return cartSum;
   };
 
   return (
@@ -83,7 +92,8 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
                 onClick={() => navigate('/cart')}
                 style={{ backgroundColor: colorTheme }}
               >
-                Далее
+                Заказать
+                <span className='font-light absolute right-[30px]'>{solveTotalSum()} ⃀</span>
               </button>
             </div>
           )}

@@ -51,7 +51,7 @@ const CatalogCard: FC<IProps> = ({ item, foodDetail }) => {
   };
 
   const foundCartItem = cart.find(
-    (cartItem) => cartItem.productName === item.productName
+    (cartItem) => +cartItem.id.split(',')[0] == item.id
   );
 
   return (
@@ -70,11 +70,21 @@ const CatalogCard: FC<IProps> = ({ item, foodDetail }) => {
           onClick={openFoodDetail}
         />
       </div>
-      <div className='cart-info'>
-        <span className='cart-price' style={{ color: colorTheme }}>
-          {+item.productPrice} с
-        </span>
-      </div>
+      {
+        item.modificators.length ? (
+          <div className='cart-info'>
+            <span className='cart-price' style={{ color: colorTheme }}>
+              от {+item.modificators[0].price} с
+            </span>
+          </div>
+        ) : (
+          <div className='cart-info'>
+            <span className='cart-price' style={{ color: colorTheme }}>
+              {+item.productPrice} с
+            </span>
+          </div>
+        )
+      }
       <h4 className='cart-name'>{item.productName}</h4>
       {!foundCartItem && (
         <button
@@ -88,11 +98,10 @@ const CatalogCard: FC<IProps> = ({ item, foodDetail }) => {
         foundCartItem.modificators &&
         foundCartItem.modificators.name && (
           <button
-            className='cart-btn text-[#fff]'
-            style={{ backgroundColor: colorTheme }}
+            className='cart-btn bg-[#F1F2F3] text-[#000]'
             onClick={handleClick}
           >
-            Добавлено
+            Добавить
           </button>
         )}
       {foundCartItem && !foundCartItem?.modificators?.name && (
