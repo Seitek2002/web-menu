@@ -10,6 +10,7 @@ export interface IUsersData {
   address?: string;
   comment?: string;
   name?: string;
+  type?: string;
 }
 
 interface YourFeatureState {

@@ -2,8 +2,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
+import { usePostOrdersMutation } from 'api/Orders.api';
 import { useGetProductsQuery } from 'api/Products.api';
 import { IProduct } from 'types/products.types';
+import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAppSelector } from 'hooks/useAppSelector';
 import Empty from './components/Empty';
 import BusketDesktop from 'components/BusketDesktop';
@@ -19,9 +21,12 @@ import priceArrow from 'assets/icons/Busket/price-arrow.svg';
 import './style.scss';
 
 import { useMask } from '@react-input/mask';
+import { setUsersData } from 'src/store/yourFeatureSlice';
 import { loadUsersDataFromStorage } from 'src/utlis/storageUtils';
 
 const Cart = () => {
+  const dispatch = useAppDispatch();
+  const [postOrder] = usePostOrdersMutation();
   const userData = loadUsersDataFromStorage();
   const { t, i18n } = useTranslation();
   const [isShow, setIsShow] = useState(false);
@@ -31,7 +36,8 @@ const Cart = () => {
   );
   const venueData = useAppSelector((state) => state.yourFeature.venue);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [phoneNumber, setPhoneNumber] = useState(userData.phoneNumber);
+  const [phoneNumber, setPhoneNumber] = useState(userData.phoneNumber || '');
+  const [comment, setComment] = useState(userData.comment || '');
   const [activeFood, setActiveFood] = useState<IProduct | null>(null);
   const [active, setActive] = useState(false);
   // const [serverActive, setServerActive] = useState('');
@@ -62,16 +68,9 @@ const Cart = () => {
   };
 
   const solveTotalSum = () => {
-    const cartSum =
-      cart.reduce((acc, item) => acc + item.productPrice * item.quantity, 0) +
-      150;
-    // if (serverActive.includes('%')) {
-    //   const totalSum = cartSum * (+serverActive.replace(' %', '') / 100);
-    //   return totalSum + cartSum;
-    // } else {
-    //   const totalSum = cartSum + +serverActive.replace(' c', '');
-    //   return totalSum;
-    // }
+    const subtotal =
+      cart.reduce((acc, item) => acc + item.productPrice * item.quantity, 0);
+    const cartSum = subtotal + subtotal * (venueData.serviceFeePercent / 100);
 
     return cartSum;
   };
@@ -89,7 +88,7 @@ const Cart = () => {
     document.body.style.overflow = 'hidden';
   };
 
-  const handleOrder = () => {
+  const handleOrder = async () => {
     const orderProducts = cart.map((item) => {
       if (item.modificators?.id) {
         return {
@@ -112,15 +111,20 @@ const Cart = () => {
         .replace(' ', '')
         .replace(' ', ''),
       orderProducts,
-      serviceMode: 0,
+      comment,
+      serviceMode: 1,
     };
-    if (activeIndex) {
-      acc.serviceMode = 1;
-    } else {
+
+    if (userData.type === 'Доставка') {
+      acc.serviceMode = 3;
+    } else if (userData.type === 'На вынос') {
       acc.serviceMode = 2;
     }
-    console.log('приветик :3', acc);
-    navigate('/order')
+
+    dispatch(setUsersData({ phone: phoneNumber }));
+    const res = await postOrder(acc);
+    console.log(res);
+    // navigate('/order')
   };
 
   useEffect(() => {
@@ -238,6 +242,8 @@ const Cart = () => {
                 <input
                   type='text'
                   placeholder='Напишите время заказа или коментарий'
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value.trim())}
                 />
               </div>
               <div className='cart__sum bg-[#fff]'>
@@ -281,7 +287,9 @@ const Cart = () => {
                   </div> */}
                   <div className='cart__sum-item text-[#80868B]'>
                     Обслуживание
-                    <div className='cart__sum-total service'>150 с</div>
+                    <div className='cart__sum-total service'>
+                      {venueData.serviceFeePercent}%
+                    </div>
                   </div>
                 </div>
                 <div className='cart__sum-ress border-[#f3f3f3]'>

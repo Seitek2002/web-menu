@@ -10,6 +10,7 @@ export interface IVenues {
   slug: string;
   logo: string;
   schedule: string;
+  serviceFeePercent: number;
   table: {
     id: number;
     tableNum: string;

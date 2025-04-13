@@ -5,14 +5,11 @@ export interface IOrderProduct {
 }
 
 export interface IOrder {
-  id: number;
   phone: string;
-  comment: string;
-  serviceMode: number;
-  status: number;
-  servicePrice: string;
-  tipsPrice: string;
-  createdAt: string;
+  comment?: string;
+  serviceMode?: number;
+  servicePrice?: string;
+  tipsPrice?: string;
   orderProducts: IOrderProduct[];
 }
 

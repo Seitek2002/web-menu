@@ -34,6 +34,7 @@ const CatalogCard: FC<IProps> = ({ item, foodDetail }) => {
     } else {
       const newItem = {
         ...item,
+        id: item.id + '',
         modificators: undefined,
         quantity: 1,
       };

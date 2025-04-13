@@ -16,7 +16,7 @@ const SubHeader = () => {
   const dispatch = useDispatch();
   const { data } = useGetVenueQuery({
     venueSlug: venue || '',
-    tableId: id || undefined,
+    tableId: id - 0 || undefined,
   });
 
   useEffect(() => {

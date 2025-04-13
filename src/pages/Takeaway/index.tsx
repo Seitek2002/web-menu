@@ -1,19 +1,27 @@
 import { useNavigate } from 'react-router-dom';
 
 import { ISpot } from 'types/venues.types';
+import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAppSelector } from 'hooks/useAppSelector';
 import Header from 'components/Header';
 
 import geoIcon from 'assets/icons/Order/geo.svg';
 
+import { setUsersData } from 'src/store/yourFeatureSlice';
+
 const Takeaway = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.yourFeature.venue);
   const colorTheme = useAppSelector(
     (state) => state.yourFeature.venue?.colorTheme
   );
 
   const handleClick = (spot: ISpot) => {
+    dispatch(setUsersData({
+      type: 'На вынос',
+    }));
+
     navigate(`/I/${data.companyName}/${spot.id}/s`);
   };
 
