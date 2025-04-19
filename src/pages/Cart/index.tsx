@@ -124,7 +124,6 @@ const Cart = () => {
     dispatch(setUsersData({ phone: phoneNumber }));
     const res = await postOrder(acc);
     console.log(res);
-    // navigate('/order')
   };
 
   useEffect(() => {

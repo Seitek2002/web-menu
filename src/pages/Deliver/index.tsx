@@ -14,7 +14,7 @@ const Deliver = () => {
   const dispatch = useAppDispatch();
   const params = useParams();
   const userData = loadUsersDataFromStorage();
-  const [phoneNumber, setPhoneNumber] = useState(userData.phoneNumber);
+  const [phoneNumber, setPhoneNumber] = useState(userData.phoneNumber || '');
   const [address, setAddress] = useState(userData.address || '');
   const [comment, setComment] = useState(userData.comment);
   const data = useAppSelector((state) => state.yourFeature.venue);

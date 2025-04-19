@@ -9,7 +9,8 @@ import { useGetVenueQuery } from 'api/Venue.api';
 // import logo from 'assets/images/SubHeader/logo.png';
 import './style.scss';
 
-import { setVenue } from 'src/store/yourFeatureSlice';
+import { clearCart, setVenue } from 'src/store/yourFeatureSlice';
+import { loadVenueFromStorage } from 'src/utlis/storageUtils';
 
 const SubHeader = () => {
   const { venue, id } = useParams();
@@ -22,6 +23,14 @@ const SubHeader = () => {
   useEffect(() => {
     if (data) dispatch(setVenue(data));
   }, [data, dispatch]);
+
+  useEffect(() => {
+    const loadedVenue = loadVenueFromStorage();
+
+    if(loadedVenue.companyName !== venue) {
+      dispatch(clearCart());
+    }
+  }, [])
 
   return (
     <div className='sub-header'>

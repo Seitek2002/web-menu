@@ -17,11 +17,13 @@ export const Orders = createApi({
       },
     }),
     postOrders: builder.mutation<void, IOrder>({
-      query: (newOrder) => ({
-        url: 'orders',
-        method: 'POST',
-        body: newOrder,
-      }),
+      query: (newOrder) => {
+        return {
+          url: 'orders/',
+          method: 'POST',
+          body: newOrder,
+        };
+      },
     }),
   }),
 });
