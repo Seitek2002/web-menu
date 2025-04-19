@@ -87,7 +87,7 @@
     @apply my-[20px];
 
     &-wrapper {
-      @apply flex items-start gap-[8px] mt-[12px];
+      @apply grid grid-cols-3 gap-[8px] mt-[12px] md:grid-cols-4;
     }
 
     &-cart {
