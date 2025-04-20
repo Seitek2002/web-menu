@@ -16,7 +16,7 @@ export const Orders = createApi({
         return `orders/?${params.toString()}`;
       },
     }),
-    postOrders: builder.mutation<void, IOrder>({
+    postOrders: builder.mutation<{ paymentUrl: string }, IOrder>({
       query: (newOrder) => {
         return {
           url: 'orders/',

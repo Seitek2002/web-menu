@@ -113,6 +113,7 @@ const Cart = () => {
       orderProducts,
       comment,
       serviceMode: 1,
+      venue_slug: venueData.companyName
     };
 
     if (userData.type === 'Доставка') {
@@ -121,9 +122,10 @@ const Cart = () => {
       acc.serviceMode = 2;
     }
 
-    dispatch(setUsersData({ phone: phoneNumber }));
-    const res = await postOrder(acc);
+    dispatch(setUsersData({ phoneNumber: phoneNumber }));
+    const { data: res } = await postOrder(acc);
     console.log(res);
+    window.open(res?.paymentUrl, '_blank');
   };
 
   useEffect(() => {

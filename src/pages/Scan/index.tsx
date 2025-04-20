@@ -42,6 +42,7 @@ const Scan: FC = () => {
     (data: IDetectedBarcode[]) => {
       if (!data.length) return;
       const route = data[0].rawValue.split('/').slice(3).join('/');
+      console.log(route.split('/').filter(item => item));
       localStorage.setItem('currentUrl', route);
       navigate(`/I/${route}`);
     },
