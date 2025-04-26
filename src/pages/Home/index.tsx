@@ -1,30 +1,27 @@
 import { useRef, useState } from 'react';
 
-import { useAppDispatch } from 'hooks/useAppDispatch';
 import Catalog from './components/Catalog';
 import Categories from './components/Categories';
 import Search from './components/Search';
 import BusketDesktop from 'components/BusketDesktop';
+import ClearCartModal from 'components/ClearCartModal';
 import Header from 'components/Header';
 import Hero from 'components/Hero';
 import SupHeader from 'components/SubHeader';
 
 import clearCartIcon from 'assets/icons/Busket/clear-cart.svg';
 
-import { clearCart } from 'src/store/yourFeatureSlice';
-
 const Home = () => {
   const [searchText, setSearchText] = useState('');
+  const [active, setActive] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>(
     undefined
   );
   const catalogRef = useRef<HTMLDivElement>(null);
-
-  const dispatch = useAppDispatch();
   const [search, onSearch] = useState(false);
 
   const clearCartHandler = () => {
-    dispatch(clearCart());
+    setActive(!active);
   };
 
   const onSearchChange = (bool: boolean) => {
@@ -40,6 +37,7 @@ const Home = () => {
 
   return (
     <>
+      <ClearCartModal isShow={active} setActive={setActive} />
       <div className='bg-white rounded-[12px] p-[12px]'>
         <Header searchText={searchText} setSearchText={setSearchText} />
         <hr className='my-[10px]' />

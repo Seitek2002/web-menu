@@ -11,6 +11,7 @@ import Empty from './components/Empty';
 import BusketDesktop from 'components/BusketDesktop';
 import BusketCard from 'components/Cards/Cart';
 import CatalogCard from 'components/Cards/Catalog';
+import ClearCartModal from 'components/ClearCartModal';
 import FoodDetail from 'components/FoodDetail';
 
 import clearCartIcon from 'assets/icons/Busket/clear-cart.svg';
@@ -40,6 +41,7 @@ const Cart = () => {
   const [comment, setComment] = useState(userData.comment || '');
   const [activeFood, setActiveFood] = useState<IProduct | null>(null);
   const [active, setActive] = useState(false);
+  const [clearCartModal, setClearCartModal] = useState(false);
   // const [serverActive, setServerActive] = useState('');
   const navigate = useNavigate();
   const { data: items } = useGetProductsQuery({
@@ -157,10 +159,11 @@ const Cart = () => {
           }
         }
       />
+      <ClearCartModal isShow={clearCartModal} setActive={setClearCartModal} />
       <header className='cart__header'>
         <img src={headerArrowIcon} alt='' onClick={() => navigate(-1)} />
         <h3>Корзина</h3>
-        <img src={clearCartIcon} alt='' />
+        <img src={clearCartIcon} alt='' onClick={() => setClearCartModal(true)} />
       </header>
       {window.innerWidth < 768 && (
         <>
@@ -175,7 +178,7 @@ const Cart = () => {
                 ))}
               </>
             ) : (
-              <Empty />
+              <div></div>
             )}
           </div>
         </>
