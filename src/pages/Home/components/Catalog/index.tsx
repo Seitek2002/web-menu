@@ -93,7 +93,7 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
                 style={{ backgroundColor: colorTheme }}
               >
                 Заказать
-                <span className='font-light absolute right-[30px]'>{solveTotalSum()} ⃀</span>
+                <span className='font-light absolute right-[30px]'>{solveTotalSum()} с</span>
               </button>
             </div>
           )}
