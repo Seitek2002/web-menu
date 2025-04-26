@@ -5,7 +5,7 @@ import BusketCard from 'components/Cards/Cart';
 
 import './style.scss';
 
-const BusketDesktop = ({ to, createOrder, disabled }: { createOrder: () => void, to: string, disabled?: boolean }) => {
+const BusketDesktop = ({ to, createOrder, disabled }: { createOrder?: () => void, to: string, disabled?: boolean }) => {
   const navigate = useNavigate();
   const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme);
   const venueData = useAppSelector(state => state.yourFeature.venue);
@@ -14,7 +14,7 @@ const BusketDesktop = ({ to, createOrder, disabled }: { createOrder: () => void,
 
   const handleClick = () => {
     if(location.pathname === '/cart') {
-      createOrder()
+      if(createOrder) createOrder()
     } else {
       navigate(to)
     }
