@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { IOrder } from 'src/types/orders.types';
+import { IOrder, IOrderById } from 'src/types/orders.types';
 
 export const Orders = createApi({
   reducerPath: 'ordersApi',
@@ -25,7 +25,12 @@ export const Orders = createApi({
         };
       },
     }),
+    getOrdersById: builder.query<IOrderById, { id: number }>({
+      query: ({ id }) => {
+        return `orders/${id}/`;
+      },
+    })
   }),
 });
 
-export const { useGetOrdersQuery, usePostOrdersMutation } = Orders;
+export const { useGetOrdersQuery, usePostOrdersMutation, useGetOrdersByIdQuery } = Orders;

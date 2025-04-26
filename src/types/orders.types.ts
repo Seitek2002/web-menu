@@ -13,6 +13,16 @@ export interface IOrder {
   orderProducts: IOrderProduct[];
 }
 
+export interface IOrderById {
+  phone: string;
+  comment?: string;
+  status: number,
+  serviceMode?: number;
+  servicePrice?: string;
+  tipsPrice?: string;
+  orderProducts: IOrderProduct[];
+}
+
 // orderProducts: [
 //   {
 //     product: 10;

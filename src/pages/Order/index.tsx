@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { useGetOrdersByIdQuery } from 'api/Orders.api';
 import { useAppSelector } from 'hooks/useAppSelector';
 import Item from './components/Item';
 import shawarma from 'assets/images/Catalog/item-1.webp';
@@ -73,10 +75,15 @@ const allOrders: Order[] = [
 const Order = () => {
   const navigate = useNavigate();
   const params = useParams();
+  const { data } = useGetOrdersByIdQuery({ id: Number(params.id) });
   const venueData = useAppSelector((state) => state.yourFeature.venue);
   const colorTheme = useAppSelector(
     (state) => state.yourFeature.venue?.colorTheme
   );
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   return (
     <div className='order'>
@@ -152,11 +159,9 @@ const Order = () => {
                   </clipPath>
                 </defs>
               </svg>
-              {
-                venueData?.table?.tableNum && (
-                  <span style={{ color: colorTheme }}>Стол №12</span>
-                )
-              }
+              {venueData?.table?.tableNum && (
+                <span style={{ color: colorTheme }}>Стол №12</span>
+              )}
             </div>
             <img src={share} alt='' className='share' />
           </div>
