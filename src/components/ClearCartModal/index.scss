@@ -1,5 +1,5 @@
 .clear-cart-modal {
-    @apply w-[75%] h-[25%];
+    @apply w-[75%] h-[25%] md:w-[25%];
     position: fixed;
     top: -100%;
     left: 50%;
