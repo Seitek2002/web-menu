@@ -36,13 +36,17 @@ const Cart = () => {
     (state) => state.yourFeature.venue?.colorTheme
   );
   const venueData = useAppSelector((state) => state.yourFeature.venue);
+
   const [activeIndex, setActiveIndex] = useState(0);
+
   const [phoneNumber, setPhoneNumber] = useState(userData.phoneNumber || '');
   const [comment, setComment] = useState(userData.comment || '');
+  const [address, setAddress] = useState(userData.address || '');
+
   const [activeFood, setActiveFood] = useState<IProduct | null>(null);
   const [active, setActive] = useState(false);
   const [clearCartModal, setClearCartModal] = useState(false);
-  // const [serverActive, setServerActive] = useState('');
+
   const navigate = useNavigate();
   const { data: items } = useGetProductsQuery({
     venueSlug: venueData.companyName,
@@ -54,7 +58,7 @@ const Cart = () => {
   });
 
   const list = useMemo(
-    () => [t('busket.where.takeaway'), t('busket.where.dinein')],
+    () => [t('busket.where.takeaway'), t('busket.where.dinein'), 'Доставка'],
     [i18n.language]
   );
 
@@ -70,8 +74,10 @@ const Cart = () => {
   };
 
   const solveTotalSum = () => {
-    const subtotal =
-      cart.reduce((acc, item) => acc + item.productPrice * item.quantity, 0);
+    const subtotal = cart.reduce(
+      (acc, item) => acc + item.productPrice * item.quantity,
+      0
+    );
     const cartSum = subtotal + subtotal * (venueData.serviceFeePercent / 100);
 
     return cartSum;
@@ -90,6 +96,9 @@ const Cart = () => {
     document.body.style.overflow = 'hidden';
   };
 
+  const isButtonDisabled =
+    !phoneNumber.trim() || (activeIndex === 2 && !address.trim());
+
   const handleOrder = async () => {
     const orderProducts = cart.map((item) => {
       if (item.modificators?.id) {
@@ -105,7 +114,9 @@ const Cart = () => {
         };
       }
     });
-    const acc = {
+
+    const userType = list[activeIndex];
+    const acc: any = {
       phone: phoneNumber
         .replace('-', '')
         .replace('(', '')
@@ -115,19 +126,29 @@ const Cart = () => {
       orderProducts,
       comment,
       serviceMode: 1,
-      venue_slug: venueData.companyName
+      venue_slug: venueData.companyName,
     };
 
-    if (userData.type === 'Доставка') {
+    if (userType === 'Доставка') {
       acc.serviceMode = 3;
-    } else if (userData.type === 'На вынос') {
+      acc.address = address;
+    } else if (userType === t('busket.where.takeaway')) {
       acc.serviceMode = 2;
     }
 
-    dispatch(setUsersData({ phoneNumber: phoneNumber }));
+    dispatch(
+      setUsersData({
+        phoneNumber,
+        address,
+        comment,
+        type: userType,
+      })
+    );
+
     const { data: res } = await postOrder(acc);
-    console.log(res);
-    window.open(res?.paymentUrl, '_blank');
+    if (res?.paymentUrl) {
+      window.location.href = res.paymentUrl;
+    }
   };
 
   useEffect(() => {
@@ -161,9 +182,18 @@ const Cart = () => {
       />
       <ClearCartModal isShow={clearCartModal} setActive={setClearCartModal} />
       <header className='cart__header'>
-        <img src={headerArrowIcon} alt='' onClick={() => navigate(-1)} />
+        <img
+          src={headerArrowIcon}
+          alt=''
+          onClick={() => navigate(-1)}
+          className='cursor-pointer'
+        />
         <h3>Корзина</h3>
-        <img src={clearCartIcon} alt='' onClick={() => setClearCartModal(true)} />
+        <img
+          src={clearCartIcon}
+          alt=''
+          onClick={() => setClearCartModal(true)}
+        />
       </header>
       {window.innerWidth < 768 && (
         <>
@@ -194,7 +224,7 @@ const Cart = () => {
                     onClick={() => {
                       handleClick(index);
                     }}
-                    className={`cart__order-type-wrapper bg-[#fff] border-[#e1e2e5] ${
+                    className={`cart__order-type-wrapper bg-[#fff] border-[#e1e2e5] cursor-pointer ${
                       activeIndex === index ? `active` : ''
                     }`}
                     style={{
@@ -245,10 +275,19 @@ const Cart = () => {
                 />
                 <input
                   type='text'
-                  placeholder='Напишите время заказа или коментарий'
+                  placeholder='Напишите время заказа или комментарий'
                   value={comment}
                   onChange={(e) => setComment(e.target.value.trim())}
                 />
+                {/* Показываем инпут адреса, если выбрана "Доставка" (index = 2) */}
+                {activeIndex === 2 && (
+                  <input
+                    type='text'
+                    placeholder='Напишите адрес доставки'
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                  />
+                )}
               </div>
               <div className='cart__sum bg-[#fff]'>
                 <div
@@ -281,14 +320,9 @@ const Cart = () => {
                         (acc, item) => acc + item.productPrice * item.quantity,
                         0
                       )}{' '}
-                      с
+                      c
                     </div>
                   </div>
-
-                  {/* <div className='cart__sum-item text-[#80868B]'>
-                    Бонусы
-                    <div className='cart__sum-total bonus text-[#11af22]'>+99 б</div>
-                  </div> */}
                   <div className='cart__sum-item text-[#80868B]'>
                     Обслуживание
                     <div className='cart__sum-total service'>
@@ -297,41 +331,9 @@ const Cart = () => {
                   </div>
                 </div>
                 <div className='cart__sum-ress border-[#f3f3f3]'>
-                  Итоговая сумма <span>{solveTotalSum()} с</span>
+                  Итоговая сумма <span>{solveTotalSum()} c</span>
                 </div>
               </div>
-              {/* <div className='cart__server bg-[#fff]'>
-                <h3 className='cart__server-title'>{t('busket.tips')}</h3>
-                <div className='cart__server-info'>
-                  <div className='cart__server-ava'>
-                    <img src={ava} alt='' />
-                  </div>
-                  <div className='cart__server-inner'>
-                    <span className='cart__server-job text-[#626576]'>
-                      {t('busket.job')}
-                    </span>
-                    <span className='cart__server-name'>Имнакулов Дамир</span>
-                  </div>
-                </div>
-                <div className='cart__server-wrapper'>
-                  {['', '50 c', '100 c', '15 %', '20 %'].map((item, index) => (
-                    <div
-                      key={index}
-                      onClick={() => handleClickServer(item)}
-                      className={`cart__server-item ${
-                        serverActive === item ? 'active' : 'bg-[#F9F9F9]'
-                      }`}
-                      style={
-                        serverActive === item
-                          ? { backgroundColor: colorTheme, color: '#fff' }
-                          : {}
-                      }
-                    >
-                      {item ? item : <img src={all} alt='' />}
-                    </div>
-                  ))}
-                </div>
-              </div> */}
             </>
           ) : (
             <div className=''>
@@ -341,7 +343,12 @@ const Cart = () => {
         </div>
         {window.innerWidth >= 768 && (
           <div className='busket flex-1'>
-            <BusketDesktop to='/order' />
+            {/* Передаём флаг disabled для десктопной кнопки */}
+            <BusketDesktop
+              to='/order'
+              createOrder={handleOrder}
+              disabled={isButtonDisabled || !cart.length}
+            />
           </div>
         )}
       </div>
@@ -360,8 +367,10 @@ const Cart = () => {
       </div>
       {window.innerWidth < 768 && (
         <footer className='cart__footer'>
+          {/* Аналогично, отключаем кнопку при пустом номере 
+              или если выбран «Доставка» и пустой адрес */}
           <button
-            disabled={!(cart.length && phoneNumber.length)}
+            disabled={!cart.length || isButtonDisabled}
             style={{ backgroundColor: colorTheme }}
             onClick={handleOrder}
           >

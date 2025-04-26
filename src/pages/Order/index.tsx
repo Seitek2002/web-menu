@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { useAppSelector } from 'hooks/useAppSelector';
 import Item from './components/Item';
@@ -72,6 +72,7 @@ const allOrders: Order[] = [
 
 const Order = () => {
   const navigate = useNavigate();
+  const params = useParams();
   const venueData = useAppSelector((state) => state.yourFeature.venue);
   const colorTheme = useAppSelector(
     (state) => state.yourFeature.venue?.colorTheme

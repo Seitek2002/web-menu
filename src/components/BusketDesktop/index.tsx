@@ -1,15 +1,24 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useAppSelector } from 'hooks/useAppSelector';
 import BusketCard from 'components/Cards/Cart';
 
 import './style.scss';
 
-const BusketDesktop = ({ to }: { to: string }) => {
+const BusketDesktop = ({ to, createOrder, disabled }: { createOrder: () => void, to: string, disabled?: boolean }) => {
   const navigate = useNavigate();
   const colorTheme = useAppSelector(state => state.yourFeature.venue?.colorTheme);
   const venueData = useAppSelector(state => state.yourFeature.venue);
   const cart = useAppSelector((state) => state.yourFeature.cart);
+  const location = useLocation();
+
+  const handleClick = () => {
+    if(location.pathname === '/cart') {
+      createOrder()
+    } else {
+      navigate(to)
+    }
+  }
 
   return (
     <div className='busket__content'>
@@ -23,7 +32,7 @@ const BusketDesktop = ({ to }: { to: string }) => {
           {cart.map((item) => (
             <BusketCard key={item.id} item={item} />
           ))}
-          <button style={{ backgroundColor: colorTheme }} onClick={() => navigate(to)}>Далее</button>
+          <button style={{ backgroundColor: colorTheme }} onClick={handleClick} disabled={disabled}>Далее</button>
         </>
       ) : (
         <div className='busket__empty text-center'>
