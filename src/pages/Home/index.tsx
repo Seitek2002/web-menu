@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import Catalog from './components/Catalog';
 import Categories from './components/Categories';
@@ -13,6 +14,7 @@ import clearCartIcon from 'assets/icons/Busket/clear-cart.svg';
 
 const Home = () => {
   const [searchText, setSearchText] = useState('');
+  const location = useLocation();
   const [active, setActive] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>(
     undefined
@@ -34,6 +36,10 @@ const Home = () => {
     setSelectedCategory(categoryId);
     catalogRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    localStorage.setItem('mainPage', location.pathname);
+  }, [])
 
   return (
     <>

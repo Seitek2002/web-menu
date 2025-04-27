@@ -22,7 +22,7 @@ import priceArrow from 'assets/icons/Busket/price-arrow.svg';
 import './style.scss';
 
 import { useMask } from '@react-input/mask';
-import { setUsersData } from 'src/store/yourFeatureSlice';
+import { clearCart, setUsersData } from 'src/store/yourFeatureSlice';
 import { loadUsersDataFromStorage } from 'src/utlis/storageUtils';
 
 const Cart = () => {
@@ -58,7 +58,18 @@ const Cart = () => {
   });
 
   const list = useMemo(
-    () => [t('busket.where.takeaway'), t('busket.where.dinein'), 'Доставка'],
+    () => [{
+      text: t('busket.where.takeaway'),
+      value: 2,
+    }, 
+    {
+      text: t('busket.where.dinein'),
+      value: 1
+    },
+    {
+      text: 'Доставка',
+      value: 3
+    }],
     [i18n.language]
   );
 
@@ -129,11 +140,11 @@ const Cart = () => {
       venue_slug: venueData.companyName,
     };
 
-    if (userType === 'Доставка') {
-      acc.serviceMode = 3;
+    if (userType.text === 'Доставка') {
+      acc.serviceMode = userType.value;
       acc.address = address;
-    } else if (userType === t('busket.where.takeaway')) {
-      acc.serviceMode = 2;
+    } else {
+      acc.serviceMode = userType.value;
     }
 
     dispatch(
@@ -141,12 +152,13 @@ const Cart = () => {
         phoneNumber,
         address,
         comment,
-        type: userType,
+        type: userType.text,
       })
     );
 
     const { data: res } = await postOrder(acc);
     if (res?.paymentUrl) {
+      dispatch(clearCart());
       window.location.href = res.paymentUrl;
     }
   };
@@ -255,7 +267,7 @@ const Cart = () => {
                     ) : (
                       <div className='cart__order-type-checkbox border-[#e1e2e5]'></div>
                     )}
-                    {item}
+                    {item.text}
                   </div>
                 ))}
               </div>

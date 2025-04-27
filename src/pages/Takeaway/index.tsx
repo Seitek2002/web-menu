@@ -8,6 +8,7 @@ import Header from 'components/Header';
 import geoIcon from 'assets/icons/Order/geo.svg';
 
 import { setUsersData } from 'src/store/yourFeatureSlice';
+import { loadUsersDataFromStorage } from 'src/utlis/storageUtils';
 
 const Takeaway = () => {
   const navigate = useNavigate();
@@ -18,10 +19,8 @@ const Takeaway = () => {
   );
 
   const handleClick = (spot: ISpot) => {
-    dispatch(setUsersData({
-      type: 'На вынос',
-    }));
-
+    const res = loadUsersDataFromStorage();
+    dispatch(setUsersData({ ...res, type: 'На вынос' }));
     navigate(`/I/${data.companyName}/${spot.id}/s`);
   };
 

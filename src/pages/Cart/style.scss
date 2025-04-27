@@ -37,7 +37,7 @@
     @apply flex items-center justify-between gap-[8px] mt-[20px];
 
     &-wrapper {
-      @apply flex items-center gap-[16px] py-[19px] px-[16px] w-[50%] rounded-[8px] text-[12px];
+      @apply flex items-center gap-[16px] py-[19px] px-[16px] w-[50%] rounded-[8px] text-[10px] md:text-[12px];
       border: 1px solid;
     }
 

@@ -14,6 +14,7 @@ export interface IOrder {
 }
 
 export interface IOrderById {
+  id: number;
   phone: string;
   comment?: string;
   status: number,

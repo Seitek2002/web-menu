@@ -33,4 +33,4 @@ export const Orders = createApi({
   }),
 });
 
-export const { useGetOrdersQuery, usePostOrdersMutation, useGetOrdersByIdQuery } = Orders;
+export const { useGetOrdersQuery, usePostOrdersMutation, useGetOrdersByIdQuery, useLazyGetOrdersByIdQuery } = Orders;
