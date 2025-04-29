@@ -19,7 +19,11 @@ export interface IReqCreateOrder {
   tipsPrice?: number;
   spot?: number;
   table?: number;
-  orderProducts: IOrderProduct[];
+  orderProducts: {
+    product: number;
+    count: number;
+    modificator?: number;
+  }[];
 }
 
 export interface IOrder {

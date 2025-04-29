@@ -115,27 +115,17 @@ const Cart = () => {
     !phoneNumber.trim() || (activeIndex === 2 && !address.trim());
 
   const handleOrder = async () => {
-    setIsLoading(true);
+    setIsLoading(true)
     const orderProducts = cart.map((item) => {
       if (item.modificators?.id) {
         return {
-          product: {
-            id: +item.id.split(',')[0],
-            productName: item.productName,
-            productPhoto: item.productPhoto,
-            weight: item.weight,
-          },
+          product: +item.id.split(',')[0],
           count: +item.quantity,
           modificator: item.modificators.id,
         };
       } else {
         return {
-          product: {
-            id: +item.id.split(',')[0],
-            productName: item.productName,
-            productPhoto: item.productPhoto,
-            weight: item.weight,
-          },
+          product: +item.id.split(',')[0],
           count: +item.quantity,
         };
       }
@@ -154,11 +144,11 @@ const Cart = () => {
       comment,
       serviceMode: 1,
       venue_slug: venueData.companyName,
-      address: '',
+      address: ''
     };
 
-    if (venueData?.table?.tableNum) {
-      acc.serviceMode = 1;
+    if(venueData?.table?.tableNum) {
+      acc.serviceMode = 1
     } else {
       if (userType.text === 'Доставка') {
         acc.serviceMode = userType.value;
@@ -171,12 +161,12 @@ const Cart = () => {
     dispatch(
       setUsersData({
         phoneNumber: phoneNumber
-          .replace('-', '')
-          .replace('(', '')
-          .replace(')', '')
-          .replace(' ', '')
-          .replace('+', '')
-          .replace(' ', ''),
+        .replace('-', '')
+        .replace('(', '')
+        .replace(')', '')
+        .replace(' ', '')
+        .replace('+', '')
+        .replace(' ', ''),
         address,
         comment,
         type: userType.text,
@@ -186,10 +176,10 @@ const Cart = () => {
     const { data: res } = await postOrder(acc);
     if (res?.paymentUrl) {
       dispatch(clearCart());
-      setIsLoading(false);
+      setIsLoading(false)
       window.location.href = res.paymentUrl;
     } else {
-      setIsLoading(false);
+      setIsLoading(false)
     }
   };
 
@@ -223,7 +213,9 @@ const Cart = () => {
         }
       />
       <ClearCartModal isShow={clearCartModal} setActive={setClearCartModal} />
-      {isLoading && <Loader />}
+      {
+        isLoading && <Loader />
+      }
       <header className='cart__header'>
         <img
           src={headerArrowIcon}
