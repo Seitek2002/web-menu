@@ -160,7 +160,13 @@ const Cart = () => {
 
     dispatch(
       setUsersData({
-        phoneNumber,
+        phoneNumber: phoneNumber
+        .replace('-', '')
+        .replace('(', '')
+        .replace(')', '')
+        .replace(' ', '')
+        .replace('+', '')
+        .replace(' ', ''),
         address,
         comment,
         type: userType.text,
