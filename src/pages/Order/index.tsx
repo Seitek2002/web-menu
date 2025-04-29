@@ -12,30 +12,6 @@ import pending from 'assets/icons/Order/pending.svg';
 // import salad from 'assets/images/OrderStatus/salad.png';
 import './style.scss';
 
-interface IOrderProduct {
-  product: {
-    id: number;
-    productName: string;
-    weight: number;
-    productPhoto: string;
-  };
-  count: number;
-  price: string; // приходит с сервера как строка
-  modificator: null | {
-    // Если у вас есть модификаторы, укажите здесь поля, какие нужны
-  };
-}
-
-// Полная структура данных, которая приходит с сервера.
-// Дополните по необходимости, если нужны ещё поля.
-interface IOrderDataFromServer {
-  id: number;
-  totalPrice: number;
-  status: number;
-  createdAt: string;
-  orderProducts: IOrderProduct[];
-}
-
 const Order = () => {
   const navigate = useNavigate();
   const params = useParams();
