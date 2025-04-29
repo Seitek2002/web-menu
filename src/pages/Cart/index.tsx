@@ -142,11 +142,15 @@ const Cart = () => {
       venue_slug: venueData.companyName,
     };
 
-    if (userType.text === 'Доставка') {
-      acc.serviceMode = userType.value;
-      acc.address = address;
+    if(venueData?.table?.tableNum) {
+      acc.serviceMode = 1
     } else {
-      acc.serviceMode = userType.value;
+      if (userType.text === 'Доставка') {
+        acc.serviceMode = userType.value;
+        acc.address = address;
+      } else {
+        acc.serviceMode = userType.value;
+      }
     }
 
     dispatch(
