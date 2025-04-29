@@ -25,7 +25,12 @@ const Deliver = () => {
   const handleClick = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const data = {
-      phoneNumber,
+      phoneNumber: phoneNumber
+        .replace('-', '')
+        .replace('(', '')
+        .replace(')', '')
+        .replace(' ', '')
+        .replace(' ', ''),
       type: 'Доставка',
       comment,
       address,
