@@ -30,6 +30,7 @@ const Deliver = () => {
         .replace('(', '')
         .replace(')', '')
         .replace(' ', '')
+        .replace('+', '')
         .replace(' ', ''),
       type: 'Доставка',
       comment,

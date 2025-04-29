@@ -24,7 +24,7 @@ const BusketDesktop = ({ to, createOrder, disabled }: { createOrder?: () => void
     <div className='busket__content'>
       {
         venueData?.table?.tableNum && (
-          <div className='table-num'>Стол №12</div>
+          <div className='table-num'>Стол №{venueData.table.tableNum}</div>
         )
       }
       {cart.length > 0 ? (

@@ -10,7 +10,7 @@ import burger from 'assets/images/Catalog/item-2.webp';
 import headerArrowIcon from 'assets/icons/Busket/header-arrow.svg';
 import guy from 'assets/icons/Order/guy.svg';
 import pending from 'assets/icons/Order/pending.svg';
-import share from 'assets/icons/Order/share.svg';
+// import share from 'assets/icons/Order/share.svg';
 import cake from 'assets/images/OrderStatus/cake.png';
 import pancakes from 'assets/images/OrderStatus/pancakes.png';
 import salad from 'assets/images/OrderStatus/salad.png';
@@ -181,10 +181,12 @@ const Order = () => {
                 </defs>
               </svg>
               {venueData?.table?.tableNum && (
-                <span style={{ color: colorTheme }}>Стол №12</span>
+                <span style={{ color: colorTheme }}>
+                  Стол №{venueData.table.tableNum}
+                </span>
               )}
             </div>
-            <img src={share} alt='' className='share' />
+            {/* <img src={share} alt='' className='share' /> */}
           </div>
           <div className='order__status-img'>
             {data?.status === 0 ? (

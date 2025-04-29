@@ -13,6 +13,7 @@ import BusketCard from 'components/Cards/Cart';
 import CatalogCard from 'components/Cards/Catalog';
 import ClearCartModal from 'components/ClearCartModal';
 import FoodDetail from 'components/FoodDetail';
+import Loader from 'components/Loader';
 
 import clearCartIcon from 'assets/icons/Busket/clear-cart.svg';
 import cookie from 'assets/icons/Busket/cookie.svg';
@@ -32,6 +33,7 @@ const Cart = () => {
   const { t, i18n } = useTranslation();
   const [isShow, setIsShow] = useState(false);
   const cart = useAppSelector((state) => state.yourFeature.cart);
+  const [isLoading, setIsLoading] = useState(false);
   const colorTheme = useAppSelector(
     (state) => state.yourFeature.venue?.colorTheme
   );
@@ -113,6 +115,7 @@ const Cart = () => {
     !phoneNumber.trim() || (activeIndex === 2 && !address.trim());
 
   const handleOrder = async () => {
+    setIsLoading(true)
     const orderProducts = cart.map((item) => {
       if (item.modificators?.id) {
         return {
@@ -129,17 +132,19 @@ const Cart = () => {
     });
 
     const userType = list[activeIndex];
-    const acc: any = {
+    const acc = {
       phone: phoneNumber
         .replace('-', '')
         .replace('(', '')
         .replace(')', '')
         .replace(' ', '')
+        .replace('+', '')
         .replace(' ', ''),
       orderProducts,
       comment,
       serviceMode: 1,
       venue_slug: venueData.companyName,
+      address: ''
     };
 
     if(venueData?.table?.tableNum) {
@@ -165,7 +170,10 @@ const Cart = () => {
     const { data: res } = await postOrder(acc);
     if (res?.paymentUrl) {
       dispatch(clearCart());
+      setIsLoading(false)
       window.location.href = res.paymentUrl;
+    } else {
+      setIsLoading(false)
     }
   };
 
@@ -199,6 +207,9 @@ const Cart = () => {
         }
       />
       <ClearCartModal isShow={clearCartModal} setActive={setClearCartModal} />
+      {
+        isLoading && <Loader />
+      }
       <header className='cart__header'>
         <img
           src={headerArrowIcon}
