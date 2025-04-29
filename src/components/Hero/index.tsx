@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useGetOrdersQuery } from 'api/Orders.api';
+import { IOrder } from 'types/orders.types';
 
 import offer1 from 'assets/images/OrderStatus/Offer-1.png';
 import offer2 from 'assets/images/OrderStatus/Offer-2.png';
@@ -10,11 +11,6 @@ import './style.scss';
 
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-interface IOrder {
-  id: number;
-  status: number;
-}
 
 const Hero = () => {
   const user = JSON.parse(localStorage.getItem('users') ?? '{}');
@@ -61,7 +57,7 @@ const Hero = () => {
     console.log('WebSocket disconnected');
   };
 
-  const handleSlideClick = (orderId: number) => {
+  const handleSlideClick = (orderId: number | undefined) => {
     navigate(`/orders/${orderId}`);
   };
 
@@ -77,7 +73,7 @@ const Hero = () => {
             <SwiperSlide key={item.id}>
               <div
                 className='hero__item cursor-pointer'
-                onClick={() => handleSlideClick(item.id)}
+                onClick={() => handleSlideClick(item?.id)}
               >
                 <img src={item.status === 0 ? offer1 : offer2} alt='' />
               </div>

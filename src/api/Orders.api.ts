@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { IOrder, IOrderById } from 'src/types/orders.types';
+import { IOrder, IOrderById, IReqCreateOrder } from 'src/types/orders.types';
 
 export const Orders = createApi({
   reducerPath: 'ordersApi',
@@ -17,7 +17,7 @@ export const Orders = createApi({
         return `orders/?${params.toString()}`;
       },
     }),
-    postOrders: builder.mutation<{ paymentUrl: string }, IOrder>({
+    postOrders: builder.mutation<{ paymentUrl: string }, IReqCreateOrder>({
       query: (newOrder) => {
         return {
           url: 'orders/',

@@ -1,25 +1,45 @@
 export interface IOrderProduct {
-  product: number;
+  product: {
+    id: number;
+    productName: string;
+    productPhoto: string;
+    weight: number;
+  };
   count: number;
   modificator?: number;
+  price?: number;
+}
+
+export interface IReqCreateOrder {
+  phone: string;
+  comment?: string;
+  serviceMode: number;
+  address?: string;
+  servicePrice?: number;
+  tipsPrice?: number;
+  spot?: number;
+  table?: number;
+  orderProducts: IOrderProduct[];
 }
 
 export interface IOrder {
+  id?:number;
   phone: string;
   comment?: string;
+  address?: string;
+  venue_slug: string;
   serviceMode?: number;
   servicePrice?: string;
   tipsPrice?: string;
   orderProducts: IOrderProduct[];
-  id: number;
-  status: number;
+  status?: number;
 }
 
 export interface IOrderById {
   id: number;
   phone: string;
   comment?: string;
-  status: number,
+  status: number;
   serviceMode?: number;
   servicePrice?: string;
   tipsPrice?: string;

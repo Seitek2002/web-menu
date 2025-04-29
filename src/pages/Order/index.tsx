@@ -227,8 +227,6 @@ const Order = () => {
             {data?.orderProducts?.map((orderProduct) => (
               <Item
                 key={orderProduct.product.id}
-                // Приводим поля к формату, который ожидает ваш компонент Item:
-                id={orderProduct.product.id}
                 img={orderProduct.product.productPhoto}
                 name={orderProduct.product.productName}
                 price={Number(orderProduct.price)}
