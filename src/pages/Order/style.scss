@@ -37,7 +37,7 @@
     }
 
     span {
-        @apply text-[#ADADAD] text-[12px] font-medium;
+        @apply text-[#ADADAD] text-[14px] font-medium;
     }
   }
 
@@ -68,6 +68,14 @@
 
     button {
       @apply w-full py-[16px] rounded-[12px] text-white;
+    }
+  }
+
+  .barcode {
+    @apply flex justify-center;
+
+    text {
+      opacity: 0;
     }
   }
 }

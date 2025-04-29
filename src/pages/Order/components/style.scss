@@ -24,7 +24,7 @@
   }
 
   &-img-wrapper {
-    @apply max-w-[72px] max-h-[59px] min-w-[72px] min-h-[59px] overflow-hidden rounded-[8px];
+    @apply max-w-[72px] max-h-[59px] min-w-[72px] min-h-[59px] overflow-hidden rounded-[8px] relative;
     img {
       @apply min-w-[85px] min-h-[59px];
     }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Barcode from 'react-barcode';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useGetOrdersByIdQuery } from 'api/Orders.api';
@@ -25,14 +26,11 @@ const Order = () => {
   );
   const mainPage = localStorage.getItem('mainPage');
 
-  // Local state to hold the order with updated status
   const [order, setOrder] = useState<IOrderById | null>(null);
 
-  // Initialize order from fetched data
   useEffect(() => {
     if (data) {
       setOrder(data);
-      // Save to localStorage if not already present
       const savedOrders = JSON.parse(localStorage.getItem('orders') ?? '[]');
       const isOrderExist = savedOrders.some(
         (order: { id: number }) => order.id === data.id
@@ -44,7 +42,6 @@ const Order = () => {
     }
   }, [data]);
 
-  // WebSocket logic to update the order status
   useEffect(() => {
     const ws = new WebSocket(
       `wss://imenu.kg/ws/orders/?phone_number=${user.phoneNumber}&site=imenu`
@@ -78,7 +75,7 @@ const Order = () => {
     return () => {
       ws.close();
     };
-  }, [params.id, user.phoneNumber]); // Re-run if order ID or phone number changes
+  }, [params.id, user.phoneNumber]);
 
   const handleNavigate = () => {
     navigate(mainPage?.toString() ?? '/');
@@ -240,8 +237,14 @@ const Order = () => {
               детали
             </span>
           ) : (
-            <span>Ожидайте в течение 15-20 минут</span>
+            <span>Ожидайте, скоро приготовится</span>
           )}
+          <div className='font-bold text-[24px]'>
+            №{order?.id}
+            <div className='barcode'>
+              <Barcode value={order?.id + ''} />
+            </div>
+          </div>
           <button
             className='hidden md:block text-white w-full py-[16px] rounded-[12px] mt-[16px]'
             style={{ backgroundColor: colorTheme }}
