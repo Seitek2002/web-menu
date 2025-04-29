@@ -40,7 +40,7 @@ const Hero = () => {
       );
       setOrders(updated);
       localStorage.setItem('orders', JSON.stringify(updated));
-    }, 30000);
+    }, 3000);
     return () => clearInterval(intervalId);
   }, [orders, getStatus]);
 
@@ -59,7 +59,7 @@ const Hero = () => {
           {orders.map((item) => (
             <SwiperSlide key={item.id}>
               <div
-                className='hero__item'
+                className='hero__item cursor-pointer'
                 onClick={() => handleSlideClick(item.id)}
               >
                 <img src={item.status === 0 ? offer1 : offer2} alt='' />
