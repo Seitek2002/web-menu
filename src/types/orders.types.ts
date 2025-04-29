@@ -7,7 +7,7 @@ export interface IOrderProduct {
   };
   count: number;
   modificator?: number;
-  price?: number;
+  price: number;
 }
 
 export interface IReqCreateOrder {
@@ -27,7 +27,7 @@ export interface IReqCreateOrder {
 }
 
 export interface IOrder {
-  id?:number;
+  id?: number;
   phone: string;
   comment?: string;
   address?: string;
@@ -47,6 +47,7 @@ export interface IOrderById {
   serviceMode?: number;
   servicePrice?: string;
   tipsPrice?: string;
+  createdAt: string;
   orderProducts: IOrderProduct[];
 }
 

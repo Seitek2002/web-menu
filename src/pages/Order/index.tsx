@@ -8,13 +8,27 @@ import { useAppSelector } from 'hooks/useAppSelector';
 import Item from './components/Item';
 
 import headerArrowIcon from 'assets/icons/Busket/header-arrow.svg';
+import priceArrow from 'assets/icons/Busket/price-arrow.svg';
 import guy from 'assets/icons/Order/guy.svg';
 import pending from 'assets/icons/Order/pending.svg';
 
 import './style.scss';
 
+function formatCreatedAt(dateString: string) {
+  const date = new Date(dateString);
+
+  return date.toLocaleString('ru-RU', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+}
+
 const Order = () => {
   const navigate = useNavigate();
+  const [active, setActive] = useState(false);
   const user = JSON.parse(localStorage.getItem('users') ?? '{}');
   const params = useParams();
   const { data } = useGetOrdersByIdQuery({
@@ -79,6 +93,20 @@ const Order = () => {
 
   const handleNavigate = () => {
     navigate(mainPage?.toString() ?? '/');
+  };
+
+  const solveTotalSum = () => {
+    if (data) {
+      const subtotal = data.orderProducts.reduce(
+        (acc, item) => acc + item.price * item.count,
+        0
+      );
+      const cartSum = subtotal + subtotal * (venueData.serviceFeePercent / 100);
+
+      return cartSum;
+    } else {
+      return 0;
+    }
   };
 
   return (
@@ -231,14 +259,17 @@ const Order = () => {
               Спасибо, заказ принят!
             </h3>
           )}
-          {order?.status === 0 ? (
+          {order?.status === 0 && data?.serviceMode === 1 && (
             <span>
               В ближайшие 5-10 минут администратор свяжется с Вами и уточнит
               детали
             </span>
-          ) : (
-            <span>Ожидайте, скоро приготовится</span>
           )}
+          {order?.status === 1 && <span>Ожидайте, скоро приготовится</span>}
+          {order?.status === 7 && <span>Попробуйте снова</span>}
+          <p className='text-[10px]'>
+            {formatCreatedAt(data?.createdAt || '')}
+          </p>
           <div className='font-bold text-[24px]'>
             №{order?.id}
             <div className='barcode'>
@@ -255,6 +286,49 @@ const Order = () => {
         </div>
 
         {/* Правая часть (или нижняя в мобильной верстке) */}
+        <div className='cart__sum bg-[#fff]'>
+          <div
+            onClick={() => setActive(!active)}
+            className='cart__sum-top text-[#80868B]'
+          >
+            Детали суммы
+            <img
+              src={priceArrow}
+              alt='arrow'
+              className={active ? 'cart__sum-img active' : 'cart__sum-img'}
+            />
+          </div>
+          <div
+            className={
+              active
+                ? 'cart__sum-wrapper divide-y active'
+                : 'cart__sum-wrapper divide-y'
+            }
+            style={{
+              height: active ? '80px' : '0',
+            }}
+          >
+            <div className='cart__sum-item text-[#80868B]'>
+              Общая стоимость
+              <div className='cart__sum-total all text-[#80868B]'>
+                {data?.orderProducts.reduce(
+                  (acc, item) => acc + item.price * item.count,
+                  0
+                )}{' '}
+                c
+              </div>
+            </div>
+            <div className='cart__sum-item text-[#80868B]'>
+              Обслуживание
+              <div className='cart__sum-total service'>
+                {venueData.serviceFeePercent}%
+              </div>
+            </div>
+          </div>
+          <div className='cart__sum-ress border-[#f3f3f3]'>
+            Итоговая сумма <span>{solveTotalSum()} c</span>
+          </div>
+        </div>
         <div className='flex-1'>
           <div className='order__items'>
             <div className='order__items-top'>

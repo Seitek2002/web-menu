@@ -20,7 +20,7 @@ const Takeaway = () => {
 
   const handleClick = (spot: ISpot) => {
     const res = loadUsersDataFromStorage();
-    dispatch(setUsersData({ ...res, type: 'На вынос' }));
+    dispatch(setUsersData({ ...res, type: 2 }));
     navigate(`/I/${data.slug}/${spot.id}/s`);
   };
 

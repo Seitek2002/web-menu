@@ -14,7 +14,7 @@ const Deliver = () => {
   const dispatch = useAppDispatch();
   const params = useParams();
   const userData = loadUsersDataFromStorage();
-  const [phoneNumber, setPhoneNumber] = useState(userData.phoneNumber || '');
+  const [phoneNumber, setPhoneNumber] = useState( '+' + userData.phoneNumber || '');
   const [address, setAddress] = useState(userData.address || '');
   const [comment, setComment] = useState(userData.comment);
   const data = useAppSelector((state) => state.yourFeature.venue);
@@ -32,7 +32,7 @@ const Deliver = () => {
         .replace(' ', '')
         .replace('+', '')
         .replace(' ', ''),
-      type: 'Доставка',
+      type: 3,
       comment,
       address,
     };
@@ -41,12 +41,12 @@ const Deliver = () => {
   };
 
   const inputRef = useMask({
-    mask: '+996 (___) ___-___',
+    mask: '+996________',
     replacement: { _: /\d/ },
   });
 
   const isFormValid = useMemo(() => {
-    return phoneNumber.length === 18 && address.trim().length > 3;
+    return phoneNumber.length >= 12 && address.trim().length > 3;
   }, [phoneNumber, address]);
 
   return (

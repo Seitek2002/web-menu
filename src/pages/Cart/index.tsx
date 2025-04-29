@@ -39,7 +39,7 @@ const Cart = () => {
   );
   const venueData = useAppSelector((state) => state.yourFeature.venue);
 
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(1);
 
   const [phoneNumber, setPhoneNumber] = useState(userData.phoneNumber || '');
   const [comment, setComment] = useState(userData.comment || '');
@@ -55,19 +55,19 @@ const Cart = () => {
   });
 
   const inputRef = useMask({
-    mask: '+996 (___) ___-___',
+    mask: '+996________',
     replacement: { _: /\d/ },
   });
 
   const list = useMemo(
     () => [
       {
-        text: t('busket.where.takeaway'),
-        value: 2,
-      },
-      {
         text: t('busket.where.dinein'),
         value: 1,
+      },
+      {
+        text: t('busket.where.takeaway'),
+        value: 2,
       },
       {
         text: 'Доставка',
@@ -115,7 +115,7 @@ const Cart = () => {
     !phoneNumber.trim() || (activeIndex === 2 && !address.trim());
 
   const handleOrder = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     const orderProducts = cart.map((item) => {
       if (item.modificators?.id) {
         return {
@@ -143,12 +143,12 @@ const Cart = () => {
       orderProducts,
       comment,
       serviceMode: 1,
-      venue_slug: venueData.companyName,
-      address: ''
+      venue_slug: venueData.slug,
+      address: '',
     };
 
-    if(venueData?.table?.tableNum) {
-      acc.serviceMode = 1
+    if (venueData?.table?.tableNum) {
+      acc.serviceMode = 1;
     } else {
       if (userType.text === 'Доставка') {
         acc.serviceMode = userType.value;
@@ -161,12 +161,12 @@ const Cart = () => {
     dispatch(
       setUsersData({
         phoneNumber: phoneNumber
-        .replace('-', '')
-        .replace('(', '')
-        .replace(')', '')
-        .replace(' ', '')
-        .replace('+', '')
-        .replace(' ', ''),
+          .replace('-', '')
+          .replace('(', '')
+          .replace(')', '')
+          .replace(' ', '')
+          .replace('+', '')
+          .replace(' ', ''),
         address,
         comment,
         type: userType.text,
@@ -176,15 +176,19 @@ const Cart = () => {
     const { data: res } = await postOrder(acc);
     if (res?.paymentUrl) {
       dispatch(clearCart());
-      setIsLoading(false)
+      setIsLoading(false);
       window.location.href = res.paymentUrl;
     } else {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    if (userData.type) {
+      setActiveIndex(userData.type - 1);
+    }
   }, []);
 
   return (
@@ -213,9 +217,7 @@ const Cart = () => {
         }
       />
       <ClearCartModal isShow={clearCartModal} setActive={setClearCartModal} />
-      {
-        isLoading && <Loader />
-      }
+      {isLoading && <Loader />}
       <header className='cart__header'>
         <img
           src={headerArrowIcon}
@@ -249,7 +251,7 @@ const Cart = () => {
         </>
       )}
       <div className='md:flex gap-[24px]'>
-        <div className='md:max-w-[50%]'>
+        <div className='md:w-[50%]'>
           {cart.length > 0 ? (
             <>
               {!venueData?.table?.tableNum && (
