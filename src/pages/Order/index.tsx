@@ -29,8 +29,6 @@ const Order = () => {
   );
   const mainPage = localStorage.getItem('mainPage');
 
-  console.log(data);
-
   // Сохраняем в localStorage при первом рендере
   useEffect(() => {
     if (data) {
