@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useGetOrdersByIdQuery } from 'api/Orders.api';
+import { IOrderById } from 'types/orders.types';
 import { useAppSelector } from 'hooks/useAppSelector';
 import Item from './components/Item';
 
@@ -9,34 +10,33 @@ import headerArrowIcon from 'assets/icons/Busket/header-arrow.svg';
 import guy from 'assets/icons/Order/guy.svg';
 import pending from 'assets/icons/Order/pending.svg';
 
-// import salad from 'assets/images/OrderStatus/salad.png';
 import './style.scss';
 
 const Order = () => {
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem('users') ?? '{}');
   const params = useParams();
-
-  // Получаем данные.
-  // Обратите внимание, что useGetOrdersByIdQuery может уже отдавать нужный тип,
-  // тогда IOrderDataFromServer можно не дублировать.
   const { data } = useGetOrdersByIdQuery({
     id: Number(params.id),
   });
-
   const venueData = useAppSelector((state) => state.yourFeature.venue);
   const colorTheme = useAppSelector(
     (state) => state.yourFeature.venue?.colorTheme
   );
   const mainPage = localStorage.getItem('mainPage');
 
-  // Сохраняем в localStorage при первом рендере
+  // Local state to hold the order with updated status
+  const [order, setOrder] = useState<IOrderById | null>(null);
+
+  // Initialize order from fetched data
   useEffect(() => {
     if (data) {
+      setOrder(data);
+      // Save to localStorage if not already present
       const savedOrders = JSON.parse(localStorage.getItem('orders') ?? '[]');
       const isOrderExist = savedOrders.some(
         (order: { id: number }) => order.id === data.id
       );
-
       if (!isOrderExist) {
         savedOrders.push(data);
         localStorage.setItem('orders', JSON.stringify(savedOrders));
@@ -44,14 +44,50 @@ const Order = () => {
     }
   }, [data]);
 
+  // WebSocket logic to update the order status
+  useEffect(() => {
+    const ws = new WebSocket(
+      `wss://imenu.kg/ws/orders/?phone_number=${user.phoneNumber}&site=imenu`
+    );
+
+    ws.onopen = () => {
+      console.log('WebSocket connected');
+    };
+
+    ws.onmessage = (event) => {
+      const wsData: { order_id: number; status: number } = JSON.parse(
+        event.data
+      );
+      // Only update if the order_id matches the current order
+      if (wsData.order_id === Number(params.id)) {
+        setOrder((prevOrder) =>
+          prevOrder ? { ...prevOrder, status: wsData.status } : prevOrder
+        );
+      }
+    };
+
+    ws.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+
+    ws.onclose = () => {
+      console.log('WebSocket disconnected');
+    };
+
+    // Cleanup WebSocket on component unmount
+    return () => {
+      ws.close();
+    };
+  }, [params.id, user.phoneNumber]); // Re-run if order ID or phone number changes
+
+  const handleNavigate = () => {
+    navigate(mainPage?.toString() ?? '/');
+  };
+
   return (
     <div className='order'>
       <header className='order__header'>
-        <img
-          src={headerArrowIcon}
-          alt=''
-          onClick={() => navigate(mainPage?.toString() ?? '/')}
-        />
+        <img src={headerArrowIcon} alt='' onClick={handleNavigate} />
         <h3>Мой заказ</h3>
         <div></div>
       </header>
@@ -133,7 +169,7 @@ const Order = () => {
 
           {/* Картинка со статусом */}
           <div className='order__status-img'>
-            {data?.status === 0 ? (
+            {order?.status === 0 ? (
               <img src={pending} alt='' />
             ) : (
               <img src={guy} alt='' />
@@ -141,7 +177,7 @@ const Order = () => {
           </div>
 
           {/* Заголовок и текст статуса */}
-          {data?.status === 0 ? (
+          {order?.status === 0 ? (
             <h2>
               <svg
                 width='20'
@@ -198,7 +234,7 @@ const Order = () => {
               Спасибо, заказ принят!
             </h3>
           )}
-          {data?.status === 0 ? (
+          {order?.status === 0 ? (
             <span>
               В ближайшие 5-10 минут администратор свяжется с Вами и уточнит
               детали
@@ -209,7 +245,7 @@ const Order = () => {
           <button
             className='hidden md:block text-white w-full py-[16px] rounded-[12px] mt-[16px]'
             style={{ backgroundColor: colorTheme }}
-            onClick={() => navigate(mainPage?.toString() ?? '/')}
+            onClick={handleNavigate}
           >
             На главную
           </button>
@@ -220,19 +256,16 @@ const Order = () => {
           <div className='order__items'>
             <div className='order__items-top'>
               <h4>Мои заказы</h4>
-              <span>{data?.orderProducts?.length ?? 0} заказов</span>
+              <span>{order?.orderProducts?.length ?? 0} заказов</span>
             </div>
 
-            {/* Здесь самое главное — маппим data.orderProducts вместо myOrders */}
-            {data?.orderProducts?.map((orderProduct) => (
+            {order?.orderProducts?.map((orderProduct) => (
               <Item
                 key={orderProduct.product.id}
                 img={orderProduct.product.productPhoto}
                 name={orderProduct.product.productName}
                 price={Number(orderProduct.price)}
                 weight={orderProduct.product.weight}
-                // count в серверных данных назван как "count",
-                // но в вашем старом интерфейсе это "quantity"
                 quantity={orderProduct.count}
               />
             ))}
@@ -244,7 +277,7 @@ const Order = () => {
         <footer className='order__footer'>
           <button
             style={{ backgroundColor: colorTheme }}
-            onClick={() => navigate(mainPage?.toString() ?? '/')}
+            onClick={handleNavigate}
           >
             На главную
           </button>
