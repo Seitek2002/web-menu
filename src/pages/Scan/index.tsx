@@ -44,7 +44,7 @@ const Scan: FC = () => {
       const route = data[0].rawValue.split('/').slice(3).join('/');
       console.log(route.split('/').filter(item => item));
       localStorage.setItem('currentUrl', route);
-      navigate(`/I/${route}`);
+      navigate(`/${route}`);
     },
     [navigate]
   );

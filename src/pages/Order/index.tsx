@@ -184,7 +184,7 @@ const Order = () => {
                   </clipPath>
                 </defs>
               </svg>
-              {venueData?.table?.tableNum && (
+              {data?.serviceMode == 1 && (
                 <span style={{ color: colorTheme }}>
                   Стол №{venueData.table.tableNum}
                 </span>
