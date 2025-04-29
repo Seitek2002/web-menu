@@ -44,7 +44,7 @@ const SubHeader = () => {
             <span className='schedule'>{data?.schedule}</span>
           </div>
         </div>
-        <div className='flex items-center justify-between max-w-[50%] flex-1 md:gap-[12px] md:flex-initial'>
+        <div className='flex items-center justify-between md:gap-[12px] md:flex-initial'>
           {/* {data?.table?.tableNum && (
             <div className='call'>
               <img src={bell} alt='' />
