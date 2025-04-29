@@ -11,6 +11,8 @@ export interface IOrder {
   servicePrice?: string;
   tipsPrice?: string;
   orderProducts: IOrderProduct[];
+  id: number;
+  status: number;
 }
 
 export interface IOrderById {

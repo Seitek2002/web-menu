@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useLazyGetOrdersByIdQuery } from 'api/Orders.api';
+import { useGetOrdersQuery } from 'api/Orders.api';
 
 import offer1 from 'assets/images/OrderStatus/Offer-1.png';
 import offer2 from 'assets/images/OrderStatus/Offer-2.png';
@@ -17,32 +17,49 @@ interface IOrder {
 }
 
 const Hero = () => {
-  const [orders, setOrders] = useState<IOrder[]>([]);
-  const [getStatus] = useLazyGetOrdersByIdQuery();
+  const user = JSON.parse(localStorage.getItem('users') ?? '{}');
+  const venue = JSON.parse(localStorage.getItem('venue') ?? '{}');
+  const { data: fetchedOrders } = useGetOrdersQuery({
+    phone: `${user.phoneNumber}`,
+    venueSlug: venue.slug,
+  });
+  const [orders, setOrders] = useState<IOrder[]>();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const savedOrders = JSON.parse(localStorage.getItem('orders') ?? '[]');
-    setOrders(savedOrders);
-  }, []);
+    if (fetchedOrders) {
+      setOrders(fetchedOrders);
+    }
+  }, [fetchedOrders]);
 
-  useEffect(() => {
-    const intervalId = setInterval(async () => {
-      if (!orders.length) return;
-      const updated = await Promise.all(
-        orders.map(async (order) => {
-          const { data } = await getStatus({ id: order.id });
-          return {
-            ...order,
-            status: data?.status ?? order.status,
-          };
-        })
-      );
-      setOrders(updated);
-      localStorage.setItem('orders', JSON.stringify(updated));
-    }, 3000);
-    return () => clearInterval(intervalId);
-  }, [orders, getStatus]);
+  const ws = new WebSocket(
+    `wss://imenu.kg/ws/orders/?phone_number=${user.phoneNumber}`
+  );
+
+  ws.onopen = () => {
+    console.log('WebSocket connected');
+  };
+
+  ws.onmessage = (event) => {
+    const data: { order_id: number; status: number } = JSON.parse(event.data);
+    setOrders((prevOrders) => {
+      const updatedOrders = prevOrders?.map((order) => {
+        if (order.id === data.order_id) {
+          return { ...order, status: data.status };
+        }
+        return order;
+      });
+      return updatedOrders;
+    });
+  };
+
+  ws.onerror = (error) => {
+    console.error('WebSocket error:', error);
+  };
+
+  ws.onclose = () => {
+    console.log('WebSocket disconnected');
+  };
 
   const handleSlideClick = (orderId: number) => {
     navigate(`/orders/${orderId}`);
@@ -56,7 +73,7 @@ const Hero = () => {
           modules={[Pagination]}
           className='hero-swiper'
         >
-          {orders.map((item) => (
+          {orders?.map((item) => (
             <SwiperSlide key={item.id}>
               <div
                 className='hero__item cursor-pointer'

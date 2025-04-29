@@ -6,12 +6,13 @@ export const Orders = createApi({
   reducerPath: 'ordersApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://imenu.kg/api/' }),
   endpoints: (builder) => ({
-    getOrders: builder.query<IOrder[], { tableNum?: string; venueSlug?: string; spotSlug?: string }>({
-      query: ({ tableNum, venueSlug, spotSlug }) => {
+    getOrders: builder.query<IOrder[], { tableNum?: string; venueSlug?: string; spotSlug?: string; phone?: string; }>({
+      query: ({ tableNum, venueSlug, spotSlug, phone }) => {
         const params = new URLSearchParams();
         if (tableNum) params.append('tableNum', tableNum);
         if (venueSlug) params.append('venueSlug', venueSlug);
         if (spotSlug) params.append('spotSlug', spotSlug);
+        if (phone) params.append('phone', phone);
 
         return `orders/?${params.toString()}`;
       },
