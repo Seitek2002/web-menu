@@ -18,7 +18,7 @@
   }
 
   &__top {
-    @apply flex justify-between items-center;
+    @apply flex justify-center items-center;
 
     .share {
       @apply size-[20px] p-[8px] box-content bg-white rounded-[8px] drop-shadow-md;

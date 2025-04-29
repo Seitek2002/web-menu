@@ -86,6 +86,8 @@ const Order = () => {
   );
   const mainPage = localStorage.getItem('mainPage');
 
+  console.log(data);
+
   useEffect(() => {
     if (data) {
       const savedOrders = JSON.parse(localStorage.getItem('orders') ?? '[]');
@@ -116,7 +118,6 @@ const Order = () => {
       <div className='md:flex flex-row-reverse items-start gap-[24px]'>
         <div className='order__content'>
           <div className='order__top'>
-            <div className='size-[30px]'></div>
             <div className='order__table'>
               <svg
                 width='21'
