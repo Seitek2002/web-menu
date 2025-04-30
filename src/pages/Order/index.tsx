@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Barcode from 'react-barcode';
+import QRCode from 'react-qr-code';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useGetOrdersByIdQuery } from 'api/Orders.api';
@@ -273,7 +273,7 @@ const Order = () => {
           <div className='font-bold text-[24px]'>
             №{order?.id}
             <div className='barcode'>
-              <Barcode value={order?.id + ''} />
+              <QRCode  value={'IMENU.KG/ORDERS/' + order?.id} />
             </div>
           </div>
           <button
@@ -286,50 +286,50 @@ const Order = () => {
         </div>
 
         {/* Правая часть (или нижняя в мобильной верстке) */}
-        <div className='cart__sum bg-[#fff]'>
-          <div
-            onClick={() => setActive(!active)}
-            className='cart__sum-top text-[#80868B]'
-          >
-            Детали суммы
-            <img
-              src={priceArrow}
-              alt='arrow'
-              className={active ? 'cart__sum-img active' : 'cart__sum-img'}
-            />
-          </div>
-          <div
-            className={
-              active
-                ? 'cart__sum-wrapper divide-y active'
-                : 'cart__sum-wrapper divide-y'
-            }
-            style={{
-              height: active ? '80px' : '0',
-            }}
-          >
-            <div className='cart__sum-item text-[#80868B]'>
-              Общая стоимость
-              <div className='cart__sum-total all text-[#80868B]'>
-                {data?.orderProducts.reduce(
-                  (acc, item) => acc + item.price * item.count,
-                  0
-                )}{' '}
-                c
-              </div>
-            </div>
-            <div className='cart__sum-item text-[#80868B]'>
-              Обслуживание
-              <div className='cart__sum-total service'>
-                {venueData.serviceFeePercent}%
-              </div>
-            </div>
-          </div>
-          <div className='cart__sum-ress border-[#f3f3f3]'>
-            Итоговая сумма <span>{solveTotalSum()} c</span>
-          </div>
-        </div>
         <div className='flex-1'>
+          <div className='cart__sum bg-[#fff]'>
+            <div
+              onClick={() => setActive(!active)}
+              className='cart__sum-top text-[#80868B]'
+            >
+              Детали суммы
+              <img
+                src={priceArrow}
+                alt='arrow'
+                className={active ? 'cart__sum-img active' : 'cart__sum-img'}
+              />
+            </div>
+            <div
+              className={
+                active
+                  ? 'cart__sum-wrapper divide-y active'
+                  : 'cart__sum-wrapper divide-y'
+              }
+              style={{
+                height: active ? '80px' : '0',
+              }}
+            >
+              <div className='cart__sum-item text-[#80868B]'>
+                Общая стоимость
+                <div className='cart__sum-total all text-[#80868B]'>
+                  {data?.orderProducts.reduce(
+                    (acc, item) => acc + item.price * item.count,
+                    0
+                  )}{' '}
+                  c
+                </div>
+              </div>
+              <div className='cart__sum-item text-[#80868B]'>
+                Обслуживание
+                <div className='cart__sum-total service'>
+                  {venueData.serviceFeePercent}%
+                </div>
+              </div>
+            </div>
+            <div className='cart__sum-ress border-[#f3f3f3]'>
+              Итоговая сумма <span>{solveTotalSum()} c</span>
+            </div>
+          </div>
           <div className='order__items'>
             <div className='order__items-top'>
               <h4>Мои заказы</h4>

@@ -72,7 +72,11 @@
   }
 
   .barcode {
-    @apply flex justify-center;
+    @apply flex justify-center h-[80px] w-[100px] mx-auto;
+
+    svg {
+      @apply size-full;
+    }
 
     text {
       opacity: 0;

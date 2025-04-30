@@ -18,11 +18,11 @@
     "i18next": "^24.2.2",
     "i18next-browser-languagedetector": "^8.0.2",
     "react": "^18.3.1",
-    "react-barcode": "^1.6.1",
     "react-content-loader": "^7.0.2",
     "react-dom": "^18.3.1",
     "react-i18next": "^15.4.0",
     "react-input-mask": "^2.0.4",
+    "react-qr-code": "^2.0.15",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.1",
     "swiper": "^11.2.0"
