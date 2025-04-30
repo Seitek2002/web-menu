@@ -41,7 +41,7 @@ const Cart = () => {
 
   const [activeIndex, setActiveIndex] = useState(1);
 
-  const [phoneNumber, setPhoneNumber] = useState(userData.phoneNumber || '');
+  const [phoneNumber, setPhoneNumber] = useState(`+${userData.phoneNumber}`);
   const [comment, setComment] = useState(userData.comment || '');
   const [address, setAddress] = useState(userData.address || '');
 
@@ -169,7 +169,7 @@ const Cart = () => {
           .replace(' ', ''),
         address,
         comment,
-        type: userType.text,
+        type: userType.value,
       })
     );
 
@@ -260,7 +260,7 @@ const Cart = () => {
                     <div
                       key={index}
                       onClick={() => {
-                        handleClick(index);
+                        handleClick(item.value - 1);
                       }}
                       className={`cart__order-type-wrapper bg-[#fff] border-[#e1e2e5] cursor-pointer ${
                         activeIndex === index ? `active` : ''
