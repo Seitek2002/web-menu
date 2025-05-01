@@ -41,7 +41,7 @@ const Deliver = () => {
   };
 
   const inputRef = useMask({
-    mask: '+996________',
+    mask: '+996_________',
     replacement: { _: /\d/ },
   });
 

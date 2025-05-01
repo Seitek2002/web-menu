@@ -41,10 +41,18 @@ const Order = () => {
   const mainPage = localStorage.getItem('mainPage');
 
   const [order, setOrder] = useState<IOrderById | null>(null);
+  const [currentStatus, setCurrentStatus] = useState<{
+    icon: string;
+    title: { text: string; icon: string };
+    description: string;
+  } | null>(null);
 
   useEffect(() => {
     if (data) {
+      // Складываем заказ в стейт
       setOrder(data);
+
+      // Сохраняем заказ в localStorage
       const savedOrders = JSON.parse(localStorage.getItem('orders') ?? '[]');
       const isOrderExist = savedOrders.some(
         (order: { id: number }) => order.id === data.id
@@ -55,6 +63,14 @@ const Order = () => {
       }
     }
   }, [data]);
+
+  useEffect(() => {
+    if (order) {
+      setCurrentStatus(
+        statusMessages[order.serviceMode]?.[order.status] ?? null
+      );
+    }
+  }, [order]);
 
   useEffect(() => {
     const ws = new WebSocket(
@@ -109,10 +125,7 @@ const Order = () => {
     }
   };
 
-  const currentStatus =
-    order?.status && data?.serviceMode
-      ? statusMessages[data.serviceMode]?.[order.status]
-      : null;
+  console.log(order?.status);
 
   return (
     <div className='order'>
@@ -217,9 +230,10 @@ const Order = () => {
             </div>
           </div>
 
-          <div className='text-lg'>
+          <div className='text-lg mt-[20px]'>
             <h4>Телефон: {data?.phone}</h4>
-            <h4>Адрес: {data?.address}</h4>
+            {data?.address && <h4>Адрес: {data.address}</h4>}
+            {data?.comment && <h4>Комментарии: {data.comment}</h4>}
           </div>
 
           <button

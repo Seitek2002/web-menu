@@ -26,7 +26,7 @@
   }
 
   &__content {
-    @apply bg-white rounded-[12px] text-center p-[12px] mb-[12px];
+    @apply bg-white rounded-[12px] text-center p-[12px] mb-[12px] md:w-[35%];
 
     h3 {
       @apply text-[#06C740] font-semibold text-[20px] flex items-center justify-center mb-[3px];

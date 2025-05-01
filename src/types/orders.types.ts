@@ -45,7 +45,7 @@ export interface IOrderById {
   comment?: string;
   address: string;
   status: number;
-  serviceMode?: number;
+  serviceMode: number;
   servicePrice?: string;
   tipsPrice?: string;
   createdAt: string;

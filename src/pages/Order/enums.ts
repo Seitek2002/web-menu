@@ -20,19 +20,19 @@ interface StatusMessages {
 export const statusMessages: StatusMessages = {
   1: {
     0: {
-      icon: guy,
+      icon: pending,
       title: {
         text: 'Спасибо, заказ обрабатывается',
-        icon: check,
+        icon: clock,
       },
       description:
         'В ближайшие 5-10 минут администратор свяжется с Вами и уточнит детали',
     },
     1: {
-      icon: pending,
+      icon: guy,
       title: {
         text: 'Спасибо, заказ принят!',
-        icon: clock,
+        icon: check,
       },
       description: 'Ожидайте, скоро приготовится',
     },
@@ -47,19 +47,19 @@ export const statusMessages: StatusMessages = {
   },
   2: {
     0: {
-      icon: guy,
+      icon: pending,
       title: {
         text: 'Спасибо, заказ обрабатывается',
-        icon: check,
+        icon: clock,
       },
       description:
         'В ближайшие 5-10 минут администратор свяжется с Вами и уточнит детали',
     },
     1: {
-      icon: pending,
+      icon: guy,
       title: {
         text: 'Спасибо, заказ принят!',
-        icon: clock,
+        icon: check,
       },
       description: 'Ожидайте, скоро приготовится',
     },
@@ -74,19 +74,19 @@ export const statusMessages: StatusMessages = {
   },
   3: {
     0: {
-      icon: guy,
+      icon: pending,
       title: {
         text: 'Спасибо, заказ обрабатывается',
-        icon: check,
+        icon: clock,
       },
       description:
         'В ближайшие 5-10 минут администратор свяжется с Вами и уточнит детали',
     },
     1: {
-      icon: pending,
+      icon: guy,
       title: {
         text: 'Спасибо, заказ принят!',
-        icon: clock,
+        icon: check,
       },
       description: 'Ожидайте, скоро приготовится',
     },
