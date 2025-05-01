@@ -43,6 +43,7 @@ export interface IOrderById {
   id: number;
   phone: string;
   comment?: string;
+  address: string;
   status: number;
   serviceMode?: number;
   servicePrice?: string;

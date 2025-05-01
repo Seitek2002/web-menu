@@ -11,22 +11,20 @@ import { statusMessages } from './enums';
 
 import headerArrowIcon from 'assets/icons/Busket/header-arrow.svg';
 import priceArrow from 'assets/icons/Busket/price-arrow.svg';
-import guy from 'assets/icons/Order/guy.svg';
-import pending from 'assets/icons/Order/pending.svg';
 
 import './style.scss';
 
-function formatCreatedAt(dateString: string) {
-  const date = new Date(dateString);
+// function formatCreatedAt(dateString: string) {
+//   const date = new Date(dateString);
 
-  return date.toLocaleString('ru-RU', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-}
+//   return date.toLocaleString('ru-RU', {
+//     day: 'numeric',
+//     month: 'long',
+//     year: 'numeric',
+//     hour: '2-digit',
+//     minute: '2-digit',
+//   });
+// }
 
 const Order = () => {
   const navigate = useNavigate();
@@ -218,6 +216,12 @@ const Order = () => {
               <QRCode value={'IMENU.KG/ORDERS/' + order?.id} />
             </div>
           </div>
+
+          <div className='text-lg'>
+            <h4>Телефон: +{data?.phone}</h4>
+            <h4>Адрес: {data?.address}</h4>
+          </div>
+
           <button
             className='hidden md:block text-white w-full py-[16px] rounded-[12px] mt-[16px]'
             style={{ backgroundColor: colorTheme }}
