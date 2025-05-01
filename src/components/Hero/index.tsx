@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { IBanner, useGetBannersQuery } from 'api/Banners.api';
 import { useGetOrdersQuery } from 'api/Orders.api';
 import { IOrder } from 'types/orders.types';
 
@@ -15,12 +16,19 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 const Hero = () => {
   const user = JSON.parse(localStorage.getItem('users') ?? '{}');
   const venue = JSON.parse(localStorage.getItem('venue') ?? '{}');
+  const navigate = useNavigate();
+
+  const {
+    data: fetchedBanners,
+    isLoading: bannersLoading,
+    isError: bannersError,
+  } = useGetBannersQuery();
+
   const { data: fetchedOrders } = useGetOrdersQuery({
     phone: `${user.phoneNumber}`,
     venueSlug: venue.slug,
   });
-  const [orders, setOrders] = useState<IOrder[]>();
-  const navigate = useNavigate();
+  const [orders, setOrders] = useState<IOrder[] | undefined>([]);
 
   useEffect(() => {
     if (fetchedOrders) {
@@ -38,15 +46,11 @@ const Hero = () => {
 
   ws.onmessage = (event) => {
     const data: { order_id: number; status: number } = JSON.parse(event.data);
-    setOrders((prevOrders) => {
-      const updatedOrders = prevOrders?.map((order) => {
-        if (order.id === data.order_id) {
-          return { ...order, status: data.status };
-        }
-        return order;
-      });
-      return updatedOrders;
-    });
+    setOrders((prevOrders) =>
+      prevOrders?.map((order) =>
+        order.id === data.order_id ? { ...order, status: data.status } : order
+      )
+    );
   };
 
   ws.onerror = (error) => {
@@ -57,30 +61,56 @@ const Hero = () => {
     console.log('WebSocket disconnected');
   };
 
-  const handleSlideClick = (orderId: number | undefined) => {
+  const handleOrderClick = (orderId: number | undefined) => {
     navigate(`/orders/${orderId}`);
+  };
+
+  const handleBannerClick = (url: string | undefined) => {
+    if (url) {
+      window.open(url, '_blank');
+    }
   };
 
   return (
     <section className='hero'>
-      <div className='hero__content'>
-        <Swiper
-          pagination={{ dynamicBullets: true }}
-          modules={[Pagination]}
-          className='hero-swiper'
-        >
-          {orders?.map((item) => (
-            <SwiperSlide key={item.id}>
-              <div
-                className='hero__item cursor-pointer'
-                onClick={() => handleSlideClick(item?.id)}
-              >
-                <img src={item.status === 0 ? offer1 : offer2} alt='' />
+      {bannersLoading && <p>Загрузка баннеров...</p>}
+      {bannersError && <p>Ошибка при загрузке баннеров</p>}
+
+      {/* Единый Swiper для заказов и баннеров */}
+      <Swiper
+        pagination={{ dynamicBullets: true }}
+        modules={[Pagination]}
+        className='hero-swiper'
+      >
+        {orders?.map((order) => (
+          <SwiperSlide key={`order-${order.id}`}>
+            <div
+              className='hero__item cursor-pointer'
+              onClick={() => handleOrderClick(order.id)}
+            >
+              <img
+                src={order.status === 0 ? offer1 : offer2}
+                alt={`Order #${order.id}`}
+              />
+            </div>
+          </SwiperSlide>
+        ))}
+
+        {fetchedBanners?.map((banner: IBanner) => (
+          <SwiperSlide key={`banner-${banner.id}`}>
+            <div
+              className='hero__item banner__item cursor-pointer'
+              onClick={() => handleBannerClick(banner.url)}
+            >
+              <img src={banner.image} alt={banner.title} />
+              <div className='banner__info'>
+                <h3>{banner.title}</h3>
+                <p>{banner.text}</p>
               </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </section>
   );
 };
