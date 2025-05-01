@@ -218,7 +218,7 @@ const Order = () => {
           </div>
 
           <div className='text-lg'>
-            <h4>Телефон: +{data?.phone}</h4>
+            <h4>Телефон: {data?.phone}</h4>
             <h4>Адрес: {data?.address}</h4>
           </div>
 
