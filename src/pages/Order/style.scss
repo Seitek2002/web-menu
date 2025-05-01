@@ -13,7 +13,7 @@
     @apply max-w-max flex items-center drop-shadow-md rounded-[10px] bg-white py-[8px] px-[12px] gap-[4px];
 
     span {
-      @apply text-[16px] font-semibold;
+      @apply text-[#000] text-[20px] font-bold;
     }
   }
 
@@ -37,7 +37,7 @@
     }
 
     span {
-        @apply text-[#ADADAD] text-[14px] font-medium;
+      @apply text-[#000] text-[20px] font-semibold;
     }
   }
 
@@ -51,15 +51,15 @@
     @apply rounded-[12px] p-[12px] bg-white mb-[12px];
 
     &-top {
-        @apply flex items-center justify-between mb-[16px];
+      @apply flex items-center justify-between mb-[16px];
 
-        h4 {
-            @apply font-medium text-[18px];
-        }
+      h4 {
+        @apply font-medium text-[18px];
+      }
 
-        span {
-            @apply text-[#727272] text-[12px] font-medium;
-        }
+      span {
+        @apply text-[#727272] text-[12px] font-medium;
+      }
     }
   }
 

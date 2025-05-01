@@ -205,6 +205,12 @@ const Order = () => {
                   Стол №{data.tableNum}
                 </span>
               )}
+              {data?.serviceMode == 2 && (
+                <span style={{ color: colorTheme }}>На вынос</span>
+              )}
+              {data?.serviceMode == 3 && (
+                <span style={{ color: colorTheme }}>Доставка</span>
+              )}
             </div>
           </div>
 
