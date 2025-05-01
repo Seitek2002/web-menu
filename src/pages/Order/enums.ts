@@ -1,50 +1,102 @@
-export const statusMessages = {
-  0: {
-    1: {
-      icon: 'pending',
-      title: 'Спасибо, заказ в ожидании',
-      subTitle: 'В ближайшие 5-10 минут свяжется администратор',
-    },
-    2: {
-      icon: 'pending',
-      title: 'Спасибо, заказ в ожидании',
-      subTitle: 'Ожидайте подтверждения',
-    },
-    default: {
-      icon: 'pending',
-      title: 'Заказ получен',
-      subTitle: 'Спасибо за заказ, скоро свяжемся!',
-    },
-  },
+import cancel from 'assets/icons/Order/cancel.svg';
+import check from 'assets/icons/Order/check.svg';
+import clock from 'assets/icons/Order/clock.svg';
+import guy from 'assets/icons/Order/guy.svg';
+import pending from 'assets/icons/Order/pending.svg';
+
+interface StatusMessages {
+  [key: number]: {
+    [key: number]: {
+      icon: string;
+      title: {
+        text: string;
+        icon: string;
+      };
+      description: string;
+    };
+  };
+}
+
+export const statusMessages: StatusMessages = {
   1: {
+    0: {
+      icon: guy,
+      title: {
+        text: 'Спасибо, заказ обрабатывается',
+        icon: check,
+      },
+      description:
+        'В ближайшие 5-10 минут администратор свяжется с Вами и уточнит детали',
+    },
     1: {
-      icon: 'guy',
-      title: 'Спасибо, заказ принят!',
-      subTitle: 'Ожидайте, скоро приготовится',
+      icon: pending,
+      title: {
+        text: 'Спасибо, заказ принят!',
+        icon: clock,
+      },
+      description: 'Ожидайте, скоро приготовится',
     },
-    2: {
-      icon: 'guy',
-      title: 'Спасибо, заказ уже обрабатывается',
-      subTitle: 'Скоро приготовим и передадим вам!',
-    },
-    default: {
-      icon: 'guy',
-      title: 'Заказ принят!',
-      subTitle: 'Дополнительное описание',
-    },
-  },
-  7: {
-    default: {
-      icon: 'guy',
-      title: 'Транзакция отменена',
-      subTitle: 'Что-то пошло не так, попробуйте снова',
+    7: {
+      icon: cancel,
+      title: {
+        text: 'Заказ отменен',
+        icon: '',
+      },
+      description: 'Что-то пошло не так. Попробуйте снова',
     },
   },
-  default: {
-    default: {
-      icon: 'guy',
-      title: 'Заказ обрабатывается',
-      subTitle: 'Статус заказа неизвестен, свяжитесь с администратором.',
+  2: {
+    0: {
+      icon: guy,
+      title: {
+        text: 'Спасибо, заказ обрабатывается',
+        icon: check,
+      },
+      description:
+        'В ближайшие 5-10 минут администратор свяжется с Вами и уточнит детали',
+    },
+    1: {
+      icon: pending,
+      title: {
+        text: 'Спасибо, заказ принят!',
+        icon: clock,
+      },
+      description: 'Ожидайте, скоро приготовится',
+    },
+    7: {
+      icon: cancel,
+      title: {
+        text: 'Заказ отменен',
+        icon: '',
+      },
+      description: 'Что-то пошло не так. Попробуйте снова',
+    },
+  },
+  3: {
+    0: {
+      icon: guy,
+      title: {
+        text: 'Спасибо, заказ обрабатывается',
+        icon: check,
+      },
+      description:
+        'В ближайшие 5-10 минут администратор свяжется с Вами и уточнит детали',
+    },
+    1: {
+      icon: pending,
+      title: {
+        text: 'Спасибо, заказ принят!',
+        icon: clock,
+      },
+      description: 'Ожидайте, скоро приготовится',
+    },
+    7: {
+      icon: cancel,
+      title: {
+        text: 'Заказ отменен',
+        icon: '',
+      },
+      description: 'Что-то пошло не так. Попробуйте снова',
     },
   },
 };
