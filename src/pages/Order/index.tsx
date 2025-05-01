@@ -125,8 +125,6 @@ const Order = () => {
     }
   };
 
-  console.log(order?.status);
-
   return (
     <div className='order'>
       <header className='order__header'>
