@@ -19,22 +19,22 @@ interface StatusMessages {
 
 export const statusMessages: StatusMessages = {
   1: {
+    // На месте
     0: {
       icon: pending,
       title: {
         text: 'Спасибо, заказ обрабатывается',
         icon: clock,
       },
-      description:
-        'В ближайшие 5-10 минут администратор свяжется с Вами и уточнит детали',
+      description: 'К сожалению, мы не сможем принять заказ.',
     },
     1: {
       icon: guy,
       title: {
-        text: 'Спасибо, заказ принят!',
+        text: 'Ожидайте, заказ принят. Скоро приготовится',
         icon: check,
       },
-      description: 'Ожидайте, скоро приготовится',
+      description: 'К сожалению, мы не сможем принять заказ.',
     },
     7: {
       icon: cancel,
@@ -42,26 +42,26 @@ export const statusMessages: StatusMessages = {
         text: 'Заказ отменен',
         icon: '',
       },
-      description: 'Что-то пошло не так. Попробуйте снова',
+      description: 'К сожалению, мы не сможем принять заказ.',
     },
   },
   2: {
+    // На вынос
     0: {
       icon: pending,
       title: {
         text: 'Спасибо, заказ обрабатывается',
         icon: clock,
       },
-      description:
-        'В ближайшие 5-10 минут администратор свяжется с Вами и уточнит детали',
+      description: 'К сожалению, мы не сможем принять заказ.',
     },
     1: {
       icon: guy,
       title: {
-        text: 'Спасибо, заказ принят!',
+        text: 'Ожидайте, заказ принят. Скоро приготовится',
         icon: check,
       },
-      description: 'Ожидайте, скоро приготовится',
+      description: 'К сожалению, мы не сможем принять заказ.',
     },
     7: {
       icon: cancel,
@@ -69,26 +69,26 @@ export const statusMessages: StatusMessages = {
         text: 'Заказ отменен',
         icon: '',
       },
-      description: 'Что-то пошло не так. Попробуйте снова',
+      description: 'К сожалению, мы не сможем принять заказ.',
     },
   },
   3: {
+    // Доставка
     0: {
       icon: pending,
       title: {
         text: 'Спасибо, заказ обрабатывается',
         icon: clock,
       },
-      description:
-        'В ближайшие 5-10 минут администратор свяжется с Вами и уточнит детали',
+      description: 'Скоро доставим',
     },
     1: {
       icon: guy,
       title: {
-        text: 'Спасибо, заказ принят!',
+        text: 'Ожидайте, заказ принят. Скоро доставим',
         icon: check,
       },
-      description: 'Ожидайте, скоро приготовится',
+      description: 'Скоро доставим',
     },
     7: {
       icon: cancel,
@@ -102,4 +102,4 @@ export const statusMessages: StatusMessages = {
 };
 
 // data.serviceMode --> 1 (На месте) | 2 (На вынос) | 3 (Доставка)
-// order.status     --> 0 (Новый)    | 1 (Принят)   | 7 (Отменен)
+// order.status     --> 0 (Ожидание) | 1 (Принят)   | 7 (Отменен)
