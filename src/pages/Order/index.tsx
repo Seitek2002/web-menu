@@ -200,9 +200,9 @@ const Order = () => {
                   </clipPath>
                 </defs>
               </svg>
-              {data?.serviceMode == 1 && (
+              {data?.serviceMode == 1 && data?.tableNum && (
                 <span style={{ color: colorTheme }}>
-                  Стол №{venueData.table.tableNum}
+                  Стол №{data.tableNum}
                 </span>
               )}
             </div>

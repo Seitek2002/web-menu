@@ -50,6 +50,7 @@ export interface IOrderById {
   tipsPrice?: string;
   createdAt: string;
   orderProducts: IOrderProduct[];
+  tableNum: string;
 }
 
 // orderProducts: [
