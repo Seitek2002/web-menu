@@ -53,15 +53,15 @@ export const statusMessages: StatusMessages = {
         text: 'Спасибо, заказ обрабатывается',
         icon: clock,
       },
-      description: 'К сожалению, мы не сможем принять заказ.',
+      description: 'Ожидайте, заказ принят. Скоро приготовится',
     },
     1: {
       icon: guy,
       title: {
-        text: 'Ожидайте, заказ принят. Скоро приготовится',
+        text: 'Ожидайте, заказ принят.',
         icon: check,
       },
-      description: 'К сожалению, мы не сможем принять заказ.',
+      description: 'Спасибо, скоро приготовится',
     },
     7: {
       icon: cancel,
@@ -80,7 +80,7 @@ export const statusMessages: StatusMessages = {
         text: 'Спасибо, заказ обрабатывается',
         icon: clock,
       },
-      description: 'Скоро доставим',
+      description: 'Ожидайте, заказ принят. Скоро доставим',
     },
     1: {
       icon: guy,

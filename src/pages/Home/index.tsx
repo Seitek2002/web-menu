@@ -39,7 +39,7 @@ const Home = () => {
 
   useEffect(() => {
     localStorage.setItem('mainPage', location.pathname);
-  }, [])
+  }, []);
 
   return (
     <>
@@ -71,7 +71,10 @@ const Home = () => {
         <div className='flex gap-[30px] items-start pb-[50px] w-full'>
           <div className='max-w-[60%]'>
             <Hero />
-            <Catalog searchText={searchText} selectedCategory={selectedCategory} />
+            <Catalog
+              searchText={searchText}
+              selectedCategory={selectedCategory}
+            />
           </div>
           <div className='flex-1 sticky top-0'>
             <Categories
