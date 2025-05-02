@@ -32,11 +32,11 @@ export interface IOrder {
   comment?: string;
   address?: string;
   venue_slug: string;
-  serviceMode?: number;
+  serviceMode: number;
   servicePrice?: string;
   tipsPrice?: string;
   orderProducts: IOrderProduct[];
-  status?: number;
+  status: number;
 }
 
 export interface IOrderById {
