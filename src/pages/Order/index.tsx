@@ -44,7 +44,6 @@ const Order = () => {
   const [currentStatus, setCurrentStatus] = useState<{
     icon: string;
     title: { text: string; icon: string };
-    description: string;
   } | null>(null);
 
   useEffect(() => {
