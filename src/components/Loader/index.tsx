@@ -1,4 +1,10 @@
+import { useAppSelector } from 'hooks/useAppSelector';
+
 const Loader = () => {
+  const colorTheme = useAppSelector(
+    (state) => state.yourFeature.venue?.colorTheme
+  );
+
   return (
     <div className='fixed top-0 left-0 w-full h-full flex items-center justify-center bg-[rgba(0,0,0,0.5)] z-[100]'>
       <div className='bg-white size-[250px] p-[20px] rounded-[15px]'>
@@ -18,7 +24,7 @@ const Loader = () => {
           <g>
             <g transform='rotate(0 50 50)'>
               <rect
-                fill='#fe718d'
+                fill={colorTheme}
                 height='12'
                 width='6'
                 ry='6'
@@ -38,7 +44,7 @@ const Loader = () => {
             </g>
             <g transform='rotate(30 50 50)'>
               <rect
-                fill='#fe718d'
+                fill={colorTheme}
                 height='12'
                 width='6'
                 ry='6'
@@ -58,7 +64,7 @@ const Loader = () => {
             </g>
             <g transform='rotate(60 50 50)'>
               <rect
-                fill='#fe718d'
+                fill={colorTheme}
                 height='12'
                 width='6'
                 ry='6'
@@ -78,7 +84,7 @@ const Loader = () => {
             </g>
             <g transform='rotate(90 50 50)'>
               <rect
-                fill='#fe718d'
+                fill={colorTheme}
                 height='12'
                 width='6'
                 ry='6'
@@ -98,7 +104,7 @@ const Loader = () => {
             </g>
             <g transform='rotate(120 50 50)'>
               <rect
-                fill='#fe718d'
+                fill={colorTheme}
                 height='12'
                 width='6'
                 ry='6'
@@ -118,7 +124,7 @@ const Loader = () => {
             </g>
             <g transform='rotate(150 50 50)'>
               <rect
-                fill='#fe718d'
+                fill={colorTheme}
                 height='12'
                 width='6'
                 ry='6'
@@ -138,7 +144,7 @@ const Loader = () => {
             </g>
             <g transform='rotate(180 50 50)'>
               <rect
-                fill='#fe718d'
+                fill={colorTheme}
                 height='12'
                 width='6'
                 ry='6'
@@ -158,7 +164,7 @@ const Loader = () => {
             </g>
             <g transform='rotate(210 50 50)'>
               <rect
-                fill='#fe718d'
+                fill={colorTheme}
                 height='12'
                 width='6'
                 ry='6'
@@ -178,7 +184,7 @@ const Loader = () => {
             </g>
             <g transform='rotate(240 50 50)'>
               <rect
-                fill='#fe718d'
+                fill={colorTheme}
                 height='12'
                 width='6'
                 ry='6'
@@ -198,7 +204,7 @@ const Loader = () => {
             </g>
             <g transform='rotate(270 50 50)'>
               <rect
-                fill='#fe718d'
+                fill={colorTheme}
                 height='12'
                 width='6'
                 ry='6'
@@ -218,7 +224,7 @@ const Loader = () => {
             </g>
             <g transform='rotate(300 50 50)'>
               <rect
-                fill='#fe718d'
+                fill={colorTheme}
                 height='12'
                 width='6'
                 ry='6'
@@ -238,7 +244,7 @@ const Loader = () => {
             </g>
             <g transform='rotate(330 50 50)'>
               <rect
-                fill='#fe718d'
+                fill={colorTheme}
                 height='12'
                 width='6'
                 ry='6'

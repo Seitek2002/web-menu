@@ -223,7 +223,6 @@ const Order = () => {
                 <img src={currentStatus.title.icon} alt='' />
                 {currentStatus.title.text}
               </h2>
-              <span>{currentStatus.description}</span>
             </>
           )}
 

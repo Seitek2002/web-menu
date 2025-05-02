@@ -69,7 +69,7 @@ const Home = () => {
         </>
       ) : (
         <div className='flex gap-[30px] items-start pb-[50px] w-full'>
-          <div className='max-w-[60%]'>
+          <div className='w-[60%]'>
             <Hero />
             <Catalog
               searchText={searchText}

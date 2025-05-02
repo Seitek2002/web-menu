@@ -12,21 +12,18 @@ interface StatusMessages {
         text: string;
         icon: string;
       };
-      description: string;
     };
   };
 }
 
 export const statusMessages: StatusMessages = {
   1: {
-    // На месте
     0: {
       icon: pending,
       title: {
         text: 'Спасибо, заказ обрабатывается',
         icon: clock,
       },
-      description: 'К сожалению, мы не сможем принять заказ.',
     },
     1: {
       icon: guy,
@@ -34,7 +31,6 @@ export const statusMessages: StatusMessages = {
         text: 'Ожидайте, заказ принят. Скоро приготовится',
         icon: check,
       },
-      description: 'К сожалению, мы не сможем принять заказ.',
     },
     7: {
       icon: cancel,
@@ -42,18 +38,15 @@ export const statusMessages: StatusMessages = {
         text: 'Заказ отменен',
         icon: '',
       },
-      description: 'К сожалению, мы не сможем принять заказ.',
     },
   },
   2: {
-    // На вынос
     0: {
       icon: pending,
       title: {
         text: 'Спасибо, заказ обрабатывается',
         icon: clock,
       },
-      description: 'Ожидайте, заказ принят. Скоро приготовится',
     },
     1: {
       icon: guy,
@@ -61,7 +54,6 @@ export const statusMessages: StatusMessages = {
         text: 'Ожидайте, заказ принят.',
         icon: check,
       },
-      description: 'Спасибо, скоро приготовится',
     },
     7: {
       icon: cancel,
@@ -69,18 +61,15 @@ export const statusMessages: StatusMessages = {
         text: 'Заказ отменен',
         icon: '',
       },
-      description: 'К сожалению, мы не сможем принять заказ.',
     },
   },
   3: {
-    // Доставка
     0: {
       icon: pending,
       title: {
         text: 'Спасибо, заказ обрабатывается',
         icon: clock,
       },
-      description: 'Ожидайте, заказ принят. Скоро доставим',
     },
     1: {
       icon: guy,
@@ -88,7 +77,6 @@ export const statusMessages: StatusMessages = {
         text: 'Ожидайте, заказ принят. Скоро доставим',
         icon: check,
       },
-      description: 'Скоро доставим',
     },
     7: {
       icon: cancel,
@@ -96,7 +84,6 @@ export const statusMessages: StatusMessages = {
         text: 'Заказ отменен',
         icon: '',
       },
-      description: 'Что-то пошло не так. Попробуйте снова',
     },
   },
 };
