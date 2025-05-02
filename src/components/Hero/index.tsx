@@ -13,6 +13,8 @@ import './style.scss';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { statusMessages } from 'pages/Order/enums';
+
 const Hero = () => {
   const user = JSON.parse(localStorage.getItem('users') ?? '{}');
   const venue = JSON.parse(localStorage.getItem('venue') ?? '{}');
@@ -28,7 +30,33 @@ const Hero = () => {
     phone: `${user.phoneNumber}`,
     venueSlug: venue.slug,
   });
+
   const [orders, setOrders] = useState<IOrder[] | undefined>([]);
+
+  const getStatusData = (serviceMode: number, status: number) => {
+    if (!statusMessages[serviceMode]) {
+      return {
+        text: 'Спасибо, заказ обрабатывается',
+        color: 'text-orange-500',
+      };
+    }
+    
+    const statusObj =
+      statusMessages[serviceMode][status] ||
+      statusMessages[serviceMode][0];
+
+    let colorClass = 'text-orange-500';
+    if (status === 1) {
+      colorClass = 'text-green-500';
+    } else if (status === 7) {
+      colorClass = 'text-red-500';
+    }
+
+    return {
+      text: statusObj.title.text,
+      color: colorClass,
+    };
+  };
 
   useEffect(() => {
     if (fetchedOrders) {
@@ -72,38 +100,45 @@ const Hero = () => {
   };
 
   return (
-    <section className='hero'>
+    <section className="hero">
       {bannersLoading && <p>Загрузка баннеров...</p>}
       {bannersError && <p>Ошибка при загрузке баннеров</p>}
 
-      {/* Единый Swiper для заказов и баннеров */}
       <Swiper
         pagination={{ dynamicBullets: true }}
         modules={[Pagination]}
-        className='hero-swiper'
+        className="hero-swiper"
       >
-        {orders?.map((order) => (
-          <SwiperSlide key={`order-${order.id}`}>
-            <div
-              className='hero__item cursor-pointer'
-              onClick={() => handleOrderClick(order.id)}
-            >
-              <img
-                src={order.status === 0 ? offer1 : offer2}
-                alt={`Order #${order.id}`}
-              />
-            </div>
-          </SwiperSlide>
-        ))}
+        {orders?.map((order) => {
+          const { text, color } = getStatusData(order.serviceMode, order.status);
+
+          return (
+            <SwiperSlide key={`order-${order.id}`}>
+              <div
+                onClick={() => handleOrderClick(order.id)}
+                className="hero__item"
+                style={{
+                  backgroundImage: `url(${
+                    order.status === 0 ? offer1 : offer2
+                  })`,
+                }}
+              >
+                <p className={`text-base md:text-[32px] font-bold ${color}`}>
+                  {text}
+                </p>
+              </div>
+            </SwiperSlide>
+          );
+        })}
 
         {fetchedBanners?.map((banner: IBanner) => (
           <SwiperSlide key={`banner-${banner.id}`}>
             <div
-              className='hero__item banner__item cursor-pointer'
+              className="hero__item banner__item cursor-pointer"
               onClick={() => handleBannerClick(banner.url)}
             >
               <img src={banner.image} alt={banner.title} />
-              <div className='banner__info'>
+              <div className="banner__info">
                 <h3>{banner.title}</h3>
                 <p>{banner.text}</p>
               </div>

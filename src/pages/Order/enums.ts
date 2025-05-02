@@ -88,5 +88,5 @@ export const statusMessages: StatusMessages = {
   },
 };
 
-// data.serviceMode --> 1 (На месте) | 2 (На вынос) | 3 (Доставка)
-// order.status     --> 0 (Ожидание) | 1 (Принят)   | 7 (Отменен)
+// serviceMode === 1 (На месте) | 2 (На вынос) | 3 (Доставка)
+// status === 0 (Ожидание) | 1 (Принят) | 7 (Отменен)

@@ -1,10 +1,6 @@
 .hero {
   &__item {
-    @apply rounded-lg overflow-hidden w-full h-[100px] md:h-[270px];
-
-    img {
-      @apply w-full h-full object-cover;
-    }
+    @apply rounded-lg pl-[24px] md:pl-[50px] overflow-hidden w-full h-[100px] md:h-[270px] flex items-center bg-cover bg-right bg-no-repeat;
   }
 
   &-swiper {
