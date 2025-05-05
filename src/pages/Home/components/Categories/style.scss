@@ -1,6 +1,6 @@
 .categories {
-  @apply overflow-x-auto overflow-y-hidden sticky top-0 z-10 bg-[#F1F2F3];
-  @apply md:overflow-visible md:flex md:gap-[20px] md:py-0 md:static;
+  @apply overflow-x-auto overflow-y-hidden sticky top-0 z-[1] bg-[#F1F2F3];
+  @apply md:overflow-visible md:flex md:gap-[20px] md:py-0;
 
   &__content {
     @apply flex items-center gap-[15px] pt-[15px] pb-[30px] md:flex-wrap;

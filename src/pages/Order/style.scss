@@ -2,7 +2,7 @@
   @apply min-h-[100dvh] pb-[80px] pt-[50px];
 
   &__header {
-    @apply flex items-center justify-between fixed top-0 p-[12px] left-0 w-full bg-[#F1F2F3] z-10;
+    @apply flex items-center justify-between fixed top-0 p-[12px] left-1/2 w-full max-w-[1140px] bg-[#F1F2F3] z-10 transform -translate-x-1/2;
 
     h3 {
       @apply font-semibold text-[24px];

@@ -1,6 +1,6 @@
 .hero {
   &__item {
-    @apply rounded-lg pl-[24px] md:pl-[50px] overflow-hidden w-full h-[100px] md:h-[270px] flex items-center bg-cover bg-right bg-no-repeat;
+    @apply rounded-lg pl-[24px] overflow-hidden w-full h-[100px] md:h-[270px] flex items-center bg-cover bg-right bg-no-repeat;
   }
 
   &-swiper {

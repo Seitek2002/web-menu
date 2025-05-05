@@ -71,16 +71,16 @@ const Home = () => {
         <div className='flex gap-[30px] items-start pb-[50px] w-full'>
           <div className='w-[60%]'>
             <Hero />
+            <Categories
+              onCategoryChange={handleCategoryChange}
+              onSearchChange={onSearchChange}
+            />
             <Catalog
               searchText={searchText}
               selectedCategory={selectedCategory}
             />
           </div>
           <div className='flex-1 sticky top-0'>
-            <Categories
-              onCategoryChange={handleCategoryChange}
-              onSearchChange={onSearchChange}
-            />
             <div className='busket'>
               <header className='busket__header'>
                 <h2>Корзина</h2>
