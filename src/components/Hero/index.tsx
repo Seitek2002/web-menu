@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { statusMessages } from 'pages/Order/enums';
 import { IBanner, useGetBannersQuery } from 'api/Banners.api';
 import { useGetOrdersQuery } from 'api/Orders.api';
 import { IOrder } from 'types/orders.types';
@@ -12,8 +13,6 @@ import './style.scss';
 
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-import { statusMessages } from 'pages/Order/enums';
 
 const Hero = () => {
   const user = JSON.parse(localStorage.getItem('users') ?? '{}');
