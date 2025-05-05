@@ -146,31 +146,6 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
               <h2>{item?.productName}</h2>
               <p>{item?.productDescription}</p>
             </div>
-            {window.innerWidth >= 768 && (
-              <footer className='counter'>
-                <div className='counter__left'>
-                  <img
-                    src={minus}
-                    alt=''
-                    onClick={() => handleCounterChange(-1)}
-                    className='cursor-pointer'
-                  />
-                  <span>{counter}</span>
-                  <img
-                    src={plus}
-                    alt=''
-                    onClick={() => handleCounterChange(1)}
-                    className='cursor-pointer'
-                  />
-                </div>
-                <div
-                  className='counter__right'
-                  style={{ backgroundColor: colorTheme, color: '#fff' }}
-                >
-                  <button onClick={handleDone}>{t('counter')}</button>
-                </div>
-              </footer>
-            )}
             {sizes.length !== 0 && (
               <div className='size'>
                 <div className='flex items-center justify-between'>
@@ -199,48 +174,29 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
                 </div>
               </div>
             )}
-            {/* <div className='ingridients'>
-              <h2>{t('foodDetail.ingredients.structure')}</h2>
-              <ul>
-                <li>
-                  <p>
-                    Лепешка тортилья — мягкая, слегка обжаренная, с золотистой
-                    корочкой.
-                  </p>
-                </li>
-                <li>
-                  <p>
-                    Куриное филе в острой панировке — хрустящее снаружи, сочное
-                    внутри, с пикантными специями.
-                  </p>
-                </li>
-              </ul>
-            </div> */}
-            {window.innerWidth < 768 && (
-              <footer className='counter'>
-                <div className='counter__left'>
-                  <img
-                    src={minus}
-                    alt=''
-                    onClick={() => handleCounterChange(-1)}
-                    className='cursor-pointer'
-                  />
-                  <span>{counter}</span>
-                  <img
-                    src={plus}
-                    alt=''
-                    onClick={() => handleCounterChange(1)}
-                    className='cursor-pointer'
-                  />
-                </div>
-                <div
-                  className='counter__right'
-                  style={{ backgroundColor: colorTheme, color: '#fff' }}
-                >
-                  <button onClick={handleDone}>{t('counter')}</button>
-                </div>
-              </footer>
-            )}
+            <footer className='counter'>
+              <div className='counter__left'>
+                <img
+                  src={minus}
+                  alt=''
+                  onClick={() => handleCounterChange(-1)}
+                  className='cursor-pointer'
+                />
+                <span>{counter}</span>
+                <img
+                  src={plus}
+                  alt=''
+                  onClick={() => handleCounterChange(1)}
+                  className='cursor-pointer'
+                />
+              </div>
+              <div
+                className='counter__right'
+                style={{ backgroundColor: colorTheme, color: '#fff' }}
+              >
+                <button onClick={handleDone}>{t('counter')}</button>
+              </div>
+            </footer>
           </div>
         </div>
       </div>

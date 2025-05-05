@@ -13,7 +13,7 @@ function App() {
   }, [venue.companyName]);
 
   return (
-    <div className='font-inter bg-[#F1F2F3] px-[16px] pt-[12px] lg:max-w-[1140px] lg:mx-auto'>
+    <div className='relative font-inter bg-[#F1F2F3] px-[16px] pt-[12px] lg:max-w-[1140px] lg:mx-auto'>
       <AppRoutes />
     </div>
   );
