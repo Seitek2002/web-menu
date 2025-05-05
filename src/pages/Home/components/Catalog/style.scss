@@ -45,7 +45,7 @@
 
   .img-wrapper {
     @apply rounded-t-[24px] overflow-hidden flex items-center justify-center relative;
-    @apply md:rounded-[24px] md:max-w-[40%] md:flex-1 md:h-[200px] md:sticky top-0;
+    @apply md:rounded-[24px] md:max-w-[40%] md:flex-1 md:h-auto md:sticky top-0;
     touch-action: none;
 
     img {
