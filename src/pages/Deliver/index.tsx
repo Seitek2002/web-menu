@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useAppDispatch } from 'hooks/useAppDispatch';
@@ -44,7 +45,7 @@ const Deliver = () => {
     mask: '+996_________',
     replacement: { _: /\d/ },
   });
-
+  const { t } = useTranslation();
   const isFormValid = useMemo(() => {
     return phoneNumber.length >= 12 && address.trim().length > 3;
   }, [phoneNumber, address]);
@@ -70,9 +71,9 @@ const Deliver = () => {
       <div className='tabs__content'>
         <form className='cart__contacts' onSubmit={handleClick}>
           <div className='flex items-center justify-between mb-[12px]'>
-            <h4>Ваши контакты</h4>
+            <h4>{t('empty.contact')}</h4>
             <span className='required' style={{ color: colorTheme }}>
-              Обязательно*
+              {t('necessarily')}
             </span>
           </div>
           <input
@@ -86,13 +87,13 @@ const Deliver = () => {
           <input
             required
             type='text'
-            placeholder='Адрес или ссылка на 2гис'
+            placeholder={t('deliver.twoGis')}
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           />
           <input
             type='text'
-            placeholder='Напишите время заказа или коментарий'
+            placeholder={t('empty.comment')}
             value={comment}
             onChange={(e) => setComment(e.target.value)}
           />
@@ -101,7 +102,7 @@ const Deliver = () => {
             style={{ backgroundColor: colorTheme }}
             disabled={!isFormValid}
           >
-            Далее
+            {t('button.next')}
           </button>
         </form>
       </div>

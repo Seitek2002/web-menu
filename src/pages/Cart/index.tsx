@@ -30,7 +30,7 @@ const Cart = () => {
   const dispatch = useAppDispatch();
   const [postOrder] = usePostOrdersMutation();
   const userData = loadUsersDataFromStorage();
-  const { t, i18n } = useTranslation();
+  const { t  } = useTranslation();
   const [isShow, setIsShow] = useState(false);
   const cart = useAppSelector((state) => state.yourFeature.cart);
   const [isLoading, setIsLoading] = useState(false);
@@ -55,26 +55,26 @@ const Cart = () => {
   });
 
   const inputRef = useMask({
-    mask: '+996________',
+    mask: '+996_________',
     replacement: { _: /\d/ },
   });
 
   const list = useMemo(
     () => [
       {
-        text: t('busket.where.dinein'),
+        text: t('empty.myself'),
         value: 1,
       },
       {
-        text: t('busket.where.takeaway'),
+        text: t('empty.institution'),
         value: 2,
       },
       {
-        text: 'Доставка',
+        text: t('empty.delivery'),
         value: 3,
       },
     ],
-    [i18n.language]
+    [t]
   );
 
   const VibrationClick = () => {
@@ -225,7 +225,7 @@ const Cart = () => {
           onClick={() => navigate(-1)}
           className='cursor-pointer'
         />
-        <h3>Корзина</h3>
+        <h3>{t("basket.title")}</h3>
         <img
           src={clearCartIcon}
           alt=''
@@ -235,7 +235,7 @@ const Cart = () => {
       {window.innerWidth < 768 && (
         <>
           {venueData?.table?.tableNum && (
-            <div className='cart__top'>Стол №{venueData.table.tableNum}</div>
+            <div className='cart__top'>{t("table")}{venueData.table.tableNum}</div>
           )}
           <div className='cart__items'>
             {cart.length > 0 ? (
@@ -300,9 +300,9 @@ const Cart = () => {
               )}
               <div className='cart__contacts'>
                 <div className='flex items-center justify-between mb-[12px]'>
-                  <h4>Ваши контакты</h4>
+                  <h4>{t('empty.contact')}</h4>
                   <span className='required' style={{ color: colorTheme }}>
-                    Обязательно*
+                    {t('necessarily')}
                   </span>
                 </div>
                 <input
@@ -314,7 +314,7 @@ const Cart = () => {
                 />
                 <input
                   type='text'
-                  placeholder='Напишите время заказа или комментарий'
+                  placeholder={t('empty.comment')}
                   value={comment}
                   onChange={(e) => setComment(e.target.value.trim())}
                 />
@@ -322,7 +322,7 @@ const Cart = () => {
                 {activeIndex === 2 && (
                   <input
                     type='text'
-                    placeholder='Напишите адрес доставки'
+                    placeholder={t("empty.location")}
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                   />
@@ -333,7 +333,7 @@ const Cart = () => {
                   onClick={() => setActive(!active)}
                   className='cart__sum-top text-[#80868B]'
                 >
-                  Детали суммы
+                  {t('empty.deteil')}
                   <img
                     src={priceArrow}
                     alt='arrow'
@@ -353,7 +353,7 @@ const Cart = () => {
                   }}
                 >
                   <div className='cart__sum-item text-[#80868B]'>
-                    Общая стоимость
+                    {t('empty.total')}
                     <div className='cart__sum-total all text-[#80868B]'>
                       {cart.reduce(
                         (acc, item) => acc + item.productPrice * item.quantity,
@@ -363,14 +363,14 @@ const Cart = () => {
                     </div>
                   </div>
                   <div className='cart__sum-item text-[#80868B]'>
-                    Обслуживание
+                    {t('services')}
                     <div className='cart__sum-total service'>
                       {venueData.serviceFeePercent}%
                     </div>
                   </div>
                 </div>
                 <div className='cart__sum-ress border-[#f3f3f3]'>
-                  Итоговая сумма <span>{solveTotalSum()} c</span>
+                  {t('empty.totalAmount')} <span>{solveTotalSum()} c</span>
                 </div>
               </div>
             </>
@@ -393,7 +393,7 @@ const Cart = () => {
       </div>
       <div className='cart__forgot'>
         <h4 className='cart__forgot-title'>
-          Ничего не забыли?
+          {t('orders.forgotten')}
           <img src={cookie} alt='cookie' />
         </h4>
         <div className='cart__forgot-wrapper'>

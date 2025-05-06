@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useAppSelector } from 'hooks/useAppSelector';
@@ -29,11 +30,11 @@ const BusketDesktop = ({
       navigate(to);
     }
   };
-
+  const { t } = useTranslation();
   return (
     <div className='busket__content'>
       {venueData?.table?.tableNum && (
-        <div className='table-num'>Стол №{venueData.table.tableNum}</div>
+        <div className='table-num'>{t('table')}{venueData.table.tableNum}</div>
       )}
       {cart.length > 0 ? (
         <>
@@ -45,12 +46,12 @@ const BusketDesktop = ({
             onClick={handleClick}
             disabled={disabled}
           >
-            Далее
+            {t("button.next")}
           </button>
         </>
       ) : (
         <div className='busket__empty text-center'>
-          Добавьте товары в корзину
+          {t('basket.addItems')}
         </div>
       )}
     </div>

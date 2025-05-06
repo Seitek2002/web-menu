@@ -21,21 +21,21 @@ export const statusMessages: StatusMessages = {
     0: {
       icon: pending,
       title: {
-        text: 'Спасибо, заказ обрабатывается',
+        text: 'orderStatus.accepted',
         icon: clock,
       },
     },
     1: {
       icon: guy,
       title: {
-        text: 'Ожидайте, заказ принят. Скоро приготовится',
+        text: 'orderStatus.waiting',
         icon: check,
       },
     },
     7: {
       icon: cancel,
       title: {
-        text: 'Заказ отменен',
+        text: 'orderStatus.cancelled',
         icon: '',
       },
     },
@@ -44,21 +44,21 @@ export const statusMessages: StatusMessages = {
     0: {
       icon: pending,
       title: {
-        text: 'Спасибо, заказ обрабатывается',
+        text: 'orderStatus.processing',
         icon: clock,
       },
     },
     1: {
       icon: guy,
       title: {
-        text: 'Ожидайте, заказ принят.',
+        text: 'orderStatus.waiting',
         icon: check,
       },
     },
     7: {
       icon: cancel,
       title: {
-        text: 'Заказ отменен',
+        text: 'orderStatus.cancelled',
         icon: '',
       },
     },
@@ -67,21 +67,21 @@ export const statusMessages: StatusMessages = {
     0: {
       icon: pending,
       title: {
-        text: 'Спасибо, заказ обрабатывается',
+        text: 'orderStatus.processing',
         icon: clock,
       },
     },
     1: {
       icon: guy,
       title: {
-        text: 'Ожидайте, заказ принят. Скоро доставим',
+        text: 'orderStatus.delivery',
         icon: check,
       },
     },
     7: {
       icon: cancel,
       title: {
-        text: 'Заказ отменен',
+        text: 'orderStatus.cancelled',
         icon: '',
       },
     },

@@ -1,77 +1,37 @@
 {
   "search": "Search",
-  "table": "Table №12",
-  "title": "Giraffe",
-  "statusCard": {
-    "accepted": "Your order has been accepted!",
-    "review": "Please wait for 15-20 minutes"
+  "table": "Table №",
+  "orderStatus": {
+    "accepted": "Order accepted",
+    "preparing": "Please wait, the order is being prepared",
+    "cancelled": "Order cancelled",
+    "processing": "Thank you, the order is being processed",
+    "waiting": "Please wait, the order is accepted",
+    "delivering": "Being delivered",
+    "delivery": "Please wait, the order is accepted. Will be delivered soon"
   },
-  "notify":"Should I call the waiter",
-  "check":"Check",
-  "message": {
-    "accepted": "Your order is under review",
-    "review": "An admin will contact you shortly to clarify the details"
+  "necessarily": "Required*",
+  "banner": {
+    "loading": "Loading banners...",
+    "error": "Error loading banners"
   },
-  "swiperText": "Order food and don't waste time!",
-  "point": {
-    "search": "Search",
-    "all": "All"
-  },
-  "cartTitle": "All dishes",
-  "foodDetail": {
-    "ingredients": {
-      "structure": "Composition",
-      "sugar": {
-        "question": "With or without sugar?",
-        "options": {
-          "with_sugar": "With sugar",
-          "without_sugar": "Without sugar",
-          "price": "+10 KGS",
-          "free": "Free"
-        }
-      },
-      "necessarily": "Required*"
-    }
-  },
-  "size": {
-    "sizeChoose": "Choose a size",
-    "small": "Small",
-    "medium": "Medium",
-    "large": "Large",
-    "price": {
-      "small": "110 KGS",
-      "medium": "150 KGS",
-      "large": "180 KGS"
-    }
-  },
-  "container": {
-    "container": "Container",
-    "price": "+20 KGS"
-  },
-  "counter": "Ready",
-  "busket": {
-    "busketTitle": "Basket",
-    "detail": "Details",
-    "comment": "Write the order time or a comment",
-    "where": {
-      "takeaway": "Takeaway",
-      "dinein": "Dine-in"
+  "basket": {
+    "title": "Basket",  
+    "addItems": "Add items to cart",
+    "empty": "Your cart is empty",
+    "total": "Total",
+    "order": "Order",
+    "orderButton": "Order",
+    "continueButton": "Continue shopping",
+    "removeButton": "Remove",
+    "removeAllButton": "Clear cart",
+    "removeAllConfirm": {
+      "title": "Clear cart?",
+      "text": "Are you sure you want to clear the cart?"
     },
-    "button": {
-      "next": "Next!"
-    },
-    "forgot": "Did you forget anything?",
-    "tips": "Tips",
-    "job": "Waiter",
-    "modal": {
-      "clear": "Clear the basket?",
-      "yes": "Yes",
-      "no": "Cancel",
-      "arrange": "You can place an order for takeaway",
-      "myself": "Take it with you"
-    },
-    "footer": {
-      "order": "Order!"
+    "removeConfirm": {
+      "title": "Remove from cart?",
+      "text": "Are you sure you want to remove this item from the cart?"
     }
   }
 }

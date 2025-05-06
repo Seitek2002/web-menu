@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 
 import Catalog from './components/Catalog';
@@ -21,7 +22,7 @@ const Home = () => {
   );
   const catalogRef = useRef<HTMLDivElement>(null);
   const [search, onSearch] = useState(false);
-
+  const { t } = useTranslation();
   const clearCartHandler = () => {
     setActive(!active);
   };
@@ -83,7 +84,7 @@ const Home = () => {
           <div className='flex-1 sticky top-0'>
             <div className='busket'>
               <header className='busket__header'>
-                <h2>Корзина</h2>
+                <h2>{t('basket.title')}</h2>
                 <img
                   onClick={clearCartHandler}
                   src={clearCartIcon}

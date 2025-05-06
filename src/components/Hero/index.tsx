@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { statusMessages } from 'pages/Order/enums';
@@ -29,13 +30,14 @@ const Hero = () => {
     phone: `${user.phoneNumber}`,
     venueSlug: venue.slug,
   });
+  const { t } = useTranslation();
 
   const [orders, setOrders] = useState<IOrder[] | undefined>([]);
 
   const getStatusData = (serviceMode: number, status: number) => {
     if (!statusMessages[serviceMode]) {
       return {
-        text: 'Спасибо, заказ обрабатывается',
+        text: 'Ожидайте, заказ обрабатывается.',
         color: 'text-orange-500',
       };
     }
@@ -100,8 +102,8 @@ const Hero = () => {
 
   return (
     <section className="hero">
-      {bannersLoading && <p>Загрузка баннеров...</p>}
-      {bannersError && <p>Ошибка при загрузке баннеров</p>}
+      {bannersLoading && <p>{t('banner.loading')}</p>}
+      {bannersError && <p>{t('banner.error')}</p>}
 
       <Swiper
         pagination={{ dynamicBullets: true }}
@@ -110,7 +112,8 @@ const Hero = () => {
       >
         {orders?.map((order) => {
           const { text, color } = getStatusData(order.serviceMode, order.status);
-
+          console.log(text);
+          
           return (
             <SwiperSlide key={`order-${order.id}`}>
               <div
@@ -123,7 +126,7 @@ const Hero = () => {
                 }}
               >
                 <p className={`text-base md:text-[32px] font-bold ${color}`}>
-                  {text}
+                  {t(text)}
                 </p>
               </div>
             </SwiperSlide>

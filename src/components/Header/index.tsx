@@ -27,7 +27,7 @@ const Header: FC<IProps> = ({ searchText, setSearchText }) => {
     () => LANGUAGE_MAP[i18n.language] || 'RU',
     [i18n.language]
   );
-
+  const { t } = useTranslation();
   const toggleLanguageMenu = () => setIsLanguageOpen((prev) => !prev);
 
   const selectLanguage = (language: string) => {
@@ -52,7 +52,7 @@ const Header: FC<IProps> = ({ searchText, setSearchText }) => {
             <img src={search} alt='' />
             <input
               type='text'
-              placeholder='Поиск'
+              placeholder={t("search")}
               value={searchText}
               onChange={(e) => setSearchText(e.target.value.trim())}
               id='search'

@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 const Empty: FC = () => {
@@ -7,10 +8,11 @@ const Empty: FC = () => {
   const handleClick = () => {
     navigate(-1);
   };
+  const { t } = useTranslation();
 
   return (
     <div className='cart__empty'>
-      <h2>Добавьте товары в корзину</h2>
+      <h2>{t('basket.addItems')}</h2>
       <svg
         width='320'
         height='316'
@@ -242,7 +244,7 @@ const Empty: FC = () => {
         />
       </svg>
       <button onClick={handleClick} className='bg-[#F1F2F3]'>
-        В меню
+        {t('button.menu')}
       </button>
     </div>
   );

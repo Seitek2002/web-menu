@@ -149,9 +149,9 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
             {sizes.length !== 0 && (
               <div className='size'>
                 <div className='flex items-center justify-between'>
-                  <h2>{t('size.sizeChoose')}</h2>
+                  <h2>{t('size.size')}</h2>
                   <div style={{ color: colorTheme }} className='required'>
-                    {t('foodDetail.ingredients.necessarily')}
+                    {t('necessarily')}
                   </div>
                 </div>
                 <div className='size__content'>
@@ -194,7 +194,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
                 className='counter__right'
                 style={{ backgroundColor: colorTheme, color: '#fff' }}
               >
-                <button onClick={handleDone}>{t('counter')}</button>
+                <button onClick={handleDone}>{t('button.add')}</button>
               </div>
             </footer>
           </div>

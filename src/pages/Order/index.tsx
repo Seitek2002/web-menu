@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import QRCode from 'react-qr-code';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -45,7 +46,7 @@ const Order = () => {
     icon: string;
     title: { text: string; icon: string };
   } | null>(null);
-
+  const { t } = useTranslation();
   useEffect(() => {
     if (data) {
       // Складываем заказ в стейт
@@ -128,7 +129,7 @@ const Order = () => {
     <div className='order'>
       <header className='order__header'>
         <img src={headerArrowIcon} alt='' onClick={handleNavigate} />
-        <h3>Мой заказ</h3>
+        <h3>{t("orders.title")}</h3>
         <div></div>
       </header>
 
@@ -201,14 +202,14 @@ const Order = () => {
               </svg>
               {data?.serviceMode == 1 && data?.tableNum && (
                 <span style={{ color: colorTheme }}>
-                  Стол №{data.tableNum}
+                  {t('table')}{data.tableNum}
                 </span>
               )}
               {data?.serviceMode == 2 && (
-                <span style={{ color: colorTheme }}>На вынос</span>
+                <span style={{ color: colorTheme }}>{t('empty.takeAway')}</span>
               )}
               {data?.serviceMode == 3 && (
-                <span style={{ color: colorTheme }}>Доставка</span>
+                <span style={{ color: colorTheme }}>{t('empty.delivery')}</span>
               )}
             </div>
           </div>

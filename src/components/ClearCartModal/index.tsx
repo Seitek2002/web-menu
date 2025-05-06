@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAppSelector } from 'hooks/useAppSelector';
@@ -19,7 +20,7 @@ const ClearCartModal: FC<IProps> = ({ isShow, setActive }) => {
   const colorTheme = useAppSelector(
     (state) => state.yourFeature.venue?.colorTheme
   );
-
+  const { t } = useTranslation();
   const handleClose = () => {
     setActive(!isShow);
   };
@@ -37,7 +38,7 @@ const ClearCartModal: FC<IProps> = ({ isShow, setActive }) => {
       ></div>
       <div className={isShow ? 'clear-cart-modal active' : 'clear-cart-modal'}>
         <img src={close} alt='close-icon' onClick={handleClose} />
-        <h3 className='text-[20px] font-medium'>Очистить корзину?</h3>
+        <h3 className='text-[20px] font-medium'>{t('basket.removeAllConfirm.title')}</h3>
         <div className='clear-cart-modal__btns'>
           <button className='bg-[#F9F9F9]' onClick={handleClose}>Отмена</button>
           <button
