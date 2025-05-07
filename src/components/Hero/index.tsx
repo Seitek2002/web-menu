@@ -140,10 +140,6 @@ const Hero = () => {
               onClick={() => handleBannerClick(banner.url)}
             >
               <img src={banner.image} alt={banner.title} />
-              <div className="banner__info">
-                <h3>{banner.title}</h3>
-                <p>{banner.text}</p>
-              </div>
             </div>
           </SwiperSlide>
         ))}
