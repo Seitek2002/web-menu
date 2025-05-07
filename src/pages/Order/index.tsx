@@ -221,7 +221,7 @@ const Order = () => {
               </div>
               <h2>
                 <img src={currentStatus.title.icon} alt='' />
-                {currentStatus.title.text}
+                {t(currentStatus.title.text)}
               </h2>
             </>
           )}
@@ -234,9 +234,9 @@ const Order = () => {
           </div>
 
           <div className='text-lg mt-[20px]'>
-            <h4>Телефон: {data?.phone}</h4>
-            {data?.address && <h4>Адрес: {data.address}</h4>}
-            {data?.comment && <h4>Комментарии: {data.comment}</h4>}
+            <h4>{t('number')}: {data?.phone}</h4>
+            {data?.address && <h4>{t('addres')}: {data.address}</h4>}
+            {data?.comment && <h4>{t('comment')}: {data.comment}</h4>}
           </div>
 
           <button
@@ -244,7 +244,7 @@ const Order = () => {
             style={{ backgroundColor: colorTheme }}
             onClick={handleNavigate}
           >
-            На главную
+            {t('main')}
           </button>
         </div>
 
@@ -255,7 +255,7 @@ const Order = () => {
               onClick={() => setActive(!active)}
               className='cart__sum-top text-[#80868B]'
             >
-              Детали суммы
+              {t('empty.deteil')}
               <img
                 src={priceArrow}
                 alt='arrow'
@@ -273,7 +273,7 @@ const Order = () => {
               }}
             >
               <div className='cart__sum-item text-[#80868B]'>
-                Общая стоимость
+                {t('empty.total')}
                 <div className='cart__sum-total all text-[#80868B]'>
                   {data?.orderProducts.reduce(
                     (acc, item) => acc + item.price * item.count,
@@ -283,19 +283,19 @@ const Order = () => {
                 </div>
               </div>
               <div className='cart__sum-item text-[#80868B]'>
-                Обслуживание
+                {t('services')}
                 <div className='cart__sum-total service'>
                   {venueData.serviceFeePercent}%
                 </div>
               </div>
             </div>
             <div className='cart__sum-ress border-[#f3f3f3]'>
-              Итоговая сумма <span>{solveTotalSum()} c</span>
+              {t('empty.totalAmount')} <span>{solveTotalSum()} c</span>
             </div>
           </div>
           <div className='order__items'>
             <div className='order__items-top'>
-              <h4>Мои заказы</h4>
+              <h4>{t('orders.title')}</h4>
               <span>{order?.orderProducts?.length ?? 0} заказов</span>
             </div>
 
@@ -319,7 +319,7 @@ const Order = () => {
             style={{ backgroundColor: colorTheme }}
             onClick={handleNavigate}
           >
-            На главную
+            {t('main')}
           </button>
         </footer>
       )}

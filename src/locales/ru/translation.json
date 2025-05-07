@@ -1,6 +1,11 @@
 {
   "search": "Поиск",
   "table": "Стол №",
+  "cancellation":"Отмена",
+  "number": "Телефон",
+  "addres": "Адрес",
+  "comment": "Комментарий",
+  "main":"На главную",
   "orderStatus": {
     "accepted": "Заказ принят",
     "preparing": "Ожидайте, заказ скоро приготовится",
@@ -25,6 +30,7 @@
     "continueButton": "Продолжить покупки",
     "removeButton": "Удалить",
     "removeAllButton": "Очистить корзину",
+    "clear": "Очистить",
     "removeAllConfirm": {
       "title": "Очистить корзину?",
       "text": "Вы уверены, что хотите очистить корзину?"

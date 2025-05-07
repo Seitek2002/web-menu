@@ -40,13 +40,13 @@ const ClearCartModal: FC<IProps> = ({ isShow, setActive }) => {
         <img src={close} alt='close-icon' onClick={handleClose} />
         <h3 className='text-[20px] font-medium'>{t('basket.removeAllConfirm.title')}</h3>
         <div className='clear-cart-modal__btns'>
-          <button className='bg-[#F9F9F9]' onClick={handleClose}>Отмена</button>
+          <button className='bg-[#F9F9F9]' onClick={handleClose}>{t('cancellation')}</button>
           <button
             style={{ backgroundColor: colorTheme }}
             className='text-white'
             onClick={handleClear}
           >
-            Очистить
+            {t('basket.clear')}
           </button>
         </div>
       </div>

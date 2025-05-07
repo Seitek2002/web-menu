@@ -2,9 +2,18 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { IOrder, IOrderById, IReqCreateOrder } from 'src/types/orders.types';
 
+import i18n from 'i18next';
+
 export const Orders = createApi({
   reducerPath: 'ordersApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://imenu.kg/api/' }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://imenu.kg/api/',
+    prepareHeaders: (headers) => {
+      const currentLanguage = i18n.language || 'en';
+      headers.set('Accept-Language', currentLanguage);
+      return headers;
+    },
+  }),
   endpoints: (builder) => ({
     getOrders: builder.query<IOrder[], { tableNum?: string; venueSlug?: string; spotSlug?: string; phone?: string; }>({
       query: ({ tableNum, venueSlug, spotSlug, phone }) => {

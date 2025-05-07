@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+import i18n from 'i18next';
+
 export interface IBanner {
   id: number;
   title: string;
@@ -11,7 +13,14 @@ export interface IBanner {
 
 export const Banners = createApi({
   reducerPath: 'banners',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://imenu.kg/api/' }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://imenu.kg/api/',
+    prepareHeaders: (headers) => {
+      const currentLanguage = i18n.language || 'en';
+      headers.set('Accept-Language', currentLanguage);
+      return headers;
+    },
+  }),
   endpoints: (builder) => ({
     getBanners: builder.query<IBanner[], void>({
       query: () => ({

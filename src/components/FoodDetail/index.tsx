@@ -135,7 +135,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
             <img
               src={item?.productPhoto}
               alt='product'
-              onLoad={() => setIsLoaded(true)} // Когда загрузится — показываем
+              onLoad={() => setIsLoaded(true)}
               className={`transition-opacity duration-300 ${
                 isLoaded ? 'opacity-100' : 'opacity-0'
               }`}

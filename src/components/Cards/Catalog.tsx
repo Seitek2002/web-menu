@@ -64,7 +64,7 @@ const CatalogCard: FC<IProps> = ({ item, foodDetail }) => {
         <img
           src={item.productPhoto}
           alt="img"
-          onLoad={() => setIsLoaded(true)} // Когда загрузится — показываем
+          onLoad={() => setIsLoaded(true)} 
           className={`transition-opacity duration-300 cursor-pointer ${
             isLoaded ? "opacity-100" : "opacity-0"
           }`}
