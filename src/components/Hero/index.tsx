@@ -125,7 +125,7 @@ const Hero = () => {
                   })`,
                 }}
               >
-                <p className={`text-base md:text-[32px] font-bold ${color}`}>
+                <p className={`text-base md:text-[32px] max-w-[60%] font-bold ${color}`}>
                   {t(text)}
                 </p>
               </div>
