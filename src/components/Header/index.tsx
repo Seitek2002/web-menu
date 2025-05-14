@@ -37,6 +37,7 @@ const Header: FC<IProps> = ({ searchText, setSearchText }) => {
     setIsLanguageOpen(false);
 
     if (navigator.vibrate) navigator.vibrate(50);
+    window.location.reload();
   };
 
   return (
