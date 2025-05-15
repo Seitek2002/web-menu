@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -26,11 +26,11 @@ import { useMask } from '@react-input/mask';
 import { clearCart, setUsersData } from 'src/store/yourFeatureSlice';
 import { loadUsersDataFromStorage } from 'src/utlis/storageUtils';
 
-const Cart = () => {
+const Cart: React.FC = () => {
   const dispatch = useAppDispatch();
   const [postOrder] = usePostOrdersMutation();
   const userData = loadUsersDataFromStorage();
-  const { t  } = useTranslation();
+  const { t } = useTranslation();
   const [isShow, setIsShow] = useState(false);
   const cart = useAppSelector((state) => state.yourFeature.cart);
   const [isLoading, setIsLoading] = useState(false);
@@ -44,6 +44,9 @@ const Cart = () => {
   const [phoneNumber, setPhoneNumber] = useState(`+${userData.phoneNumber}`);
   const [comment, setComment] = useState(userData.comment || '');
   const [address, setAddress] = useState(userData.address || '');
+
+  const [phoneError, setPhoneError] = useState('');
+  const [addressError, setAddressError] = useState('');
 
   const [activeFood, setActiveFood] = useState<IProduct | null>(null);
   const [active, setActive] = useState(false);
@@ -59,20 +62,11 @@ const Cart = () => {
     replacement: { _: /\d/ },
   });
 
-  const list = useMemo(
+  const list = React.useMemo(
     () => [
-      {
-        text: t('empty.myself'),
-        value: 1,
-      },
-      {
-        text: t('empty.institution'),
-        value: 2,
-      },
-      {
-        text: t('empty.delivery'),
-        value: 3,
-      },
+      { text: t('empty.myself'), value: 1 },
+      { text: t('empty.institution'), value: 2 },
+      { text: t('empty.delivery'), value: 3 },
     ],
     [t]
   );
@@ -94,7 +88,6 @@ const Cart = () => {
       0
     );
     const cartSum = subtotal + subtotal * (venueData.serviceFeePercent / 100);
-
     return cartSum;
   };
 
@@ -111,8 +104,30 @@ const Cart = () => {
     document.body.style.overflow = 'hidden';
   };
 
-  const isButtonDisabled =
-    !phoneNumber.trim() || (activeIndex === 2 && !address.trim());
+  const handlePhoneChange = (value: string) => {
+    setPhoneNumber(value);
+    if (value.length < 12) {
+      setPhoneError('Минимум 12 символов');
+    } else {
+      setPhoneError('');
+    }
+  };
+
+  const handleAddressChange = (value: string) => {
+    setAddress(value);
+    if (value.trim().length < 4) {
+      setAddressError('Слишком короткий адрес');
+    } else {
+      setAddressError('');
+    }
+  };
+
+  const isButtonDisabled = useMemo(() => {
+    if (phoneError || addressError) {
+      return false;
+    }
+    return phoneNumber.length >= 12 && address.trim().length > 3;
+  }, [phoneNumber, address, phoneError, addressError]);
 
   const handleOrder = async () => {
     setIsLoading(true);
@@ -150,7 +165,7 @@ const Cart = () => {
     if (venueData?.table?.tableNum) {
       acc.serviceMode = 1;
     } else {
-      if (userType.text === 'Доставка') {
+      if (userType.text === t('empty.delivery')) {
         acc.serviceMode = userType.value;
         acc.address = address;
       } else {
@@ -160,13 +175,7 @@ const Cart = () => {
 
     dispatch(
       setUsersData({
-        phoneNumber: phoneNumber
-          .replace('-', '')
-          .replace('(', '')
-          .replace(')', '')
-          .replace(' ', '')
-          .replace('+', '')
-          .replace(' ', ''),
+        phoneNumber: acc.phone,
         address,
         comment,
         type: userType.value,
@@ -185,7 +194,6 @@ const Cart = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-
     if (userData.type) {
       setActiveIndex(userData.type - 1);
     }
@@ -205,19 +213,14 @@ const Cart = () => {
             weight: 0,
             productDescription: '',
             isRecommended: false,
-            modificators: [
-              {
-                id: 0,
-                name: '',
-                price: 0,
-              },
-            ],
+            modificators: [{ id: 0, name: '', price: 0 }],
             id: 0,
           }
         }
       />
       <ClearCartModal isShow={clearCartModal} setActive={setClearCartModal} />
       {isLoading && <Loader />}
+
       <header className='cart__header'>
         <img
           src={headerArrowIcon}
@@ -225,31 +228,32 @@ const Cart = () => {
           onClick={() => navigate(-1)}
           className='cursor-pointer'
         />
-        <h3>{t("basket.title")}</h3>
+        <h3>{t('basket.title')}</h3>
         <img
           src={clearCartIcon}
           alt=''
           onClick={() => setClearCartModal(true)}
         />
       </header>
+
       {window.innerWidth < 768 && (
         <>
           {venueData?.table?.tableNum && (
-            <div className='cart__top'>{t("table")}{venueData.table.tableNum}</div>
+            <div className='cart__top'>
+              {t('table')}
+              {venueData.table.tableNum}
+            </div>
           )}
           <div className='cart__items'>
             {cart.length > 0 ? (
-              <>
-                {cart.map((item) => (
-                  <BusketCard key={item.id} item={item} />
-                ))}
-              </>
+              cart.map((item) => <BusketCard key={item.id} item={item} />)
             ) : (
-              <div></div>
+              <div />
             )}
           </div>
         </>
       )}
+
       <div className='md:flex gap-[24px]'>
         <div className='md:w-[50%]'>
           {cart.length > 0 ? (
@@ -263,7 +267,7 @@ const Cart = () => {
                         handleClick(item.value - 1);
                       }}
                       className={`cart__order-type-wrapper bg-[#fff] border-[#e1e2e5] cursor-pointer ${
-                        activeIndex === index ? `active` : ''
+                        activeIndex === index ? 'active' : ''
                       }`}
                       style={{
                         borderColor:
@@ -276,7 +280,6 @@ const Cart = () => {
                           height='20'
                           viewBox='0 0 20 20'
                           fill='none'
-                          xmlns='http://www.w3.org/2000/svg'
                         >
                           <g clipPath='url(#clip0_248_22508)'>
                             <path
@@ -291,7 +294,7 @@ const Cart = () => {
                           </defs>
                         </svg>
                       ) : (
-                        <div className='cart__order-type-checkbox border-[#e1e2e5]'></div>
+                        <div className='cart__order-type-checkbox border-[#e1e2e5]' />
                       )}
                       {item.text}
                     </div>
@@ -305,29 +308,40 @@ const Cart = () => {
                     {t('necessarily')}
                   </span>
                 </div>
+
                 <input
                   type='text'
                   placeholder='+996'
                   ref={inputRef}
                   value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  onChange={(e) => handlePhoneChange(e.target.value)}
                 />
+                {phoneError && (
+                  <div className='error-message'>{phoneError}</div>
+                )}
+
                 <input
                   type='text'
-                  placeholder={t('empty.comment')}
+                  placeholder={t('empty.comment') || 'Комментарий'}
                   value={comment}
                   onChange={(e) => setComment(e.target.value.trim())}
                 />
-                {/* Показываем инпут адреса, если выбрана "Доставка" (index = 2) */}
+
                 {activeIndex === 2 && (
-                  <input
-                    type='text'
-                    placeholder={t("empty.location")}
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                  />
+                  <>
+                    <input
+                      type='text'
+                      placeholder={t('empty.location') || 'Адрес'}
+                      value={address}
+                      onChange={(e) => handleAddressChange(e.target.value)}
+                    />
+                    {addressError && (
+                      <div className='error-message'>{addressError}</div>
+                    )}
+                  </>
                 )}
               </div>
+
               <div className='cart__sum bg-[#fff]'>
                 <div
                   onClick={() => setActive(!active)}
@@ -348,9 +362,7 @@ const Cart = () => {
                       ? 'cart__sum-wrapper divide-y active'
                       : 'cart__sum-wrapper divide-y'
                   }
-                  style={{
-                    height: active ? '80px' : '0',
-                  }}
+                  style={{ height: active ? '80px' : '0' }}
                 >
                   <div className='cart__sum-item text-[#80868B]'>
                     {t('empty.total')}
@@ -375,22 +387,21 @@ const Cart = () => {
               </div>
             </>
           ) : (
-            <div className=''>
-              <Empty />
-            </div>
+            <Empty />
           )}
         </div>
+
         {window.innerWidth >= 768 && (
           <div className='busket flex-1'>
-            {/* Передаём флаг disabled для десктопной кнопки */}
             <BusketDesktop
               to='/order'
               createOrder={handleOrder}
-              disabled={isButtonDisabled || !cart.length}
+              disabled={!isButtonDisabled || !cart.length}
             />
           </div>
         )}
       </div>
+
       <div className='cart__forgot'>
         <h4 className='cart__forgot-title'>
           {t('orders.forgotten')}
@@ -404,16 +415,15 @@ const Cart = () => {
             ))}
         </div>
       </div>
+
       {window.innerWidth < 768 && (
         <footer className='cart__footer'>
-          {/* Аналогично, отключаем кнопку при пустом номере 
-              или если выбран «Доставка» и пустой адрес */}
           <button
-            disabled={!cart.length || isButtonDisabled}
+            disabled={!cart.length || !isButtonDisabled}
             style={{ backgroundColor: colorTheme }}
             onClick={handleOrder}
           >
-            Далее
+            {t('orders.next') || 'Далее'}
           </button>
         </footer>
       )}
