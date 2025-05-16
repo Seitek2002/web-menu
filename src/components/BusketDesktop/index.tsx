@@ -16,6 +16,7 @@ const BusketDesktop = ({
   disabled?: boolean;
 }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const colorTheme = useAppSelector(
     (state) => state.yourFeature.venue?.colorTheme
   );
@@ -30,7 +31,7 @@ const BusketDesktop = ({
       navigate(to);
     }
   };
-  const { t } = useTranslation();
+
   return (
     <div className='busket__content'>
       {venueData?.table?.tableNum && (

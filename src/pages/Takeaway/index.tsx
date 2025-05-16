@@ -43,20 +43,26 @@ const Takeaway = () => {
         </div>
       </div>
       <div className='tabs__pickup'>
-        {data.spots?.map((spot) => (
-          <button
-            className='tabs__pickup-item'
-            style={{ backgroundColor: colorTheme }}
-            key={spot.id}
-            onClick={() => handleClick(spot)}
-          >
-            <img src={geoIcon} alt='geoIcon' />
-            <div>
-              <span className='tabs__pickup-item-name'>{spot.name}</span>
-              <span className='tabs__pickup-item-address'>{spot.address}</span>
-            </div>
-          </button>
-        ))}
+        {data.spots?.map((spot) => {
+          if (spot.address) {
+            return (
+              <button
+                className='tabs__pickup-item'
+                style={{ backgroundColor: colorTheme }}
+                key={spot.id}
+                onClick={() => handleClick(spot)}
+              >
+                <img src={geoIcon} alt='geoIcon' />
+                <div>
+                  <span className='tabs__pickup-item-name'>{spot.name}</span>
+                  <span className='tabs__pickup-item-address'>
+                    {spot.address}
+                  </span>
+                </div>
+              </button>
+            );
+          }
+        })}
       </div>
     </div>
   );
