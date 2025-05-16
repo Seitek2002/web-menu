@@ -434,7 +434,7 @@ const Cart: React.FC = () => {
             style={{ backgroundColor: colorTheme }}
             onClick={handleOrder}
           >
-            {t('orders.next') || 'Далее'}
+            {t('button.next') || 'Далее'}
           </button>
         </footer>
       )}
