@@ -17,7 +17,7 @@ export interface IReqCreateOrder {
   address?: string;
   servicePrice?: number;
   tipsPrice?: number;
-  spot?: number;
+  spot: number;
   table?: number;
   orderProducts: {
     product: number;

@@ -16,6 +16,7 @@ export interface IVenues {
     tableNum: string;
   };
   spots?: ISpot[];
+  activeSpot: number;
   isDeliveryAvailable: boolean;
   isTakeoutAvailable: boolean;
   isDineinAvailable: boolean;

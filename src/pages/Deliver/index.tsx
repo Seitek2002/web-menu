@@ -15,10 +15,12 @@ const Deliver = () => {
   const dispatch = useAppDispatch();
   const params = useParams();
   const userData = loadUsersDataFromStorage();
-  const [phoneNumber, setPhoneNumber] = useState( '+' + userData.phoneNumber || '');
+  const [phoneNumber, setPhoneNumber] = useState(
+    '+' + userData.phoneNumber || ''
+  );
   const [address, setAddress] = useState(userData.address || '');
   const [comment, setComment] = useState(userData.comment);
-  const data = useAppSelector((state) => state.yourFeature.venue);
+  const venueData = useAppSelector((state) => state.yourFeature.venue);
   const colorTheme = useAppSelector(
     (state) => state.yourFeature.venue?.colorTheme
   );
@@ -37,7 +39,13 @@ const Deliver = () => {
       comment,
       address,
     };
-    dispatch(setUsersData(data));
+    if (venueData && venueData.spots) {
+      dispatch(
+        setUsersData({ ...data, activeSpot: venueData.spots[0].id || 0 })
+      );
+    } else {
+      dispatch(setUsersData({ ...data, activeSpot: 0 }));
+    }
     navigate(`/I/${params.venue}/d`);
   };
 
@@ -59,10 +67,12 @@ const Deliver = () => {
           <div className='sub-header__content'>
             <div className='venue'>
               <div className='logo'>
-                <img src={data?.logo} alt='' />
+                <img src={venueData?.logo} alt='' />
               </div>
               <div>
-                <div className='text-[20px] font-bold'>{data?.companyName}</div>
+                <div className='text-[20px] font-bold'>
+                  {venueData?.companyName}
+                </div>
               </div>
             </div>
           </div>

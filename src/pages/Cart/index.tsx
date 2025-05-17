@@ -184,6 +184,7 @@ const Cart: React.FC = () => {
       serviceMode: 1,
       venue_slug: venueData.slug,
       address: '',
+      spot: userData.activeSpot
     };
 
     if (venueData?.table?.tableNum) {

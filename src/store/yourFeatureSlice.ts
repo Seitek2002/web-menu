@@ -11,6 +11,7 @@ export interface IUsersData {
   comment?: string;
   name?: string;
   type?: number;
+  activeSpot: number;
 }
 
 interface YourFeatureState {
