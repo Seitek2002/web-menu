@@ -135,7 +135,7 @@
   }
 
   .counter {
-    @apply grid grid-cols-2 items-center gap-[12px] pt-[30px] pb-[40px] sticky bottom-0 md:static;
+    @apply grid grid-cols-2 items-center gap-[12px] pt-[30px] pb-[40px] sticky bottom-0 md:static bg-[#fff];
 
     &__left {
       @apply flex justify-between gap-[34px] px-[8px] py-[16px] rounded-[12px] font-semibold bg-[#F1F2F3];
