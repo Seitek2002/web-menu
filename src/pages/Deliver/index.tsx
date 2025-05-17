@@ -53,6 +53,7 @@ const Deliver = () => {
     mask: '+996_________',
     replacement: { _: /\d/ },
   });
+
   const { t } = useTranslation();
   const isFormValid = useMemo(() => {
     return phoneNumber.length >= 12 && address.trim().length > 3;

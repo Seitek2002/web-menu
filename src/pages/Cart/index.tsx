@@ -182,7 +182,7 @@ const Cart: React.FC = () => {
 
     if (venueData?.table?.tableNum) {
       acc.serviceMode = 1;
-      acc.table = +venueData.table.tableNum;
+      acc.table = +venueData.table.id;
     } else {
       if (currentType.value === 3) {
         acc.serviceMode = 3;
@@ -201,6 +201,8 @@ const Cart: React.FC = () => {
         type: currentType.value,
       })
     );
+
+    console.log(+venueData.table.id);
 
     const { data: res } = await postOrder({
       ...acc,
