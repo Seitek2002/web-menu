@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { usePostOrdersMutation } from 'api/Orders.api';
 import { useGetProductsQuery } from 'api/Products.api';
 import { IReqCreateOrder } from 'types/orders.types';
-import { IProduct } from 'types/products.types';
+import { IFoodCart, IProduct } from 'types/products.types';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAppSelector } from 'hooks/useAppSelector';
 import Empty from './components/Empty';
@@ -87,14 +87,6 @@ const Cart: React.FC = () => {
     if (navigator.vibrate) {
       navigator.vibrate(50);
     }
-  };
-
-  const solveTotalSum = () => {
-    const subtotal = cart.reduce(
-      (acc, item) => acc + item.productPrice * item.quantity,
-      0
-    );
-    return subtotal + subtotal * (venueData.serviceFeePercent / 100);
   };
 
   const handleClose = () => {
@@ -222,6 +214,26 @@ const Cart: React.FC = () => {
       setIsLoading(false);
     }
   };
+
+  function getCartItemPrice(item: IFoodCart): number {
+    if (item.modificators?.price) {
+      return item.modificators.price;
+    }
+    return item.productPrice;
+  }
+
+  const solveTotalSum = () => {
+    const subtotal = cart.reduce((acc, item) => {
+      const realPrice = getCartItemPrice(item);
+      return acc + realPrice * item.quantity;
+    }, 0);
+    return subtotal + subtotal * (venueData.serviceFeePercent / 100);
+  };
+
+  const subtotal = cart.reduce((acc, item) => {
+    const realPrice = getCartItemPrice(item);
+    return acc + realPrice * item.quantity;
+  }, 0);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -398,10 +410,7 @@ const Cart: React.FC = () => {
                   <div className='cart__sum-item text-[#80868B]'>
                     {t('empty.total')}
                     <div className='cart__sum-total all text-[#80868B]'>
-                      {cart.reduce(
-                        (acc, item) => acc + item.productPrice * item.quantity,
-                        0
-                      )}{' '}
+                      {subtotal} {' '}
                       c
                     </div>
                   </div>
