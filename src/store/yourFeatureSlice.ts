@@ -98,7 +98,7 @@ const yourFeatureSlice = createSlice({
     },
     setUsersData: (state, action) => {
       state.usersData = action.payload;
-      saveUsersDataToStorage(state.usersData);
+      saveUsersDataToStorage(action.payload);
     }
   },
 });

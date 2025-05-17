@@ -13,6 +13,8 @@ import SupHeader from 'components/SubHeader';
 
 import clearCartIcon from 'assets/icons/Busket/clear-cart.svg';
 
+import { loadUsersDataFromStorage } from 'src/utlis/storageUtils';
+
 const Home = () => {
   const [searchText, setSearchText] = useState('');
   const location = useLocation();
@@ -22,6 +24,7 @@ const Home = () => {
   );
   const catalogRef = useRef<HTMLDivElement>(null);
   const [search, onSearch] = useState(false);
+  const userData = loadUsersDataFromStorage();
   const { t } = useTranslation();
   const clearCartHandler = () => {
     setActive(!active);
@@ -40,6 +43,16 @@ const Home = () => {
 
   useEffect(() => {
     localStorage.setItem('mainPage', location.pathname);
+
+    localStorage.setItem(
+      'users',
+      JSON.stringify({
+        ...userData,
+        activeSpot: +location.pathname.split('/').filter((item) => +item)[0],
+      })
+    );
+
+    console.log(JSON.parse(localStorage.getItem('users') ?? '{}'));
   }, []);
 
   return (

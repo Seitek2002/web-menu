@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { useGetVenueQuery } from 'api/Venue.api';
 
+// import { useAppSelector } from 'hooks/useAppSelector';
 // import bell from 'assets/icons/SubHeader/bell.svg';
 // import check from 'assets/icons/SubHeader/check.svg';
 // import logo from 'assets/images/SubHeader/logo.png';
@@ -15,6 +16,7 @@ import { loadVenueFromStorage } from 'src/utlis/storageUtils';
 const SubHeader = () => {
   const { venue, id } = useParams();
   const dispatch = useDispatch();
+  // const venueData = useAppSelector((state) => state.yourFeature.venue);
   const { data } = useGetVenueQuery({
     venueSlug: venue || '',
     tableId: Number(id) || undefined,
@@ -27,10 +29,14 @@ const SubHeader = () => {
   useEffect(() => {
     const loadedVenue = loadVenueFromStorage();
 
-    if(loadedVenue.companyName !== venue) {
+    if (loadedVenue.companyName !== venue) {
       dispatch(clearCart());
     }
-  }, [])
+
+    // if(venueData.activeSpot !== location.pathname.split('/').filter((item) => +item)[0]) {
+
+    // }
+  }, []);
 
   return (
     <div className='sub-header'>

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { usePostOrdersMutation } from 'api/Orders.api';
 import { useGetProductsQuery } from 'api/Products.api';
+import { IReqCreateOrder } from 'types/orders.types';
 import { IProduct } from 'types/products.types';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAppSelector } from 'hooks/useAppSelector';
@@ -171,7 +172,7 @@ const Cart: React.FC = () => {
       return;
     }
 
-    const acc = {
+    const acc: IReqCreateOrder = {
       phone: phoneNumber
         .replace('-', '')
         .replace('(', '')
@@ -184,11 +185,12 @@ const Cart: React.FC = () => {
       serviceMode: 1,
       venue_slug: venueData.slug,
       address: '',
-      spot: userData.activeSpot
+      spot: 0,
     };
 
     if (venueData?.table?.tableNum) {
       acc.serviceMode = 1;
+      acc.table = +venueData.table.tableNum;
     } else {
       if (currentType.value === 3) {
         acc.serviceMode = 3;
@@ -200,6 +202,7 @@ const Cart: React.FC = () => {
 
     dispatch(
       setUsersData({
+        ...userData,
         phoneNumber: acc.phone,
         address,
         comment,
@@ -207,7 +210,10 @@ const Cart: React.FC = () => {
       })
     );
 
-    const { data: res } = await postOrder(acc);
+    const { data: res } = await postOrder({
+      ...acc,
+      spot: userData.activeSpot,
+    });
     if (res?.paymentUrl) {
       dispatch(clearCart());
       setIsLoading(false);
