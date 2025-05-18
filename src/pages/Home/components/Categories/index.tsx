@@ -95,9 +95,8 @@ const Categories: FC<IProps> = ({ onCategoryChange, onSearchChange }) => {
                 <g></g>
                 <g></g>
               </svg>
-              <span className='leading-tight hidden md:block'>Поиск</span>
             </div>
-            <span className='leading-tight block md:hidden text-black'>
+            <span className='leading-tight block text-black'>
               Поиск
             </span>
           </div>

@@ -370,6 +370,9 @@ const Cart: React.FC = () => {
                           value={spot.id}
                           onClick={() => setSelectedSpot(spot.id)}
                           checked={selectedSpot === spot.id}
+                          style={{
+                            accentColor: colorTheme,
+                          }}
                         />
                       </div>
                       {spot.name} ({spot.address})
