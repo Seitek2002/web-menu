@@ -55,11 +55,11 @@ const Cart: React.FC = () => {
   const [clearCartModal, setClearCartModal] = useState(false);
 
   const navigate = useNavigate();
-  const { data: items } = useGetProductsQuery({
-    venueSlug: venueData.companyName,
+  const { data } = useGetProductsQuery({
+    venueSlug: venueData.companyName.toUpperCase(),
   });
 
-  console.log(venueData);
+  // console.log(data);
 
   const inputRef = useMask({
     mask: '+996_________',
@@ -385,9 +385,9 @@ const Cart: React.FC = () => {
 
                 <label htmlFor='phoneNumber'>
                   <span className='text-[14px]'>
-                    Номер телефона
+                    Номер телефона{' '}
                     <span className='required' style={{ color: colorTheme }}>
-                      *
+                      *Обязательно
                     </span>
                   </span>
                   <input
@@ -495,7 +495,7 @@ const Cart: React.FC = () => {
           <img src={cookie} alt='cookie' />
         </h4>
         <div className='cart__forgot-wrapper'>
-          {items
+          {data
             ?.filter((item) => item.isRecommended)
             .map((item) => (
               <CatalogCard foodDetail={handleOpen} key={item.id} item={item} />
