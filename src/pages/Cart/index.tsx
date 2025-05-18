@@ -43,7 +43,7 @@ const Cart: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [selectedSpot, setSelectedSpot] = useState(userData.activeSpot || 0);
 
-  const [phoneNumber, setPhoneNumber] = useState(`+${userData.phoneNumber}`);
+  const [phoneNumber, setPhoneNumber] = useState(`+996${userData.phoneNumber.replace('996', '')}`);
   const [comment, setComment] = useState(userData.comment || '');
   const [address, setAddress] = useState(userData.address || '');
 
