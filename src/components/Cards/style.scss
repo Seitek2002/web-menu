@@ -44,15 +44,15 @@
   @apply flex items-center justify-between gap-[8px] border-b-[#F3F3F3] border-b-[1px] pb-[8px] mb-[8px];
 
   h3 {
-    @apply font-medium text-[12px] leading-tight mb-[8px] line-clamp-3;
+    @apply font-medium text-[14px] leading-tight mb-[8px] line-clamp-3;
   }
 
   .price {
-    @apply font-semibold text-[10px] md:text-[12px];
+    @apply font-semibold text-[14px];
   }
 
   .weight {
-    @apply font-medium text-[10px] text-[#ADADAD] md:text-[12px];
+    @apply font-medium text-[14px] text-[#ADADAD];
   }
 
   &__text {

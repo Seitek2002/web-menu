@@ -38,7 +38,7 @@
   },
   "services": "Service",
   "empty": {
-    "contact": "Your contacts",
+    "contact": "Your details for the order",
     "comment": "Write the order time or comment",
     "deteil": "Amount details",
     "location": "Write the delivery address",

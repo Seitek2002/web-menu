@@ -356,9 +356,6 @@ const Cart: React.FC = () => {
                 <div className='cart__contacts'>
                   <div className='flex items-center justify-between mb-[12px]'>
                     <h4>Выберите филиал</h4>
-                    <span className='required' style={{ color: colorTheme }}>
-                      {t('necessarily')}
-                    </span>
                   </div>
                   {venueData.spots?.map((spot) => (
                     <label
@@ -375,7 +372,7 @@ const Cart: React.FC = () => {
                           checked={selectedSpot === spot.id}
                         />
                       </div>
-                      {spot.name} || {spot.address}
+                      {spot.name} ({spot.address})
                     </label>
                   ))}
                 </div>
@@ -384,13 +381,15 @@ const Cart: React.FC = () => {
               <div className='cart__contacts'>
                 <div className='flex items-center justify-between mb-[12px]'>
                   <h4>{t('empty.contact')}</h4>
-                  <span className='required' style={{ color: colorTheme }}>
-                    {t('necessarily')}
-                  </span>
                 </div>
 
                 <label htmlFor='phoneNumber'>
-                  <span className='text-[14px]'>Номер телефона</span>
+                  <span className='text-[14px]'>
+                    Номер телефона
+                    <span className='required' style={{ color: colorTheme }}>
+                      *
+                    </span>
+                  </span>
                   <input
                     type='text'
                     placeholder='+996'
