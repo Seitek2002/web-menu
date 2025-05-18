@@ -41,6 +41,7 @@ const Cart: React.FC = () => {
   const venueData = useAppSelector((state) => state.yourFeature.venue);
 
   const [activeIndex, setActiveIndex] = useState(0);
+  const [selectedSpot, setSelectedSpot] = useState(userData.activeSpot || 0);
 
   const [phoneNumber, setPhoneNumber] = useState(`+${userData.phoneNumber}`);
   const [comment, setComment] = useState(userData.comment || '');
@@ -57,6 +58,8 @@ const Cart: React.FC = () => {
   const { data: items } = useGetProductsQuery({
     venueSlug: venueData.companyName,
   });
+
+  console.log(venueData);
 
   const inputRef = useMask({
     mask: '+996_________',
@@ -177,7 +180,7 @@ const Cart: React.FC = () => {
       serviceMode: 1,
       venue_slug: venueData.slug,
       address: '',
-      spot: 0,
+      spot: selectedSpot,
     };
 
     if (venueData?.table?.tableNum) {
@@ -199,13 +202,15 @@ const Cart: React.FC = () => {
         address,
         comment,
         type: currentType.value,
+        activeSpot: selectedSpot,
       })
     );
 
     const { data: res } = await postOrder({
       ...acc,
-      spot: userData.activeSpot,
+      spot: selectedSpot,
     });
+
     if (res?.paymentUrl) {
       dispatch(clearCart());
       setIsLoading(false);
@@ -214,7 +219,7 @@ const Cart: React.FC = () => {
       setIsLoading(false);
     }
 
-      setIsLoading(false);
+    setIsLoading(false);
   };
 
   function getCartItemPrice(item: IFoodCart): number {
@@ -346,6 +351,36 @@ const Cart: React.FC = () => {
                   ))}
                 </div>
               )}
+
+              {activeIndex === 0 && (
+                <div className='cart__contacts'>
+                  <div className='flex items-center justify-between mb-[12px]'>
+                    <h4>Выберите филиал</h4>
+                    <span className='required' style={{ color: colorTheme }}>
+                      {t('necessarily')}
+                    </span>
+                  </div>
+                  {venueData.spots?.map((spot) => (
+                    <label
+                      className='flex'
+                      htmlFor={spot.id + ''}
+                      key={spot.id}
+                    >
+                      <div>
+                        <input
+                          type='checkbox'
+                          id={spot.id + ''}
+                          value={spot.id}
+                          onClick={() => setSelectedSpot(spot.id)}
+                          checked={selectedSpot === spot.id}
+                        />
+                      </div>
+                      {spot.name} || {spot.address}
+                    </label>
+                  ))}
+                </div>
+              )}
+
               <div className='cart__contacts'>
                 <div className='flex items-center justify-between mb-[12px]'>
                   <h4>{t('empty.contact')}</h4>
@@ -354,35 +389,47 @@ const Cart: React.FC = () => {
                   </span>
                 </div>
 
-                <input
-                  type='text'
-                  placeholder='+996'
-                  ref={inputRef}
-                  value={phoneNumber}
-                  onChange={(e) => handlePhoneChange(e.target.value)}
-                />
-                {phoneError && (
-                  <div className='error-message'>{phoneError}</div>
-                )}
+                <label htmlFor='phoneNumber'>
+                  <span className='text-[14px]'>Номер телефона</span>
+                  <input
+                    type='text'
+                    placeholder='+996'
+                    id='phoneNumber'
+                    ref={inputRef}
+                    value={phoneNumber}
+                    onChange={(e) => handlePhoneChange(e.target.value)}
+                  />
+                  {phoneError && (
+                    <div className='error-message'>{phoneError}</div>
+                  )}
+                </label>
 
-                <input
-                  type='text'
-                  placeholder={t('empty.comment') || 'Комментарий'}
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value.trim())}
-                />
+                <label htmlFor='comment'>
+                  <span className='text-[14px]'>Комментарии</span>
+                  <input
+                    id='comment'
+                    type='text'
+                    placeholder={t('empty.comment') || 'Комментарий'}
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value.trim())}
+                  />
+                </label>
 
                 {orderTypes[activeIndex]?.value === 3 && (
                   <>
-                    <input
-                      type='text'
-                      placeholder={t('empty.location') || 'Адрес'}
-                      value={address}
-                      onChange={(e) => handleAddressChange(e.target.value)}
-                    />
-                    {addressError && (
-                      <div className='error-message'>{addressError}</div>
-                    )}
+                    <label htmlFor='address'>
+                      <span className='text-[14px]'>Адрес</span>
+                      <input
+                        type='text'
+                        id='address'
+                        placeholder={t('empty.location') || 'Адрес'}
+                        value={address}
+                        onChange={(e) => handleAddressChange(e.target.value)}
+                      />
+                      {addressError && (
+                        <div className='error-message'>{addressError}</div>
+                      )}
+                    </label>
                   </>
                 )}
               </div>
@@ -412,8 +459,7 @@ const Cart: React.FC = () => {
                   <div className='cart__sum-item text-[#80868B]'>
                     {t('empty.total')}
                     <div className='cart__sum-total all text-[#80868B]'>
-                      {subtotal} {' '}
-                      c
+                      {subtotal} c
                     </div>
                   </div>
                   <div className='cart__sum-item text-[#80868B]'>

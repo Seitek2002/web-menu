@@ -48,11 +48,11 @@
   }
 
   .price {
-    @apply font-semibold text-[10px];
+    @apply font-semibold text-[10px] md:text-[12px];
   }
 
   .weight {
-    @apply font-medium text-[10px] text-[#ADADAD];
+    @apply font-medium text-[10px] text-[#ADADAD] md:text-[12px];
   }
 
   &__text {
