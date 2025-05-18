@@ -149,7 +149,7 @@ const Hero = () => {
         modules={[Pagination]}
         className='hero-swiper'
       >
-        {getWorkStatus(venue.schedule) && (
+        {getWorkStatus(venue.schedule || '00:00-00:00') && (
           <SwiperSlide>
             <div
               className='hero__item'
