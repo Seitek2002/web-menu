@@ -31,11 +31,8 @@ const Item: FC<IProps> = ({ item, active, selectCategory }) => {
         }}
       >
         <img src={item.categoryPhoto} alt='icon' />
-        <span className='leading-tight hidden md:block'>
-          {item.categoryName}
-        </span>
       </div>
-      <span className='leading-tight block md:hidden text-black'>{item.categoryName}</span>
+      <span className='leading-tight text-black'>{item.categoryName}</span>
     </div>
   );
 };

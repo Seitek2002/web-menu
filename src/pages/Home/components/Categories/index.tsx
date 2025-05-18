@@ -15,6 +15,7 @@ interface IProps {
 
 const Categories: FC<IProps> = ({ onCategoryChange, onSearchChange }) => {
   const params = useParams<{ venue: string }>();
+  const [isShow, setIsShow] = useState(false);
   const { data: categories } = useGetCategoriesQuery({
     venueSlug: params.venue,
   });
@@ -37,7 +38,15 @@ const Categories: FC<IProps> = ({ onCategoryChange, onSearchChange }) => {
 
   return (
     <section className='categories'>
-      <div className='categories__content'>
+      {categories && categories.length > 7 && (
+        <span
+          className={`dropdown-arrow`}
+          onClick={() => setIsShow(!isShow)}
+        >
+          {isShow ? 'Скрыть' : 'Все'} категории
+        </span>
+      )}
+      <div className={'categories__content ' + (isShow ? 'active' : '')}>
         <div className='md:hidden'>
           <div
             className={`categories__item ${active === -1 ? 'active' : ''}`}
@@ -171,9 +180,8 @@ const Categories: FC<IProps> = ({ onCategoryChange, onSearchChange }) => {
               <g></g>
               <g></g>
             </svg>
-            <span className='leading-tight hidden md:block'>Все</span>
           </div>
-          <span className='leading-tight block md:hidden text-black'>Все</span>
+          <span className='leading-tight text-black'>Все</span>
         </div>
         {categories?.map((item) => (
           <Item

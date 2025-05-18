@@ -9,11 +9,51 @@ import { IOrder } from 'types/orders.types';
 
 import offer1 from 'assets/images/OrderStatus/Offer-1.png';
 import offer2 from 'assets/images/OrderStatus/Offer-2.png';
+import offer3 from 'assets/images/OrderStatus/schedule-status.png';
 
 import './style.scss';
 
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+
+function getWorkStatus(schedule: string) {
+  const [startTimeStr, endTimeStr] = schedule.split('-');
+
+  const [startHours, startMinutes] = startTimeStr.split(':').map(Number);
+  const [endHours, endMinutes] = endTimeStr.split(':').map(Number);
+
+  const now = new Date();
+  const nowHours = now.getHours();
+  const nowMinutes = now.getMinutes();
+
+  const startTotalMinutes = startHours * 60 + startMinutes;
+  const endTotalMinutes = endHours * 60 + endMinutes;
+  const nowTotalMinutes = nowHours * 60 + nowMinutes;
+
+  if (startTotalMinutes === endTotalMinutes) {
+    return 'Заведение работает круглосуточно';
+  }
+
+  if (startTotalMinutes < endTotalMinutes) {
+    if (
+      nowTotalMinutes >= startTotalMinutes &&
+      nowTotalMinutes < endTotalMinutes
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  } else {
+    if (
+      nowTotalMinutes >= startTotalMinutes ||
+      nowTotalMinutes < endTotalMinutes
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+}
 
 const Hero = () => {
   const user = JSON.parse(localStorage.getItem('users') ?? '{}');
@@ -41,10 +81,9 @@ const Hero = () => {
         color: 'text-orange-500',
       };
     }
-    
+
     const statusObj =
-      statusMessages[serviceMode][status] ||
-      statusMessages[serviceMode][0];
+      statusMessages[serviceMode][status] || statusMessages[serviceMode][0];
 
     let colorClass = 'text-orange-500';
     if (status === 1) {
@@ -101,31 +140,52 @@ const Hero = () => {
   };
 
   return (
-    <section className="hero">
+    <section className='hero'>
       {bannersLoading && <p>{t('banner.loading')}</p>}
       {bannersError && <p>{t('banner.error')}</p>}
 
       <Swiper
         pagination={{ dynamicBullets: true }}
         modules={[Pagination]}
-        className="hero-swiper"
+        className='hero-swiper'
       >
+        {getWorkStatus(venue.schedule) && (
+          <SwiperSlide>
+            <div
+              className='hero__item'
+              style={{
+                backgroundImage: `url(${offer3})`,
+              }}
+            >
+              <p
+                className={`text-base md:text-[32px] max-w-[60%] font-bold text-[#a9a9a9]`}
+              >
+                Сейчас нерабочее время
+              </p>
+            </div>
+          </SwiperSlide>
+        )}
+
         {orders?.map((order) => {
-          const { text, color } = getStatusData(order.serviceMode, order.status);
-          console.log(text);
-          
+          const { text, color } = getStatusData(
+            order.serviceMode,
+            order.status
+          );
+
           return (
             <SwiperSlide key={`order-${order.id}`}>
               <div
                 onClick={() => handleOrderClick(order.id)}
-                className="hero__item"
+                className='hero__item'
                 style={{
                   backgroundImage: `url(${
                     order.status === 0 ? offer1 : offer2
                   })`,
                 }}
               >
-                <p className={`text-base md:text-[32px] max-w-[60%] font-bold ${color}`}>
+                <p
+                  className={`text-base md:text-[32px] max-w-[60%] font-bold ${color}`}
+                >
                   {t(text)}
                 </p>
               </div>
@@ -136,7 +196,7 @@ const Hero = () => {
         {fetchedBanners?.map((banner: IBanner) => (
           <SwiperSlide key={`banner-${banner.id}`}>
             <div
-              className="hero__item banner__item cursor-pointer"
+              className='hero__item banner__item cursor-pointer'
               onClick={() => handleBannerClick(banner.url)}
             >
               <img src={banner.image} alt={banner.title} />

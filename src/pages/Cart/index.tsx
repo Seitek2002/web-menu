@@ -202,8 +202,6 @@ const Cart: React.FC = () => {
       })
     );
 
-    console.log(+venueData.table.id);
-
     const { data: res } = await postOrder({
       ...acc,
       spot: userData.activeSpot,
@@ -215,6 +213,8 @@ const Cart: React.FC = () => {
     } else {
       setIsLoading(false);
     }
+
+      setIsLoading(false);
   };
 
   function getCartItemPrice(item: IFoodCart): number {
