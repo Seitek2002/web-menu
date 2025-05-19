@@ -113,10 +113,13 @@ const Hero = () => {
   };
 
   ws.onmessage = (event) => {
-    const data: { order_id: number; status: number } = JSON.parse(event.data);
+    const data: { order_id: number; status: number; status_text: string } =
+      JSON.parse(event.data);
     setOrders((prevOrders) =>
       prevOrders?.map((order) =>
-        order.id === data.order_id ? { ...order, status: data.status } : order
+        order.id === data.order_id
+          ? { ...order, status: data.status, statusText: data.status_text }
+          : order
       )
     );
   };
@@ -167,10 +170,7 @@ const Hero = () => {
         )}
 
         {orders?.map((order) => {
-          const { color } = getStatusData(
-            order.serviceMode,
-            order.status
-          );
+          const { color } = getStatusData(order.serviceMode, order.status);
 
           return (
             <SwiperSlide key={`order-${order.id}`}>
