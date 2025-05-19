@@ -167,7 +167,7 @@ const Hero = () => {
         )}
 
         {orders?.map((order) => {
-          const { text, color } = getStatusData(
+          const { color } = getStatusData(
             order.serviceMode,
             order.status
           );
@@ -186,7 +186,7 @@ const Hero = () => {
                 <p
                   className={`text-base md:text-[32px] max-w-[60%] font-bold ${color}`}
                 >
-                  {t(text)}
+                  {order.statusText}
                 </p>
               </div>
             </SwiperSlide>

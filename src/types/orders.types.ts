@@ -38,6 +38,7 @@ export interface IOrder {
   tipsPrice?: string;
   orderProducts: IOrderProduct[];
   status: number;
+  statusText: string;
 }
 
 export interface IOrderById {
@@ -52,6 +53,7 @@ export interface IOrderById {
   createdAt: string;
   orderProducts: IOrderProduct[];
   tableNum: string;
+  statusText: string;
 }
 
 // orderProducts: [

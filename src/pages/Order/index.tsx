@@ -224,7 +224,7 @@ const Order = () => {
                   </div>
                   <h2>
                     <img src={currentStatus.title.icon} alt='' />
-                    {t(currentStatus.title.text)}
+                    {order?.statusText}
                   </h2>
                 </>
                 <div className='font-bold text-[24px]'>
