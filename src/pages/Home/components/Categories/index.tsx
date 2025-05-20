@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 import { useGetCategoriesQuery } from 'api/Categories.api';
@@ -23,6 +24,7 @@ const Categories: FC<IProps> = ({ onCategoryChange, onSearchChange }) => {
   const colorTheme = useAppSelector(
     (state) => state.yourFeature.venue?.colorTheme
   );
+  const { t } = useTranslation();
 
   const selectCategory = (id: number | undefined) => {
     if (id === -1) {
@@ -43,7 +45,7 @@ const Categories: FC<IProps> = ({ onCategoryChange, onSearchChange }) => {
           className={`dropdown-arrow`}
           onClick={() => setIsShow(!isShow)}
         >
-          {isShow ? 'Скрыть' : 'Все'} категории
+          {isShow ? t('hidden') : t('all')} {t('category')}
         </span>
       )}
       <div className={'categories__content ' + (isShow ? 'active' : '')}>
@@ -97,7 +99,7 @@ const Categories: FC<IProps> = ({ onCategoryChange, onSearchChange }) => {
               </svg>
             </div>
             <span className='leading-tight block text-black'>
-              Поиск
+              {t('search')}
             </span>
           </div>
         </div>
@@ -180,7 +182,7 @@ const Categories: FC<IProps> = ({ onCategoryChange, onSearchChange }) => {
               <g></g>
             </svg>
           </div>
-          <span className='leading-tight text-black'>Все</span>
+          <span className='leading-tight text-black'>{t('all')}</span>
         </div>
         {categories?.map((item) => (
           <Item

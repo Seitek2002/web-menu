@@ -355,7 +355,7 @@ const Cart: React.FC = () => {
               {activeIndex === 0 && (
                 <div className='cart__contacts'>
                   <div className='flex items-center justify-between mb-[12px]'>
-                    <h4>Выберите филиал</h4>
+                    <h4>{t('selectBranch')}</h4>
                   </div>
                   {venueData.spots?.map((spot) => (
                     <label
@@ -388,9 +388,9 @@ const Cart: React.FC = () => {
 
                 <label htmlFor='phoneNumber'>
                   <span className='text-[14px]'>
-                    Номер телефона{' '}
+                    {t('phoneNumber')}{' '}
                     <span className='required' style={{ color: colorTheme }}>
-                      *Обязательно
+                      {t('required')}
                     </span>
                   </span>
                   <input
@@ -407,11 +407,11 @@ const Cart: React.FC = () => {
                 </label>
 
                 <label htmlFor='comment'>
-                  <span className='text-[14px]'>Комментарии</span>
+                  <span className='text-[14px]'>{t('comment')}</span>
                   <input
                     id='comment'
                     type='text'
-                    placeholder={t('empty.comment') || 'Комментарий'}
+                    placeholder={t('empty.comment') || t('comment')}
                     value={comment}
                     onChange={(e) => setComment(e.target.value.trim())}
                   />
@@ -420,11 +420,11 @@ const Cart: React.FC = () => {
                 {orderTypes[activeIndex]?.value === 3 && (
                   <>
                     <label htmlFor='address'>
-                      <span className='text-[14px]'>Адрес</span>
+                      <span className='text-[14px]'>{t('addres')}</span>
                       <input
                         type='text'
                         id='address'
-                        placeholder={t('empty.location') || 'Адрес'}
+                        placeholder={t('empty.location') || t('addres')}
                         value={address}
                         onChange={(e) => handleAddressChange(e.target.value)}
                       />

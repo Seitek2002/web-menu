@@ -11,6 +11,8 @@ import nothing from 'assets/images/not-found-products.png';
 
 import './style.scss';
 
+import { t } from 'i18next';
+
 interface IProps {
   searchText?: string;
   selectedCategory?: number;
@@ -78,7 +80,7 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
           }
         }
       />
-      <h2>Все блюда</h2>
+      <h2>{t('allDishes')}</h2>
       {items && items.length > 0 ? (
         <div className='catalog__content'>
           {items?.map((item) => {
@@ -92,7 +94,7 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
                 onClick={() => navigate('/cart')}
                 style={{ backgroundColor: colorTheme }}
               >
-                Заказать
+                {t('basket.order')}
                 <span className='font-light absolute right-[30px]'>{solveTotalSum()} с</span>
               </button>
             </div>

@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useGetVenueQuery } from 'api/Venue.api';
@@ -12,6 +13,7 @@ import { clearCart, setVenue } from 'src/store/yourFeatureSlice';
 import { loadVenueFromStorage } from 'src/utlis/storageUtils';
 
 const SelectOrderType = () => {
+    const { t } = useTranslation();
   const { venue } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -56,7 +58,7 @@ const SelectOrderType = () => {
       </div>
       {/* <Tabs spots={data?.spots || []} /> */}
       <div className='select-order-type__content'>
-        <h2 className='text-[20px]'>Выберите тип заказа</h2>
+        <h2 className='text-[20px]'>{t('orders.orderType')}</h2>
         <div className='select-order-type__items'>
           {data?.isDeliveryAvailable && (
             <div
@@ -111,7 +113,7 @@ const SelectOrderType = () => {
                   fill={colorTheme}
                 />
               </svg>
-              <span>Доставка {'>'}</span>
+              <span>{t('empty.delivery')} {'>'}</span>
             </div>
           )}
           {data?.isTakeoutAvailable && (
@@ -164,7 +166,7 @@ const SelectOrderType = () => {
                   fill={colorTheme}
                 />
               </svg>
-              <span>На вынос {'>'}</span>
+              <span>{t('orders.takeAway')} {'>'}</span>
             </div>
           )}
           {data?.isDineinAvailable && (
@@ -224,7 +226,7 @@ const SelectOrderType = () => {
                   fill={colorTheme}
                 />
               </svg>
-              <span>Сканировать QR стола {'>'}</span>
+              <span>{t('qrTable')} {'>'}</span>
             </div>
           )}
         </div>

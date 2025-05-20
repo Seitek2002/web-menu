@@ -1,19 +1,27 @@
 {
   "search": "Search",
-  "table": "Table №",
+  "table": "Table #",
   "cancellation": "Cancellation",
   "number": "Phone",
   "addres": "Address",
   "comment": "Comment",
   "main": "To main",
+  "hidden": "Hide",
+  "category": "Categories",
+  "allDishes": "All dishes",
+  "notFound": "Sorry, nothing found",
+  "selectBranch": "Select branch",
+  "phoneNumber": "Phone number",
+  "all": "All",
+  "qrTable": "Scan table QR",
   "orderStatus": {
     "accepted": "Order accepted",
-    "preparing": "Please wait, the order is being prepared",
+    "preparing": "Please wait, your order will be ready soon",
     "cancelled": "Order cancelled",
-    "processing": "Thank you, the order is being processed",
-    "waiting": "Please wait, the order is accepted",
+    "processing": "Thank you, your order is being processed",
+    "waiting": "Please wait, your order has been accepted",
     "delivering": "Being delivered",
-    "delivery": "Please wait, the order is accepted. Will be delivered soon"
+    "delivery": "Please wait, your order has been accepted. We will deliver soon"
   },
   "necessarily": "Required*",
   "banner": {
@@ -22,7 +30,7 @@
   },
   "basket": {
     "title": "Cart",
-    "addItems": "Add items to the cart",
+    "addItems": "Add items to cart",
     "empty": "Your cart is empty",
     "total": "Total",
     "order": "Order",
@@ -38,21 +46,22 @@
   },
   "services": "Service",
   "empty": {
-    "contact": "Your details for the order",
+    "contact": "Your order details",
     "comment": "Write the order time or comment",
     "deteil": "Amount details",
     "location": "Write the delivery address",
     "total": "Total cost",
     "totalAmount": "Final amount",
     "myself": "Takeaway",
-    "institution": "In the establishment",
+    "institution": "At the establishment",
     "delivery": "Delivery"
   },
   "orders": {
     "title": "My orders",
     "empty": "You have no orders yet",
     "takeAway": "Takeaway",
-    "forgotten": "Forgot anything?"
+    "forgotten": "Forgot anything?",
+    "orderType": "Choose order type"
   },
   "deliver": {
     "twoGis": "Address or 2GIS link"
@@ -61,7 +70,7 @@
     "size": "Choose size",
     "weight": "Weight",
     "volume": "Volume",
-    "pieces": "Pcs."
+    "pieces": "Pieces"
   },
   "button": {
     "add": "Add",
