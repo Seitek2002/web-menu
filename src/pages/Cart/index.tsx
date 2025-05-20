@@ -413,7 +413,7 @@ const Cart: React.FC = () => {
                     type='text'
                     placeholder={t('empty.comment') || t('comment')}
                     value={comment}
-                    onChange={(e) => setComment(e.target.value.trim())}
+                    onChange={(e) => setComment(e.target.value)}
                   />
                 </label>
 
