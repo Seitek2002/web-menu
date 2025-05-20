@@ -183,6 +183,7 @@ const Hero = () => {
                   })`,
                 }}
               >
+                <span>Заказ №{order.id}</span>
                 <p
                   className={`text-base md:text-[32px] max-w-[60%] font-bold ${color}`}
                 >
