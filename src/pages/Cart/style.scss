@@ -132,7 +132,7 @@
   }
 
   &__empty {
-    @apply text-center rounded-[12px] mt-[10px] p-[12px] bg-white;
+    @apply text-center rounded-[12px] mt-[10px] p-[12px] bg-white flex flex-col items-center;
 
     svg {
       @apply max-w-full;

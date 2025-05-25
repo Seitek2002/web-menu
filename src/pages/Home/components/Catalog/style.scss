@@ -121,7 +121,7 @@
       @apply p-[12px] rounded-[8px] mt-[8px] bg-[#F1F2F3] cursor-pointer;
 
       span {
-        @apply text-xs;
+        @apply text-[14px];
       }
 
       &.active {

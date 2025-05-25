@@ -43,7 +43,9 @@ const Cart: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [selectedSpot, setSelectedSpot] = useState(userData.activeSpot || 0);
 
-  const [phoneNumber, setPhoneNumber] = useState(`+996${userData.phoneNumber.replace('996', '')}`);
+  const [phoneNumber, setPhoneNumber] = useState(
+    `+996${userData.phoneNumber.replace('996', '')}`
+  );
   const [comment, setComment] = useState(userData.comment || '');
   const [address, setAddress] = useState(userData.address || '');
 
@@ -492,19 +494,25 @@ const Cart: React.FC = () => {
         )}
       </div>
 
-      <div className='cart__forgot'>
-        <h4 className='cart__forgot-title'>
-          {t('orders.forgotten')}
-          <img src={cookie} alt='cookie' />
-        </h4>
-        <div className='cart__forgot-wrapper'>
-          {data
-            ?.filter((item) => item.isRecommended)
-            .map((item) => (
-              <CatalogCard foodDetail={handleOpen} key={item.id} item={item} />
-            ))}
+      {(data?.filter((item) => item.isRecommended) ?? []).length > 0 && (
+        <div className='cart__forgot'>
+          <h4 className='cart__forgot-title'>
+            {t('orders.forgotten')}
+            <img src={cookie} alt='cookie' />
+          </h4>
+          <div className='cart__forgot-wrapper'>
+            {data
+              ?.filter((item) => item.isRecommended)
+              .map((item) => (
+                <CatalogCard
+                  foodDetail={handleOpen}
+                  key={item.id}
+                  item={item}
+                />
+              ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {window.innerWidth < 768 && (
         <footer className='cart__footer'>

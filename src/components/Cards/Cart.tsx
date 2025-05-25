@@ -47,10 +47,13 @@ const BusketCard: FC<IProps> = ({ item }) => {
         <h3>{item.productName}</h3>
         <div className='flex items-center'>
           <span className='price' style={{ color: colorTheme }}>
-            {item.modificators ? item.modificators.price : +item.productPrice}с
+            {item.modificators ? item.modificators.price : +item.productPrice} с
           </span>
           {item.modificators?.name && (
-            <span className='weight'>|{item.modificators.name}</span>
+            <span className='weight mx-[5px]'> | </span>
+          )}
+          {item.modificators?.name && (
+            <span className='weight'>{item.modificators.name}</span>
           )}
         </div>
       </div>
