@@ -34,17 +34,17 @@
   }
 
   &__order-type {
-    @apply flex items-center justify-between gap-[8px] mt-[20px];
+    @apply flex justify-between gap-[8px] mt-[20px];
 
     &-wrapper {
-      @apply flex items-center gap-[16px] py-[19px] px-[16px] w-[50%] rounded-[8px] text-[14px] md:text-[14px];
-      border: 1px solid;
+      @apply flex items-center gap-[16px] py-[19px] px-[16px] w-[50%] rounded-[8px] text-center text-[14px] md:text-[14px];
+      border: 2px solid;
     }
 
-    &-checkbox {
-      @apply w-[20px] h-[20px] rounded-[50%];
-      border: 1px solid;
-    }
+    // &-checkbox {
+    //   @apply w-[20px] h-[20px] rounded-[50%];
+    //   border: 1px solid;
+    // }
   }
 
   &__sum {

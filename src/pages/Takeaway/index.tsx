@@ -25,7 +25,7 @@ const Takeaway = () => {
   };
 
   return (
-    <div className='h-[98dvh]'>
+    <div className='h-[98dvh] tabs'>
       <div className='header bg-white rounded-[12px] p-[12px]'>
         <Header searchText='' />
         <hr className='my-[10px]' />
@@ -42,22 +42,22 @@ const Takeaway = () => {
           </div>
         </div>
       </div>
-      <div className='tabs__pickup'>
+      <div className='tabs__pickup bg-white rounded-[12px] p-[12px]'>
         {data.spots?.map((spot) => {
           if (spot.address) {
             return (
               <button
                 className='tabs__pickup-item'
-                style={{ backgroundColor: colorTheme }}
+                style={{ borderColor: colorTheme }}
                 key={spot.id}
                 onClick={() => handleClick(spot)}
               >
-                <img src={geoIcon} alt='geoIcon' />
+                <img src={geoIcon} alt='geoIcon' style={{ backgroundColor: colorTheme }} />
                 <div>
-                  <span className='tabs__pickup-item-name'>{spot.name}</span>
-                  <span className='tabs__pickup-item-address'>
+                  <p className='tabs__pickup-item-name'>{spot.name}</p>
+                  <p className='tabs__pickup-item-address'>
                     {spot.address}
-                  </span>
+                  </p>
                 </div>
               </button>
             );
