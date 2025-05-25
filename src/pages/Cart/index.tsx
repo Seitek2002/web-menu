@@ -374,6 +374,7 @@ const Cart: React.FC = () => {
                           checked={selectedSpot === spot.id}
                           style={{
                             accentColor: colorTheme,
+                            marginRight: '10px',
                           }}
                         />
                       </div>
