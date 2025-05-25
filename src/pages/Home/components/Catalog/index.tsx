@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useGetProductsQuery } from 'api/Products.api';
-import { IProduct } from 'types/products.types';
+import { IFoodCart, IProduct } from 'types/products.types';
 import { useAppSelector } from 'hooks/useAppSelector';
 import CatalogCard from 'components/Cards/Catalog';
 import FoodDetail from 'components/FoodDetail';
@@ -23,7 +23,6 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
   const [isShow, setIsShow] = useState(false);
   const [activeFood, setActiveFood] = useState<IProduct | null>(null);
   const cart = useAppSelector((state) => state.yourFeature.cart);
-  const venueData = useAppSelector(state => state.yourFeature.venue);
   const colorTheme = useAppSelector(
     (state) => state.yourFeature.venue?.colorTheme
   );
@@ -47,13 +46,17 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
     document.body.style.overflow = 'hidden';
   };
 
-  const solveTotalSum = () => {
-    const subtotal =
-      cart.reduce((acc, item) => acc + item.productPrice * item.quantity, 0);
-    const cartSum = subtotal + subtotal * (venueData.serviceFeePercent / 100);
+  function getCartItemPrice(item: IFoodCart): number {
+    if (item.modificators?.price) {
+      return item.modificators.price;
+    }
+    return item.productPrice;
+  }
 
-    return cartSum;
-  };
+  const subtotal = cart.reduce((acc, item) => {
+    const realPrice = getCartItemPrice(item);
+    return acc + realPrice * item.quantity;
+  }, 0);
 
   return (
     <section className='catalog'>
@@ -95,7 +98,9 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
                 style={{ backgroundColor: colorTheme }}
               >
                 {t('basket.order')}
-                <span className='font-light absolute right-[30px]'>{solveTotalSum()} с</span>
+                <span className='font-light absolute right-[30px]'>
+                  {subtotal} с
+                </span>
               </button>
             </div>
           )}
