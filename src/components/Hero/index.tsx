@@ -6,6 +6,7 @@ import { statusMessages } from 'pages/Order/enums';
 import { IBanner, useGetBannersQuery } from 'api/Banners.api';
 import { useGetOrdersQuery } from 'api/Orders.api';
 import { IOrder } from 'types/orders.types';
+import Loader from 'components/Loader';
 
 import offer1 from 'assets/images/OrderStatus/Offer-1.png';
 import offer2 from 'assets/images/OrderStatus/Offer-2.png';
@@ -144,8 +145,8 @@ const Hero = () => {
 
   return (
     <section className='hero'>
-      {bannersLoading && <p>{t('banner.loading')}</p>}
       {bannersError && <p>{t('banner.error')}</p>}
+      {bannersLoading && <Loader />}
 
       <Swiper
         pagination={{ dynamicBullets: true }}

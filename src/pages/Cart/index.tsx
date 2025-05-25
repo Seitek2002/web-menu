@@ -326,7 +326,7 @@ const Cart: React.FC = () => {
                           activeIndex === idx ? colorTheme : '#e1e2e5',
                       }}
                     >
-                      {activeIndex === idx ? (
+                      {/* {activeIndex === idx ? (
                         <svg
                           width='20'
                           height='20'
@@ -347,7 +347,7 @@ const Cart: React.FC = () => {
                         </svg>
                       ) : (
                         <div className='cart__order-type-checkbox border-[#e1e2e5]' />
-                      )}
+                      )} */}
                       {item.text}
                     </div>
                   ))}
@@ -392,7 +392,7 @@ const Cart: React.FC = () => {
                   <span className='text-[14px]'>
                     {t('phoneNumber')}{' '}
                     <span className='required' style={{ color: colorTheme }}>
-                      {t('required')}
+                      {t('necessarily')}
                     </span>
                   </span>
                   <input

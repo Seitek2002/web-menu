@@ -2,8 +2,13 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
+import { useAppSelector } from 'hooks/useAppSelector';
+
 const Empty: FC = () => {
   const navigate = useNavigate();
+  const colorTheme = useAppSelector(
+    (state) => state.yourFeature.venue.colorTheme
+  );
 
   const handleClick = () => {
     navigate(-1);
@@ -243,7 +248,11 @@ const Empty: FC = () => {
           fill='#32733F'
         />
       </svg>
-      <button onClick={handleClick} className='bg-[#F1F2F3]'>
+      <button
+        onClick={handleClick}
+        className='text-white'
+        style={{ backgroundColor: colorTheme }}
+      >
         {t('button.menu')}
       </button>
     </div>

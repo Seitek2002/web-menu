@@ -7,7 +7,7 @@ const Loader = () => {
 
   return (
     <div className='fixed top-0 left-0 w-full h-full flex items-center justify-center bg-[rgba(0,0,0,0.5)] z-[100]'>
-      <div className='bg-white size-[250px] p-[20px] rounded-[15px]'>
+      <div className='bg-white size-[250px] p-[20px] rounded-[15px] flex items-center justify-center'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           viewBox='0 0 100 100'
