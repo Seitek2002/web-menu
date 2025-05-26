@@ -355,32 +355,93 @@ const Cart: React.FC = () => {
               )}
 
               {activeIndex === 0 && (
+                // <div className='cart__contacts'>
+                //   <div className='flex items-center justify-between mb-[12px]'>
+                //     <h4>{t('selectBranch')}</h4>
+                //   </div>
+                //   {venueData.spots?.map((spot) => (
+                //     <label
+                //       className='flex'
+                //       htmlFor={spot.id + ''}
+                //       key={spot.id}
+                //     >
+                //       <div>
+                //         <input
+                //           type='checkbox'
+                //           id={spot.id + ''}
+                //           value={spot.id}
+                //           onClick={() => setSelectedSpot(spot.id)}
+                //           checked={selectedSpot === spot.id}
+                //           style={{
+                //             accentColor: colorTheme,
+                //             marginRight: '10px',
+                //           }}
+                //         />
+                //       </div>
+                //       {spot.name} ({spot.address})
+                //     </label>
+                //   ))}
+                // </div>
                 <div className='cart__contacts'>
-                  <div className='flex items-center justify-between mb-[12px]'>
+                  <div className='flex items-center justify-between mb-6'>
                     <h4>{t('selectBranch')}</h4>
                   </div>
-                  {venueData.spots?.map((spot) => (
-                    <label
-                      className='flex'
-                      htmlFor={spot.id + ''}
-                      key={spot.id}
-                    >
-                      <div>
-                        <input
-                          type='checkbox'
-                          id={spot.id + ''}
-                          value={spot.id}
-                          onClick={() => setSelectedSpot(spot.id)}
-                          checked={selectedSpot === spot.id}
-                          style={{
-                            accentColor: colorTheme,
-                            marginRight: '10px',
-                          }}
-                        />
-                      </div>
-                      {spot.name} ({spot.address})
-                    </label>
-                  ))}
+
+                  <div className='space-y-4'>
+                    {venueData.spots?.map((location) => {
+                      const isSelected = selectedSpot === location.id;
+
+                      return (
+                        <label
+                          key={location.id}
+                          className={`
+                              flex items-center w-full px-1 rounded-xl cursor-pointer transition-all duration-200
+                              ${
+                                isSelected
+                                  ? 'bg-amber-50 ring-2 ring-amber-600'
+                                  : 'hover:bg-amber-50/50'
+                              }
+                            `}
+                          htmlFor={location.id + ''}
+                        >
+                          <div className='relative mr-4 flex-shrink-0'>
+                            <input
+                              type='radio'
+                              id={location.id + ''}
+                              name='location'
+                              checked={isSelected}
+                              onChange={() => setSelectedSpot(location.id)}
+                              className='peer sr-only'
+                            />
+                            <div
+                              className={`
+                                w-5 h-5 rounded-full border-2 transition-colors duration-200
+                                ${
+                                  isSelected
+                                    ? 'border-amber-600 bg-amber-600'
+                                    : 'border-amber-400 bg-white peer-hover:border-amber-500'
+                                }
+                              `}
+                            >
+                              {isSelected && (
+                                <div className='absolute inset-0 flex items-center justify-center'>
+                                  <div className='w-2 h-2 rounded-full bg-white' />
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <div>
+                            <div className='font-medium text-amber-900'>
+                              {location.name}
+                            </div>
+                            <div className='text-amber-700'>
+                              {location.address}
+                            </div>
+                          </div>
+                        </label>
+                      );
+                    })}
+                  </div>
                 </div>
               )}
 
