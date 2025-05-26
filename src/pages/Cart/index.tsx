@@ -318,7 +318,7 @@ const Cart: React.FC = () => {
                     <div
                       key={item.value}
                       onClick={() => handleClick(idx)}
-                      className={`cart__order-type-wrapper bg-[#fff] border-[#e1e2e5] cursor-pointer ${
+                      className={`cart__order-type-wrapper bg-[#fff] border-[#e1e2e5] cursor-pointer justify-center ${
                         activeIndex === idx ? 'active' : ''
                       }`}
                       style={{
@@ -355,33 +355,6 @@ const Cart: React.FC = () => {
               )}
 
               {activeIndex === 0 && (
-                // <div className='cart__contacts'>
-                //   <div className='flex items-center justify-between mb-[12px]'>
-                //     <h4>{t('selectBranch')}</h4>
-                //   </div>
-                //   {venueData.spots?.map((spot) => (
-                //     <label
-                //       className='flex'
-                //       htmlFor={spot.id + ''}
-                //       key={spot.id}
-                //     >
-                //       <div>
-                //         <input
-                //           type='checkbox'
-                //           id={spot.id + ''}
-                //           value={spot.id}
-                //           onClick={() => setSelectedSpot(spot.id)}
-                //           checked={selectedSpot === spot.id}
-                //           style={{
-                //             accentColor: colorTheme,
-                //             marginRight: '10px',
-                //           }}
-                //         />
-                //       </div>
-                //       {spot.name} ({spot.address})
-                //     </label>
-                //   ))}
-                // </div>
                 <div className='cart__contacts'>
                   <div className='flex items-center justify-between mb-6'>
                     <h4>{t('selectBranch')}</h4>
