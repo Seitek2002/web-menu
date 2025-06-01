@@ -1,17 +1,16 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import 'swiper/swiper-bundle.css';
-import App from './App.tsx'
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import store from './store/index.ts';
-import "./i18n.ts";
 
+import App from './App.tsx';
+import store from './store/index.ts';
+
+import 'swiper/swiper-bundle.css';
 import './index.scss';
 
+import './i18n.ts';
+
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </StrictMode>,
-)
+  <Provider store={store}>
+    <App />
+  </Provider>
+);

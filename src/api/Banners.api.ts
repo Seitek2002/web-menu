@@ -22,10 +22,13 @@ export const Banners = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getBanners: builder.query<IBanner[], void>({
-      query: () => ({
+    getBanners: builder.query<IBanner[], { venue_slug: string }>({
+      query: ({ venue_slug }) => ({
         url: 'banners',
         method: 'GET',
+        params: {
+          venue_slug,
+        },
       }),
     }),
     addBanner: builder.mutation<IBanner, Partial<IBanner>>({
