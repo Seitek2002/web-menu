@@ -56,7 +56,7 @@ const Home = () => {
   }, []);
 
   return (
-    <>
+    <div className='relative font-inter bg-[#F1F2F3] px-[16px] pt-[12px] lg:max-w-[1140px] lg:mx-auto'>
       <ClearCartModal isShow={active} setActive={setActive} />
       <div className='bg-white rounded-[12px] p-[12px]'>
         <Header searchText={searchText} setSearchText={setSearchText} />
@@ -110,7 +110,7 @@ const Home = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

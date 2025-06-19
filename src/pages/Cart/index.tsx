@@ -254,7 +254,7 @@ const Cart: React.FC = () => {
   }, [userData.type, orderTypes]);
 
   return (
-    <section className='cart'>
+    <section className='cart relative font-inter bg-[#F1F2F3] px-[16px] pt-[12px] lg:max-w-[1140px] lg:mx-auto'>
       <FoodDetail
         isShow={isShow}
         setIsShow={handleClose}

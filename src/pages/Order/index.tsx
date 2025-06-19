@@ -126,7 +126,7 @@ const Order = () => {
   };
 
   return (
-    <div className='order'>
+    <div className='order relative font-inter bg-[#F1F2F3] px-[16px] pt-[12px] lg:max-w-[1140px] lg:mx-auto'>
       <header className='order__header'>
         <img src={headerArrowIcon} alt='' onClick={handleNavigate} />
         <h3>{t('orders.title')}</h3>

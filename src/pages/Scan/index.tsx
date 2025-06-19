@@ -69,7 +69,7 @@ const Scan: FC = () => {
   }, []);
 
   return (
-    <>
+    <div className='relative font-inter bg-[#F1F2F3] px-[16px] pt-[12px] lg:max-w-[1140px] lg:mx-auto'>
       <Header searchText='' setSearchText={() => {}} />
       <div className='h-[89dvh] mt-[20px] flex flex-col items-center justify-center bg-white'>
         <div className='w-[80%] flex items-center justify-center md:w-[30%]'>
@@ -96,7 +96,7 @@ const Scan: FC = () => {
         </div>
         <button className='py-[15px] px-[30px] bg-[#875AFF] text-white rounded-[12px] mt-[30px]' onClick={() => navigate('https://imenu.kg/admin/login/')}>Вход для заведения</button>
       </div>
-    </>
+    </div>
   );
 };
 

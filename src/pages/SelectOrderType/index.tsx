@@ -39,7 +39,7 @@ const SelectOrderType = () => {
   };
 
   return (
-    <div className='select-order-type'>
+    <div className='select-order-type relative font-inter bg-[#F1F2F3] px-[16px] pt-[12px] lg:max-w-[1140px] lg:mx-auto'>
       <div className='header bg-white rounded-[12px] p-[12px]'>
         <Header searchText='' />
         <hr className='my-[10px]' />
