@@ -253,6 +253,14 @@ const Cart: React.FC = () => {
     }
   }, [userData.type, orderTypes]);
 
+  console.log(
+    [
+      venueData.isTakeoutAvailable,
+      venueData.isDineinAvailable,
+      venueData.isDeliveryAvailable,
+    ].filter((item) => item)
+  );
+
   return (
     <section className='cart relative font-inter bg-[#F1F2F3] px-[16px] pt-[40px] lg:max-w-[1140px] lg:mx-auto'>
       <FoodDetail
@@ -314,80 +322,71 @@ const Cart: React.FC = () => {
             <>
               {!venueData?.table?.tableNum && (
                 <div className='cart__order-type'>
-                  {orderTypes.map((item, idx) => (
-                    <div
-                      key={item.value}
-                      onClick={() => handleClick(idx)}
-                      className={`cart__order-type-wrapper bg-[#fff] border-[#e1e2e5] cursor-pointer justify-center ${
-                        activeIndex === idx ? 'active' : ''
-                      }`}
-                      style={{
-                        borderColor:
-                          activeIndex === idx ? colorTheme : '#e1e2e5',
-                      }}
-                    >
-                      {/* {activeIndex === idx ? (
-                        <svg
-                          width='20'
-                          height='20'
-                          viewBox='0 0 20 20'
-                          fill='none'
+                  {[
+                    venueData.isTakeoutAvailable,
+                    venueData.isDineinAvailable,
+                    venueData.isDeliveryAvailable,
+                  ].filter((item) => item).length !== 1 && (
+                    <>
+                      {orderTypes.map((item, idx) => (
+                        <div
+                          key={item.value}
+                          onClick={() => handleClick(idx)}
+                          className={`cart__order-type-wrapper bg-[#fff] border-[#e1e2e5] cursor-pointer justify-center ${
+                            activeIndex === idx ? 'active' : ''
+                          }`}
+                          style={{
+                            borderColor:
+                              activeIndex === idx ? colorTheme : '#e1e2e5',
+                          }}
                         >
-                          <g clipPath='url(#clip0_248_22508)'>
-                            <path
-                              d='M10 1.875C8.39303 1.875 6.82214 2.35152 5.486 3.24431C4.14985 4.1371 3.10844 5.40605 2.49348 6.8907C1.87852 8.37535 1.71762 10.009 2.03112 11.5851C2.34463 13.1612 3.11846 14.6089 4.25476 15.7452C5.39106 16.8815 6.8388 17.6554 8.4149 17.9689C9.99099 18.2824 11.6247 18.1215 13.1093 17.5065C14.594 16.8916 15.8629 15.8502 16.7557 14.514C17.6485 13.1779 18.125 11.607 18.125 10C18.1227 7.84581 17.266 5.78051 15.7427 4.25727C14.2195 2.73403 12.1542 1.87727 10 1.875ZM13.5672 8.56719L9.19219 12.9422C9.13415 13.0003 9.06522 13.0464 8.98934 13.0779C8.91347 13.1093 8.83214 13.1255 8.75 13.1255C8.66787 13.1255 8.58654 13.1093 8.51067 13.0779C8.43415 13.0464 8.36542 13.0003 8.30766 12.9422L6.43266 11.0672C6.31561 10.9499 6.24992 10.7909 6.24992 10.625C6.24992 10.4591 6.31561 10.3002 6.43266 10.1828C6.54971 10.0653 6.7088 9.99961 6.87466 9.99961C7.04053 9.99961 7.19962 10.0653 7.31667 10.1828L8.75 11.6164L12.6828 7.68281C12.741 7.62474 12.8099 7.57868 12.8858 7.54725C12.9616 7.51583 13.0429 7.49967 13.125 7.49967C13.2071 7.49967 13.2884 7.51583 13.3642 7.54725C13.44 7.57868 13.5089 7.62474 13.5672 7.68281C13.6253 7.74088 13.6713 7.80982 13.7027 7.88569C13.7341 7.96157 13.7503 8.04291 13.7503 8.12499C13.7503 8.20706 13.7341 8.2884 13.7027 8.36428C13.6713 8.44016 13.6253 8.50909 13.5672 8.56719Z'
-                              fill={colorTheme}
-                            />
-                          </g>
-                          <defs>
-                            <clipPath id='clip0_248_22508'>
-                              <rect width='20' height='20' fill='white' />
-                            </clipPath>
-                          </defs>
-                        </svg>
-                      ) : (
-                        <div className='cart__order-type-checkbox border-[#e1e2e5]' />
-                      )} */}
-                      {item.text}
-                    </div>
-                  ))}
+                          {item.text}
+                        </div>
+                      ))}
+                    </>
+                  )}
                 </div>
               )}
 
-              {activeIndex === 0 && (
-                <div className='cart__contacts'>
-                  <div className='flex items-center justify-between mb-6'>
-                    <h4>{t('selectBranch')}</h4>
-                  </div>
+              {venueData.spots?.length !== 1 && (
+                <>
+                  {activeIndex === 0 && (
+                    <div className='cart__contacts'>
+                      <div className='flex items-center justify-between mb-6'>
+                        <h4>{t('selectBranch')}</h4>
+                      </div>
 
-                  <div className='space-y-4'>
-                    {venueData.spots?.map((location) => {
-                      const isSelected = selectedSpot === location.id;
+                      <div className='space-y-4'>
+                        {venueData.spots?.map((location) => {
+                          const isSelected = selectedSpot === location.id;
 
-                      return (
-                        <label
-                          key={location.id}
-                          className={`
-                              flex items-center w-full px-1 rounded-xl cursor-pointer transition-all duration-200
-                              ${
-                                isSelected
-                                  ? 'bg-amber-50 ring-2 ring-amber-600'
-                                  : 'hover:bg-amber-50/50'
-                              }
-                            `}
-                          htmlFor={location.id + ''}
-                        >
-                          <div className='relative mr-4 flex-shrink-0'>
-                            <input
-                              type='radio'
-                              id={location.id + ''}
-                              name='location'
-                              checked={isSelected}
-                              onChange={() => setSelectedSpot(location.id)}
-                              className='peer sr-only'
-                            />
-                            <div
+                          return (
+                            <label
+                              key={location.id}
+                              style={{
+                                borderColor:
+                                  isSelected && colorTheme
+                                    ? colorTheme
+                                    : '#e1e2e5',
+                              }}
                               className={`
+                              flex items-center w-full px-1 rounded-xl cursor-pointer transition-all duration-200
+                              border-[2px]
+                            `}
+                              htmlFor={location.id + ''}
+                            >
+                              <div className='relative mr-4 flex-shrink-0'>
+                                <input
+                                  type='radio'
+                                  id={location.id + ''}
+                                  name='location'
+                                  checked={isSelected}
+                                  onChange={() => setSelectedSpot(location.id)}
+                                  className='peer sr-only'
+                                />
+                                <div
+                                  style={{ backgroundColor: colorTheme }}
+                                  className={`
                                 w-5 h-5 rounded-full border-2 transition-colors duration-200
                                 ${
                                   isSelected
@@ -395,27 +394,27 @@ const Cart: React.FC = () => {
                                     : 'border-amber-400 bg-white peer-hover:border-amber-500'
                                 }
                               `}
-                            >
-                              {isSelected && (
-                                <div className='absolute inset-0 flex items-center justify-center'>
-                                  <div className='w-2 h-2 rounded-full bg-white' />
+                                >
+                                  {isSelected && (
+                                    <div className='absolute inset-0 flex items-center justify-center'>
+                                      <div className='w-2 h-2 rounded-full bg-white' />
+                                    </div>
+                                  )}
                                 </div>
-                              )}
-                            </div>
-                          </div>
-                          <div>
-                            <div className='font-medium text-amber-900'>
-                              {location.name}
-                            </div>
-                            <div className='text-amber-700'>
-                              {location.address}
-                            </div>
-                          </div>
-                        </label>
-                      );
-                    })}
-                  </div>
-                </div>
+                              </div>
+                              <div style={{ color: colorTheme }}>
+                                <div className='font-medium'>
+                                  {location.name}
+                                </div>
+                                <div className=''>{location.address}</div>
+                              </div>
+                            </label>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
 
               <div className='cart__contacts'>
@@ -454,23 +453,25 @@ const Cart: React.FC = () => {
                   />
                 </label>
 
-                {orderTypes[activeIndex]?.value === 3 && (
+                {
                   <>
-                    <label htmlFor='address'>
-                      <span className='text-[14px]'>{t('addres')}</span>
-                      <input
-                        type='text'
-                        id='address'
-                        placeholder={t('empty.location') || t('addres')}
-                        value={address}
-                        onChange={(e) => handleAddressChange(e.target.value)}
-                      />
-                      {addressError && (
-                        <div className='error-message'>{addressError}</div>
-                      )}
-                    </label>
+                    {orderTypes[activeIndex]?.value === 3 && (
+                      <label htmlFor='address'>
+                        <span className='text-[14px]'>{t('addres')}</span>
+                        <input
+                          type='text'
+                          id='address'
+                          placeholder={t('empty.location') || t('addres')}
+                          value={address}
+                          onChange={(e) => handleAddressChange(e.target.value)}
+                        />
+                        {addressError && (
+                          <div className='error-message'>{addressError}</div>
+                        )}
+                      </label>
+                    )}
                   </>
-                )}
+                }
               </div>
 
               <div className='cart__sum bg-[#fff]'>
