@@ -253,14 +253,6 @@ const Cart: React.FC = () => {
     }
   }, [userData.type, orderTypes]);
 
-  console.log(
-    [
-      venueData.isTakeoutAvailable,
-      venueData.isDineinAvailable,
-      venueData.isDeliveryAvailable,
-    ].filter((item) => item)
-  );
-
   return (
     <section className='cart relative font-inter bg-[#F1F2F3] px-[16px] pt-[40px] lg:max-w-[1140px] lg:mx-auto'>
       <FoodDetail
