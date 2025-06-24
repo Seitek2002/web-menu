@@ -21,7 +21,7 @@ const Takeaway = () => {
   const handleClick = (spot: ISpot) => {
     const res = loadUsersDataFromStorage();
     dispatch(setUsersData({ ...res, type: 2, activeSpot: spot.id }));
-    navigate(`/I/${data.slug}/${spot.id}/s`);
+    navigate(`/${data.slug}/${spot.id}/s`);
   };
 
   return (
@@ -52,12 +52,14 @@ const Takeaway = () => {
                 key={spot.id}
                 onClick={() => handleClick(spot)}
               >
-                <img src={geoIcon} alt='geoIcon' style={{ backgroundColor: colorTheme }} />
+                <img
+                  src={geoIcon}
+                  alt='geoIcon'
+                  style={{ backgroundColor: colorTheme }}
+                />
                 <div>
                   <p className='tabs__pickup-item-name'>{spot.name}</p>
-                  <p className='tabs__pickup-item-address'>
-                    {spot.address}
-                  </p>
+                  <p className='tabs__pickup-item-address'>{spot.address}</p>
                 </div>
               </button>
             );

@@ -46,7 +46,7 @@ const Deliver = () => {
     } else {
       dispatch(setUsersData({ ...data, activeSpot: 0 }));
     }
-    navigate(`/I/${params.venue}/d`);
+    navigate(`/${params.venue}/d`);
   };
 
   const inputRef = useMask({
