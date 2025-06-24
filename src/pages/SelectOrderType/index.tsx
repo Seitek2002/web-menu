@@ -41,8 +41,8 @@ const SelectOrderType = () => {
         if (data?.isDeliveryAvailable) {
           navigate(`/${data.slug}/d`);
         }
-        if (data?.isTakeoutAvailable) {
-          navigate(`/${data.slug}/s`);
+        if (data?.isTakeoutAvailable && data?.spots?.[0]) {
+          navigate(`/${data.slug}/${data.spots[0].id}/s`);
         }
         if (data?.isDineinAvailable) {
           navigate(`/scan`);
