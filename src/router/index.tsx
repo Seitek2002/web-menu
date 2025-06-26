@@ -21,6 +21,8 @@ const AppRoutes = () => {
         <Route path='/:venue' element={<SelectOrderType />} />
         <Route path='/:venue/d' element={<Home />} />
         <Route path='/:venue/:venueId/:id' element={<Home />} />
+        <Route path='/I/:venue/d' element={<Home />} />
+        <Route path='/I/:venue/:venueId/:id' element={<Home />} />
 
         <Route element={<ProtectedRoute />}>
           <Route path='/cart' element={<Cart />} />
