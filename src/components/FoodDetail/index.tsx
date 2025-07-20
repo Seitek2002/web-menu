@@ -133,7 +133,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
               <div className='cart-img-skeleton absolute top-0 left-0 w-full h-full bg-gray-300 animate-pulse'></div>
             )}
             <img
-              src={item?.productPhoto}
+              src={item?.productPhotoLarge}
               alt='product'
               onLoad={() => setIsLoaded(true)}
               className={`transition-opacity duration-300 ${

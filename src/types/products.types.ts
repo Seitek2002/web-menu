@@ -28,6 +28,8 @@ export interface IProduct {
   productPrice: number;
   weight: number;
   productPhoto: string;
+  productPhotoSmall: string;
+  productPhotoLarge: string;
   category: ICategory;
   modificators: IModificator[];
   isRecommended: boolean
