@@ -53,6 +53,8 @@ const Search: FC<IProps> = ({ onSearchChange, searchText, setSearchText }) => {
             weight: 0,
             productDescription: '',
             isRecommended: false,
+            productPhotoLarge: '',
+            productPhotoSmall: '',
             modificators: [
               {
                 id: 0,

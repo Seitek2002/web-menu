@@ -72,6 +72,8 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
             weight: 0,
             productDescription: '',
             isRecommended: false,
+            productPhotoLarge: '',
+            productPhotoSmall: '',
             modificators: [
               {
                 id: 0,

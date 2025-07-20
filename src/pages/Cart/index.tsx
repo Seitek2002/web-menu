@@ -264,6 +264,8 @@ const Cart: React.FC = () => {
             productName: '',
             productPhoto: '',
             productPrice: 0,
+            productPhotoLarge: '',
+            productPhotoSmall: '',
             weight: 0,
             productDescription: '',
             isRecommended: false,
