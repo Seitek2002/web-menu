@@ -12,9 +12,9 @@ import Empty from './components/Empty';
 import BusketDesktop from 'components/BusketDesktop';
 import BusketCard from 'components/Cards/Cart';
 import CatalogCard from 'components/Cards/Catalog';
+import CartLoader from 'components/CartLoader';
 import ClearCartModal from 'components/ClearCartModal';
 import FoodDetail from 'components/FoodDetail';
-import Loader from 'components/Loader';
 
 import clearCartIcon from 'assets/icons/Busket/clear-cart.svg';
 import cookie from 'assets/icons/Busket/cookie.svg';
@@ -182,7 +182,6 @@ const Cart: React.FC = () => {
       serviceMode: 1,
       venue_slug: venueData.slug,
       address: '',
-      spot: selectedSpot,
     };
 
     if (venueData?.table?.tableNum) {
@@ -215,7 +214,6 @@ const Cart: React.FC = () => {
 
     if (res?.paymentUrl) {
       dispatch(clearCart());
-      setIsLoading(false);
       window.location.href = res.paymentUrl;
     } else {
       setIsLoading(false);
@@ -254,133 +252,137 @@ const Cart: React.FC = () => {
   }, [userData.type, orderTypes]);
 
   return (
-    <section className='cart relative font-inter bg-[#F1F2F3] px-[16px] pt-[40px] lg:max-w-[1140px] lg:mx-auto'>
-      <FoodDetail
-        isShow={isShow}
-        setIsShow={handleClose}
-        item={
-          activeFood || {
-            category: { categoryName: '', id: 0 },
-            productName: '',
-            productPhoto: '',
-            productPrice: 0,
-            productPhotoLarge: '',
-            productPhotoSmall: '',
-            weight: 0,
-            productDescription: '',
-            isRecommended: false,
-            modificators: [{ id: 0, name: '', price: 0 }],
-            id: 0,
+    <>
+      
+      <section className='cart relative font-inter bg-[#F1F2F3] px-[16px] pt-[40px] lg:max-w-[1140px] lg:mx-auto'>
+        <FoodDetail
+          isShow={isShow}
+          setIsShow={handleClose}
+          item={
+            activeFood || {
+              category: { categoryName: '', id: 0 },
+              productName: '',
+              productPhoto: '',
+              productPrice: 0,
+              productPhotoLarge: '',
+              productPhotoSmall: '',
+              weight: 0,
+              productDescription: '',
+              isRecommended: false,
+              modificators: [{ id: 0, name: '', price: 0 }],
+              id: 0,
+            }
           }
-        }
-      />
-      <ClearCartModal isShow={clearCartModal} setActive={setClearCartModal} />
-      {isLoading && <Loader />}
-
-      <header className='cart__header'>
-        <img
-          src={headerArrowIcon}
-          alt=''
-          onClick={() => navigate(-1)}
-          className='cursor-pointer'
         />
-        <h3>{t('basket.title')}</h3>
-        <img
-          src={clearCartIcon}
-          alt=''
-          onClick={() => setClearCartModal(true)}
-        />
-      </header>
+        <ClearCartModal isShow={clearCartModal} setActive={setClearCartModal} />
+        {isLoading && <CartLoader />}
 
-      {window.innerWidth < 768 && (
-        <>
-          {venueData?.table?.tableNum && (
-            <div className='cart__top'>
-              {t('table')}
-              {venueData.table.tableNum}
-            </div>
-          )}
-          <div className='cart__items'>
-            {cart.length > 0 ? (
-              cart.map((item) => <BusketCard key={item.id} item={item} />)
-            ) : (
-              <div />
+        <header className='cart__header'>
+          <img
+            src={headerArrowIcon}
+            alt=''
+            onClick={() => navigate(-1)}
+            className='cursor-pointer'
+          />
+          <h3>{t('basket.title')}</h3>
+          <img
+            src={clearCartIcon}
+            alt=''
+            onClick={() => setClearCartModal(true)}
+          />
+        </header>
+
+        {window.innerWidth < 768 && (
+          <>
+            {venueData?.table?.tableNum && (
+              <div className='cart__top'>
+                {t('table')}
+                {venueData.table.tableNum}
+              </div>
             )}
-          </div>
-        </>
-      )}
-
-      <div className='md:flex gap-[24px]'>
-        <div className='md:w-[50%]'>
-          {cart.length > 0 ? (
-            <>
-              {!venueData?.table?.tableNum && (
-                <div className='cart__order-type'>
-                  {[
-                    venueData.isTakeoutAvailable,
-                    venueData.isDineinAvailable,
-                    venueData.isDeliveryAvailable,
-                  ].filter((item) => item).length !== 1 && (
-                    <>
-                      {orderTypes.map((item, idx) => (
-                        <div
-                          key={item.value}
-                          onClick={() => handleClick(idx)}
-                          className={`cart__order-type-wrapper bg-[#fff] border-[#e1e2e5] cursor-pointer justify-center ${
-                            activeIndex === idx ? 'active' : ''
-                          }`}
-                          style={{
-                            borderColor:
-                              activeIndex === idx ? colorTheme : '#e1e2e5',
-                          }}
-                        >
-                          {item.text}
-                        </div>
-                      ))}
-                    </>
-                  )}
-                </div>
+            <div className='cart__items'>
+              {cart.length > 0 ? (
+                cart.map((item) => <BusketCard key={item.id} item={item} />)
+              ) : (
+                <div />
               )}
+            </div>
+          </>
+        )}
 
-              {venueData.spots?.length !== 1 && (
-                <>
-                  {activeIndex === 0 && (
-                    <div className='cart__contacts'>
-                      <div className='flex items-center justify-between mb-6'>
-                        <h4>{t('selectBranch')}</h4>
-                      </div>
+        <div className='md:flex gap-[24px]'>
+          <div className='md:w-[50%]'>
+            {cart.length > 0 ? (
+              <>
+                {!venueData?.table?.tableNum && (
+                  <div className='cart__order-type'>
+                    {[
+                      venueData.isTakeoutAvailable,
+                      venueData.isDineinAvailable,
+                      venueData.isDeliveryAvailable,
+                    ].filter((item) => item).length !== 1 && (
+                      <>
+                        {orderTypes.map((item, idx) => (
+                          <div
+                            key={item.value}
+                            onClick={() => handleClick(idx)}
+                            className={`cart__order-type-wrapper bg-[#fff] border-[#e1e2e5] cursor-pointer justify-center ${
+                              activeIndex === idx ? 'active' : ''
+                            }`}
+                            style={{
+                              borderColor:
+                                activeIndex === idx ? colorTheme : '#e1e2e5',
+                            }}
+                          >
+                            {item.text}
+                          </div>
+                        ))}
+                      </>
+                    )}
+                  </div>
+                )}
 
-                      <div className='space-y-4'>
-                        {venueData.spots?.map((location) => {
-                          const isSelected = selectedSpot === location.id;
+                {venueData.spots?.length !== 1 && (
+                  <>
+                    {activeIndex === 0 && (
+                      <div className='cart__contacts'>
+                        <div className='flex items-center justify-between mb-6'>
+                          <h4>{t('selectBranch')}</h4>
+                        </div>
 
-                          return (
-                            <label
-                              key={location.id}
-                              style={{
-                                borderColor:
-                                  isSelected && colorTheme
-                                    ? colorTheme
-                                    : '#e1e2e5',
-                              }}
-                              className={`
+                        <div className='space-y-4'>
+                          {venueData.spots?.map((location) => {
+                            const isSelected = selectedSpot === location.id;
+
+                            return (
+                              <label
+                                key={location.id}
+                                style={{
+                                  borderColor:
+                                    isSelected && colorTheme
+                                      ? colorTheme
+                                      : '#e1e2e5',
+                                }}
+                                className={`
                               flex items-center w-full px-1 rounded-xl cursor-pointer transition-all duration-200
                               border-[2px]
                             `}
-                              htmlFor={location.id + ''}
-                            >
-                              <div className='relative mr-4 flex-shrink-0'>
-                                <input
-                                  type='radio'
-                                  id={location.id + ''}
-                                  name='location'
-                                  checked={isSelected}
-                                  onChange={() => setSelectedSpot(location.id)}
-                                  className='peer sr-only'
-                                />
-                                <div
-                                  style={{ backgroundColor: colorTheme }}
-                                  className={`
+                                htmlFor={location.id + ''}
+                              >
+                                <div className='relative mr-4 flex-shrink-0'>
+                                  <input
+                                    type='radio'
+                                    id={location.id + ''}
+                                    name='location'
+                                    checked={isSelected}
+                                    onChange={() =>
+                                      setSelectedSpot(location.id)
+                                    }
+                                    className='peer sr-only'
+                                  />
+                                  <div
+                                    style={{ backgroundColor: colorTheme }}
+                                    className={`
                                 w-5 h-5 rounded-full border-2 transition-colors duration-200
                                 ${
                                   isSelected
@@ -388,174 +390,177 @@ const Cart: React.FC = () => {
                                     : 'border-amber-400 bg-white peer-hover:border-amber-500'
                                 }
                               `}
-                                >
-                                  {isSelected && (
-                                    <div className='absolute inset-0 flex items-center justify-center'>
-                                      <div className='w-2 h-2 rounded-full bg-white' />
-                                    </div>
-                                  )}
+                                  >
+                                    {isSelected && (
+                                      <div className='absolute inset-0 flex items-center justify-center'>
+                                        <div className='w-2 h-2 rounded-full bg-white' />
+                                      </div>
+                                    )}
+                                  </div>
                                 </div>
-                              </div>
-                              <div style={{ color: colorTheme }}>
-                                <div className='font-medium'>
-                                  {location.name}
+                                <div style={{ color: colorTheme }}>
+                                  <div className='font-medium'>
+                                    {location.name}
+                                  </div>
+                                  <div className=''>{location.address}</div>
                                 </div>
-                                <div className=''>{location.address}</div>
-                              </div>
-                            </label>
-                          );
-                        })}
+                              </label>
+                            );
+                          })}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </>
-              )}
-
-              <div className='cart__contacts'>
-                <div className='flex items-center justify-between mb-[12px]'>
-                  <h4>{t('empty.contact')}</h4>
-                </div>
-
-                <label htmlFor='phoneNumber'>
-                  <span className='text-[14px]'>
-                    {t('phoneNumber')}{' '}
-                    <span className='required' style={{ color: colorTheme }}>
-                      {t('necessarily')}
-                    </span>
-                  </span>
-                  <input
-                    type='text'
-                    placeholder='+996'
-                    id='phoneNumber'
-                    ref={inputRef}
-                    value={phoneNumber}
-                    onChange={(e) => handlePhoneChange(e.target.value)}
-                  />
-                  {phoneError && (
-                    <div className='error-message'>{phoneError}</div>
-                  )}
-                </label>
-
-                <label htmlFor='comment'>
-                  <span className='text-[14px]'>{t('comment')}</span>
-                  <input
-                    id='comment'
-                    type='text'
-                    placeholder={t('empty.comment') || t('comment')}
-                    value={comment}
-                    onChange={(e) => setComment(e.target.value)}
-                  />
-                </label>
-
-                {
-                  <>
-                    {orderTypes[activeIndex]?.value === 3 && (
-                      <label htmlFor='address'>
-                        <span className='text-[14px]'>{t('addres')}</span>
-                        <input
-                          type='text'
-                          id='address'
-                          placeholder={t('empty.location') || t('addres')}
-                          value={address}
-                          onChange={(e) => handleAddressChange(e.target.value)}
-                        />
-                        {addressError && (
-                          <div className='error-message'>{addressError}</div>
-                        )}
-                      </label>
                     )}
                   </>
-                }
-              </div>
+                )}
 
-              <div className='cart__sum bg-[#fff]'>
-                <div
-                  onClick={() => setActive(!active)}
-                  className='cart__sum-top text-[#80868B]'
-                >
-                  {t('empty.deteil')}
-                  <img
-                    src={priceArrow}
-                    alt='arrow'
-                    className={
-                      active ? 'cart__sum-img active' : 'cart__sum-img'
-                    }
-                  />
-                </div>
-                <div
-                  className={
-                    active
-                      ? 'cart__sum-wrapper divide-y active'
-                      : 'cart__sum-wrapper divide-y'
+                <div className='cart__contacts'>
+                  <div className='flex items-center justify-between mb-[12px]'>
+                    <h4>{t('empty.contact')}</h4>
+                  </div>
+
+                  <label htmlFor='phoneNumber'>
+                    <span className='text-[14px]'>
+                      {t('phoneNumber')}{' '}
+                      <span className='required' style={{ color: colorTheme }}>
+                        {t('necessarily')}
+                      </span>
+                    </span>
+                    <input
+                      type='text'
+                      placeholder='+996'
+                      id='phoneNumber'
+                      ref={inputRef}
+                      value={phoneNumber}
+                      onChange={(e) => handlePhoneChange(e.target.value)}
+                    />
+                    {phoneError && (
+                      <div className='error-message'>{phoneError}</div>
+                    )}
+                  </label>
+
+                  <label htmlFor='comment'>
+                    <span className='text-[14px]'>{t('comment')}</span>
+                    <input
+                      id='comment'
+                      type='text'
+                      placeholder={t('empty.comment') || t('comment')}
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
+                    />
+                  </label>
+
+                  {
+                    <>
+                      {orderTypes[activeIndex]?.value === 3 && (
+                        <label htmlFor='address'>
+                          <span className='text-[14px]'>{t('addres')}</span>
+                          <input
+                            type='text'
+                            id='address'
+                            placeholder={t('empty.location') || t('addres')}
+                            value={address}
+                            onChange={(e) =>
+                              handleAddressChange(e.target.value)
+                            }
+                          />
+                          {addressError && (
+                            <div className='error-message'>{addressError}</div>
+                          )}
+                        </label>
+                      )}
+                    </>
                   }
-                  style={{ height: active ? '80px' : '0' }}
-                >
-                  <div className='cart__sum-item text-[#80868B]'>
-                    {t('empty.total')}
-                    <div className='cart__sum-total all text-[#80868B]'>
-                      {subtotal} c
+                </div>
+
+                <div className='cart__sum bg-[#fff]'>
+                  <div
+                    onClick={() => setActive(!active)}
+                    className='cart__sum-top text-[#80868B]'
+                  >
+                    {t('empty.deteil')}
+                    <img
+                      src={priceArrow}
+                      alt='arrow'
+                      className={
+                        active ? 'cart__sum-img active' : 'cart__sum-img'
+                      }
+                    />
+                  </div>
+                  <div
+                    className={
+                      active
+                        ? 'cart__sum-wrapper divide-y active'
+                        : 'cart__sum-wrapper divide-y'
+                    }
+                    style={{ height: active ? '80px' : '0' }}
+                  >
+                    <div className='cart__sum-item text-[#80868B]'>
+                      {t('empty.total')}
+                      <div className='cart__sum-total all text-[#80868B]'>
+                        {subtotal} c
+                      </div>
+                    </div>
+                    <div className='cart__sum-item text-[#80868B]'>
+                      {t('services')}
+                      <div className='cart__sum-total service'>
+                        {venueData.serviceFeePercent}%
+                      </div>
                     </div>
                   </div>
-                  <div className='cart__sum-item text-[#80868B]'>
-                    {t('services')}
-                    <div className='cart__sum-total service'>
-                      {venueData.serviceFeePercent}%
-                    </div>
+                  <div className='cart__sum-ress border-[#f3f3f3]'>
+                    {t('empty.totalAmount')} <span>{solveTotalSum()} c</span>
                   </div>
                 </div>
-                <div className='cart__sum-ress border-[#f3f3f3]'>
-                  {t('empty.totalAmount')} <span>{solveTotalSum()} c</span>
-                </div>
-              </div>
-            </>
-          ) : (
-            <Empty />
+              </>
+            ) : (
+              <Empty />
+            )}
+          </div>
+
+          {window.innerWidth >= 768 && (
+            <div className='busket flex-1'>
+              <BusketDesktop
+                to='/order'
+                createOrder={handleOrder}
+                disabled={!isButtonDisabled || !cart.length}
+              />
+            </div>
           )}
         </div>
 
-        {window.innerWidth >= 768 && (
-          <div className='busket flex-1'>
-            <BusketDesktop
-              to='/order'
-              createOrder={handleOrder}
-              disabled={!isButtonDisabled || !cart.length}
-            />
+        {(data?.filter((item) => item.isRecommended) ?? []).length > 0 && (
+          <div className='cart__forgot'>
+            <h4 className='cart__forgot-title'>
+              {t('orders.forgotten')}
+              <img src={cookie} alt='cookie' />
+            </h4>
+            <div className='cart__forgot-wrapper'>
+              {data
+                ?.filter((item) => item.isRecommended)
+                .map((item) => (
+                  <CatalogCard
+                    foodDetail={handleOpen}
+                    key={item.id}
+                    item={item}
+                  />
+                ))}
+            </div>
           </div>
         )}
-      </div>
 
-      {(data?.filter((item) => item.isRecommended) ?? []).length > 0 && (
-        <div className='cart__forgot'>
-          <h4 className='cart__forgot-title'>
-            {t('orders.forgotten')}
-            <img src={cookie} alt='cookie' />
-          </h4>
-          <div className='cart__forgot-wrapper'>
-            {data
-              ?.filter((item) => item.isRecommended)
-              .map((item) => (
-                <CatalogCard
-                  foodDetail={handleOpen}
-                  key={item.id}
-                  item={item}
-                />
-              ))}
-          </div>
-        </div>
-      )}
-
-      {window.innerWidth < 768 && (
-        <footer className='cart__footer'>
-          <button
-            disabled={!cart.length || !isButtonDisabled}
-            style={{ backgroundColor: colorTheme }}
-            onClick={handleOrder}
-          >
-            {t('button.next') || 'Далее'}
-          </button>
-        </footer>
-      )}
-    </section>
+        {window.innerWidth < 768 && (
+          <footer className='cart__footer'>
+            <button
+              disabled={!cart.length || !isButtonDisabled}
+              style={{ backgroundColor: colorTheme }}
+              onClick={handleOrder}
+            >
+              {t('button.next') || 'Далее'}
+            </button>
+          </footer>
+        )}
+      </section>
+    </>
   );
 };
 
