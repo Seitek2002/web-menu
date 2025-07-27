@@ -214,8 +214,8 @@ const Cart: React.FC = () => {
     });
 
     if (res?.paymentUrl) {
-      dispatch(clearCart());
       window.location.href = res.paymentUrl;
+      dispatch(clearCart());
     } else {
       setIsLoading(false);
     }
