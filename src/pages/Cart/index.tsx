@@ -219,8 +219,6 @@ const Cart: React.FC = () => {
     } else {
       setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   function getCartItemPrice(item: IFoodCart): number {
