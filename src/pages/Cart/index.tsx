@@ -41,7 +41,7 @@ const Cart: React.FC = () => {
   const venueData = useAppSelector((state) => state.yourFeature.venue);
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const [selectedSpot, setSelectedSpot] = useState(userData.activeSpot || 0);
+  const [selectedSpot, setSelectedSpot] = useState(venueData?.spots?.[0].id || 0);
 
   const [phoneNumber, setPhoneNumber] = useState(
     `+996${userData.phoneNumber.replace('996', '')}`
@@ -182,7 +182,7 @@ const Cart: React.FC = () => {
       serviceMode: 1,
       venue_slug: venueData.slug,
       address: '',
-      spot: selectedSpot,
+      spot: venueData?.spots?.[0].id || 0,
     };
 
     if (venueData?.table?.tableNum) {
