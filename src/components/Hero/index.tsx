@@ -14,47 +14,10 @@ import offer3 from 'assets/images/OrderStatus/schedule-status.png';
 
 import './style.scss';
 
+import { isClosedNow } from 'src/utlis/workTime';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-function getWorkStatus(schedule: string) {
-  const [startTimeStr, endTimeStr] = schedule.split('-');
-
-  const [startHours, startMinutes] = startTimeStr.split(':').map(Number);
-  const [endHours, endMinutes] = endTimeStr.split(':').map(Number);
-
-  const now = new Date();
-  const nowHours = now.getHours();
-  const nowMinutes = now.getMinutes();
-
-  const startTotalMinutes = startHours * 60 + startMinutes;
-  const endTotalMinutes = endHours * 60 + endMinutes;
-  const nowTotalMinutes = nowHours * 60 + nowMinutes;
-
-  if (startTotalMinutes === endTotalMinutes) {
-    return 'Заведение работает круглосуточно';
-  }
-
-  if (startTotalMinutes < endTotalMinutes) {
-    if (
-      nowTotalMinutes >= startTotalMinutes &&
-      nowTotalMinutes < endTotalMinutes
-    ) {
-      return false;
-    } else {
-      return true;
-    }
-  } else {
-    if (
-      nowTotalMinutes >= startTotalMinutes ||
-      nowTotalMinutes < endTotalMinutes
-    ) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-}
 
 const Hero = () => {
   const user = JSON.parse(localStorage.getItem('users') ?? '{}');
@@ -153,7 +116,7 @@ const Hero = () => {
         modules={[Pagination]}
         className='hero-swiper'
       >
-        {getWorkStatus(venue.schedule || '00:00-00:00') && (
+        {isClosedNow(venue.schedule || '') && (
           <SwiperSlide>
             <div
               className='hero__item'

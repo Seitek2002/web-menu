@@ -5,6 +5,7 @@ import { useGetProductsQuery } from 'api/Products.api';
 import { IFoodCart, IProduct } from 'types/products.types';
 import { useAppSelector } from 'hooks/useAppSelector';
 import CatalogCard from 'components/Cards/Catalog';
+import ClosedModal from 'components/ClosedModal';
 import FoodDetail from 'components/FoodDetail';
 
 import nothing from 'assets/images/not-found-products.png';
@@ -12,6 +13,7 @@ import nothing from 'assets/images/not-found-products.png';
 import './style.scss';
 
 import { t } from 'i18next';
+import { isClosedNow } from 'src/utlis/workTime';
 
 interface IProps {
   searchText?: string;
@@ -22,10 +24,12 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
   const { venue } = useParams();
   const [isShow, setIsShow] = useState(false);
   const [activeFood, setActiveFood] = useState<IProduct | null>(null);
+  const [showClosed, setShowClosed] = useState(false);
   const cart = useAppSelector((state) => state.yourFeature.cart);
   const colorTheme = useAppSelector(
     (state) => state.yourFeature.venue?.colorTheme
   );
+  const venueData = useAppSelector((state) => state.yourFeature.venue);
   const navigate = useNavigate();
   const { data: items } = useGetProductsQuery({
     category: selectedCategory || undefined,
@@ -60,6 +64,7 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
 
   return (
     <section className='catalog'>
+      <ClosedModal isShow={showClosed} onClose={() => setShowClosed(false)} />
       <FoodDetail
         isShow={isShow}
         setIsShow={handleClose}
@@ -96,7 +101,13 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
           {window.innerWidth < 768 && cart.length !== 0 && (
             <div className='catalog__footer'>
               <button
-                onClick={() => navigate('/cart')}
+                onClick={() => {
+                  if (isClosedNow(venueData?.schedule || '')) {
+                    setShowClosed(true);
+                    return;
+                  }
+                  navigate('/cart');
+                }}
                 style={{ backgroundColor: colorTheme }}
               >
                 {t('basket.order')}

@@ -1,10 +1,14 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useAppSelector } from 'hooks/useAppSelector';
 import BusketCard from 'components/Cards/Cart';
+import ClosedModal from 'components/ClosedModal';
 
 import './style.scss';
+
+import { isClosedNow } from 'src/utlis/workTime';
 
 const BusketDesktop = ({
   to,
@@ -24,7 +28,14 @@ const BusketDesktop = ({
   const cart = useAppSelector((state) => state.yourFeature.cart);
   const location = useLocation();
 
+  const [showClosed, setShowClosed] = useState(false);
+
   const handleClick = () => {
+    const closed = isClosedNow(venueData?.schedule || '');
+    if (closed) {
+      setShowClosed(true);
+      return;
+    }
     if (location.pathname === '/cart') {
       if (createOrder) createOrder();
     } else {
@@ -34,6 +45,7 @@ const BusketDesktop = ({
 
   return (
     <div className='busket__content'>
+      <ClosedModal isShow={showClosed} onClose={() => setShowClosed(false)} />
       {venueData?.table?.tableNum && (
         <div className='table-num'>{t('table')}{venueData.table.tableNum}</div>
       )}
