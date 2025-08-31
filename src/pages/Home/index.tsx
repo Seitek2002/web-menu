@@ -94,7 +94,7 @@ const Home = () => {
               selectedCategory={selectedCategory}
             />
           </div>
-          <div className='flex-1 sticky top-0'>
+          <div className='flex-1 sticky top-0 z-[1]'>
             <div className='busket'>
               <header className='busket__header'>
                 <h2>{t('basket.title')}</h2>

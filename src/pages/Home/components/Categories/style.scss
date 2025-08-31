@@ -1,5 +1,5 @@
 .categories {
-  @apply overflow-x-auto overflow-y-hidden sticky top-0 z-[1] bg-[#F1F2F3] relative;
+  @apply overflow-x-auto overflow-y-hidden sticky top-0 z-[1] bg-[#F1F2F3];
   @apply md:overflow-visible md:flex md:gap-[20px] md:py-0;
 
   .dropdown-arrow {
