@@ -62,7 +62,7 @@ const CatalogCard: FC<IProps> = ({ item, foodDetail }) => {
           <div className="cart-img-skeleton absolute top-0 left-0 w-full h-full bg-gray-300 animate-pulse"></div>
         )}
         <img
-          src={item.productPhoto}
+          src={item.productPhotoSmall}
           alt="img"
           onLoad={() => setIsLoaded(true)} 
           className={`transition-opacity duration-300 cursor-pointer ${
