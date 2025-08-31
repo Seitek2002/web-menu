@@ -15,6 +15,7 @@ import CatalogCard from 'components/Cards/Catalog';
 import CartLoader from 'components/CartLoader';
 import ClearCartModal from 'components/ClearCartModal';
 import FoodDetail from 'components/FoodDetail';
+import ClosedModal from 'components/ClosedModal';
 
 import clearCartIcon from 'assets/icons/Busket/clear-cart.svg';
 import cookie from 'assets/icons/Busket/cookie.svg';
@@ -57,6 +58,8 @@ const Cart: React.FC = () => {
   const [activeFood, setActiveFood] = useState<IProduct | null>(null);
   const [active, setActive] = useState(false);
   const [clearCartModal, setClearCartModal] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [errorText, setErrorText] = useState('');
 
   const navigate = useNavigate();
   const { data } = useGetProductsQuery({
@@ -208,16 +211,37 @@ const Cart: React.FC = () => {
       })
     );
 
-    const { data: res } = await postOrder({
-      ...acc,
-      spot: selectedSpot,
-    });
+    try {
+      const res = await postOrder({
+        ...acc,
+        spot: selectedSpot,
+      }).unwrap();
 
-    if (res?.paymentUrl) {
-      window.location.href = res.paymentUrl;
-      dispatch(clearCart());
-    } else {
+      if (res?.paymentUrl) {
+        window.location.href = res.paymentUrl;
+        dispatch(clearCart());
+      } else {
+        setIsLoading(false);
+      }
+    } catch (err: any) {
       setIsLoading(false);
+      let message = t('error.default') as string;
+
+      // RTK Query FetchBaseQueryError shape: { status, data }
+      if (err) {
+        const data = err.data ?? err.error ?? err.message ?? err;
+        if (typeof data === 'string') {
+          message = data;
+        } else if (data && typeof data === 'object') {
+          // common API shapes
+          if (typeof data.detail === 'string') message = data.detail;
+          else if (typeof data.message === 'string') message = data.message;
+          else if (typeof data.error === 'string') message = data.error;
+        }
+      }
+
+      setErrorText(message);
+      setShowError(true);
     }
   };
 
@@ -274,6 +298,12 @@ const Cart: React.FC = () => {
         />
         <ClearCartModal isShow={clearCartModal} setActive={setClearCartModal} />
         {isLoading && <CartLoader />}
+        <ClosedModal
+          isShow={showError}
+          onClose={() => setShowError(false)}
+          title={t('error.title') || 'Ошибка'}
+          description={errorText}
+        />
 
         <header className='cart__header'>
           <img
