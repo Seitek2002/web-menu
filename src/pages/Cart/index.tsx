@@ -14,13 +14,14 @@ import BusketCard from 'components/Cards/Cart';
 import CatalogCard from 'components/Cards/Catalog';
 import CartLoader from 'components/CartLoader';
 import ClearCartModal from 'components/ClearCartModal';
-import FoodDetail from 'components/FoodDetail';
 import ClosedModal from 'components/ClosedModal';
+import FoodDetail from 'components/FoodDetail';
 
 import clearCartIcon from 'assets/icons/Busket/clear-cart.svg';
 import cookie from 'assets/icons/Busket/cookie.svg';
 import headerArrowIcon from 'assets/icons/Busket/header-arrow.svg';
 import priceArrow from 'assets/icons/Busket/price-arrow.svg';
+import bell from 'assets/icons/SubHeader/coin.png';
 
 import './style.scss';
 
@@ -60,6 +61,7 @@ const Cart: React.FC = () => {
   const [clearCartModal, setClearCartModal] = useState(false);
   const [showError, setShowError] = useState(false);
   const [errorText, setErrorText] = useState('');
+  const [usePoints, setUsePoints] = useState(false);
 
   const navigate = useNavigate();
   const { data } = useGetProductsQuery({
@@ -532,6 +534,30 @@ const Cart: React.FC = () => {
                       {t('services')}
                       <div className='cart__sum-total service'>
                         {venueData.serviceFeePercent}%
+                      </div>
+                    </div>
+                  </div>
+                  <div className='cart__sum-ress border-[#f3f3f3]'>
+                    <div className='flex items-center justify-between w-full'>
+                      <span className='flex items-center gap-2'>
+                        <button
+                          type='button'
+                          aria-pressed={usePoints}
+                          aria-label='Оплатить баллами'
+                          onClick={() => setUsePoints((v) => !v)}
+                          className={`w-[48px] h-[28px] rounded-full p-[3px] transition-colors duration-200 flex ${
+                            usePoints ? 'justify-end' : 'justify-start'
+                          }`}
+                          style={{
+                            backgroundColor: usePoints ? colorTheme : '#E5E7EB',
+                          }}
+                        >
+                          <span className='w-[22px] h-[22px] bg-white rounded-full shadow-md transition-transform duration-200' />
+                        </button>
+                        Оплатить баллами
+                      </span>
+                      <div className='flex items-center gap-[8px]'>
+                        <img src={bell} width={20} alt='' /> 0 б.
                       </div>
                     </div>
                   </div>
