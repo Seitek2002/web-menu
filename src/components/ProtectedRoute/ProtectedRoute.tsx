@@ -47,8 +47,6 @@ const ProtectedRoute = () => {
         <ClosedModal
           isShow={showClosed}
           onClose={() => setRedirect(true)}
-          title='Сейчас нерабочее время'
-          description='Оформление заказа недоступно. Пожалуйста, загляните в часы работы.'
         />
         {redirect ? <Navigate to={mainPage} replace /> : null}
       </>

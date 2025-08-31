@@ -27,6 +27,10 @@
     @apply text-[14px] text-gray-600 text-center;
   }
 
+  .schedule {
+    @apply text-[14px] text-gray-600 text-center mt-[4px];
+  }
+
   .action {
     @apply mt-[6px] text-white py-[12px] rounded-[12px] font-medium;
   }

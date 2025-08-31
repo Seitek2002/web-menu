@@ -38,3 +38,37 @@ export function isClosedNow(schedule: string): boolean {
     return false;
   }
 }
+
+/**
+ * Formats schedule string to a human-friendly text in Russian.
+ * - "09:00-18:00" -> "09:00–18:00"
+ * - "00:00-00:00" -> "Круглосуточно"
+ * - invalid/empty -> "не указан"
+ */
+export function formatSchedule(schedule: string): string {
+  try {
+    if (!schedule || !schedule.includes('-')) return 'не указан';
+    const [startTimeStrRaw, endTimeStrRaw] = schedule.split('-');
+    const startTimeStr = (startTimeStrRaw || '').trim();
+    const endTimeStr = (endTimeStrRaw || '').trim();
+
+    const [sh, sm] = startTimeStr.split(':').map(Number);
+    const [eh, em] = endTimeStr.split(':').map(Number);
+    if (
+      Number.isNaN(sh) ||
+      Number.isNaN(sm) ||
+      Number.isNaN(eh) ||
+      Number.isNaN(em)
+    ) {
+      return 'не указан';
+    }
+
+    if (sh * 60 + sm === eh * 60 + em) {
+      return 'Круглосуточно';
+    }
+
+    return `${startTimeStr}–${endTimeStr}`;
+  } catch {
+    return 'не указан';
+  }
+}

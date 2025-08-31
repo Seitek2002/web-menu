@@ -78,5 +78,11 @@
     "order": "Order",
     "next": "Next",
     "menu": "To menu"
+  },
+  "closed": {
+    "title": "Currently closed",
+    "description": "Ordering is unavailable. Please come back during opening hours.",
+    "schedule": "Opening hours: {{schedule}}",
+    "ok": "Got it"
   }
 }
