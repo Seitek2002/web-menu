@@ -191,4 +191,31 @@
     font-size: 12px;
     margin-bottom: 4px;
   }
+
+  /* Free delivery banner styles */
+  &__delivery-info {
+    @apply flex items-center gap-[10px] p-[12px] rounded-[12px] bg-white mt-[12px];
+    border: 1px solid #e1e2e5; /* fallback, accent border is set inline with colorTheme alpha */
+  }
+
+  &__delivery-icon {
+    @apply flex items-center justify-center rounded-full w-[36px] h-[36px] bg-white;
+    border: 2px solid; /* color is provided inline via style={{ borderColor: colorTheme }} */
+
+    img {
+      @apply w-[20px] h-[20px];
+    }
+  }
+
+  &__delivery-text {
+    @apply text-[14px];
+    span {
+      @apply text-[14px];
+    }
+  }
+
+  /* Total row: emphasize final amount like on reference design */
+  .cart__sum-ress span {
+    @apply font-[600] text-[#111827];
+  }
 }

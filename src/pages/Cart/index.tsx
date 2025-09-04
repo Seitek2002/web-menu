@@ -99,6 +99,8 @@ const Cart: React.FC = () => {
   );
   const [comment, setComment] = useState(userData.comment || '');
   const [address, setAddress] = useState(userData.address || '');
+  const [showCommentInput, setShowCommentInput] = useState(false);
+  const [promoCode, setPromoCode] = useState('');
 
   const [phoneError, setPhoneError] = useState('');
   const [addressError, setAddressError] = useState('');
@@ -558,16 +560,27 @@ const Cart: React.FC = () => {
                     )}
                   </label>
 
-                  <label htmlFor='comment'>
-                    <span className='text-[14px]'>{t('comment')}</span>
-                    <input
-                      id='comment'
-                      type='text'
-                      placeholder={t('empty.comment') || t('comment')}
-                      value={comment}
-                      onChange={(e) => setComment(e.target.value)}
-                    />
-                  </label>
+                  {!showCommentInput ? (
+                    <button
+                      type='button'
+                      className='text-[14px] block underline mb-3'
+                      style={{ color: colorTheme }}
+                      onClick={() => setShowCommentInput(true)}
+                    >
+                      {t('addComment')}
+                    </button>
+                  ) : (
+                    <label htmlFor='comment'>
+                      <span className='text-[14px]'>{t('comment')}</span>
+                      <input
+                        id='comment'
+                        type='text'
+                        placeholder={t('empty.comment') || t('comment')}
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                      />
+                    </label>
+                  )}
 
                   {
                     <>
@@ -591,6 +604,36 @@ const Cart: React.FC = () => {
                     </>
                   }
                 </div>
+
+                {isDeliveryType && deliveryFreeFrom !== null && (
+                  <div
+                    className='cart__delivery-info rounded-[12px] mt-[12px] bg-white'
+                    style={{ border: `1px solid ${colorTheme}33` }}
+                  >
+                    <div className='cart__delivery-icon' style={{ borderColor: colorTheme }}>
+                      <img src={deliveryIcon} alt='delivery' />
+                    </div>
+                    <div className='cart__delivery-text'>
+                      {subtotal >= deliveryFreeFrom ? (
+                        <span>
+                          {t('freeDeliveryYouGet')}{' '}
+                          <span style={{ color: colorTheme, fontWeight: 600 }}>
+                            {t('freeDeliveryAcc')}
+                          </span>
+                        </span>
+                      ) : (
+                        <span>
+                          {t('freeDeliveryAddPrefix', {
+                            amount: Math.max(0, Math.ceil(deliveryFreeFrom - subtotal)),
+                          })}{' '}
+                          <span style={{ color: colorTheme, fontWeight: 600, textDecoration: 'underline' }}>
+                            {t('freeDeliveryGen')}
+                          </span>
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                )}
 
                 <div className='cart__sum bg-[#fff]'>
                   <div
@@ -666,6 +709,24 @@ const Cart: React.FC = () => {
                     {t('empty.totalAmount')} <span>{total} c</span>
                   </div>
                 </div>
+
+                <div className='cart__promo bg-[#fff] p-[12px] rounded-[12px] mt-[12px]'>
+                  <label htmlFor='promoCode' className='block'>
+                    <span className='text-[14px] flex items-center justify-between mb-[8px]'>
+                      {t('promoCode')}
+                      <span className='text-[12px] text-[#ccc]'>
+                        Необязательно
+                      </span>
+                    </span>
+                    <input
+                      id='promoCode'
+                      type='text'
+                      placeholder={t('promoCode')}
+                      value={promoCode}
+                      onChange={(e) => setPromoCode(e.target.value)}
+                    />
+                  </label>
+                </div>
               </>
             ) : (
               <Empty />
@@ -683,36 +744,6 @@ const Cart: React.FC = () => {
           )}
         </div>
 
-        {/* Delivery info banner */}
-        {isDeliveryType && deliveryFreeFrom !== null && (
-          <div
-            className='cart__delivery-info rounded-[12px] mt-[12px] bg-white'
-            style={{ border: `1px solid ${colorTheme}33` }}
-          >
-            <div className='cart__delivery-icon' style={{ borderColor: colorTheme }}>
-              <img src={deliveryIcon} alt='delivery' />
-            </div>
-            <div className='cart__delivery-text'>
-              {subtotal >= deliveryFreeFrom ? (
-                <span>
-                  {t('freeDeliveryYouGet')}{' '}
-                  <span style={{ color: colorTheme, fontWeight: 600 }}>
-                    {t('freeDelivery')}
-                  </span>
-                </span>
-              ) : (
-                <span>
-                  {t('freeDeliveryAdd', {
-                    amount: Math.max(0, Math.ceil(deliveryFreeFrom - subtotal)),
-                  })}{' '}
-                  <span style={{ color: colorTheme, fontWeight: 600 }}>
-                    бесплатной доставки
-                  </span>
-                </span>
-              )}
-            </div>
-          </div>
-        )}
 
         {(data?.filter((item) => item.isRecommended) ?? []).length > 0 && (
           <div className='cart__forgot'>
