@@ -27,7 +27,6 @@ export function parseSchedule(schedule?: string): { window: DayWindow | null; is
  * { mon: "09:00-18:00", tue: "..." } using new API later.
  */
 export function getTodayScheduleWindow(
-  schedules?: unknown,
   fallbackSchedule?: string
 ): TodayWindowResult {
   const { window, is247 } = parseSchedule(fallbackSchedule);
