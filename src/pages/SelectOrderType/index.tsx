@@ -6,6 +6,7 @@ import { useGetVenueQuery } from 'api/Venue.api';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAppSelector } from 'hooks/useAppSelector';
 import Header from 'components/Header';
+import NotFound from 'pages/NotFound';
 
 import './style.scss';
 
@@ -17,7 +18,9 @@ const SelectOrderType = () => {
   const { venue } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { data } = useGetVenueQuery({ venueSlug: venue || '' });
+  const { data, isLoading, isError } = useGetVenueQuery({
+    venueSlug: venue || '',
+  });
   const colorTheme = useAppSelector(
     (state) => state.yourFeature.venue.colorTheme
   );
@@ -54,6 +57,12 @@ const SelectOrderType = () => {
   const handleNavigate = (path: string) => {
     navigate(path);
   };
+
+  const notFound = isError || (!isLoading && !data && venue);
+
+  if (notFound) {
+    return <NotFound />;
+  }
 
   return (
     <div className='select-order-type relative font-inter bg-[#F1F2F3] px-[16px] pt-[12px] lg:max-w-[1140px] lg:mx-auto'>

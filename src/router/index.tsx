@@ -4,6 +4,7 @@ import Cart from 'pages/Cart';
 import Deliver from 'pages/Deliver';
 import Home from 'pages/Home';
 import Main from 'pages/Main';
+import NotFound from 'pages/NotFound';
 import Order from 'pages/Order';
 import Scan from 'pages/Scan';
 import SelectOrderType from 'pages/SelectOrderType';
@@ -28,6 +29,7 @@ const AppRoutes = () => {
           <Route path='/cart' element={<Cart />} />
         </Route>
         <Route path='/orders/:id' element={<Order />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
