@@ -1,10 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import './style.scss';
+import { useAppSelector } from 'hooks/useAppSelector';
 
 import notFoundImg from 'assets/images/not-found-products.png';
-import { useAppSelector } from 'hooks/useAppSelector';
+
+import './style.scss';
 
 type Props = {
   message?: string;

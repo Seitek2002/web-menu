@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import NotFound from 'pages/NotFound';
 import { useGetVenueQuery } from 'api/Venue.api';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAppSelector } from 'hooks/useAppSelector';
 import Header from 'components/Header';
-import NotFound from 'pages/NotFound';
 
 import './style.scss';
 
