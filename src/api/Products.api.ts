@@ -14,12 +14,12 @@ export const Products = createApi({
       return headers;
     }, }),
   endpoints: (builder) => ({
-    getProducts: builder.query<IProduct[], { category?: number; search?: string; spotSlug?: string, venueSlug?: string }>({
-      query: ({ category, search, spotSlug, venueSlug }) => {
+    getProducts: builder.query<IProduct[], { category?: number; search?: string; spotId?: string | number; venueSlug?: string }>({
+      query: ({ category, search, spotId, venueSlug }) => {
         const params = new URLSearchParams();
-        if (category) params.append('category', category + '');
+        if (category) params.append('category', String(category));
         if (search) params.append('search', search);
-        if (spotSlug) params.append('spotSlug', spotSlug);
+        if (spotId !== undefined) params.append('spotId', String(spotId));
         if (venueSlug) params.append('venueSlug', venueSlug);
 
         return `products/?${params.toString()}`;

@@ -15,13 +15,13 @@ export const Orders = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getOrders: builder.query<IOrder[], { tableNum?: string; venueSlug?: string; spotSlug?: string; phone?: string; }>({
-      query: ({ tableNum, venueSlug, spotSlug, phone }) => {
+    getOrders: builder.query<IOrder[], { phone?: string; spotId?: number; tableId?: number; venueSlug?: string; }>({
+      query: ({ phone, spotId, tableId, venueSlug }) => {
         const params = new URLSearchParams();
-        if (tableNum) params.append('tableNum', tableNum);
-        if (venueSlug) params.append('venueSlug', venueSlug);
-        if (spotSlug) params.append('spotSlug', spotSlug);
         if (phone) params.append('phone', phone);
+        if (spotId !== undefined) params.append('spotId', String(spotId));
+        if (tableId !== undefined) params.append('tableId', String(tableId));
+        if (venueSlug) params.append('venueSlug', venueSlug);
 
         return `orders/?${params.toString()}`;
       },

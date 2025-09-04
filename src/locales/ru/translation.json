@@ -88,5 +88,12 @@
   "error": {
     "title": "Ошибка",
     "default": "Произошла ошибка. Попробуйте позже."
-  }
+  },
+  "deliveryFee": "Стоимость доставки",
+  "freeDelivery": "Бесплатная доставка",
+  "freeDeliveryYouGet": "Вы получаете",
+  "freeDeliveryAdd": "Добавьте ещё {{amount}} c до",
+  "freeDeliveryFrom": "Бесплатная доставка от",
+  "promoCode": "Промокод",
+  "addComment": "Добавить комментарий"
 }

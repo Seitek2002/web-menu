@@ -1,6 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import type { SerializedError } from '@reduxjs/toolkit';
+import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 import { usePostOrdersMutation } from 'api/Orders.api';
 import { useGetProductsQuery } from 'api/Products.api';
@@ -8,6 +10,8 @@ import { IReqCreateOrder } from 'types/orders.types';
 import { IFoodCart, IProduct } from 'types/products.types';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAppSelector } from 'hooks/useAppSelector';
+import { loadUsersDataFromStorage } from 'utils/storageUtils';
+import { getTodayScheduleWindow, isOutsideWorkTime } from 'utils/timeUtils';
 import Empty from './components/Empty';
 import BusketDesktop from 'components/BusketDesktop';
 import BusketCard from 'components/Cards/Cart';
@@ -16,18 +20,61 @@ import CartLoader from 'components/CartLoader';
 import ClearCartModal from 'components/ClearCartModal';
 import ClosedModal from 'components/ClosedModal';
 import FoodDetail from 'components/FoodDetail';
+import WorkTimeModal from 'components/WorkTimeModal';
 
 import clearCartIcon from 'assets/icons/Busket/clear-cart.svg';
 import cookie from 'assets/icons/Busket/cookie.svg';
 import headerArrowIcon from 'assets/icons/Busket/header-arrow.svg';
 import priceArrow from 'assets/icons/Busket/price-arrow.svg';
+import deliveryIcon from 'assets/icons/Order/delivery.svg';
 import bell from 'assets/icons/SubHeader/coin.png';
 
 import './style.scss';
 
 import { useMask } from '@react-input/mask';
 import { clearCart, setUsersData } from 'src/store/yourFeatureSlice';
-import { loadUsersDataFromStorage } from 'src/utlis/storageUtils';
+
+function extractApiError(err: unknown): string {
+  const fallback = 'Произошла ошибка. Попробуйте позже.';
+
+  type ErrorShape = {
+    data?: unknown;
+    error?: unknown;
+    message?: unknown;
+  };
+
+  const asRecord = (v: unknown): Record<string, unknown> | null =>
+    v !== null && typeof v === 'object' ? (v as Record<string, unknown>) : null;
+
+  const pickString = (obj: unknown, key: string): string | undefined => {
+    const rec = asRecord(obj);
+    const val = rec?.[key];
+    return typeof val === 'string' ? val : undefined;
+  };
+
+  const e = err as ErrorShape | FetchBaseQueryError | SerializedError | unknown;
+  const candidates = [
+    (e as ErrorShape)?.data,
+    (e as ErrorShape)?.error,
+    (e as ErrorShape)?.message,
+    e,
+  ];
+
+  for (const c of candidates) {
+    if (typeof c === 'string') return c;
+
+    const detail = pickString(c, 'detail');
+    if (detail) return detail;
+
+    const message = pickString(c, 'message');
+    if (message) return message;
+
+    const error = pickString(c, 'error');
+    if (error) return error;
+  }
+
+  return fallback;
+}
 
 const Cart: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -43,9 +90,9 @@ const Cart: React.FC = () => {
   const venueData = useAppSelector((state) => state.yourFeature.venue);
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const [selectedSpot, setSelectedSpot] = useState(
-    venueData?.spots?.[0].id || 0
-  );
+  const defaultSpotId =
+    venueData?.defaultDeliverySpot ?? venueData?.spots?.[0]?.id ?? 0;
+  const [selectedSpot, setSelectedSpot] = useState(defaultSpotId);
 
   const [phoneNumber, setPhoneNumber] = useState(
     `+996${userData.phoneNumber.replace('996', '')}`
@@ -58,14 +105,18 @@ const Cart: React.FC = () => {
 
   const [activeFood, setActiveFood] = useState<IProduct | null>(null);
   const [active, setActive] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const [wrapperHeight, setWrapperHeight] = useState(0);
   const [clearCartModal, setClearCartModal] = useState(false);
   const [showError, setShowError] = useState(false);
   const [errorText, setErrorText] = useState('');
   const [usePoints, setUsePoints] = useState(false);
+  const [showWorkTimeModal, setShowWorkTimeModal] = useState(false);
 
   const navigate = useNavigate();
   const { data } = useGetProductsQuery({
-    venueSlug: venueData.companyName,
+    venueSlug: venueData.slug,
+    spotId: selectedSpot,
   });
 
   const inputRef = useMask({
@@ -179,6 +230,17 @@ const Cart: React.FC = () => {
     }
     setIsLoading(true);
 
+    // Check working hours before creating the order
+    const { window: todayWindow, isClosed } = getTodayScheduleWindow(
+      venueData?.schedules,
+      venueData?.schedule
+    );
+    if (isClosed || isOutsideWorkTime(todayWindow)) {
+      setShowWorkTimeModal(true);
+      setIsLoading(false);
+      return;
+    }
+
     const orderProducts = cart.map((item) => {
       if (item.modificators?.id) {
         return {
@@ -251,24 +313,9 @@ const Cart: React.FC = () => {
       } else {
         setIsLoading(false);
       }
-    } catch (err: any) {
+    } catch (err) {
       setIsLoading(false);
-      let message = t('error.default') as string;
-
-      // RTK Query FetchBaseQueryError shape: { status, data }
-      if (err) {
-        const data = err.data ?? err.error ?? err.message ?? err;
-        if (typeof data === 'string') {
-          message = data;
-        } else if (data && typeof data === 'object') {
-          // common API shapes
-          if (typeof data.detail === 'string') message = data.detail;
-          else if (typeof data.message === 'string') message = data.message;
-          else if (typeof data.error === 'string') message = data.error;
-        }
-      }
-
-      setErrorText(message);
+      setErrorText(extractApiError(err));
       setShowError(true);
     }
   };
@@ -280,22 +327,38 @@ const Cart: React.FC = () => {
     return item.productPrice;
   }
 
-  const solveTotalSum = () => {
-    const subtotal = cart.reduce((acc, item) => {
-      const realPrice = getCartItemPrice(item);
-      return acc + realPrice * item.quantity;
-    }, 0);
-    return subtotal + subtotal * (venueData.serviceFeePercent / 100);
-  };
-
+  // Delivery calculations
   const subtotal = cart.reduce((acc, item) => {
     const realPrice = getCartItemPrice(item);
     return acc + realPrice * item.quantity;
   }, 0);
+  const serviceFeeAmt = subtotal * (venueData.serviceFeePercent / 100);
+  const isDeliveryType = (orderTypes[activeIndex]?.value ?? 3) === 3;
+  const deliveryFreeFrom = venueData?.deliveryFreeFrom != null ? Number(venueData.deliveryFreeFrom) : null;
+  const deliveryFixedFee = Number(venueData?.deliveryFixedFee || 0);
+  const deliveryFee =
+    isDeliveryType
+      ? deliveryFreeFrom !== null && subtotal >= deliveryFreeFrom
+        ? 0
+        : deliveryFixedFee
+      : 0;
+  const hasFreeDeliveryHint =
+    isDeliveryType && deliveryFreeFrom !== null && subtotal < deliveryFreeFrom;
+  const total = Math.round((subtotal + serviceFeeAmt + deliveryFee) * 100) / 100;
+
+
+  // Smooth auto-height for details dropdown (no hardcoded px)
+  useEffect(() => {
+    if (active) {
+      const h = wrapperRef.current?.scrollHeight ?? 0;
+      setWrapperHeight(h);
+    } else {
+      setWrapperHeight(0);
+    }
+  }, [active, subtotal, serviceFeeAmt, deliveryFee, hasFreeDeliveryHint]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-
     if (userData.type) {
       const idx = orderTypes.findIndex((it) => it.value === userData.type);
       if (idx >= 0) setActiveIndex(idx);
@@ -325,6 +388,7 @@ const Cart: React.FC = () => {
           }
         />
         <ClearCartModal isShow={clearCartModal} setActive={setClearCartModal} />
+        <WorkTimeModal isShow={showWorkTimeModal} onClose={() => setShowWorkTimeModal(false)} />
         {isLoading && <CartLoader />}
         <ClosedModal
           isShow={showError}
@@ -543,12 +607,13 @@ const Cart: React.FC = () => {
                     />
                   </div>
                   <div
+                    ref={wrapperRef}
                     className={
                       active
                         ? 'cart__sum-wrapper divide-y active'
                         : 'cart__sum-wrapper divide-y'
                     }
-                    style={{ height: active ? '80px' : '0' }}
+                    style={{ height: `${wrapperHeight}px` }}
                   >
                     <div className='cart__sum-item text-[#80868B]'>
                       {t('empty.total')}
@@ -562,6 +627,20 @@ const Cart: React.FC = () => {
                         {venueData.serviceFeePercent}%
                       </div>
                     </div>
+                    <div className='cart__sum-item text-[#80868B]'>
+                      {t('deliveryFee')}
+                      <div className='cart__sum-total delivery'>
+                        {deliveryFee} c
+                      </div>
+                    </div>
+                    {hasFreeDeliveryHint && (
+                      <div className='cart__sum-item text-[#80868B]'>
+                        <span className=''>{t('freeDeliveryFrom')}</span>
+                        <div className='cart__sum-total text-[#00BFB2] font-semibold'>
+                          {Number(deliveryFreeFrom)} c
+                        </div>
+                      </div>
+                    )}
                   </div>
                   <div className='cart__sum-ress border-[#f3f3f3]'>
                     <div className='flex items-center justify-between w-full'>
@@ -571,12 +650,8 @@ const Cart: React.FC = () => {
                           aria-pressed={usePoints}
                           aria-label='Оплатить баллами'
                           onClick={() => setUsePoints((v) => !v)}
-                          className={`w-[48px] h-[28px] rounded-full p-[3px] transition-colors duration-200 flex ${
-                            usePoints ? 'justify-end' : 'justify-start'
-                          }`}
-                          style={{
-                            backgroundColor: usePoints ? colorTheme : '#E5E7EB',
-                          }}
+                          className={`w-[48px] h-[28px] rounded-full p-[3px] transition-colors duration-200 flex ${usePoints ? 'justify-end' : 'justify-start'}`}
+                          style={{ backgroundColor: usePoints ? colorTheme : '#E5E7EB' }}
                         >
                           <span className='w-[22px] h-[22px] bg-white rounded-full shadow-md transition-transform duration-200' />
                         </button>
@@ -588,7 +663,7 @@ const Cart: React.FC = () => {
                     </div>
                   </div>
                   <div className='cart__sum-ress border-[#f3f3f3]'>
-                    {t('empty.totalAmount')} <span>{solveTotalSum()} c</span>
+                    {t('empty.totalAmount')} <span>{total} c</span>
                   </div>
                 </div>
               </>
@@ -607,6 +682,37 @@ const Cart: React.FC = () => {
             </div>
           )}
         </div>
+
+        {/* Delivery info banner */}
+        {isDeliveryType && deliveryFreeFrom !== null && (
+          <div
+            className='cart__delivery-info rounded-[12px] mt-[12px] bg-white'
+            style={{ border: `1px solid ${colorTheme}33` }}
+          >
+            <div className='cart__delivery-icon' style={{ borderColor: colorTheme }}>
+              <img src={deliveryIcon} alt='delivery' />
+            </div>
+            <div className='cart__delivery-text'>
+              {subtotal >= deliveryFreeFrom ? (
+                <span>
+                  {t('freeDeliveryYouGet')}{' '}
+                  <span style={{ color: colorTheme, fontWeight: 600 }}>
+                    {t('freeDelivery')}
+                  </span>
+                </span>
+              ) : (
+                <span>
+                  {t('freeDeliveryAdd', {
+                    amount: Math.max(0, Math.ceil(deliveryFreeFrom - subtotal)),
+                  })}{' '}
+                  <span style={{ color: colorTheme, fontWeight: 600 }}>
+                    бесплатной доставки
+                  </span>
+                </span>
+              )}
+            </div>
+          </div>
+        )}
 
         {(data?.filter((item) => item.isRecommended) ?? []).length > 0 && (
           <div className='cart__forgot'>

@@ -11,10 +11,21 @@ export interface IVenues {
   logo: string;
   schedule: string;
   serviceFeePercent: number;
-  table: {
+
+  // table info is present only for /venues/{slug}/table/{tableId}/
+  table?: {
     id: number;
     tableNum: string;
   };
+
+  // new fields from API
+  defaultDeliverySpot?: number | null;
+  deliveryFixedFee?: string | null;
+  deliveryFreeFrom?: string | null;
+
+  // optional weekly schedules holder (shape TBD)
+  schedules?: unknown;
+
   spots?: ISpot[];
   activeSpot: number;
   isDeliveryAvailable: boolean;
