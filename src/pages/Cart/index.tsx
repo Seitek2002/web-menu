@@ -234,7 +234,6 @@ const Cart: React.FC = () => {
 
     // Check working hours before creating the order
     const { window: todayWindow, isClosed } = getTodayScheduleWindow(
-      venueData?.schedules,
       venueData?.schedule
     );
     if (isClosed || isOutsideWorkTime(todayWindow)) {
