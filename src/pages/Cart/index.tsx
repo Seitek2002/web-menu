@@ -102,6 +102,7 @@ const Cart: React.FC = () => {
   const [comment, setComment] = useState(userData.comment || '');
   const [address, setAddress] = useState(userData.address || '');
   const [showCommentInput, setShowCommentInput] = useState(false);
+  const [showPromoInput, setShowPromoInput] = useState(false);
   const [promoCode, setPromoCode] = useState('');
 
   const [phoneError, setPhoneError] = useState('');
@@ -576,28 +577,6 @@ const Cart: React.FC = () => {
                     )}
                   </label>
 
-                  {!showCommentInput ? (
-                    <button
-                      type='button'
-                      className='required block underline mb-3'
-                      style={{ color: colorTheme }}
-                      onClick={() => setShowCommentInput(true)}
-                    >
-                      {t('addComment')} +
-                    </button>
-                  ) : (
-                    <label htmlFor='comment'>
-                      <span className='text-[14px]'>{t('comment')}</span>
-                      <input
-                        id='comment'
-                        type='text'
-                        placeholder={t('empty.comment') || t('comment')}
-                        value={comment}
-                        onChange={(e) => setComment(e.target.value)}
-                      />
-                    </label>
-                  )}
-
                   {
                     <>
                       {orderTypes[activeIndex]?.value === 3 && (
@@ -619,6 +598,28 @@ const Cart: React.FC = () => {
                       )}
                     </>
                   }
+
+                  {!showCommentInput ? (
+                    <button
+                      type='button'
+                      className='block mb-3 text-[12px]'
+                      style={{ color: colorTheme }}
+                      onClick={() => setShowCommentInput(true)}
+                    >
+                      + {t('addComment')}
+                    </button>
+                  ) : (
+                    <label htmlFor='comment'>
+                      <span className='text-[14px]'>{t('comment')}</span>
+                      <input
+                        id='comment'
+                        type='text'
+                        placeholder={t('empty.comment') || t('comment')}
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                      />
+                    </label>
+                  )}
                 </div>
 
                 {isDeliveryType && deliveryFreeFrom !== null && (
@@ -755,21 +756,29 @@ const Cart: React.FC = () => {
                 </div>
 
                 <div className='cart__promo bg-[#fff] p-[12px] rounded-[12px] mt-[12px]'>
-                  <label htmlFor='promoCode' className='block'>
-                    <span className='text-[14px] flex items-center justify-between mb-[8px]'>
-                      {t('promoCode')}
-                      <span className='text-[12px] text-[#ccc]'>
-                        Необязательно
+                  {!showPromoInput ? (
+                    <button
+                      type='button'
+                      className='text-[12px] block'
+                      style={{ color: colorTheme }}
+                      onClick={() => setShowPromoInput(true)}
+                    >
+                      У вас есть промокод?
+                    </button>
+                  ) : (
+                    <label htmlFor='promoCode' className='block'>
+                      <span className='text-[14px] flex items-center justify-between mb-[8px]'>
+                        {t('promoCode')}
                       </span>
-                    </span>
-                    <input
-                      id='promoCode'
-                      type='text'
-                      placeholder={t('promoCode')}
-                      value={promoCode}
-                      onChange={(e) => setPromoCode(e.target.value)}
-                    />
-                  </label>
+                      <input
+                        id='promoCode'
+                        type='text'
+                        placeholder={t('promoCode')}
+                        value={promoCode}
+                        onChange={(e) => setPromoCode(e.target.value)}
+                      />
+                    </label>
+                  )}
                 </div>
               </>
             ) : (
