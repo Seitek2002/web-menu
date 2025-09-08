@@ -773,7 +773,7 @@ const Cart: React.FC = () => {
                       <input
                         id='promoCode'
                         type='text'
-                        placeholder={t('promoCode')}
+                        placeholder='Введите промокод'
                         value={promoCode}
                         onChange={(e) => setPromoCode(e.target.value)}
                       />
