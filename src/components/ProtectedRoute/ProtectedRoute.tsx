@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
+import { useAppSelector } from 'hooks/useAppSelector';
 import ClosedModal from 'components/ClosedModal';
 
 import { isClosedNow } from 'src/utlis/workTime';
@@ -28,6 +29,8 @@ const ProtectedRoute = () => {
   const schedule = getVenueSchedule();
   const closed = isClosedNow(schedule);
   const mainPage = localStorage.getItem('mainPage') || '/';
+  const cartLength = useAppSelector((s) => s.yourFeature.cart.length);
+  const location = useLocation();
 
   useEffect(() => {
     if (closed) {
@@ -38,6 +41,11 @@ const ProtectedRoute = () => {
   // Redirect to main if not authenticated (no venue context)
   if (!authenticated) {
     return <Navigate to='/' replace />;
+  }
+
+  // Block /cart when cart is empty (desktop/mobile)
+  if (location.pathname === '/cart' && cartLength === 0) {
+    return <Navigate to={mainPage} replace />;
   }
 
   // Block access to protected content when closed: show modal and then redirect

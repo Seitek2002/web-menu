@@ -33,6 +33,12 @@
     }
   }
 
+  &__promo {
+    input {
+      @apply border-[1px] border-[#E1E2E5] rounded-[8px] w-full mb-[8px] py-[12px] px-[16px] text-[14px];
+    }
+  }
+
   &__order-type {
     @apply flex justify-between gap-[8px] mt-[20px];
 

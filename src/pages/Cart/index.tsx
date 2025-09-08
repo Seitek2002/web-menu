@@ -579,11 +579,11 @@ const Cart: React.FC = () => {
                   {!showCommentInput ? (
                     <button
                       type='button'
-                      className='text-[14px] block underline mb-3'
+                      className='required block underline mb-3'
                       style={{ color: colorTheme }}
                       onClick={() => setShowCommentInput(true)}
                     >
-                      {t('addComment')}
+                      {t('addComment')} +
                     </button>
                   ) : (
                     <label htmlFor='comment'>
