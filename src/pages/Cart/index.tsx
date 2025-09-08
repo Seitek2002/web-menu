@@ -763,7 +763,7 @@ const Cart: React.FC = () => {
                       style={{ color: colorTheme }}
                       onClick={() => setShowPromoInput(true)}
                     >
-                      У вас есть промокод?
+                      + указать промокод
                     </button>
                   ) : (
                     <label htmlFor='promoCode' className='block'>

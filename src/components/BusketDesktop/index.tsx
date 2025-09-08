@@ -27,6 +27,9 @@ const BusketDesktop = ({
   const venueData = useAppSelector((state) => state.yourFeature.venue);
   const cart = useAppSelector((state) => state.yourFeature.cart);
   const location = useLocation();
+  const isOnCart = location.pathname === '/cart';
+  const isNavigatingToCart = !isOnCart && to === '/cart';
+  const buttonText = isNavigatingToCart ? 'Оформить заказ' : t('button.next');
 
   const [showClosed, setShowClosed] = useState(false);
 
@@ -72,7 +75,7 @@ const BusketDesktop = ({
           onClick={handleClick}
           disabled={disabled}
         >
-          {t('button.next')}
+          {buttonText}
         </button>
       </div>
     </>

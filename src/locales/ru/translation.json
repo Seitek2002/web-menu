@@ -95,7 +95,7 @@
   "freeDeliveryAdd": "Добавьте ещё {{amount}} c до",
   "freeDeliveryFrom": "Бесплатная доставка от",
   "promoCode": "Промокод",
-  "addComment": "добавить комментарий",
+  "addComment": "добавить комментарий к заказу",
   "freeDeliveryAcc": "бесплатную доставку",
   "freeDeliveryGen": "бесплатной доставки",
   "freeDeliveryAddPrefix": "Добавьте ещё {{amount}} с до"
