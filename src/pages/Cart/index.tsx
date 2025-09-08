@@ -20,6 +20,7 @@ import CartLoader from 'components/CartLoader';
 import ClearCartModal from 'components/ClearCartModal';
 import ClosedModal from 'components/ClosedModal';
 import FoodDetail from 'components/FoodDetail';
+import PointsModal from 'components/PointsModal';
 import WorkTimeModal from 'components/WorkTimeModal';
 
 import clearCartIcon from 'assets/icons/Busket/clear-cart.svg';
@@ -32,6 +33,7 @@ import bell from 'assets/icons/SubHeader/coin.png';
 import './style.scss';
 
 import { useMask } from '@react-input/mask';
+import { Pencil } from 'lucide-react';
 import { clearCart, setUsersData } from 'src/store/yourFeatureSlice';
 
 function extractApiError(err: unknown): string {
@@ -114,6 +116,9 @@ const Cart: React.FC = () => {
   const [errorText, setErrorText] = useState('');
   const [usePoints, setUsePoints] = useState(false);
   const [showWorkTimeModal, setShowWorkTimeModal] = useState(false);
+  const [isPointsModalOpen, setIsPointsModalOpen] = useState(false);
+  const AVAILABLE_POINTS = 100;
+  const [bonusPoints, setBonusPoints] = useState(0);
 
   const navigate = useNavigate();
   const { data } = useGetProductsQuery({
@@ -188,7 +193,6 @@ const Cart: React.FC = () => {
       setAddressError('');
     }
   };
-
 
   const validateAndMark = (): boolean => {
     let valid = true;
@@ -306,6 +310,7 @@ const Cart: React.FC = () => {
       const res = await postOrder({
         ...acc,
         spot: selectedSpot,
+        bonus: usePoints ? Math.min(bonusPoints, AVAILABLE_POINTS) : 0,
       }).unwrap();
 
       if (res?.paymentUrl) {
@@ -335,18 +340,27 @@ const Cart: React.FC = () => {
   }, 0);
   const serviceFeeAmt = subtotal * (venueData.serviceFeePercent / 100);
   const isDeliveryType = (orderTypes[activeIndex]?.value ?? 3) === 3;
-  const deliveryFreeFrom = venueData?.deliveryFreeFrom != null ? Number(venueData.deliveryFreeFrom) : null;
+  const deliveryFreeFrom =
+    venueData?.deliveryFreeFrom != null
+      ? Number(venueData.deliveryFreeFrom)
+      : null;
   const deliveryFixedFee = Number(venueData?.deliveryFixedFee || 0);
-  const deliveryFee =
-    isDeliveryType
-      ? deliveryFreeFrom !== null && subtotal >= deliveryFreeFrom
-        ? 0
-        : deliveryFixedFee
-      : 0;
+  const deliveryFee = isDeliveryType
+    ? deliveryFreeFrom !== null && subtotal >= deliveryFreeFrom
+      ? 0
+      : deliveryFixedFee
+    : 0;
   const hasFreeDeliveryHint =
     isDeliveryType && deliveryFreeFrom !== null && subtotal < deliveryFreeFrom;
-  const total = Math.round((subtotal + serviceFeeAmt + deliveryFee) * 100) / 100;
-
+  const total =
+    Math.round((subtotal + serviceFeeAmt + deliveryFee) * 100) / 100;
+  const appliedBonus = usePoints
+    ? Math.min(bonusPoints, AVAILABLE_POINTS, Math.floor(total))
+    : 0;
+  const displayTotal = Math.max(
+    0,
+    Math.round((total - appliedBonus) * 100) / 100
+  );
 
   // Smooth auto-height for details dropdown (no hardcoded px)
   useEffect(() => {
@@ -389,7 +403,10 @@ const Cart: React.FC = () => {
           }
         />
         <ClearCartModal isShow={clearCartModal} setActive={setClearCartModal} />
-        <WorkTimeModal isShow={showWorkTimeModal} onClose={() => setShowWorkTimeModal(false)} />
+        <WorkTimeModal
+          isShow={showWorkTimeModal}
+          onClose={() => setShowWorkTimeModal(false)}
+        />
         {isLoading && <CartLoader />}
         <ClosedModal
           isShow={showError}
@@ -609,7 +626,10 @@ const Cart: React.FC = () => {
                     className='cart__delivery-info rounded-[12px] mt-[12px] bg-white'
                     style={{ border: `1px solid ${colorTheme}33` }}
                   >
-                    <div className='cart__delivery-icon' style={{ borderColor: colorTheme }}>
+                    <div
+                      className='cart__delivery-icon'
+                      style={{ borderColor: colorTheme }}
+                    >
                       <img src={deliveryIcon} alt='delivery' />
                     </div>
                     <div className='cart__delivery-text'>
@@ -623,9 +643,18 @@ const Cart: React.FC = () => {
                       ) : (
                         <span>
                           {t('freeDeliveryAddPrefix', {
-                            amount: Math.max(0, Math.ceil(deliveryFreeFrom - subtotal)),
+                            amount: Math.max(
+                              0,
+                              Math.ceil(deliveryFreeFrom - subtotal)
+                            ),
                           })}{' '}
-                          <span style={{ color: colorTheme, fontWeight: 600, textDecoration: 'underline' }}>
+                          <span
+                            style={{
+                              color: colorTheme,
+                              fontWeight: 600,
+                              textDecoration: 'underline',
+                            }}
+                          >
                             {t('freeDeliveryGen')}
                           </span>
                         </span>
@@ -691,21 +720,37 @@ const Cart: React.FC = () => {
                           type='button'
                           aria-pressed={usePoints}
                           aria-label='Оплатить баллами'
-                          onClick={() => setUsePoints((v) => !v)}
-                          className={`w-[48px] h-[28px] rounded-full p-[3px] transition-colors duration-200 flex ${usePoints ? 'justify-end' : 'justify-start'}`}
-                          style={{ backgroundColor: usePoints ? colorTheme : '#E5E7EB' }}
+                          onClick={() =>
+                            setUsePoints((v) => {
+                              const nv = !v;
+                              if (!nv) setBonusPoints(0);
+                              return nv;
+                            })
+                          }
+                          className={`w-[48px] h-[28px] rounded-full p-[3px] transition-colors duration-200 flex ${
+                            usePoints ? 'justify-end' : 'justify-start'
+                          }`}
+                          style={{
+                            backgroundColor: usePoints ? colorTheme : '#E5E7EB',
+                          }}
                         >
                           <span className='w-[22px] h-[22px] bg-white rounded-full shadow-md transition-transform duration-200' />
                         </button>
                         Оплатить баллами
                       </span>
                       <div className='flex items-center gap-[8px]'>
-                        <img src={bell} width={20} alt='' /> 0 б.
+                        <img src={bell} width={20} alt='' /> {AVAILABLE_POINTS}{' '}
+                        б.
+                        <Pencil
+                          size={18}
+                          className='cursor-pointer'
+                          onClick={() => setIsPointsModalOpen(true)}
+                        />
                       </div>
                     </div>
                   </div>
                   <div className='cart__sum-ress border-[#f3f3f3]'>
-                    {t('empty.totalAmount')} <span>{total} c</span>
+                    {t('empty.totalAmount')} <span>{displayTotal} c</span>
                   </div>
                 </div>
 
@@ -743,7 +788,6 @@ const Cart: React.FC = () => {
           )}
         </div>
 
-
         {(data?.filter((item) => item.isRecommended) ?? []).length > 0 && (
           <div className='cart__forgot'>
             <h4 className='cart__forgot-title'>
@@ -774,6 +818,17 @@ const Cart: React.FC = () => {
             </button>
           </footer>
         )}
+        <PointsModal
+          isShow={isPointsModalOpen}
+          max={Math.min(AVAILABLE_POINTS, Math.floor(total))}
+          initial={bonusPoints}
+          onCancel={() => setIsPointsModalOpen(false)}
+          onConfirm={(v) => {
+            setBonusPoints(v);
+            setIsPointsModalOpen(false);
+            if (v > 0) setUsePoints(true);
+          }}
+        />
       </section>
     </>
   );
