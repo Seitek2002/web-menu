@@ -311,7 +311,7 @@ const Cart: React.FC = () => {
       const res = await postOrder({
         ...acc,
         spot: selectedSpot,
-        bonus: usePoints ? Math.min(bonusPoints, AVAILABLE_POINTS) : 0,
+        bonus: usePoints ? Math.min(bonusPoints, maxUsablePoints) : 0,
       }).unwrap();
 
       if (res?.paymentUrl) {
@@ -355,9 +355,8 @@ const Cart: React.FC = () => {
     isDeliveryType && deliveryFreeFrom !== null && subtotal < deliveryFreeFrom;
   const total =
     Math.round((subtotal + serviceFeeAmt + deliveryFee) * 100) / 100;
-  const appliedBonus = usePoints
-    ? Math.min(bonusPoints, AVAILABLE_POINTS, Math.floor(total))
-    : 0;
+  const maxUsablePoints = Math.min(AVAILABLE_POINTS, Math.floor(total));
+  const appliedBonus = usePoints ? Math.min(bonusPoints, maxUsablePoints) : 0;
   const displayTotal = Math.max(
     0,
     Math.round((total - appliedBonus) * 100) / 100
@@ -372,6 +371,13 @@ const Cart: React.FC = () => {
       setWrapperHeight(0);
     }
   }, [active, subtotal, serviceFeeAmt, deliveryFee, hasFreeDeliveryHint]);
+
+  // Clamp selected bonus points whenever total/available changes
+  useEffect(() => {
+    if (usePoints) {
+      setBonusPoints((prev) => Math.min(prev, maxUsablePoints));
+    }
+  }, [usePoints, maxUsablePoints]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -724,7 +730,12 @@ const Cart: React.FC = () => {
                           onClick={() =>
                             setUsePoints((v) => {
                               const nv = !v;
-                              if (!nv) setBonusPoints(0);
+                              if (nv) {
+                                setBonusPoints(maxUsablePoints);
+                                setIsPointsModalOpen(true);
+                              } else {
+                                setBonusPoints(0);
+                              }
                               return nv;
                             })
                           }
@@ -829,9 +840,9 @@ const Cart: React.FC = () => {
         )}
         <PointsModal
           isShow={isPointsModalOpen}
-          max={Math.min(AVAILABLE_POINTS, Math.floor(total))}
-          initial={bonusPoints}
-          onCancel={() => setIsPointsModalOpen(false)}
+          max={maxUsablePoints}
+          initial={maxUsablePoints}
+          onCancel={() => { setIsPointsModalOpen(false); setUsePoints(false); setBonusPoints(0); }}
           onConfirm={(v) => {
             setBonusPoints(v);
             setIsPointsModalOpen(false);

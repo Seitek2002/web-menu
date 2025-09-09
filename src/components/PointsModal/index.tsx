@@ -42,11 +42,17 @@ const PointsModal: FC<Props> = ({
         <h3 className='title'>Сколько баллов хотите потратить?</h3>
         <div className='content'>
           <input
-            type='number'
+            type="number"
             min={0}
             max={Math.floor(max)}
+            step={1}
             value={value}
-            onChange={(e) => setValue(Number(e.target.value))}
+            onChange={(e) => {
+              const num = Number(e.target.value);
+              const v = Number.isFinite(num) ? num : 0;
+              const clamped = Math.max(0, Math.min(Math.floor(v), Math.floor(max)));
+              setValue(clamped);
+            }}
           />
           <div className='hint'>Доступно: {Math.floor(max)} б.</div>
         </div>
