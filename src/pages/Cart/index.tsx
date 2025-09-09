@@ -120,6 +120,16 @@ const Cart: React.FC = () => {
   const [isPointsModalOpen, setIsPointsModalOpen] = useState(false);
   const AVAILABLE_POINTS = 100;
   const [bonusPoints, setBonusPoints] = useState(0);
+  const lastOrderBaseRef = useRef<IReqCreateOrder | null>(null);
+  const [otpCode, setOtpCode] = useState<string>('');
+  const getHashLS = () => {
+    try {
+      if (typeof window === 'undefined') return undefined;
+      return localStorage.getItem('phoneVerificationHash') || localStorage.getItem('hash') || undefined;
+    } catch {
+      return undefined;
+    }
+  };
 
   const navigate = useNavigate();
   const { data } = useGetProductsQuery({
@@ -235,6 +245,8 @@ const Cart: React.FC = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
+    // Flow 2: если списываем баллы, но OTP ещё не ввели и hash в localStorage отсутствует —
+    // сначала запросим код (откроем модалку), а не шлём заказ сразу.
     setIsLoading(true);
 
     // Check working hours before creating the order
@@ -308,15 +320,30 @@ const Cart: React.FC = () => {
     );
 
     try {
-      const res = await postOrder({
+      const hashLS = getHashLS();
+      const payloadBase: IReqCreateOrder = {
         ...acc,
         spot: selectedSpot,
-        bonus: usePoints ? Math.min(bonusPoints, maxUsablePoints) : 0,
-      }).unwrap();
+        useBonus: usePoints || undefined,
+        bonus: usePoints ? Math.min(bonusPoints, maxUsablePoints) : undefined,
+        code: otpCode || undefined,
+        hash: hashLS,
+      };
+      lastOrderBaseRef.current = payloadBase;
+
+      const res = await postOrder(payloadBase).unwrap();
 
       if (res?.paymentUrl) {
         window.location.href = res.paymentUrl;
         dispatch(clearCart());
+      } else if (res?.phoneVerificationHash) {
+        try {
+          localStorage.setItem('phoneVerificationHash', res.phoneVerificationHash);
+          localStorage.setItem('hash', res.phoneVerificationHash);
+        } catch {
+          /* ignore localStorage errors */
+        }
+        setIsLoading(false);
       } else {
         setIsLoading(false);
       }
@@ -386,6 +413,169 @@ const Cart: React.FC = () => {
       if (idx >= 0) setActiveIndex(idx);
     }
   }, [userData.type, orderTypes]);
+
+  const requestOtpForPoints = async (v: number) => {
+    try {
+
+      // Build order products
+      const orderProducts = cart.map((item) => {
+        if (item.modificators?.id) {
+          return {
+            product: +item.id.split(',')[0],
+            count: +item.quantity,
+            modificator: item.modificators.id,
+          };
+        } else {
+          return {
+            product: +item.id.split(',')[0],
+            count: +item.quantity,
+          };
+        }
+      });
+
+      // Determine service mode similarly to handleOrder
+      const currentType = orderTypes[activeIndex];
+      if (!currentType) {
+        setIsLoading(false);
+        return;
+      }
+
+      const accBase: IReqCreateOrder = {
+        phone: phoneNumber
+          .replace('-', '')
+          .replace('(', '')
+          .replace(')', '')
+          .replace(' ', '')
+          .replace('+', '')
+          .replace(' ', ''),
+        orderProducts,
+        comment,
+        serviceMode: 1,
+        venue_slug: venueData.slug,
+        address: '',
+        spot: venueData?.spots?.[0].id || 0,
+      };
+
+      if (venueData?.table?.tableNum) {
+        accBase.serviceMode = 1;
+        accBase.table = +venueData.table.id;
+      } else {
+        if (currentType.value === 3) {
+          accBase.serviceMode = 3;
+          accBase.address = address;
+        } else {
+          accBase.serviceMode = currentType.value;
+        }
+      }
+
+      // Payload to request OTP (no code yet)
+      const hashLS = getHashLS();
+      const payloadBase: IReqCreateOrder = {
+        ...accBase,
+        spot: selectedSpot,
+        useBonus: true,
+        bonus: Math.min(v, maxUsablePoints),
+        hash: hashLS,
+      };
+
+      // Save for later (final submission)
+      lastOrderBaseRef.current = payloadBase;
+
+      const res = await postOrder(payloadBase).unwrap();
+
+      if (res?.phoneVerificationHash) {
+        localStorage.setItem('phoneVerificationHash', res.phoneVerificationHash);
+      }
+
+    } catch (err) {
+      setIsLoading(false);
+      setErrorText(extractApiError(err));
+      setShowError(true);
+    }
+  };
+
+  // Запрос phoneVerificationHash по коду из SMS (используется для сценария 2.2)
+  const requestPhoneVerificationHash = async (code: string, v: number) => {
+    try {
+
+      // Сборка позиций заказа
+      const orderProducts = cart.map((item) => {
+        if (item.modificators?.id) {
+          return {
+            product: +item.id.split(',')[0],
+            count: +item.quantity,
+            modificator: item.modificators.id,
+          };
+        } else {
+          return {
+            product: +item.id.split(',')[0],
+            count: +item.quantity,
+          };
+        }
+      });
+
+      const currentType = orderTypes[activeIndex];
+      if (!currentType) {
+        setIsLoading(false);
+        return;
+      }
+
+      const accBase: IReqCreateOrder = {
+        phone: phoneNumber
+          .replace('-', '')
+          .replace('(', '')
+          .replace(')', '')
+          .replace(' ', '')
+          .replace('+', '')
+          .replace(' ', ''),
+        orderProducts,
+        comment,
+        serviceMode: 1,
+        venue_slug: venueData.slug,
+        address: '',
+        spot: venueData?.spots?.[0].id || 0,
+      };
+
+      if (venueData?.table?.tableNum) {
+        accBase.serviceMode = 1;
+        accBase.table = +venueData.table.id;
+      } else {
+        if (currentType.value === 3) {
+          accBase.serviceMode = 3;
+          accBase.address = address;
+        } else {
+          accBase.serviceMode = currentType.value;
+        }
+      }
+
+      const hashLS = getHashLS();
+      const payloadBase: IReqCreateOrder = {
+        ...accBase,
+        spot: selectedSpot,
+        useBonus: true,
+        bonus: Math.min(v, maxUsablePoints),
+        code,
+        hash: hashLS,
+      };
+
+      lastOrderBaseRef.current = payloadBase;
+
+      const res = await postOrder(payloadBase).unwrap();
+      if (res?.phoneVerificationHash) {
+        try {
+          localStorage.setItem('phoneVerificationHash', res.phoneVerificationHash);
+          localStorage.setItem('hash', res.phoneVerificationHash);
+        } catch {
+          /* ignore localStorage errors */
+        }
+      }
+    } catch (err) {
+      setIsLoading(false);
+      setErrorText(extractApiError(err));
+      setShowError(true);
+    }
+  };
+
 
   return (
     <>
@@ -842,11 +1032,24 @@ const Cart: React.FC = () => {
           isShow={isPointsModalOpen}
           max={maxUsablePoints}
           initial={maxUsablePoints}
-          onCancel={() => { setIsPointsModalOpen(false); setUsePoints(false); setBonusPoints(0); }}
+          skipOtp={!!getHashLS()}
+          onCancel={() => { setIsPointsModalOpen(false); setUsePoints(false); setBonusPoints(0); setOtpCode(''); }}
           onConfirm={(v) => {
             setBonusPoints(v);
-            setIsPointsModalOpen(false);
             if (v > 0) setUsePoints(true);
+            if (!getHashLS()) {
+              requestOtpForPoints(v);
+            } else {
+              // hash уже есть — OTP не спрашиваем
+              setIsPointsModalOpen(false);
+            }
+          }}
+          onConfirmOtp={(code) => {
+            if (code) {
+              setOtpCode(code);
+              requestPhoneVerificationHash(code, bonusPoints);
+            }
+            setIsPointsModalOpen(false);
           }}
         />
       </section>

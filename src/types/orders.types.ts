@@ -17,7 +17,15 @@ export interface IReqCreateOrder {
   address?: string;
   servicePrice?: number;
   tipsPrice?: number;
+  /**
+   * По ТЗ пользователя (обновлено):
+   * - useBonus: включено ли списание бонусов (true/false)
+   * - bonus: сколько баллов списать (целое число)
+   */
+  useBonus?: boolean;
   bonus?: number;
+  code?: string | number | null;
+  hash?: string | null;
   spot: number;
   table?: number;
   venue_slug: string;
@@ -55,6 +63,13 @@ export interface IOrderById {
   orderProducts: IOrderProduct[];
   tableNum: string;
   statusText: string;
+}
+
+/** Ответ на создание заказа (этапы OTP) */
+export interface ICreateOrderResponse {
+  id: number;
+  paymentUrl: string | null;
+  phoneVerificationHash?: string;
 }
 
 // orderProducts: [

@@ -10,6 +10,8 @@ type Props = {
   initial?: number;
   onCancel: () => void;
   onConfirm: (value: number) => void;
+  onConfirmOtp: (code: string) => void;
+  skipOtp?: boolean;
 };
 
 const PointsModal: FC<Props> = ({
@@ -18,18 +20,35 @@ const PointsModal: FC<Props> = ({
   initial = 0,
   onCancel,
   onConfirm,
+  onConfirmOtp,
+  skipOtp,
 }) => {
   const colorTheme = useAppSelector((s) => s.yourFeature.venue?.colorTheme);
   const [value, setValue] = useState<number>(initial);
+  const [step, setStep] = useState<'points' | 'otp'>('points');
+  const [otp, setOtp] = useState<string>('');
 
   useEffect(() => {
-    if (isShow) setValue(initial);
+    if (isShow) {
+      setValue(initial);
+      setStep('points');
+      setOtp('');
+    }
   }, [isShow, initial]);
 
-  const handleOk = () => {
+  const handlePointsOk = () => {
     const v = Number.isFinite(value) ? value : 0;
     const clamped = Math.max(0, Math.min(Math.floor(v), Math.floor(max)));
     onConfirm(clamped);
+    if (skipOtp) {
+      onConfirmOtp('');
+      return;
+    }
+    setStep('otp');
+  };
+
+  const handleOtpOk = () => {
+    onConfirmOtp((otp || '').trim());
   };
 
   return (
@@ -41,20 +60,38 @@ const PointsModal: FC<Props> = ({
       <div className={isShow ? 'points-modal active' : 'points-modal'}>
         <h3 className='title'>Сколько баллов хотите потратить?</h3>
         <div className='content'>
-          <input
-            type="number"
-            min={0}
-            max={Math.floor(max)}
-            step={1}
-            value={value}
-            onChange={(e) => {
-              const num = Number(e.target.value);
-              const v = Number.isFinite(num) ? num : 0;
-              const clamped = Math.max(0, Math.min(Math.floor(v), Math.floor(max)));
-              setValue(clamped);
-            }}
-          />
-          <div className='hint'>Доступно: {Math.floor(max)} б.</div>
+          {step === 'points' ? (
+            <>
+              <input
+                type='number'
+                min={0}
+                max={Math.floor(max)}
+                step={1}
+                value={value}
+                onChange={(e) => {
+                  const num = Number(e.target.value);
+                  const v = Number.isFinite(num) ? num : 0;
+                  const clamped = Math.max(
+                    0,
+                    Math.min(Math.floor(v), Math.floor(max))
+                  );
+                  setValue(clamped);
+                }}
+              />
+              <div className='hint'>Доступно: {Math.floor(max)} б.</div>
+            </>
+          ) : (
+            <>
+              <input
+                type='text'
+                inputMode='numeric'
+                placeholder='Код из SMS'
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+              />
+              <div className='hint'>На ваш номер отправлен одноразовый код подтверждения.</div>
+            </>
+          )}
         </div>
         <div className='actions'>
           <button className='cancel' onClick={onCancel}>
@@ -63,7 +100,7 @@ const PointsModal: FC<Props> = ({
           <button
             className='ok'
             style={{ backgroundColor: colorTheme }}
-            onClick={handleOk}
+            onClick={step === 'points' ? handlePointsOk : handleOtpOk}
           >
             Ок
           </button>
