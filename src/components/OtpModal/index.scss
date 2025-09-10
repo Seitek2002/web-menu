@@ -1,5 +1,5 @@
 .otp-modal {
-  @apply w-[75%] md:w-[25%];
+  @apply max-w-[92%] md:max-w-[420px] p-[20px] rounded-[12px] shadow-xl;
   position: fixed;
   top: -100%;
   left: 50%;
@@ -9,7 +9,6 @@
   transition: 0.5s;
   display: flex;
   flex-direction: column;
-  @apply rounded-[10px];
 
   &.active {
     top: 50%;

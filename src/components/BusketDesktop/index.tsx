@@ -30,10 +30,12 @@ const BusketDesktop = ({
   const isOnCart = location.pathname === '/cart';
   const isNavigatingToCart = !isOnCart && to === '/cart';
   const buttonText = isNavigatingToCart ? 'Оформить заказ' : t('button.next');
+  const isDisabled = (disabled ?? false) || (isNavigatingToCart && cart.length === 0);
 
   const [showClosed, setShowClosed] = useState(false);
 
   const handleClick = () => {
+    if (isDisabled) return;
     const closed = isClosedNow(venueData?.schedule || '');
     if (closed) {
       setShowClosed(true);
@@ -73,7 +75,7 @@ const BusketDesktop = ({
         <button
           style={{ backgroundColor: colorTheme }}
           onClick={handleClick}
-          disabled={disabled}
+          disabled={isDisabled}
         >
           {buttonText}
         </button>
