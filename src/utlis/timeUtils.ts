@@ -1,7 +1,9 @@
+import { IWorkSchedule } from 'types/venues.types';
+
 export type DayWindow = { start: string; end: string };
 export type TodayWindowResult = {
   window: DayWindow | null;
-  isClosed: boolean;
+  isClosed: boolean; // true when explicitly a day off
 };
 
 /**
@@ -21,18 +23,71 @@ export function parseSchedule(schedule?: string): { window: DayWindow | null; is
 }
 
 /**
- * Given an optional weekly schedules object (unknown shape) and fallback daily schedule string,
- * returns today's window. For now we use fallback schedule if provided.
- * You can extend this to read weekly schedules like:
- * { mon: "09:00-18:00", tue: "..." } using new API later.
+ * Convert JS Date.getDay (0=Sun..6=Sat) to OpenAPI dayOfWeek (1=Mon..7=Sun)
+ */
+function getOpenApiDow(d: Date = new Date()): 1 | 2 | 3 | 4 | 5 | 6 | 7 {
+  const js = d.getDay(); // 0..6
+  // map: Sun(0)->7, Mon(1)->1, ..., Sat(6)->6
+  return ((js + 6) % 7) + 1 as 1 | 2 | 3 | 4 | 5 | 6 | 7;
+}
+
+/**
+ * Build today's window from weekly schedules (OpenAPI) with a legacy fallback string.
+ * - If is24h: 00:00-00:00 and isClosed=false
+ * - If isDayOff: window=null and isClosed=true
+ * - Else use workStart/workEnd if present
+ * - Else fallback to legacy string (if provided)
+ * - If nothing available -> {window:null, isClosed:false} (do not block)
  */
 export function getTodayScheduleWindow(
+  schedules?: IWorkSchedule[] | null,
   fallbackSchedule?: string
 ): TodayWindowResult {
-  const { window, is247 } = parseSchedule(fallbackSchedule);
-  if (is247) return { window: { start: '00:00', end: '00:00' }, isClosed: false };
-  if (!window) return { window: null, isClosed: false }; // unknown -> do not block
-  return { window, isClosed: false };
+  try {
+    const dow = getOpenApiDow();
+    if (Array.isArray(schedules) && schedules.length > 0) {
+      const today = schedules.find((s) => s?.dayOfWeek === dow);
+      if (today) {
+        if (today.is24h) {
+          return { window: { start: '00:00', end: '00:00' }, isClosed: false };
+        }
+        if (today.isDayOff) {
+          return { window: null, isClosed: true };
+        }
+        if (today.workStart && today.workEnd) {
+          const start = today.workStart.trim();
+          const end = today.workEnd.trim();
+          if (/^\d{2}:\d{2}$/.test(start) && /^\d{2}:\d{2}$/.test(end)) {
+            return { window: { start, end }, isClosed: false };
+          }
+        }
+        // fallthrough to fallback if today's item incomplete
+      }
+    }
+    // fallback legacy schedule string
+    const { window, is247 } = parseSchedule(fallbackSchedule);
+    if (is247) return { window: { start: '00:00', end: '00:00' }, isClosed: false };
+    if (!window) return { window: null, isClosed: false }; // unknown -> do not block
+    return { window, isClosed: false };
+  } catch {
+    return { window: null, isClosed: false };
+  }
+}
+
+/**
+ * Build a "HH:MM-HH:MM" string for today's schedule when possible,
+ * supporting 24/7 and day-off cases. Used for display formatting.
+ */
+export function getTodayScheduleRangeString(
+  schedules?: IWorkSchedule[] | null,
+  fallbackSchedule?: string
+): string {
+  const res = getTodayScheduleWindow(schedules, fallbackSchedule);
+  if (!res.window) {
+    // day off or unknown. For unknown return empty, for day off also empty (formatter can show "не указан" or UI can show "—")
+    return '';
+  }
+  return `${res.window.start}-${res.window.end}`;
 }
 
 /**

@@ -8,7 +8,7 @@ import ClosedModal from 'components/ClosedModal';
 
 import './style.scss';
 
-import { isClosedNow } from 'src/utlis/workTime';
+import { getTodayScheduleWindow, isOutsideWorkTime } from 'src/utlis/timeUtils';
 
 const BusketDesktop = ({
   to,
@@ -30,13 +30,16 @@ const BusketDesktop = ({
   const isOnCart = location.pathname === '/cart';
   const isNavigatingToCart = !isOnCart && to === '/cart';
   const buttonText = isNavigatingToCart ? 'Оформить заказ' : t('button.next');
-  const isDisabled = (disabled ?? false) || (isNavigatingToCart && cart.length === 0);
+  const isDisabled =
+    (disabled ?? false) || (isNavigatingToCart && cart.length === 0);
 
   const [showClosed, setShowClosed] = useState(false);
 
+  const { window: todayWindow, isClosed } = getTodayScheduleWindow(venueData?.schedules, venueData?.schedule);
+  const closed = isClosed || isOutsideWorkTime(todayWindow);
+
   const handleClick = () => {
     if (isDisabled) return;
-    const closed = isClosedNow(venueData?.schedule || '');
     if (closed) {
       setShowClosed(true);
       return;

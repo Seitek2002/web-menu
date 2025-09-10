@@ -11,6 +11,8 @@ import WeeklyScheduleModal from 'components/WeeklyScheduleModal';
 import calendar from 'assets/icons/SubHeader/calendar.svg';
 import bell from 'assets/icons/SubHeader/coin.png';
 
+import { getTodayScheduleRangeString } from 'src/utlis/timeUtils';
+import { formatSchedule } from 'src/utlis/workTime';
 import './style.scss';
 
 import { clearCart, setVenue } from 'src/store/yourFeatureSlice';
@@ -26,6 +28,14 @@ const SubHeader = () => {
   });
 
   const [isScheduleOpen, setIsScheduleOpen] = useState(false);
+  const scheduleShort = (() => {
+    try {
+      const range = getTodayScheduleRangeString(data?.schedules, data?.schedule);
+      return range ? formatSchedule(range) : '';
+    } catch {
+      return '';
+    }
+  })();
 
   useEffect(() => {
     if (data) dispatch(setVenue(data));
@@ -48,11 +58,11 @@ const SubHeader = () => {
       <div className='sub-header__content'>
         <div className='venue'>
           <div className='logo'>
-            <img src={data?.logo} alt='' />
+            <img src={data?.logo || undefined} alt='' />
           </div>
           <div>
             <div className='name'>{data?.companyName}</div>
-            <span className='schedule'>{data?.schedule}</span>
+            <span className='schedule'>{scheduleShort}</span>
           </div>
         </div>
         <div className='flex items-center justify-between md:gap-[12px] md:flex-initial'>

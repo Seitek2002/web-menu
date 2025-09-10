@@ -6,7 +6,7 @@ import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 import { usePostOrdersMutation } from 'api/Orders.api';
 import { useGetProductsQuery } from 'api/Products.api';
-import { IReqCreateOrder } from 'types/orders.types';
+import { IReqCreateOrder, ServiceMode } from 'types/orders.types';
 import { IFoodCart, IProduct } from 'types/products.types';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAppSelector } from 'hooks/useAppSelector';
@@ -251,6 +251,7 @@ const Cart: React.FC = () => {
 
     // Check working hours before creating the order
     const { window: todayWindow, isClosed } = getTodayScheduleWindow(
+      venueData?.schedules,
       venueData?.schedule
     );
     if (isClosed || isOutsideWorkTime(todayWindow)) {
@@ -290,21 +291,21 @@ const Cart: React.FC = () => {
         .replace(' ', ''),
       orderProducts,
       comment,
-      serviceMode: 1,
+      serviceMode: 1 as ServiceMode,
       venue_slug: venueData.slug,
       address: '',
       spot: venueData?.spots?.[0].id || 0,
     };
 
     if (venueData?.table?.tableNum) {
-      acc.serviceMode = 1;
+      acc.serviceMode = 1 as ServiceMode;
       acc.table = +venueData.table.id;
     } else {
       if (currentType.value === 3) {
-        acc.serviceMode = 3;
+        acc.serviceMode = 3 as ServiceMode;
         acc.address = address;
       } else {
-        acc.serviceMode = currentType.value;
+        acc.serviceMode = currentType.value as ServiceMode;
       }
     }
 
@@ -450,21 +451,21 @@ const Cart: React.FC = () => {
           .replace(' ', ''),
         orderProducts,
         comment,
-        serviceMode: 1,
+        serviceMode: 1 as ServiceMode,
         venue_slug: venueData.slug,
         address: '',
         spot: venueData?.spots?.[0].id || 0,
       };
 
       if (venueData?.table?.tableNum) {
-        accBase.serviceMode = 1;
+        accBase.serviceMode = 1 as ServiceMode;
         accBase.table = +venueData.table.id;
       } else {
         if (currentType.value === 3) {
-          accBase.serviceMode = 3;
+          accBase.serviceMode = 3 as ServiceMode;
           accBase.address = address;
         } else {
-          accBase.serviceMode = currentType.value;
+          accBase.serviceMode = currentType.value as ServiceMode;
         }
       }
 
@@ -530,21 +531,21 @@ const Cart: React.FC = () => {
           .replace(' ', ''),
         orderProducts,
         comment,
-        serviceMode: 1,
+        serviceMode: 1 as ServiceMode,
         venue_slug: venueData.slug,
         address: '',
         spot: venueData?.spots?.[0].id || 0,
       };
 
       if (venueData?.table?.tableNum) {
-        accBase.serviceMode = 1;
+        accBase.serviceMode = 1 as ServiceMode;
         accBase.table = +venueData.table.id;
       } else {
         if (currentType.value === 3) {
-          accBase.serviceMode = 3;
+          accBase.serviceMode = 3 as ServiceMode;
           accBase.address = address;
         } else {
-          accBase.serviceMode = currentType.value;
+          accBase.serviceMode = currentType.value as ServiceMode;
         }
       }
 

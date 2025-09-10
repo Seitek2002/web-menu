@@ -14,7 +14,7 @@ import offer3 from 'assets/images/OrderStatus/schedule-status.png';
 
 import './style.scss';
 
-import { isClosedNow } from 'src/utlis/workTime';
+import { getTodayScheduleWindow, isOutsideWorkTime } from 'src/utlis/timeUtils';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -35,6 +35,15 @@ const Hero = () => {
     venueSlug: venue.slug,
   });
   const { t } = useTranslation();
+
+  const closed = (() => {
+    try {
+      const { window, isClosed } = getTodayScheduleWindow(venue?.schedules, venue?.schedule);
+      return isClosed || isOutsideWorkTime(window);
+    } catch {
+      return false;
+    }
+  })();
 
   const [orders, setOrders] = useState<IOrder[] | undefined>([]);
 
@@ -116,7 +125,7 @@ const Hero = () => {
         modules={[Pagination]}
         className='hero-swiper'
       >
-        {isClosedNow(venue.schedule || '') && (
+        {closed && (
           <SwiperSlide>
             <div
               className='hero__item'

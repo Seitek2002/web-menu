@@ -1,67 +1,81 @@
 import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { useAppSelector } from 'hooks/useAppSelector';
-
-import './index.scss';
-
+import { IWorkSchedule } from 'types/venues.types';
 import { formatSchedule } from 'src/utlis/workTime';
+import './index.scss';
 
 type Props = {
   isShow: boolean;
   onClose: () => void;
-  schedules?: unknown; // expected: { mon: "09:00-18:00", tue: "...", ... }
-  fallbackSchedule?: string; // e.g. "09:00-18:00" for all days
+  // OpenAPI: array of weekly schedules; still optional to remain backward-compatible
+  schedules?: IWorkSchedule[] | null;
+  // Fallback legacy daily schedule string, e.g. "09:00-18:00"
+  fallbackSchedule?: string;
 };
 
-type DayDef = { key: string; label: string; alt?: string[] };
-
-const DAY_DEFS: DayDef[] = [
-  { key: 'mon', label: 'Пн', alt: ['monday', 'пн', '1'] },
-  { key: 'tue', label: 'Вт', alt: ['tuesday', 'вт', '2'] },
-  { key: 'wed', label: 'Ср', alt: ['wednesday', 'ср', '3'] },
-  { key: 'thu', label: 'Чт', alt: ['thursday', 'чт', '4'] },
-  { key: 'fri', label: 'Пт', alt: ['friday', 'пт', '5'] },
-  { key: 'sat', label: 'Сб', alt: ['saturday', 'сб', '6'] },
-  { key: 'sun', label: 'Вс', alt: ['sunday', 'вск', 'вс', '0', '7'] },
+const DAY_ORDER: { dow: 1 | 2 | 3 | 4 | 5 | 6 | 7; label: string }[] = [
+  { dow: 1, label: 'Пн' },
+  { dow: 2, label: 'Вт' },
+  { dow: 3, label: 'Ср' },
+  { dow: 4, label: 'Чт' },
+  { dow: 5, label: 'Пт' },
+  { dow: 6, label: 'Сб' },
+  { dow: 7, label: 'Вс' },
 ];
 
-function getFromObj(obj: Record<string, unknown>, keys: string[]): string | undefined {
-  for (const k of keys) {
-    const v = obj?.[k];
-    if (typeof v === 'string' && v.trim().length > 0) return v.trim();
+function scheduleItemToText(s: IWorkSchedule | undefined, fallback?: string): string {
+  if (!s) {
+    // No weekly item -> fallback to legacy daily string if provided
+    if (fallback) return formatSchedule(fallback);
+    return 'не указан';
   }
-  return undefined;
+  if (s.is24h) {
+    // match existing formatting helper: 00:00-00:00 -> "Круглосуточно"
+    return formatSchedule('00:00-00:00');
+  }
+  if (s.isDayOff) {
+    // keep neutral symbol to avoid hardcoding a localized string here
+    return '—';
+  }
+  if (s.workStart && s.workEnd) {
+    return formatSchedule(`${s.workStart}-${s.workEnd}`);
+  }
+  // last resort
+  return 'не указан';
 }
 
 const WeeklyScheduleModal: FC<Props> = ({ isShow, onClose, schedules, fallbackSchedule }) => {
-  const colorTheme = useAppSelector((state) => state.yourFeature.venue?.colorTheme) || '#875AFF';
+  const colorTheme =
+    useAppSelector((state) => state.yourFeature.venue?.colorTheme) || '#875AFF';
   const { t } = useTranslation();
 
   const weekly = useMemo(() => {
-    const rows: { label: string; time: string }[] = [];
-    const obj = (schedules && typeof schedules === 'object') ? (schedules as Record<string, unknown>) : undefined;
-
-    for (const d of DAY_DEFS) {
-      let raw: string | undefined;
-      if (obj) {
-        const keys = [d.key, ...(d.alt || [])];
-        raw = getFromObj(obj, keys);
+    const arr: { label: string; time: string }[] = [];
+    const mapByDow: Record<number, IWorkSchedule> = {};
+    if (Array.isArray(schedules)) {
+      for (const it of schedules) {
+        if (it && typeof it.dayOfWeek === 'number') {
+          mapByDow[it.dayOfWeek] = it;
+        }
       }
-      const schedule = raw ?? (fallbackSchedule || '');
-      rows.push({
+    }
+    for (const d of DAY_ORDER) {
+      arr.push({
         label: d.label,
-        time: formatSchedule(schedule),
+        time: scheduleItemToText(mapByDow[d.dow], fallbackSchedule),
       });
     }
-    return rows;
+    return arr;
   }, [schedules, fallbackSchedule]);
 
   return (
     <>
       <div className={isShow ? 'overlay active' : 'overlay'} onClick={onClose} />
       <div className={isShow ? 'weekly-modal active' : 'weekly-modal'}>
-        <h3 className='title'>{t('closed.scheduleTitle', { defaultValue: 'График работы' })}</h3>
+        <h3 className='title'>
+          {t('closed.scheduleTitle', { defaultValue: 'График работы' })}
+        </h3>
 
         <div className='list'>
           {weekly.map((row, idx) => (

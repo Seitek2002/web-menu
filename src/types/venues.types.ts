@@ -4,30 +4,61 @@ export interface ISpot {
   address: string | null;
 }
 
+/**
+ * OpenAPI: WorkSchedule
+ * - dayOfWeek: 1 (Пн) .. 7 (Вс)
+ * - dayName: локализованное имя дня (readOnly)
+ * - workStart/workEnd: "HH:MM" | null
+ * - isDayOff: выходной
+ * - is24h: круглосуточно
+ */
+export interface IWorkSchedule {
+  dayOfWeek: 1 | 2 | 3 | 4 | 5 | 6 | 7;
+  dayName: string;
+  workStart: string | null;
+  workEnd: string | null;
+  isDayOff: boolean;
+  is24h: boolean;
+}
+
 export interface IVenues {
   colorTheme: string;
   companyName: string;
   slug: string;
-  logo: string;
-  schedule: string;
+
+  // OpenAPI: logo nullable
+  logo: string | null;
+
   serviceFeePercent: number;
 
-  // table info is present only for /venues/{slug}/table/{tableId}/
+  /**
+   * Legacy fallback строка расписания "HH:MM-HH:MM" (не в OpenAPI, но используется в коде).
+   * При наличии массива schedules следует предпочитать его.
+   */
+  schedule?: string;
+
+  /**
+   * OpenAPI: массив расписаний на неделю
+   * (в спецификации обязательный, но делаем опциональным для совместимости со старыми ответами/LS)
+   */
+  schedules?: IWorkSchedule[];
+
+  // Информация о столе присутствует только для /venues/{slug}/table/{tableId}/
   table?: {
     id: number;
     tableNum: string;
   };
 
-  // new fields from API
+  // OpenAPI поля доставки
   defaultDeliverySpot?: number | null;
-  deliveryFixedFee?: string | null;
-  deliveryFreeFrom?: string | null;
-
-  // optional weekly schedules holder (shape TBD)
-  schedules?: unknown;
+  deliveryFixedFee?: string | null; // decimal как строка
+  deliveryFreeFrom?: string | null; // decimal как строка или null
 
   spots?: ISpot[];
-  activeSpot: number;
+
+  // Локальное поле состояния (не из OpenAPI), поэтому делаем опциональным
+  activeSpot?: number;
+
   isDeliveryAvailable: boolean;
   isTakeoutAvailable: boolean;
   isDineinAvailable: boolean;

@@ -13,7 +13,7 @@ import nothing from 'assets/images/not-found-products.png';
 import './style.scss';
 
 import { t } from 'i18next';
-import { isClosedNow } from 'src/utlis/workTime';
+import { getTodayScheduleWindow, isOutsideWorkTime } from 'src/utlis/timeUtils';
 
 interface IProps {
   searchText?: string;
@@ -62,6 +62,15 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
     return acc + realPrice * item.quantity;
   }, 0);
 
+  const closed = (() => {
+    try {
+      const { window, isClosed } = getTodayScheduleWindow(venueData?.schedules, venueData?.schedule);
+      return isClosed || isOutsideWorkTime(window);
+    } catch {
+      return false;
+    }
+  })();
+
   return (
     <section className='catalog'>
       <ClosedModal isShow={showClosed} onClose={() => setShowClosed(false)} />
@@ -102,7 +111,7 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
             <div className='catalog__footer'>
               <button
                 onClick={() => {
-                  if (isClosedNow(venueData?.schedule || '')) {
+                  if (closed) {
                     setShowClosed(true);
                     return;
                   }
