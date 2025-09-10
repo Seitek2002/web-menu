@@ -28,6 +28,12 @@ const Main = () => {
               </div>
               <Link
                 className='bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded'
+                to={'/Exponenta/d'}
+              >
+                Демо
+              </Link>
+              <Link
+                className='bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded'
                 to={'/scan'}
               >
                 Сканировать QR код
