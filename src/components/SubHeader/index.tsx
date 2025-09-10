@@ -1,14 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { useGetVenueQuery } from 'api/Venue.api';
-
 // import { useAppSelector } from 'hooks/useAppSelector';
-import bell from 'assets/icons/SubHeader/coin.png';
-
 // import check from 'assets/icons/SubHeader/check.svg';
 // import logo from 'assets/images/SubHeader/logo.png';
+import WeeklyScheduleModal from 'components/WeeklyScheduleModal';
+
+import calendar from 'assets/icons/SubHeader/calendar.svg';
+import bell from 'assets/icons/SubHeader/coin.png';
+
 import './style.scss';
 
 import { clearCart, setVenue } from 'src/store/yourFeatureSlice';
@@ -22,6 +24,8 @@ const SubHeader = () => {
     venueSlug: venue || '',
     tableId: Number(id) || undefined,
   });
+
+  const [isScheduleOpen, setIsScheduleOpen] = useState(false);
 
   useEffect(() => {
     if (data) dispatch(setVenue(data));
@@ -58,6 +62,14 @@ const SubHeader = () => {
               <span className='mt-[4px]'>0 б.</span>
             </span>
           </div>
+          <div
+            className='call cursor-pointer'
+            role='button'
+            aria-label='График работы'
+            onClick={() => setIsScheduleOpen(true)}
+          >
+            <img width={20} src={calendar} alt='' />
+          </div>
           {/* {data?.table?.tableNum && (
             <div className='call'>
               <img src={bell} alt='' />
@@ -82,6 +94,12 @@ const SubHeader = () => {
           )}
         </div>
       </div>
+      <WeeklyScheduleModal
+        isShow={isScheduleOpen}
+        onClose={() => setIsScheduleOpen(false)}
+        schedules={data?.schedules}
+        fallbackSchedule={data?.schedule}
+      />
     </div>
   );
 };

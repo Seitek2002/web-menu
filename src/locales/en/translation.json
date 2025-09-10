@@ -82,6 +82,7 @@
   "closed": {
     "title": "Currently closed",
     "description": "Ordering is unavailable. Please come back during opening hours.",
+    "scheduleTitle": "Opening hours",
     "schedule": "Opening hours: {{schedule}}",
     "ok": "Got it"
   },
