@@ -33,7 +33,7 @@ const Takeaway = () => {
           <div className='sub-header__content'>
             <div className='venue'>
               <div className='logo'>
-                <img src={data?.logo} alt='' />
+                <img src={data?.logo || undefined} alt='' />
               </div>
               <div>
                 <div className='text-[20px] font-bold'>{data?.companyName}</div>

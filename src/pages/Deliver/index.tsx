@@ -68,7 +68,7 @@ const Deliver = () => {
           <div className='sub-header__content'>
             <div className='venue'>
               <div className='logo'>
-                <img src={venueData?.logo} alt='' />
+                <img src={venueData?.logo || undefined} alt='' />
               </div>
               <div>
                 <div className='text-[20px] font-bold'>

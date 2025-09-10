@@ -114,7 +114,7 @@ const Order = () => {
   const solveTotalSum = () => {
     if (data) {
       const subtotal = data.orderProducts.reduce(
-        (acc, item) => acc + item.price * item.count,
+        (acc, item) => acc + Number(item.price) * item.count,
         0
       );
       const cartSum = subtotal + subtotal * (venueData.serviceFeePercent / 100);
@@ -333,7 +333,7 @@ const Order = () => {
                 {t('empty.total')}
                 <div className='cart__sum-total all text-[#80868B]'>
                   {data?.orderProducts.reduce(
-                    (acc, item) => acc + item.price * item.count,
+                    (acc, item) => acc + Number(item.price) * item.count,
                     0
                   )}{' '}
                   c
