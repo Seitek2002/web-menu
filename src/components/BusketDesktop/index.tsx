@@ -35,7 +35,10 @@ const BusketDesktop = ({
 
   const [showClosed, setShowClosed] = useState(false);
 
-  const { window: todayWindow, isClosed } = getTodayScheduleWindow(venueData?.schedules, venueData?.schedule);
+  const { window: todayWindow, isClosed } = getTodayScheduleWindow(
+    venueData?.schedules,
+    venueData?.schedule
+  );
   const closed = isClosed || isOutsideWorkTime(todayWindow);
 
   const handleClick = () => {
