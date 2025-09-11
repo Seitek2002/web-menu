@@ -7,6 +7,7 @@ interface IProps {
     id: number;
     categoryPhoto: string;
     categoryName: string;
+    categoryPhotoSmall: string;
   };
   active: number | undefined;
   selectCategory: (id: number | undefined) => void;
@@ -30,7 +31,7 @@ const Item: FC<IProps> = ({ item, active, selectCategory }) => {
           borderColor: active === item.id ? colorTheme : 'white',
         }}
       >
-        <img src={item.categoryPhoto} alt='icon' />
+        <img src={item.categoryPhotoSmall} alt='icon' />
       </div>
       <span className='leading-tight text-black'>{item.categoryName}</span>
     </div>
