@@ -37,6 +37,17 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
     venueSlug: venue,
   });
 
+  const sortedItems = (items ?? []).slice().sort((a, b) => {
+    const ha =
+      a.productPhoto || a.productPhotoSmall || a.productPhotoLarge ? 1 : 0;
+    const hb =
+      b.productPhoto || b.productPhotoSmall || b.productPhotoLarge ? 1 : 0;
+    if (hb !== ha) return hb - ha;
+    const an = (a.productName || '').localeCompare(b.productName || '');
+    if (an !== 0) return an;
+    return (a.id || 0) - (b.id || 0);
+  });
+
   const handleClose = () => {
     setIsShow(false);
     document.body.style.height = '';
@@ -64,7 +75,10 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
 
   const closed = (() => {
     try {
-      const { window, isClosed } = getTodayScheduleWindow(venueData?.schedules, venueData?.schedule);
+      const { window, isClosed } = getTodayScheduleWindow(
+        venueData?.schedules,
+        venueData?.schedule
+      );
       return isClosed || isOutsideWorkTime(window);
     } catch {
       return false;
@@ -102,7 +116,7 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
       <h2>{t('allDishes')}</h2>
       {items && items.length > 0 ? (
         <div className='catalog__content'>
-          {items?.map((item) => {
+          {sortedItems.map((item) => {
             return (
               <CatalogCard foodDetail={handleOpen} key={item.id} item={item} />
             );
