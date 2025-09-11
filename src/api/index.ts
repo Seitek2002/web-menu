@@ -1,7 +1,6 @@
-import { Banners } from "./Banners.api";
-import { Categories } from "./Categories.api";
-import { Orders } from "./Orders.api";
-import { Products } from "./Products.api";
-import { Venues } from "./Venue.api";
-
-export { Banners ,Categories, Orders, Products, Venues };
+export * from './base';
+export * from './Banners.api';
+export * from './Categories.api';
+export * from './Orders.api';
+export * from './Products.api';
+export * from './Venue.api';

@@ -1,38 +1,38 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-import { ICategory } from 'src/types/categories.types';
 import { IProduct } from 'src/types/products.types';
 
+import { baseApi } from './base';
 
-export const Products = createApi({
-  reducerPath: 'productsApi',
-  baseQuery: fetchBaseQuery({ 
-    baseUrl: 'https://imenu.kg/api/',
-    prepareHeaders: (headers) => {
-      const currentLanguage = localStorage.getItem('i18nextLng') || 'en';
-      headers.set('Accept-Language', currentLanguage);
-      return headers;
-    }, }),
+export const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getProducts: builder.query<IProduct[], { category?: number; search?: string; spotId?: string | number; venueSlug?: string }>({
-      query: ({ category, search, spotId, venueSlug }) => {
+    getProducts: builder.query<
+      IProduct[],
+      {
+        category?: number;
+        search?: string;
+        spotId?: string | number;
+        // Backward compatibility alias:
+        spotSlug?: string | number;
+        // Slug aliasing between projects:
+        venueSlug?: string;
+        organizationSlug?: string;
+      }
+    >({
+      query: ({ category, search, spotId, spotSlug, venueSlug, organizationSlug }) => {
         const params = new URLSearchParams();
         if (category) params.append('category', String(category));
         if (search) params.append('search', search);
-        if (spotId !== undefined) params.append('spotId', String(spotId));
-        if (venueSlug) params.append('venueSlug', venueSlug);
+
+        const spot = (spotId ?? spotSlug) as string | number | undefined;
+        const slug = venueSlug ?? organizationSlug;
+
+        if (spot !== undefined && spot !== null) params.append('spotId', String(spot));
+        if (slug) params.append('venueSlug', String(slug));
 
         return `products/?${params.toString()}`;
       },
     }),
-    addCategories: builder.mutation<void, ICategory>({
-      query: (newCategory) => ({
-        url: 'posts',
-        method: 'POST',
-        body: newCategory,
-      }),
-    }),
   }),
+  overrideExisting: false,
 });
 
-export const { useGetProductsQuery, useAddCategoriesMutation } = Products;
+export const { useGetProductsQuery } = productsApi;

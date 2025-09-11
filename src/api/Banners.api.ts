@@ -1,6 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-import i18n from 'i18next';
+import { baseApi } from './base';
 
 export interface IBanner {
   id: number;
@@ -11,34 +9,27 @@ export interface IBanner {
   url: string;
 }
 
-export const Banners = createApi({
-  reducerPath: 'banners',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://imenu.kg/api/',
-    prepareHeaders: (headers) => {
-      const currentLanguage = i18n.language || 'en';
-      headers.set('Accept-Language', currentLanguage);
-      return headers;
-    },
-  }),
+export const bannersApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getBanners: builder.query<IBanner[], { venue_slug: string }>({
-      query: ({ venue_slug }) => ({
-        url: 'banners',
+    getBanners: builder.query<IBanner[], { venueSlug?: string; organizationSlug?: string }>({
+      query: ({ venueSlug, organizationSlug }) => ({
+        url: 'banners/',
         method: 'GET',
         params: {
-          venue_slug,
+          // Web-menu backend expects `venueSlug`; allow `organizationSlug` for parity
+          venueSlug: venueSlug ?? organizationSlug,
         },
       }),
     }),
     addBanner: builder.mutation<IBanner, Partial<IBanner>>({
       query: (newBanner) => ({
-        url: 'banners',
+        url: 'banners/',
         method: 'POST',
         body: newBanner,
       }),
     }),
   }),
+  overrideExisting: false,
 });
 
-export const { useGetBannersQuery, useAddBannerMutation } = Banners;
+export const { useGetBannersQuery, useAddBannerMutation } = bannersApi;

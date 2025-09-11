@@ -1,27 +1,14 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
 import { ICategory } from 'src/types/categories.types';
 
-import i18n from 'i18next';
+import { baseApi } from './base';
 
-export const Categories = createApi({
-  reducerPath: 'categories',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://imenu.kg/api/',
-    prepareHeaders: (headers) => {
-      const currentLanguage = i18n.language || 'en';
-      headers.set('Accept-Language', currentLanguage);
-      return headers;
-    },
-  }),
+export const categoriesApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getCategories: builder.query<ICategory[], { venueSlug?: string }>({
-      query: ({ venueSlug }) => ({
-        url: 'categories',
+    getCategories: builder.query<ICategory[], { organizationSlug?: string; venueSlug?: string }>({
+      query: ({ organizationSlug, venueSlug }) => ({
+        url: 'categories/',
         method: 'GET',
-        params: {
-          venueSlug,
-        },
+        params: { venueSlug: venueSlug ?? organizationSlug },
       }),
     }),
     addCategories: builder.mutation<void, ICategory>({
@@ -32,6 +19,7 @@ export const Categories = createApi({
       }),
     }),
   }),
+  overrideExisting: false,
 });
 
-export const { useGetCategoriesQuery, useAddCategoriesMutation } = Categories;
+export const { useGetCategoriesQuery, useAddCategoriesMutation } = categoriesApi;

@@ -28,7 +28,7 @@ const Hero = () => {
     data: fetchedBanners,
     isLoading: bannersLoading,
     isError: bannersError,
-  } = useGetBannersQuery({ venue_slug: venue.slug });
+  } = useGetBannersQuery({ venueSlug: venue.slug });
 
   const { data: fetchedOrders } = useGetOrdersQuery({
     phone: `${user.phoneNumber}`,

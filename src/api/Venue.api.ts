@@ -1,26 +1,22 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
 import { IVenues } from 'src/types/venues.types';
 
-export const Venues = createApi({
-  reducerPath: 'venuesApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://imenu.kg/api/',
-    prepareHeaders: (headers) => {
-      const currentLanguage = localStorage.getItem('i18nextLng') || 'en';
-      headers.set('Accept-Language', currentLanguage);
-      return headers;
-    },
-   }),
-  endpoints: (builder) => ({
-    getVenue: builder.query<IVenues, {venueSlug: string, tableId?: string | number}>({
-      query: ({ venueSlug, tableId }) => {
-        if(!tableId) return `venues/${venueSlug}/`;
-        if(!venueSlug || !tableId) return '/venues';
+import { baseApi } from './base';
 
-        return `venues/${venueSlug}/table/${tableId}/`;
+export const venuesApi = baseApi.injectEndpoints({
+  endpoints: (builder) => ({
+    getVenue: builder.query<
+      IVenues,
+      { venueSlug?: string; organizationSlug?: string; tableId?: string | number }
+    >({
+      query: ({ venueSlug, organizationSlug, tableId }) => {
+        const slug = venueSlug ?? organizationSlug ?? '';
+        if (!tableId) return `venues/${slug}/`;
+        if (!slug || !tableId) return `venues/`;
+        return `venues/${slug}/table/${tableId}/`;
       },
     }),
   }),
+  overrideExisting: false,
 });
 
-export const { useGetVenueQuery } = Venues;
+export const { useGetVenueQuery } = venuesApi;
