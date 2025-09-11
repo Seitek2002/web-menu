@@ -59,6 +59,7 @@ const Categories: FC<IProps> = ({ onCategoryChange, onSearchChange }) => {
               style={{
                 backgroundColor: -1 === active ? colorTheme : 'white',
                 borderColor: -1 === active ? colorTheme : 'white',
+                borderWidth: -1 === active ? '3px' : '1px',
               }}
             >
               <svg
@@ -112,6 +113,7 @@ const Categories: FC<IProps> = ({ onCategoryChange, onSearchChange }) => {
             style={{
               backgroundColor: 0 === active ? colorTheme : 'white',
               borderColor: 0 === active ? colorTheme : 'white',
+              borderWidth: 0 === active ? '3px' : '1px',
             }}
           >
             <svg
