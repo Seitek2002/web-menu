@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { useGetVenueQuery } from 'api/Venue.api';
@@ -11,12 +11,12 @@ import WeeklyScheduleModal from 'components/WeeklyScheduleModal';
 import calendar from 'assets/icons/SubHeader/calendar.svg';
 import bell from 'assets/icons/SubHeader/coin.png';
 
-import { getTodayScheduleRangeString } from 'src/utlis/timeUtils';
-import { formatSchedule } from 'src/utlis/workTime';
 import './style.scss';
 
 import { clearCart, setVenue } from 'src/store/yourFeatureSlice';
 import { loadVenueFromStorage } from 'src/utlis/storageUtils';
+import { getTodayScheduleRangeString } from 'src/utlis/timeUtils';
+import { formatSchedule } from 'src/utlis/workTime';
 
 const SubHeader = () => {
   const { venue, id } = useParams();
@@ -26,6 +26,8 @@ const SubHeader = () => {
     venueSlug: venue || '',
     tableId: Number(id) || undefined,
   });
+
+  const navigate = useNavigate();
 
   const [isScheduleOpen, setIsScheduleOpen] = useState(false);
   const scheduleShort = (() => {
@@ -56,7 +58,10 @@ const SubHeader = () => {
   return (
     <div className='sub-header'>
       <div className='sub-header__content'>
-        <div className='venue'>
+        <div
+          className='venue cursor-pointer'
+          onClick={() => navigate(`/${venue || data?.slug || ''}/terms`)}
+        >
           <div className='logo'>
             <img src={data?.logo || undefined} alt='' />
           </div>

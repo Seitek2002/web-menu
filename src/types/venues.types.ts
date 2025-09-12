@@ -54,6 +54,9 @@ export interface IVenues {
   deliveryFixedFee?: string | null; // decimal как строка
   deliveryFreeFrom?: string | null; // decimal как строка или null
 
+  // Новое поле: HTML-строка с условиями/офертой
+  terms?: string | null;
+
   spots?: ISpot[];
 
   // Локальное поле состояния (не из OpenAPI), поэтому делаем опциональным

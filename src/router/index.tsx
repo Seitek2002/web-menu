@@ -9,6 +9,7 @@ import Order from 'pages/Order';
 import Scan from 'pages/Scan';
 import SelectOrderType from 'pages/SelectOrderType';
 import Takeaway from 'pages/Takeaway';
+import Terms from 'pages/Terms';
 import ProtectedRoute from 'components/ProtectedRoute';
 
 const AppRoutes = () => {
@@ -29,6 +30,7 @@ const AppRoutes = () => {
           <Route path='/cart' element={<Cart />} />
         </Route>
         <Route path='/orders/:id' element={<Order />} />
+        <Route path='/:venue/terms' element={<Terms />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
