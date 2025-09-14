@@ -1,9 +1,12 @@
 import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppSelector } from 'hooks/useAppSelector';
+
 import { IWorkSchedule } from 'types/venues.types';
-import { formatSchedule } from 'src/utlis/workTime';
+import { useAppSelector } from 'hooks/useAppSelector';
+
 import './index.scss';
+
+import { formatSchedule } from 'src/utlis/workTime';
 
 type Props = {
   isShow: boolean;
@@ -81,7 +84,7 @@ const WeeklyScheduleModal: FC<Props> = ({ isShow, onClose, schedules, fallbackSc
           {weekly.map((row, idx) => (
             <div className='row' key={idx}>
               <span className='day'>{row.label}</span>
-              <span className='time'>{row.time}</span>
+              <span className='time'>{row.time.replace('–', ' - ')}</span>
             </div>
           ))}
         </div>
