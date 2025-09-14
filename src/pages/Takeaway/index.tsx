@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ISpot } from 'types/venues.types';
@@ -24,6 +25,12 @@ const Takeaway = () => {
     navigate(`/${data.slug}/${spot.id}/s`);
   };
 
+  useEffect(() => {
+    if (data.spots?.length === 1) {
+      handleClick(data.spots[0]);
+    }
+  }, [data]);
+
   return (
     <div className='h-[98dvh] tabs relative font-inter bg-[#F1F2F3] px-[16px] pt-[12px] lg:max-w-[1140px] lg:mx-auto'>
       <div className='header bg-white rounded-[12px] p-[12px]'>
@@ -44,26 +51,24 @@ const Takeaway = () => {
       </div>
       <div className='tabs__pickup bg-white rounded-[12px] p-[12px]'>
         {data.spots?.map((spot) => {
-          if (spot.address) {
-            return (
-              <button
-                className='tabs__pickup-item'
-                style={{ borderColor: colorTheme }}
-                key={spot.id}
-                onClick={() => handleClick(spot)}
-              >
-                <img
-                  src={geoIcon}
-                  alt='geoIcon'
-                  style={{ backgroundColor: colorTheme }}
-                />
-                <div>
-                  <p className='tabs__pickup-item-name'>{spot.name}</p>
-                  <p className='tabs__pickup-item-address'>{spot.address}</p>
-                </div>
-              </button>
-            );
-          }
+          return (
+            <button
+              className='tabs__pickup-item'
+              style={{ borderColor: colorTheme }}
+              key={spot.id}
+              onClick={() => handleClick(spot)}
+            >
+              <img
+                src={geoIcon}
+                alt='geoIcon'
+                style={{ backgroundColor: colorTheme }}
+              />
+              <div>
+                <p className='tabs__pickup-item-name'>{spot.name}</p>
+                <p className='tabs__pickup-item-address'>{spot.address}</p>
+              </div>
+            </button>
+          );
         })}
       </div>
     </div>
