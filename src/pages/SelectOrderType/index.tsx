@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import NotFound from 'pages/NotFound';
 import { useGetVenueQuery } from 'api/Venue.api';
@@ -17,6 +17,7 @@ const SelectOrderType = () => {
   const { t } = useTranslation();
   const { venue } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useAppDispatch();
   const { data, isLoading, isError } = useGetVenueQuery({
     venueSlug: venue || '',
@@ -53,6 +54,19 @@ const SelectOrderType = () => {
       }
     }
   }, [data, dispatch]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const promo = params.get('promo');
+    const ref = params.get('ref') ?? params.get('refId');
+
+    if (promo) localStorage.setItem('promo', promo);
+    if (ref) localStorage.setItem('refId', ref);
+
+    if (promo || ref) {
+      navigate(location.pathname, { replace: true });
+    }
+  }, [location.search, location.pathname, navigate]);
 
   const handleNavigate = (path: string) => {
     navigate(path);
