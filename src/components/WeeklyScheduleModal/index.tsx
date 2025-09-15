@@ -52,9 +52,10 @@ const WeeklyScheduleModal: FC<Props> = ({ isShow, onClose, schedules, fallbackSc
   const colorTheme =
     useAppSelector((state) => state.yourFeature.venue?.colorTheme) || '#875AFF';
   const { t } = useTranslation();
+  const todayDow = ((new Date().getDay() || 7) as 1 | 2 | 3 | 4 | 5 | 6 | 7);
 
   const weekly = useMemo(() => {
-    const arr: { label: string; time: string }[] = [];
+    const arr: { dow: number; label: string; time: string }[] = [];
     const mapByDow: Record<number, IWorkSchedule> = {};
     if (Array.isArray(schedules)) {
       for (const it of schedules) {
@@ -65,6 +66,7 @@ const WeeklyScheduleModal: FC<Props> = ({ isShow, onClose, schedules, fallbackSc
     }
     for (const d of DAY_ORDER) {
       arr.push({
+        dow: d.dow,
         label: d.label,
         time: scheduleItemToText(mapByDow[d.dow], fallbackSchedule),
       });
@@ -81,9 +83,14 @@ const WeeklyScheduleModal: FC<Props> = ({ isShow, onClose, schedules, fallbackSc
         </h3>
 
         <div className='list'>
-          {weekly.map((row, idx) => (
-            <div className='row' key={idx}>
-              <span className='day'>{row.label}</span>
+          {weekly.map((row) => (
+            <div className={row.dow === todayDow ? 'row today' : 'row'} key={row.dow}>
+              <span
+                className='day'
+                style={row.dow === todayDow ? { color: colorTheme, fontWeight: 600 } : undefined}
+              >
+                {row.label}
+              </span>
               <span className='time'>{row.time.replace('–', ' - ')}</span>
             </div>
           ))}

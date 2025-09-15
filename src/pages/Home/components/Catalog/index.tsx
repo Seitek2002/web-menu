@@ -31,13 +31,17 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
   );
   const venueData = useAppSelector((state) => state.yourFeature.venue);
   const navigate = useNavigate();
-  const { data: items } = useGetProductsQuery({
-    category: selectedCategory || undefined,
+  const { data: items, isLoading } = useGetProductsQuery({
     search: searchText,
     venueSlug: venue,
   });
 
-  const sortedItems = (items ?? []).slice().sort((a, b) => {
+  const baseItems = items ?? [];
+  const filtered = selectedCategory
+    ? baseItems.filter((p) => p?.category?.id === selectedCategory)
+    : baseItems;
+
+  const sortedItems = filtered.slice().sort((a, b) => {
     const ha =
       a.productPhoto || a.productPhotoSmall || a.productPhotoLarge ? 1 : 0;
     const hb =
@@ -114,13 +118,21 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
         }
       />
       <h2>{t('allDishes')}</h2>
-      {items && items.length > 0 ? (
+      {isLoading ? (
         <div className='catalog__content'>
-          {sortedItems.map((item) => {
-            return (
-              <CatalogCard foodDetail={handleOpen} key={item.id} item={item} />
-            );
-          })}
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div key={i} className='bg-white rounded-[12px] p-[12px]'>
+              <div className='w-full h-[140px] bg-gray-200 animate-pulse rounded-[8px]' />
+              <div className='mt-[8px] h-[16px] bg-gray-200 animate-pulse rounded' />
+              <div className='mt-[6px] h-[14px] w-1/2 bg-gray-200 animate-pulse rounded' />
+            </div>
+          ))}
+        </div>
+      ) : sortedItems.length > 0 ? (
+        <div className='catalog__content'>
+          {sortedItems.map((item) => (
+            <CatalogCard foodDetail={handleOpen} key={item.id} item={item} />
+          ))}
           {window.innerWidth < 768 && cart.length !== 0 && (
             <div className='catalog__footer'>
               <button
@@ -134,9 +146,7 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
                 style={{ backgroundColor: colorTheme }}
               >
                 {t('basket.order')}
-                <span className='font-light absolute right-[30px]'>
-                  {subtotal} с
-                </span>
+                <span className='font-light absolute right-[30px]'>{subtotal} с</span>
               </button>
             </div>
           )}

@@ -40,4 +40,19 @@
   .action {
     @apply mt-[6px] text-white py-[12px] rounded-[12px] font-medium;
   }
+
+  /* Highlight current day with a bullet using current text color */
+  .row.today .day {
+    position: relative;
+  }
+  .row.today .day::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: currentColor;
+    margin-right: 8px;
+    transform: translateY(-1px);
+  }
 }
