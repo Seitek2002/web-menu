@@ -225,7 +225,7 @@ const SelectOrderType = () => {
               {data?.isDineinAvailable && (
                 <div
                   className='select-order-type__item'
-                  onClick={() => handleNavigate('/')}
+                  onClick={() => handleNavigate('/scan')}
                 >
                   <svg
                     width='60'
