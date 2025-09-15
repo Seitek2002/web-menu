@@ -106,6 +106,18 @@ const Cart: React.FC = () => {
   const [showPromoInput, setShowPromoInput] = useState(false);
   const [promoCode, setPromoCode] = useState('');
 
+  useEffect(() => {
+    try {
+      const storedPromo = localStorage.getItem('promo') || '';
+      if (storedPromo) {
+        setPromoCode(storedPromo);
+        setShowPromoInput(true);
+      }
+    } catch {
+      /* ignore */
+    }
+  }, []);
+
   const [phoneError, setPhoneError] = useState('');
   const [addressError, setAddressError] = useState('');
 
@@ -332,7 +344,7 @@ const Cart: React.FC = () => {
         spot: selectedSpot,
         useBonus: usePoints || undefined,
         bonus: usePoints ? Math.min(bonusPoints, maxUsablePoints) : undefined,
-        code: otpCode || undefined,
+        code: (promoCode?.trim() || otpCode || undefined),
         hash: hashLS,
       };
       lastOrderBaseRef.current = payloadBase;
@@ -982,7 +994,15 @@ const Cart: React.FC = () => {
                         type='text'
                         placeholder='Введите промокод'
                         value={promoCode}
-                        onChange={(e) => setPromoCode(e.target.value)}
+                        onChange={(e) => {
+                          const v = e.target.value;
+                          setPromoCode(v);
+                          try {
+                            localStorage.setItem('promo', v);
+                          } catch {
+                            /* ignore */
+                          }
+                        }}
                       />
                     </label>
                   )}
