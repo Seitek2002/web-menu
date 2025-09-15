@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
 import i18n from 'i18next';
 
 const baseUrl =
@@ -15,5 +16,7 @@ export const baseApi = createApi({
       return headers;
     },
   }),
+  refetchOnFocus: true,
+  refetchOnReconnect: true,
   endpoints: () => ({}),
 });

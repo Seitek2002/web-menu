@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
+import { useGetClientBonusQuery } from 'api/Client.api';
 import { useGetVenueQuery } from 'api/Venue.api';
 // import { useAppSelector } from 'hooks/useAppSelector';
 // import check from 'assets/icons/SubHeader/check.svg';
@@ -14,7 +15,7 @@ import bell from 'assets/icons/SubHeader/coin.png';
 import './style.scss';
 
 import { clearCart, setVenue } from 'src/store/yourFeatureSlice';
-import { loadVenueFromStorage } from 'src/utlis/storageUtils';
+import { loadUsersDataFromStorage,loadVenueFromStorage } from 'src/utlis/storageUtils';
 import { getTodayScheduleRangeString } from 'src/utlis/timeUtils';
 import { formatSchedule } from 'src/utlis/workTime';
 
@@ -30,9 +31,27 @@ const SubHeader = () => {
   const navigate = useNavigate();
 
   const [isScheduleOpen, setIsScheduleOpen] = useState(false);
+
+  // Fetch dynamic client bonus (same as static points usage)
+  const phoneForBonus = (() => {
+    try {
+      const u = loadUsersDataFromStorage();
+      return (u?.phoneNumber || '').trim();
+    } catch {
+      return '';
+    }
+  })();
+  const { data: bonusData } = useGetClientBonusQuery(
+    { phone: phoneForBonus },
+    { skip: !phoneForBonus }
+  );
+
   const scheduleShort = (() => {
     try {
-      const range = getTodayScheduleRangeString(data?.schedules, data?.schedule);
+      const range = getTodayScheduleRangeString(
+        data?.schedules,
+        data?.schedule
+      );
       return range ? formatSchedule(range) : '';
     } catch {
       return '';
@@ -74,7 +93,7 @@ const SubHeader = () => {
           <div className='call'>
             <span className='text-[14px] font-bold text-center flex items-center gap-[8px]'>
               <img width={20} src={bell} alt='' />
-              <span className='mt-[4px]'>0 б.</span>
+              <span className='mt-[4px]'>{bonusData?.bonus ?? 0} б.</span>
             </span>
           </div>
           <div

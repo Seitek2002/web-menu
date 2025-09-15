@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import type { SerializedError } from '@reduxjs/toolkit';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
+import { useGetClientBonusQuery } from 'api/Client.api';
 import { usePostOrdersMutation } from 'api/Orders.api';
 import { useGetProductsQuery } from 'api/Products.api';
 import { IReqCreateOrder, ServiceMode } from 'types/orders.types';
@@ -118,7 +119,11 @@ const Cart: React.FC = () => {
   const [usePoints, setUsePoints] = useState(false);
   const [showWorkTimeModal, setShowWorkTimeModal] = useState(false);
   const [isPointsModalOpen, setIsPointsModalOpen] = useState(false);
-  const AVAILABLE_POINTS = 100;
+  const { data: bonusData } = useGetClientBonusQuery(
+    { phone: phoneNumber },
+    { skip: !phoneNumber }
+  );
+  const availablePoints = Math.max(0, Math.floor(bonusData?.bonus ?? 0));
   const [bonusPoints, setBonusPoints] = useState(0);
   const lastOrderBaseRef = useRef<IReqCreateOrder | null>(null);
   const [otpCode, setOtpCode] = useState<string>('');
@@ -383,7 +388,7 @@ const Cart: React.FC = () => {
     isDeliveryType && deliveryFreeFrom !== null && subtotal < deliveryFreeFrom;
   const total =
     Math.round((subtotal + serviceFeeAmt + deliveryFee) * 100) / 100;
-  const maxUsablePoints = Math.min(AVAILABLE_POINTS, Math.floor(total));
+  const maxUsablePoints = Math.min(availablePoints, Math.floor(total));
   const appliedBonus = usePoints ? Math.min(bonusPoints, maxUsablePoints) : 0;
   const displayTotal = Math.max(
     0,
@@ -942,7 +947,7 @@ const Cart: React.FC = () => {
                         Оплатить баллами
                       </span>
                       <div className='flex items-center gap-[8px]'>
-                        <img src={bell} width={20} alt='' /> {AVAILABLE_POINTS}{' '}
+                        <img src={bell} width={20} alt='' /> {availablePoints}{' '}
                         б.
                         <Pencil
                           size={18}
