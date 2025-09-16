@@ -1,4 +1,6 @@
+import { Helmet } from 'react-helmet';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import Cart from 'pages/Cart';
 import Deliver from 'pages/Deliver';
@@ -10,11 +12,37 @@ import Scan from 'pages/Scan';
 import SelectOrderType from 'pages/SelectOrderType';
 import Takeaway from 'pages/Takeaway';
 import Terms from 'pages/Terms';
+import { useAppSelector } from 'hooks/useAppSelector';
 import ProtectedRoute from 'components/ProtectedRoute';
+
+const MetaHelmet = () => {
+  const venue = useAppSelector((s) => s.yourFeature.venue);
+  const location = useLocation();
+  const isRoot = location.pathname === '/';
+  const title = isRoot ? 'imenu' : venue.companyName || 'imenu';
+  const desc = venue?.companyName
+    ? `${venue.companyName} — онлайн-меню и заказы`
+    : 'iMenu — онлайн-меню и заказы';
+  const faviconHref = isRoot ? '/favicon.svg' : venue?.logo || '/favicon.svg';
+
+  return (
+    <Helmet>
+      <title>{title}</title>
+      <meta name='description' content={desc} />
+      <meta property='og:title' content={title} />
+      {!isRoot && venue?.logo ? (
+        <meta property='og:image' content={venue.logo} />
+      ) : null}
+      {/* На корне оставляем дефолтный favicon из index.html (data:svg), не переопределяем */}
+      <link rel='icon' href={faviconHref} />
+    </Helmet>
+  );
+};
 
 const AppRoutes = () => {
   return (
     <BrowserRouter>
+      <MetaHelmet />
       <Routes>
         <Route path='/' element={<Main />} />
         <Route path='/scan' element={<Scan />} />
