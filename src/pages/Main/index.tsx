@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import logoIcon from 'assets/icons/Header/logo.svg';
+import qrIcon from 'assets/icons/qr-scan.svg';
 
 import { Clock, Mail, MapPin, Phone, Plus, Star } from 'lucide-react';
 
@@ -33,7 +34,7 @@ const Main = () => {
                 Демо
               </Link>
               <Link
-                className='bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded'
+                className='hidden bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded lg:inline'
                 to={'/scan'}
               >
                 Сканировать QR код
@@ -42,6 +43,15 @@ const Main = () => {
           </div>
         </div>
       </header>
+
+      <Link
+        className='text-center flex flex-col items-center gap-1 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-xl lg:hidden fixed bottom-2 right-2'
+        to={'/scan'}
+      >
+        Сканировать
+        <img width={40} height={40} src={qrIcon} alt='' />
+        QR код
+      </Link>
 
       <section className='bg-gradient-to-br from-red-50 to-orange-50 py-16'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
