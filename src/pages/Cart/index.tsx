@@ -434,6 +434,9 @@ const Cart: React.FC = () => {
 
   const requestOtpForPoints = async (v: number) => {
     try {
+      if (!v || v <= 0) {
+        return;
+      }
 
       // Build order products
       const orderProducts = cart.map((item) => {
@@ -935,7 +938,12 @@ const Cart: React.FC = () => {
                           type='button'
                           aria-pressed={usePoints}
                           aria-label='Оплатить баллами'
-                          onClick={() =>
+                          onClick={() => {
+                            if (availablePoints <= 0) {
+                              setErrorText('К сожалению у вас нет баллов для использования');
+                              setShowError(true);
+                              return;
+                            }
                             setUsePoints((v) => {
                               const nv = !v;
                               if (nv) {
@@ -945,8 +953,8 @@ const Cart: React.FC = () => {
                                 setBonusPoints(0);
                               }
                               return nv;
-                            })
-                          }
+                            });
+                          }}
                           className={`w-[48px] h-[28px] rounded-full p-[3px] transition-colors duration-200 flex ${
                             usePoints ? 'justify-end' : 'justify-start'
                           }`}
@@ -964,7 +972,14 @@ const Cart: React.FC = () => {
                         <Pencil
                           size={18}
                           className='cursor-pointer'
-                          onClick={() => setIsPointsModalOpen(true)}
+                          onClick={() => {
+                            if (availablePoints <= 0) {
+                              setErrorText('К сожалению у вас нет баллов для использования');
+                              setShowError(true);
+                            } else {
+                              setIsPointsModalOpen(true);
+                            }
+                          }}
                         />
                       </div>
                     </div>
@@ -1061,8 +1076,14 @@ const Cart: React.FC = () => {
           skipOtp={!!getHashLS()}
           onCancel={() => { setIsPointsModalOpen(false); setUsePoints(false); setBonusPoints(0); setOtpCode(''); }}
           onConfirm={(v) => {
+            if (!v || v <= 0) {
+              setUsePoints(false);
+              setBonusPoints(0);
+              setIsPointsModalOpen(false);
+              return;
+            }
             setBonusPoints(v);
-            if (v > 0) setUsePoints(true);
+            setUsePoints(true);
             if (!getHashLS()) {
               requestOtpForPoints(v);
             } else {
