@@ -20,9 +20,9 @@ const MetaHelmet = () => {
   const location = useLocation();
   const isRoot = location.pathname === '/';
   const title = isRoot ? 'imenu' : venue.companyName || 'imenu';
-  const desc = venue?.companyName
-    ? `${venue.companyName} — онлайн-меню и заказы`
-    : 'iMenu — онлайн-меню и заказы';
+  const desc =
+    (venue?.description && venue.description.trim()) ||
+    (venue?.companyName ? `${venue.companyName} — онлайн-меню и заказы` : 'iMenu — онлайн-меню и заказы');
   const faviconHref = isRoot ? '/favicon.svg' : venue?.logo || '/favicon.svg';
 
   return (
@@ -30,6 +30,7 @@ const MetaHelmet = () => {
       <title>{title}</title>
       <meta name='description' content={desc} />
       <meta property='og:title' content={title} />
+      <meta property='og:description' content={desc} />
       {!isRoot && venue?.logo ? (
         <meta property='og:image' content={venue.logo} />
       ) : null}

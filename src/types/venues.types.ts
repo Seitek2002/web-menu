@@ -29,6 +29,9 @@ export interface IVenues {
   // OpenAPI: logo nullable
   logo: string | null;
 
+  // Optional description for meta tags (SEO)
+  description?: string | null;
+
   serviceFeePercent: number;
 
   /**
