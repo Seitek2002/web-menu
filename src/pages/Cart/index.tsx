@@ -161,12 +161,15 @@ const Cart: React.FC = () => {
 
   const orderTypes = useMemo(() => {
     const arr: { text: string; value: number }[] = [];
+    // Самовывоз (Takeout) должен иметь id = 2
     if (venueData.isTakeoutAvailable) {
-      arr.push({ text: t('empty.myself'), value: 1 });
+      arr.push({ text: t('empty.myself'), value: 2 });
     }
+    // На месте (Dine-in) должен иметь id = 1
     if (venueData.isDineinAvailable) {
-      arr.push({ text: t('empty.institution'), value: 2 });
+      arr.push({ text: t('empty.institution'), value: 1 });
     }
+    // Доставка (Delivery) должен иметь id = 3
     if (venueData.isDeliveryAvailable) {
       arr.push({ text: t('empty.delivery'), value: 3 });
     }
