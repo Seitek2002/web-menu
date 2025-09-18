@@ -132,8 +132,8 @@ const Cart: React.FC = () => {
   const [showWorkTimeModal, setShowWorkTimeModal] = useState(false);
   const [isPointsModalOpen, setIsPointsModalOpen] = useState(false);
   const { data: bonusData } = useGetClientBonusQuery(
-    { phone: phoneNumber },
-    { skip: !phoneNumber }
+    { phone: phoneNumber, venueSlug: venueData?.slug },
+    { skip: !phoneNumber || !venueData?.slug }
   );
   const availablePoints = Math.max(0, Math.floor(bonusData?.bonus ?? 0));
   const [bonusPoints, setBonusPoints] = useState(0);

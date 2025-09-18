@@ -18,9 +18,10 @@ import { getTodayScheduleWindow, isOutsideWorkTime } from 'src/utlis/timeUtils';
 interface IProps {
   searchText?: string;
   selectedCategory?: number;
+  categoryTitle?: string;
 }
 
-const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
+const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0, categoryTitle }) => {
   const { venue } = useParams();
   const [isShow, setIsShow] = useState(false);
   const [activeFood, setActiveFood] = useState<IProduct | null>(null);
@@ -117,7 +118,7 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
           }
         }
       />
-      <h2>{t('allDishes')}</h2>
+      <h2>{categoryTitle || t('allDishes')}</h2>
       {isLoading ? (
         <div className='catalog__content'>
           {Array.from({ length: 8 }).map((_, i) => (
@@ -146,7 +147,9 @@ const Catalog: FC<IProps> = ({ searchText, selectedCategory = 0 }) => {
                 style={{ backgroundColor: colorTheme }}
               >
                 {t('basket.order')}
-                <span className='font-light absolute right-[30px]'>{subtotal} с</span>
+                <span className='font-light absolute right-[30px]'>
+                  {subtotal} с
+                </span>
               </button>
             </div>
           )}

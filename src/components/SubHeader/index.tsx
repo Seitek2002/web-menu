@@ -42,8 +42,8 @@ const SubHeader = () => {
     }
   })();
   const { data: bonusData } = useGetClientBonusQuery(
-    { phone: phoneForBonus },
-    { skip: !phoneForBonus }
+    { phone: phoneForBonus, venueSlug: data?.slug || venue },
+    { skip: !phoneForBonus || !(data?.slug || venue) }
   );
 
   const scheduleShort = (() => {

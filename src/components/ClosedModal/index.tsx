@@ -5,7 +5,6 @@ import { useAppSelector } from 'hooks/useAppSelector';
 
 import './index.scss';
 
-import { formatSchedule } from 'src/utlis/workTime';
 
 interface ClosedModalProps {
   isShow: boolean;
@@ -23,18 +22,6 @@ const ClosedModal: FC<ClosedModalProps> = ({
   const colorTheme = useAppSelector(
     (state) => state.yourFeature.venue?.colorTheme
   );
-  let scheduleRaw = useAppSelector(
-    (state) => state.yourFeature.venue?.schedule
-  ) || '';
-  if (!scheduleRaw) {
-    try {
-      const venueLS = JSON.parse(localStorage.getItem('venue') ?? '{}');
-      scheduleRaw = venueLS?.schedule ?? '';
-    } catch {
-      // ignore JSON errors
-    }
-  }
-  const scheduleText = formatSchedule(scheduleRaw);
   const { t } = useTranslation();
 
   return (
@@ -46,9 +33,6 @@ const ClosedModal: FC<ClosedModalProps> = ({
         </h3>
         <p className='desc'>
           {description ?? t('closed.description')}
-        </p>
-        <p className='schedule'>
-          {t('closed.schedule', { schedule: scheduleText })}
         </p>
         <button
           style={{ backgroundColor: colorTheme }}
