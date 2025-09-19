@@ -93,7 +93,7 @@ const SubHeader = () => {
           <div className='call'>
             <span className='text-[14px] font-bold text-center flex items-center gap-[8px]'>
               <img width={20} src={bell} alt='' />
-              <span className='mt-[4px]'>{bonusData?.bonus ?? 0} б.</span>
+              <span className='mt-[4px] text-[10px] md:text-[14px]'>{bonusData?.bonus ?? 0} <span className='hidden md:inline'>б.</span></span>
             </span>
           </div>
           <div
