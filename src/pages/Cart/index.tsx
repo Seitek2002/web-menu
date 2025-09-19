@@ -655,7 +655,6 @@ const Cart: React.FC = () => {
           <>
             {venueData?.table?.tableNum && (
               <div className='cart__top'>
-                {t('table')}
                 {venueData.table.tableNum}
               </div>
             )}

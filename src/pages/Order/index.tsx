@@ -202,7 +202,6 @@ const Order = () => {
               </svg>
               {data?.serviceMode == 1 && data?.tableNum && (
                 <span style={{ color: colorTheme }}>
-                  {t('table')}
                   {data.tableNum}
                 </span>
               )}

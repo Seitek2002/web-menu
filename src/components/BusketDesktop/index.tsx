@@ -60,7 +60,6 @@ const BusketDesktop = ({
         <ClosedModal isShow={showClosed} onClose={() => setShowClosed(false)} />
         {venueData?.table?.tableNum && (
           <div className='table-num'>
-            {t('table')}
             {venueData.table.tableNum}
           </div>
         )}
