@@ -33,7 +33,7 @@
     "addItems": "Add items to cart",
     "empty": "Your cart is empty",
     "total": "Total",
-    "order": "Order",
+  "order": "Order",
     "orderButton": "Order",
     "continueButton": "Continue shopping",
     "removeButton": "Remove",
@@ -89,5 +89,11 @@
   "error": {
     "title": "Error",
     "default": "An error occurred. Please try again later."
+  },
+  "notFoundPage": {
+    "title": "Page not found",
+    "description": "The page is not available or has been moved.",
+    "goHome": "Go home",
+    "tryAgain": "Try again"
   }
 }
