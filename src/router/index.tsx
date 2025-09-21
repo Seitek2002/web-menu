@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 import { useAppSelector } from 'hooks/useAppSelector';
+import Loader from 'components/Loader';
 
 const Cart = lazy(() => import('pages/Cart'));
 const Deliver = lazy(() => import('pages/Deliver'));
@@ -48,7 +49,7 @@ const AppRoutes = () => {
   return (
     <BrowserRouter>
       <MetaHelmet />
-      <Suspense fallback={null}>
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path='/' element={<Main />} />
           <Route path='/scan' element={<Scan />} />

@@ -3,9 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 
 import Header from 'components/Header';
+import Loader from 'components/Loader';
 import SupHeader from 'components/SubHeader';
 
 import clearCartIcon from 'assets/icons/Busket/clear-cart.svg';
+
+import { loadUsersDataFromStorage } from 'src/utlis/storageUtils';
 
 const Catalog = lazy(() => import('./components/Catalog'));
 const Categories = lazy(() => import('./components/Categories'));
@@ -14,7 +17,6 @@ const BusketDesktop = lazy(() => import('components/BusketDesktop'));
 const ClearCartModal = lazy(() => import('components/ClearCartModal'));
 const Hero = lazy(() => import('components/Hero'));
 
-import { loadUsersDataFromStorage } from 'src/utlis/storageUtils';
 
 const Home = () => {
   const [searchText, setSearchText] = useState('');
@@ -58,13 +60,12 @@ const Home = () => {
         activeSpot: +location.pathname.split('/').filter((item) => +item)[0],
       })
     );
-
     console.log(JSON.parse(localStorage.getItem('users') ?? '{}'));
   }, []);
 
   return (
     <div className='relative font-inter bg-[#F1F2F3] px-[16px] pt-[12px] lg:max-w-[1140px] lg:mx-auto'>
-      <Suspense fallback={null}>
+      <Suspense fallback={<Loader />}>
         <ClearCartModal isShow={active} setActive={setActive} />
       </Suspense>
       <div className='bg-white rounded-[12px] p-[12px]'>
@@ -75,7 +76,7 @@ const Home = () => {
       {window.innerWidth < 768 ? (
         <>
           {search && (
-            <Suspense fallback={null}>
+            <Suspense fallback={<Loader />}>
               <Search
                 onSearchChange={onSearchChange}
                 searchText={searchText}
@@ -83,10 +84,10 @@ const Home = () => {
               />
             </Suspense>
           )}
-          <Suspense fallback={null}>
+          <Suspense fallback={<Loader />}>
             <Hero />
           </Suspense>
-          <Suspense fallback={null}>
+          <Suspense fallback={<Loader />}>
             <Categories
               onCategoryChange={handleCategoryChange}
               onSearchChange={onSearchChange}
@@ -95,7 +96,7 @@ const Home = () => {
             />
           </Suspense>
           <div ref={catalogRef} className='pb-[100px]'>
-            <Suspense fallback={null}>
+            <Suspense fallback={<Loader />}>
               <Catalog
                 selectedCategory={selectedCategory}
                 categoryTitle={categoryTitle}
@@ -106,10 +107,10 @@ const Home = () => {
       ) : (
         <div className='flex gap-[30px] items-start pb-[50px] w-full'>
           <div className='w-[60%]'>
-            <Suspense fallback={null}>
+            <Suspense fallback={<Loader />}>
               <Hero />
             </Suspense>
-            <Suspense fallback={null}>
+            <Suspense fallback={<Loader />}>
               <Categories
                 onCategoryChange={handleCategoryChange}
                 onSearchChange={onSearchChange}
@@ -117,7 +118,7 @@ const Home = () => {
                 onCategoryTitleChange={(title) => setCategoryTitle(title)}
               />
             </Suspense>
-            <Suspense fallback={null}>
+            <Suspense fallback={<Loader />}>
               <Catalog
                 searchText={searchText}
                 selectedCategory={selectedCategory}
@@ -136,7 +137,7 @@ const Home = () => {
                   className='cursor-pointer'
                 />
               </header>
-              <Suspense fallback={null}>
+              <Suspense fallback={<Loader />}>
                 <BusketDesktop to='/cart' />
               </Suspense>
             </div>

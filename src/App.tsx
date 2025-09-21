@@ -1,6 +1,9 @@
+import { Suspense } from 'react';
+
 import AppRoutes from './router';
 import { useGetClientBonusQuery } from 'api/Client.api';
 import { useAppSelector } from 'hooks/useAppSelector';
+import Loader from 'components/Loader';
 
 import './App.scss';
 
@@ -17,7 +20,11 @@ function App() {
   const venueSlug = useAppSelector((state) => state.yourFeature.venue?.slug);
   useGetClientBonusQuery({ phone, venueSlug }, { skip: !phone || !venueSlug });
 
-  return <AppRoutes />;
+  return (
+    <Suspense fallback={<Loader />}>
+      <AppRoutes />
+    </Suspense>
+  );
 }
 
 export default App;
