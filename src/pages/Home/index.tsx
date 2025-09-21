@@ -1,17 +1,18 @@
-import { useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 
-import Catalog from './components/Catalog';
-import Categories from './components/Categories';
-import Search from './components/Search';
-import BusketDesktop from 'components/BusketDesktop';
-import ClearCartModal from 'components/ClearCartModal';
 import Header from 'components/Header';
-import Hero from 'components/Hero';
 import SupHeader from 'components/SubHeader';
 
 import clearCartIcon from 'assets/icons/Busket/clear-cart.svg';
+
+const Catalog = lazy(() => import('./components/Catalog'));
+const Categories = lazy(() => import('./components/Categories'));
+const Search = lazy(() => import('./components/Search'));
+const BusketDesktop = lazy(() => import('components/BusketDesktop'));
+const ClearCartModal = lazy(() => import('components/ClearCartModal'));
+const Hero = lazy(() => import('components/Hero'));
 
 import { loadUsersDataFromStorage } from 'src/utlis/storageUtils';
 
@@ -63,7 +64,9 @@ const Home = () => {
 
   return (
     <div className='relative font-inter bg-[#F1F2F3] px-[16px] pt-[12px] lg:max-w-[1140px] lg:mx-auto'>
-      <ClearCartModal isShow={active} setActive={setActive} />
+      <Suspense fallback={null}>
+        <ClearCartModal isShow={active} setActive={setActive} />
+      </Suspense>
       <div className='bg-white rounded-[12px] p-[12px]'>
         <Header searchText={searchText} setSearchText={setSearchText} />
         <hr className='my-[10px]' />
@@ -72,38 +75,55 @@ const Home = () => {
       {window.innerWidth < 768 ? (
         <>
           {search && (
-            <Search
-              onSearchChange={onSearchChange}
-              searchText={searchText}
-              setSearchText={setSearchText}
-            />
+            <Suspense fallback={null}>
+              <Search
+                onSearchChange={onSearchChange}
+                searchText={searchText}
+                setSearchText={setSearchText}
+              />
+            </Suspense>
           )}
-          <Hero />
-          <Categories
-            onCategoryChange={handleCategoryChange}
-            onSearchChange={onSearchChange}
-            selectedCategory={selectedCategory ?? 0}
-            onCategoryTitleChange={(title) => setCategoryTitle(title)}
-          />
-          <div ref={catalogRef} className='pb-[100px]'>
-            <Catalog selectedCategory={selectedCategory} categoryTitle={categoryTitle} />
-          </div>
-        </>
-      ) : (
-        <div className='flex gap-[30px] items-start pb-[50px] w-full'>
-          <div className='w-[60%]'>
+          <Suspense fallback={null}>
             <Hero />
+          </Suspense>
+          <Suspense fallback={null}>
             <Categories
               onCategoryChange={handleCategoryChange}
               onSearchChange={onSearchChange}
               selectedCategory={selectedCategory ?? 0}
               onCategoryTitleChange={(title) => setCategoryTitle(title)}
             />
-            <Catalog
-              searchText={searchText}
-              selectedCategory={selectedCategory}
-              categoryTitle={categoryTitle}
-            />
+          </Suspense>
+          <div ref={catalogRef} className='pb-[100px]'>
+            <Suspense fallback={null}>
+              <Catalog
+                selectedCategory={selectedCategory}
+                categoryTitle={categoryTitle}
+              />
+            </Suspense>
+          </div>
+        </>
+      ) : (
+        <div className='flex gap-[30px] items-start pb-[50px] w-full'>
+          <div className='w-[60%]'>
+            <Suspense fallback={null}>
+              <Hero />
+            </Suspense>
+            <Suspense fallback={null}>
+              <Categories
+                onCategoryChange={handleCategoryChange}
+                onSearchChange={onSearchChange}
+                selectedCategory={selectedCategory ?? 0}
+                onCategoryTitleChange={(title) => setCategoryTitle(title)}
+              />
+            </Suspense>
+            <Suspense fallback={null}>
+              <Catalog
+                searchText={searchText}
+                selectedCategory={selectedCategory}
+                categoryTitle={categoryTitle}
+              />
+            </Suspense>
           </div>
           <div className='flex-1 sticky top-0 z-[1]'>
             <div className='busket'>
@@ -116,7 +136,9 @@ const Home = () => {
                   className='cursor-pointer'
                 />
               </header>
-              <BusketDesktop to='/cart' />
+              <Suspense fallback={null}>
+                <BusketDesktop to='/cart' />
+              </Suspense>
             </div>
           </div>
         </div>
