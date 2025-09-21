@@ -17,6 +17,7 @@ const Item: FC<IProps> = ({ item, active, selectCategory }) => {
   const colorTheme = useAppSelector(
     (state) => state.yourFeature.venue?.colorTheme
   );
+  const title = (item.categoryName || '').trim().split(/\s+/).slice(0, 2).join(' ');
 
   return (
     <div
@@ -34,7 +35,7 @@ const Item: FC<IProps> = ({ item, active, selectCategory }) => {
       >
         <img src={item.categoryPhotoSmall} alt='icon' />
       </div>
-      <span className='leading-tight text-black'>{item.categoryName}</span>
+      <span className='leading-tight text-black'>{title}</span>
     </div>
   );
 };
