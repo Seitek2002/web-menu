@@ -107,7 +107,7 @@ const FoodDetail: FC<IProps> = ({ setIsShow, item, isShow }) => {
         onClick={handleImageClick}
       ></div>
       <div
-        className={`${isShow ? 'active' : ''} food-detail`}
+        className={`food-detail ${isShow ? 'active' : ''}`}
         style={{ backgroundColor: '#fff' }}
       >
         <img
